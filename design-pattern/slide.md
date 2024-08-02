@@ -3,7 +3,7 @@ marp: true
 paginate: true
 header: "ソフトウェアの質とデザインパターン"
 footer: "© 2024 cbmrham"
-style: '@import url("https://rnd195.github.io/my-marp-themes/gradient.css")'
+theme: "gradient"
 ---
 
 <!-- _class: lead -->
@@ -97,7 +97,7 @@ style: '@import url("https://rnd195.github.io/my-marp-themes/gradient.css")'
 
 ### 品質を表すものは多種多様
 
-`Accessibility, Adaptability, Compatibility, Configurability, Exploitability, Extensibility, Flexibility, Functionality, Installability, Integrability, Internationalizability, Interoperability, Administrability, Analyzability, Learnability, Maintainability, Marketability, Maturity, Modifiability, Operability, Personalizability, Portability, Recoverability, Reliability, Auditability, Availability, Replaceability, Reusability, Scalability, Security, Sensitivity, Stability, Suitability, Supportability, Testability, Traceability, Calibrability, Changeability, Transactionality, Understandability, Upgradeability, Usability, ... and more`
+`Accessibility`,`Adaptability`,`Compatibility`,`Configurability`,`Exploitability`,`Extensibility`,`Flexibility`,`Functionality`,`Installability`,`Integrability`,`Internationalizability`,`Interoperability`,`Administrability`,`Analyzability`,`Learnability`,`Maintainability`,`Marketability`,`Maturity`,`Modifiability`,`Operability`,`Personalizability`,`Portability`,`Recoverability`,`Reliability`,`Auditability`,`Availability`,`Replaceability`,`Reusability`,`Scalability`,`Security`,`Sensitivity`,`Stability`,`Suitability`,`Supportability`,`Testability`,`Traceability`,`Calibrability`,`Changeability`,`Transactionality`,`Understandability`,`Upgradeability`,`Usability`, ... and more
 
 ---
 
