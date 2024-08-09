@@ -24,7 +24,7 @@ theme: "gradient"
 - より良いコードを書くということの解像度を上げる
 
   - 凝集度と結合度
-  - 原理と実践
+  - 原則と実践
 
 - デザインパターンの基本的な概念を理解する
   - デザインパターンから実装背景がわかるようになる
@@ -42,7 +42,7 @@ theme: "gradient"
 1. より良いコードとは
 
    1. 凝集度と結合度
-   1. 原理と実践
+   1. 原則と実践
 
 ---
 
@@ -255,7 +255,7 @@ function process() {
   const data = fetchData();
   const temparature = getTemparature();
   sendPackage();
-  buySumthing();
+  buySomething();
 }
 ```
 
@@ -381,9 +381,9 @@ function calculateDistance(pointA: Point, pointB: Point): number s {
 
 ---
 
-## 2.2 より良いコードとは 原理と実践
+## 2.2 より良いコードとは 原則と実践
 
-- 原理(Principal)とは？
+- 原則(Principal)とは？
   - 原則は追い求めるべき理想
   - 例：投資における原則は：安く買って高く売る
   - 当然達成できないこともあるので、原則を目指して努力する
@@ -416,34 +416,765 @@ function calculateDistance(pointA: Point, pointB: Point): number s {
 
 ### ソフトウェア開発におけるプラクティス
 
-- テスト駆動開発
+- アジャイル開発
 - ペアプログラミング
 - リファクタリング
 - ドメイン駆動設計
+- テスト駆動開発
 - CI/CD
 - デザインパターン
 - クリーンアーキテクチャ
+- etc
 
 ---
 
-#### 単一責務の原則(Single Responsibility Principle)
+<!-- _class: tinytext -->
+
+### easy vs simple
+
+ソフトウェア開発の文脈において使い分けをした方がよい
+
+- **easy**: 簡単。手間がかからない ↔︎ **difficult**: 難しい。困難。
+- **simple**: 単純。複雑さが少ない ↔︎ **complex**: 複雑。入り組んでいる。
+
+特にシンプルにするためには抽象的な考え方を用いることが重要
+→『共通化』するということを考える上では、手続的内容で切り出すのではなく、まずは抽象/具体で考える
+
+概念構造を正しく表現する
+
+シンプルであることはコード量が少ないとは限らないし、コード量が少ないからシンプルとも限らない
 
 ---
 
-#### オープン・クローズドの原則(Open/Closed Principle)
+<!-- _class: tinytext -->
+
+(SOLID 原則を見ていく前に ②)
+
+### 継承(inheritance)と委譲(composition)
+
+#### 継承(inheritance)
+
+- 既存のクラス（親クラスまたはスーパークラス）の特性を新しいクラス（子クラスまたはサブクラス）に引き継がせる
+
+- メリット:
+
+  - コードの再利用性が高まる
+  - ポリモーフィズムを活用できる
+
+- デメリット:
+
+  - 強い結合を生み出す（親クラスの変更が子クラスに影響する）
+  - 継承の深さが増すと、コードの理解が難しくなる
+
+```java
+class Animal {
+    void eat() {
+        System.out.println("This animal eats food.");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("The dog barks.");
+    }
+}
+```
 
 ---
 
-#### リスコフの置換原則(Liskov Substitution Principle)
+<!-- _class: tinytext -->
+
+#### 委譲(composition)
+
+- あるクラスが他のクラスのインスタンスを保持する
+
+メリット:
+
+- 柔軟性が高い（実行時に動作を変更できる）
+- 低い結合度を実現できる
+- 単一責任の原則を守りやすい
+
+デメリット:
+
+- 多くのクラスを作成する必要がある場合がある
+- メソッドの委譲を手動で行う必要がある
+- 継承に比べてコード量が多くなる可能性がある
+
+```java
+class Engine {
+    void start() {
+        System.out.println("Engine started.");
+    }
+}
+
+class Car {
+    private Engine engine = new Engine();
+
+    void start() {
+        engine.start();
+        System.out.println("Car is ready to go.");
+    }
+}
+```
 
 ---
 
-#### インターフェース分離の原則(Interface Segregation Principle)
+<!-- _class: tinytext -->
+
+#### 継承と委譲の使い分け
+
+- 「is-a」関係の場合は継承を使う
+  - 例：Dog is an Animal（犬は動物である）
+- 「has-a」関係の場合は委譲を使う
+  - 例：Car has an Engine（車はエンジンを持っている）
+- 柔軟性が必要な場合は委譲を優先する
+- 動作を実行時に変更したい場合や、複数の機能を組み合わせる必要がある場合は委譲が適している
+- コードの再利用性を重視する場合は継承を検討する
+  - ただし、継承の深さや複雑さに注意する
+- インターフェースの実装と組み合わせる
+  - 継承の代わりにインターフェースを実装し、必要な機能を委譲で実現する方法もある
+
+```java
+interface Flyable {
+    void fly();
+}
+
+class FlyingMechanism {
+    void fly() {
+        System.out.println("Flying...");
+    }
+}
+
+class Bird implements Flyable {
+    private FlyingMechanism flyingMechanism = new FlyingMechanism();
+
+    public void fly() {
+        flyingMechanism.fly();
+    }
+}
+```
 
 ---
 
-#### 依存性逆転の原則(Dependency Inversion Principle)
+<!-- _class: tinytext -->
+
+### 単一責務の原則(Single Responsibility Principle)
+
+#### 意図すること
+
+- クラスは単一の責任のみを持つべきである
+- クラスを変更する理由は 1 つだけである
+
+#### メリット
+
+- コードの理解性と保守性が向上する
+- 変更の影響範囲が限定される
+- ユニットテストが書きやすくなる
+- 再利用性が高まる
+
+#### デメリット
+
+- 過度に適用すると、クラス数が増えすぎ複雑度が増す可能性がある
+- 全体像の把握が難しくなる可能性がある
 
 ---
+
+<!-- _class: tinytext -->
+
+悪い例
+
+```java
+class UserManager {
+    public void addUser(User user) {
+        // ユーザーをデータベースに追加する処理
+    }
+
+    public void sendWelcomeEmail(User user) {
+        // ユーザーに歓迎メールを送信する処理
+    }
+
+    public void generateUserReport() {
+        // ユーザーレポートを生成する処理
+    }
+}
+```
+
+---
+
+<!-- _class: tinytext -->
+
+良い例
+
+```java
+class User {
+    private String name;
+    private String email;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+
+class UserRepository {
+    public void addUser(User user) {
+        // ユーザーをデータベースに追加する処理
+    }
+}
+
+class UserEmailService {
+    public void sendWelcomeEmail(User user) {
+        // ユーザーに歓迎メールを送信する処理
+    }
+}
+
+class UserReportGenerator {
+    public void generateUserReport(User user) {
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        User user = new User("John Doe", "john@example.com");
+
+        UserRepository userRepository = new UserRepository().addUser(user);
+        EmailService emailService = new UserEmailService().sendWelcomeEmail(user);
+        ReportGenerator reportGenerator = new ReportGenerator().generateUserReport();
+    }
+}
+```
+
+---
+
+<!-- _class: tinytext -->
+
+### オープン・クローズドの原則(Open/Closed Principle)
+
+#### 意図すること
+
+- ソフトウェアのエンティティ（クラス、モジュール、関数など）は**拡張に対して開かれていて、修正に対して閉じていなければならない**
+
+#### メリット
+
+- 既存のコードを変更せずに機能追加ができる
+- カプセル化が促進され、コードの再利用性・可読性が向上する
+
+#### デメリット
+
+- インターフェース等の実装が増え、コード量は増加がち
+- 抽象度が上がるため、理解が難しくなる可能性がある
+  - これはあるべき姿を正しく反映しているため、学習により解決されべきもの
+- 過剰設計になる可能性がある(オーバーエンジニアリング)
+  - 最初から適用するのではなく、必要に応じて適用する（TDD など）
+
+---
+
+<!-- _class: tinytext -->
+
+悪い例
+
+```java
+class Rectangle {
+    double width;
+    double height;
+
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+}
+
+class Circle {
+    double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+}
+
+class AreaCalculator {
+    public double calculateArea(Object shape) {
+        if (shape instanceof Rectangle) {
+            Rectangle rectangle = (Rectangle) shape;
+            return rectangle.width * rectangle.height;
+        } else if (shape instanceof Circle) {
+            Circle circle = (Circle) shape;
+            return Math.PI * circle.radius * circle.radius;
+        }
+        throw new IllegalArgumentException("Unsupported shape");
+    }
+}
+```
+
+---
+
+<!-- _class: tinytext -->
+
+いい例
+
+```java
+interface Shape {
+    double calculateArea();
+}
+
+class Rectangle implements Shape {
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public double calculateArea() {
+        return width * height;
+    }
+}
+
+class Circle implements Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class AreaCalculator {
+    public double calculateArea(Shape shape) {
+        return shape.calculateArea();
+    }
+}
+
+// 新しい図形を追加する場合
+class Triangle implements Shape {
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    @Override
+    public double calculateArea() {
+        return 0.5 * base * height;
+    }
+}
+
+```
+
+---
+
+<!-- _class: tinytext -->
+
+### リスコフの置換原則(Liskov Substitution Principle)
+
+#### 意図すること
+
+- プログラムの振る舞いを変えることなく、サブタイプのオブジェクトでスーパータイプのオブジェクトを置き換えられるべきである
+
+#### メリット
+
+- 型の一貫性が保たれ、予測可能な動作が保証される
+- ポリモーフィズムを効果的に活用できる
+- コードの再利用性と拡張性が向上する
+
+#### デメリット
+
+- 継承関係の設計が複雑になる可能性がある
+- 完全な置換可能性を保証するのが難しい場合がある
+
+---
+
+<!-- _class: tinytext -->
+
+悪い例
+
+```java
+class Rectangle {
+    protected int width;
+    protected int height;
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getArea() {
+        return width * height;
+    }
+}
+
+class Square extends Rectangle {
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+        this.height = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.width = height;
+        this.height = height;
+    }
+}
+
+// 使用例
+public class Main {
+    public static void main(String[] args) {
+        Rectangle rectangle = new Square();
+        rectangle.setWidth(5);
+        rectangle.setHeight(4);
+        System.out.println(rectangle.getArea()); // 期待値: 20、実際の出力: 16
+    }
+}
+```
+
+---
+
+<!-- _class: tinytext -->
+
+いい例
+
+```java
+interface Shape {
+    int getArea();
+}
+
+class Rectangle implements Shape {
+    protected int width;
+    protected int height;
+
+    public Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getArea() {
+        return width * height;
+    }
+}
+
+class Square implements Shape {
+    private int side;
+
+    public Square(int side) {
+        this.side = side;
+    }
+
+    public int getArea() {
+        return side * side;
+    }
+}
+
+// 使用例
+public class Main {
+    public static void main(String[] args) {
+        Shape rectangle = new Rectangle(5, 4);
+        Shape square = new Square(5);
+
+        System.out.println("Rectangle area: " + rectangle.getArea()); // 出力: 20
+        System.out.println("Square area: " + square.getArea()); // 出力: 25
+    }
+}
+
+```
+
+---
+
+<!-- _class: tinytext -->
+
+### インターフェース分離の原則(Interface Segregation Principle)
+
+#### 意図すること
+
+- クライアントは自分が使用しないメソッドに依存させられるべきではない
+
+#### メリット
+
+- クライアントが必要なメソッドのみに依存するため、結合度が低下する
+- インターフェースが小さくなり、実装・テストが容易になる
+- 柔軟性と再利用性が向上する
+
+#### デメリット
+
+- インターフェースの数が増加し、管理が複雑になる可能性がある
+- 過度に適用すると、細かすぎるインターフェースが生まれる可能性がある
+- 関連する機能が複数のインターフェースに分散し、全体像の把握が難しくなる可能性がある
+
+---
+
+<!-- _class: tinytext -->
+
+悪い例
+
+```java
+
+interface Worker {
+    void work();
+    void eat();
+    void sleep();
+}
+
+class Human implements Worker {
+    public void work() {
+        System.out.println("Human is working");
+    }
+    public void eat() {
+        System.out.println("Human is eating");
+    }
+    public void sleep() {
+        System.out.println("Human is sleeping");
+    }
+}
+
+class Robot implements Worker {
+    public void work() {
+        System.out.println("Robot is working");
+    }
+    public void eat() {
+        // ロボットは食べない
+        throw new UnsupportedOperationException();
+    }
+    public void sleep() {
+        // ロボットは眠らない
+        throw new UnsupportedOperationException();
+    }
+}
+
+```
+
+---
+
+<!-- _class: tinytext -->
+
+いい例
+
+```java
+interface Workable {
+    void work();
+}
+
+interface Eatable {
+    void eat();
+}
+
+interface Sleepable {
+    void sleep();
+}
+
+class Human implements Workable, Eatable, Sleepable {
+    public void work() {
+        System.out.println("Human is working");
+    }
+    public void eat() {
+        System.out.println("Human is eating");
+    }
+    public void sleep() {
+        System.out.println("Human is sleeping");
+    }
+}
+
+class Robot implements Workable {
+    public void work() {
+        System.out.println("Robot is working");
+    }
+}
+
+// 使用例
+public class Main {
+    public static void main(String[] args) {
+        Workable human = new Human();
+        Workable robot = new Robot();
+
+        human.work(); // 出力: Human is working
+        robot.work(); // 出力: Robot is working
+
+        if (human instanceof Eatable) {
+            ((Eatable) human).eat(); // 出力: Human is eating
+        }
+
+        if (human instanceof Sleepable) {
+            ((Sleepable) human).sleep(); // 出力: Human is sleeping
+        }
+    }
+}
+
+```
+
+---
+
+<!-- _class: tinytext -->
+
+### 依存性逆転の原則(Dependency Inversion Principle)
+
+#### 意図すること
+
+- 上位モジュールは下位モジュールに依存すべきではない。両方とも抽象に依存すべきである。
+- 抽象は詳細に依存すべきではない。詳細が抽象に依存すべきである。
+
+#### メリット
+
+- 高レベルモジュールと低レベルモジュールの結合度が低下する
+- システムの柔軟性と再利用性が向上する
+- テストが容易になる
+
+#### デメリット
+
+- 抽象度が上がるため、理解が難しくなる可能性がある
+- インターフェースや抽象クラスの数が増え、コード量が増加する
+- 過度に適用すると、不必要な抽象化層が生まれる可能性がある
+
+---
+
+---
+
+<!-- _class: tinytext -->
+
+悪い例
+
+```java
+class LightBulb {
+    public void turnOn() {
+        System.out.println("LightBulb: Bulb turned on...");
+    }
+
+    public void turnOff() {
+        System.out.println("LightBulb: Bulb turned off...");
+    }
+}
+
+class ElectricPowerSwitch {
+    private LightBulb bulb;
+    private boolean on;
+
+    public ElectricPowerSwitch(LightBulb bulb) {
+        this.bulb = bulb;
+        this.on = false;
+    }
+
+    public boolean isOn() {
+        return this.on;
+    }
+
+    public void press() {
+        if (this.on) {
+            bulb.turnOff();
+            this.on = false;
+        } else {
+            bulb.turnOn();
+            this.on = true;
+        }
+    }
+}
+
+```
+
+---
+
+<!-- _class: tinytext -->
+
+<style>
+  .two-column {
+    display: flex;
+    width: 100%;
+  }
+  .two-column > div {
+    flex: 1;
+  }
+</style>
+
+いい例
+
+<div class="two-column">
+  <div>
+
+```java
+interface Switchable {
+    void turnOn();
+    void turnOff();
+}
+
+class LightBulb implements Switchable {
+    public void turnOn() {
+        System.out.println("LightBulb: Bulb turned on...");
+    }
+
+    public void turnOff() {
+        System.out.println("LightBulb: Bulb turned off...");
+    }
+}
+
+class Fan implements Switchable {
+    public void turnOn() {
+        System.out.println("Fan: Fan started rotating...");
+    }
+
+    public void turnOff() {
+        System.out.println("Fan: Fan stopped rotating...");
+    }
+}
+
+class ElectricPowerSwitch {
+    private Switchable device;
+    private boolean on;
+
+    public ElectricPowerSwitch(Switchable device) {
+        this.device = device;
+        this.on = false;
+    }
+
+    public boolean isOn() {
+        return this.on;
+    }
+
+    public void press() {
+        if (this.on) {
+            device.turnOff();
+            this.on = false;
+        } else {
+            device.turnOn();
+            this.on = true;
+        }
+    }
+}
+
+
+```
+
+  </div>
+  <div>
+
+```java
+
+// 使用例
+public class Main {
+    public static void main(String[] args) {
+        Switchable bulb = new LightBulb();
+        ElectricPowerSwitch bulbPowerSwitch = new ElectricPowerSwitch(bulb);
+        bulbPowerSwitch.press();
+        bulbPowerSwitch.press();
+
+        Switchable fan = new Fan();
+        ElectricPowerSwitch fanPowerSwitch = new ElectricPowerSwitch(fan);
+        fanPowerSwitch.press();
+        fanPowerSwitch.press();
+    }
+}
+
+
+```
+
+  </div>
+</div>
 
 ---
