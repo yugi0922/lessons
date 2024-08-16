@@ -465,6 +465,10 @@ function calculateDistance(pointA: Point, pointB: Point): number s {
   - 強い結合を生み出す（親クラスの変更が子クラスに影響する）
   - 継承の深さが増すと、コードの理解が難しくなる
 
+---
+
+例：
+
 ```java
 class Animal {
     void eat() {
@@ -498,6 +502,10 @@ class Dog extends Animal {
 - 多くのクラスを作成する必要がある場合がある
 - メソッドの委譲を手動で行う必要がある
 - 継承に比べてコード量が多くなる可能性がある
+
+---
+
+例：
 
 ```java
 class Engine {
@@ -1035,8 +1043,6 @@ public class Main {
 
 ---
 
----
-
 <!-- _class: tinytext -->
 
 悪い例
@@ -1211,8 +1217,7 @@ public class Main {
 #### パターンを通して学ぶ
 
 - 問題の概念化をし、認識することができるようになる
-- ハイレベルな概念を理解する
-- 抽象化の正しい使い方
+- 抽象化の正しい使い方、ハイレベルな概念を理解する
 - よりよいカプセル化の方法
 - SOLID 原則への理解と適用方法
 
@@ -1416,6 +1421,8 @@ class Client {
 
 ---
 
+<!-- _class: tinytext -->
+
 ### 演習 1
 
 path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcessor1Test.java`
@@ -1434,6 +1441,10 @@ path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcess
 - 仕様
   - 1BTC は 1000 円とします。
   - 手数料は 1BTC とします。
+
+---
+
+<!-- _class: tinytext -->
 
 ### 演習 2
 
