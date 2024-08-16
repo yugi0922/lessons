@@ -1416,7 +1416,7 @@ class Client {
 
 ---
 
-### 演習
+### 演習 1
 
 path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcessor1Test.java`
 
@@ -1429,10 +1429,23 @@ path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcess
   - 銀行振込の場合: 300 円 の手数料
 - テストコードは追加済みです。テストが通るように実装を行ってください。
 
-問題 2: 仕様変更として、BTC 決済を追加してください。
+問題 2: 使用編こうとして、BTC 決済を追加してください。
 
 - 仕様
-  - BTC の相場は 1BTC=1000 円とする。手数料は 1BTC とする
+  - 1BTC は 1000 円とします。
+  - 手数料は 1BTC とします。
+
+### 演習 2
+
+path: `java-practice/strategy/src/test/java/org/example/practice2/NotificationTest.java`
+
+通知機能を strategy パターンを使って実装してください。
+
+- 仕様
+
+  - SMS、メール、プッシュ通知の 3 つの通知方法をサポートする
+
+- テストコードは追加済みです。テストが通るように実装を行ってください。
 
 ---
 
