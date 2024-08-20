@@ -17,4 +17,5 @@ plugins {
 }
 
 rootProject.name = "java-practice"
-include("patterns","strategy")
+// include("strategy")
+include("templateMethod")

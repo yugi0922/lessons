@@ -1429,18 +1429,21 @@ path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcess
 
 決済システムで、複数の決済方法（クレジットカード、銀行振込など）をサポートした、PaymentProcessor クラスの実装があります。
 
-問題 1: 仕様変更として、以下のような手数料計算ロジックを追加してください。
+**問題 1.1**:　`PaymentProcessor1Test.java`のコードの実行を確認し、サンプルコードを確認してください。
+
+**問題 1.2**: 仕様変更として、以下のような手数料計算ロジックを追加してください。
 
 - 仕様
   - クレジットカードの場合: 5% の手数料
   - 銀行振込の場合: 300 円 の手数料
-- テストコードは追加済みです。テストが通るように実装を行ってください。
+- テストコード`PaymentProcessor2WithFeeTest`は追加済みです。テストが通るように実装を行ってください。
 
-問題 2: 使用編こうとして、BTC 決済を追加してください。
+**問題 1.3**: 仕様変更として、BTC 決済を追加してください。
 
 - 仕様
   - 1BTC は 1000 円とします。
   - 手数料は 1BTC とします。
+  - テストコード`PaymentProcessor3AddBTCTest`は追加済みです。テストが通るように実装を行ってください。
 
 ---
 
@@ -1450,7 +1453,7 @@ path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcess
 
 path: `java-practice/strategy/src/test/java/org/example/practice2/NotificationTest.java`
 
-通知機能を strategy パターンを使って実装してください。
+**問題 2.1**: 通知機能を strategy パターンを使って実装してください。
 
 - 仕様
 
@@ -1467,6 +1470,48 @@ path: `java-practice/strategy/src/test/java/org/example/practice2/NotificationTe
 #### 意図
 
 - アルゴリズムの骨格を定義し、サブクラスでその一部を再定義する
+
+---
+
+### 演習 1
+
+path: `java-practice/templateMethod/src/test/java/org/example/practice1/PaymentProcessor1Test.java`
+
+決済システムで、複数の決済方法（クレジットカード、銀行振込など）をサポートした、PaymentProcessor クラスの実装があります。
+
+**問題 1.1**: `PaymentProcessor1Test.java`のコードの実行を確認し、サンプルコードを確認してください。
+
+**問題 1.2**: 仕様変更として、支払い手段として BTC 決済を追加してください。
+
+- 仕様
+  - 1BTC は 1000 円とします。
+  - 手数料は 1BTC とします。
+  - テストコード`PaymentProcessor3AddBTCTest`は追加済みです。テストが通るように実装を行ってください。
+
+---
+
+## 深く理解するための問いかけ
+
+- BTC のバリエーションは支払い手段として正しいだろうか？
+
+  - BTC は支払い手段として別だが、同時に通貨としては別物である
+    - 支払い時には両替レートを考慮する必要がある
+  - 支払い手段と通貨は別のバリエーションたり得る
+  - 現状の仕様に対する実装としては問題ない
+
+- 支払い通貨として USD のバリエーションを追加する場合にはどうなるか？
+
+  - 通貨両替を行うクラスを定義し、Strategy として別クラスに定義する
+  - Template Method および Strategy Pattern を組み合わる
+
+- 税計算などのさらに新しいバリエーションが追加される場合は？
+
+- 支払い方法ごとに必要なアカウント情報を取得・利用するには？
+
+  - クレジットカードなら、カード番号・有効期限・セキュリティコード
+  - 銀行振込なら、銀行名・支店名・口座番号・名義人名
+
+- など
 
 ---
 
