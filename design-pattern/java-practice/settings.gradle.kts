@@ -19,3 +19,4 @@ plugins {
 rootProject.name = "java-practice"
 include("strategy")
 include("templateMethod")
+include("factoryMethod")

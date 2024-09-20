@@ -1515,6 +1515,68 @@ path: `java-practice/templateMethod/src/test/java/org/example/practice1/PaymentP
 
 ---
 
+### Factory method
+
+カテゴリ: 生成パターン
+
+#### 意図
+
+- インスタンス生成のためのインターフェースを定義し、サブクラスで生成するインスタンスを決定する
+
+#### クラス図
+
+```mermaid
+classDiagram
+  class Creator {
+    + getInstance(): Product
+  }
+  class ConcreteCreatorA {
+    + getInstance(): Product
+  }
+  class ConcreteCreatorB {
+    + getInstance(): Product
+  }
+  class Product {
+    + use()
+  }
+  Client --> Creator
+  Creator <|-- ConcreteCreatorA
+  Creator <|-- ConcreteCreatorB
+  Creator *-- Product
+
+```
+
+### 効果
+
+- オブジェクトの生成に関するロジックをサブクラスに委譲する
+  - インスタンス化に関するロジックのバリエーションに対して open-closed 原則を適用できる
+  - インスタンス化に関するロジックが変更されても、クライアントに影響を与えない
+  - インスタンスに関するロジックがカプセル化される
+- クライアントは具体的なクラスを知らずにインスタンスを生成できる
+
+---
+
+### サンプルプログラムの確認１
+
+path: `java-practice/factoryMethod/src/test/java/org/example/practice1_1/VehicleFactoryTest.java.java`
+
+- `VehicleFactory` クラスは、`Vehicle` インターフェースを実装した `Car` と `Bike` クラスのインスタンスを生成するインターフェースを提供
+- `CarFactory` と `BikeFactory` クラスは、`VehicleFactory` インターフェースを実装し、`Car` と `Bike` クラスのインスタンスを生成している
+
+## サンプルプログラムの確認 2
+
+path: `java-practice/factoryMethod/src/test/java/org/example/practice1_2/FactoryTest.java`
+
+- サンプルプログラム 1 の方では、`VehicleFactory` クラスが `Car` と `Bike` クラスのインスタンスを生成していた（GoF の Factory Method パターン通り）
+- 今回は、`PaymentProcessorFactory` クラスが `PaymentProcessor` インターフェースを実装した `CreditCardPaymentProcessor` と `BankTransferPaymentProcessor` クラスのインスタンスの生成を判断する責務を担っている。
+  - 1 つ目の例はインスタンスを生成すること自体をカプセル化することが意図されていたが、今回は生成するインスタンスを決定するロジックがカプセル化されている
+
+## **問題 1.2**: 仕様変更として、支払い手段として BTC 決済を追加してください。
+
+- 仕様
+  - 1BTC は 1000 円とします。
+  - テストコード`FactoryTest_addBTC.java`は追加済みです。テストが通るように実装を行ってください。
+
 ### State Pattern
 
 カテゴリ: 振る舞いパターン
@@ -1532,15 +1594,3 @@ path: `java-practice/templateMethod/src/test/java/org/example/practice1/PaymentP
 #### 意図
 
 - 実装と抽象を分離し、それらを独立に変更できるようにする
-
----
-
-### Factory method
-
-カテゴリ: 生成パターン
-
-#### 意図
-
-- インスタンス生成のためのインターフェースを定義し、サブクラスで生成するインスタンスを決定する
-
----
