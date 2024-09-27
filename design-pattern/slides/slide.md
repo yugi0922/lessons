@@ -1556,7 +1556,7 @@ classDiagram
 
 ---
 
-### サンプルプログラムの確認１
+## サンプルプログラムの確認１
 
 path: `java-practice/factoryMethod/src/test/java/org/example/practice1_1/VehicleFactoryTest.java.java`
 
@@ -1584,6 +1584,200 @@ path: `java-practice/factoryMethod/src/test/java/org/example/practice1_2/Factory
 #### 意図
 
 - オブジェクトの内部状態が変化したときに、その振る舞いを変える
+
+```mermaid
+classDiagram
+    class Context {
+        -State state
+        +setState(State state)
+        +request()
+    }
+    class State {
+        <<interface>>
+        +handle()
+    }
+    class ConcreteStateA {
+        +handle()
+    }
+    class ConcreteStateB {
+        +handle()
+    }
+    Context o--> State
+    State <|.. ConcreteStateA
+    State <|.. ConcreteStateB
+```
+
+###　効果
+
+- オブジェクトの内部状態が変化したときにその振る舞いを変更することができる
+- 状態遷移のロジックがカプセル化され、状態遷移の変更・追加が容易になる
+
+---
+
+## サンプルプログラム
+
+自動販売機の例。コインの挿入、アイテムの選択、アイテムの提供などの状態遷移を表現する
+
+状態遷移図
+
+```mermaid
+stateDiagram
+  [*] --> NoCoin
+  NoCoin --> HasCoin: insertCoin
+  HasCoin --> NoCoin: ejectCoin
+  HasCoin --> Sold: selectItem
+  Sold --> NoCoin: dispense
+  NoCoin --> NoCoin: ejectCoin
+  HasCoin --> HasCoin: insertCoin
+  Sold --> Sold: selectItem
+```
+
+```java
+// State interface
+interface State {
+  State insertCoin();
+  State ejectCoin();
+  State selectItem();
+  State dispense();
+}
+
+// Concrete states
+class NoCoinState implements State {
+  public State insertCoin() {
+    System.out.println("コインが挿入されました。アイテムを選択してください。");
+    return new HasCoinState();
+  }
+
+  public State ejectCoin() {
+    System.out.println("コインが挿入されていません。");
+    return this;
+  }
+
+  public State selectItem() {
+    System.out.println("先にコインを挿入してください。");
+    return this;
+  }
+
+  public State dispense() {
+    System.out.println("先にコインを挿入してください。");
+    return this;
+  }
+}
+
+class HasCoinState implements State {
+  public State insertCoin() {
+    System.out.println("既にコインが挿入されています。");
+    return this;
+  }
+
+  public State ejectCoin() {
+    System.out.println("コインが返却されました。");
+    return new NoCoinState();
+  }
+
+  public State selectItem() {
+    System.out.println("アイテムが選択されました。お待ちください。");
+    return new SoldState();
+  }
+
+  public State dispense() {
+    System.out.println("先にアイテムを選択してください。");
+    return this;
+  }
+}
+
+class SoldState implements State {
+  public State insertCoin() {
+    System.out.println("お待ちください。アイテムを提供中です。");
+    return this;
+  }
+
+  public State ejectCoin() {
+    System.out.println("申し訳ありません。アイテムを選択済みです。");
+    return this;
+  }
+
+  public State selectItem() {
+    System.out.println("お待ちください。既にアイテムを提供中です。");
+    return this;
+  }
+
+  public State dispense() {
+    System.out.println("アイテムが提供されました。");
+    return new NoCoinState();
+  }
+}
+
+// Context class
+class VendingMachine {
+  private State currentState;
+
+  public VendingMachine() {
+    currentState = new NoCoinState();
+  }
+
+  public void insertCoin() {
+    currentState = currentState.insertCoin();
+  }
+
+  public void ejectCoin() {
+    currentState = currentState.ejectCoin();
+  }
+
+  public void selectItem() {
+    currentState = currentState.selectItem();
+  }
+
+  public void dispense() {
+    currentState = currentState.dispense();
+  }
+}
+
+// Main class to demonstrate usage
+public class VendingMachineDemo {
+  public static void main(String[] args) {
+    VendingMachine vendingMachine = new VendingMachine();
+
+    vendingMachine.insertCoin();　// コインが挿入されました。アイテムを選択してください。
+    vendingMachine.selectItem(); // アイテムが選択されました。お待ちください。
+    vendingMachine.dispense(); // アイテムが提供されました。
+
+    System.out.println("\n--- 次の操作 ---\n");
+
+    vendingMachine.insertCoin(); // コインが挿入されました。アイテムを選択してください。
+    vendingMachine.ejectCoin(); // コインが返却されました。
+    vendingMachine.selectItem(); // 先にコインを挿入してください。
+  }
+}
+```
+
+---
+
+## 演習
+
+シナリオ
+
+- 自動販売機の例を参考に、ドアの開閉状態を表現するプログラムを state パターンで作成してください
+
+```mermaid
+stateDiagram-v2
+    [*] --> 閉: 初期状態
+
+    開 --> 閉 : close()
+    閉 --> 開 : open()
+    閉 --> 施錠 : lock()
+    施錠 --> 閉 : unlock()
+
+    note right of 開
+        開いている状態では
+        ロックできない
+    end note
+
+    note right of 施錠
+        ロックされている状態では
+        直接開けない
+    end note
+```
 
 ---
 
