@@ -1,27 +1,70 @@
 package org.example.answers.practice1;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.example.answers.practice1.PaymentProcessor;
-import org.example.answers.practice1.CreditCardPaymentProcessor;
-import org.example.answers.practice1.BankTransferPaymentProcessor;
+class DoorTest {
+    private Door door;
 
-public class PaymentProcessor1Test {
-
-    @Test
-    public void testCreditCardPayment() {
-        PaymentProcessor processor = new CreditCardPaymentProcessor();
-        // 5%の手数料がかかる
-        int result = processor.processPayment(10000);
-        assertEquals(10500, result);
+    @BeforeEach
+    void setUp() {
+        door = new Door();
     }
 
     @Test
-    public void testBankTransferPayment() {
-        PaymentProcessor processor = new BankTransferPaymentProcessor();
-        // 固定で300円の手数料がかかる
-        int result = processor.processPayment(10000);
-        assertEquals(10300, result);
+    void testInitialState() {
+        assertEquals("閉", door.getStatus(), "初期状態は閉じているべきです");
+    }
+
+    @Test
+    void testOpenClosedDoor() {
+        door.open();
+        assertEquals("開", door.getStatus(), "閉じたドアを開けると開いた状態になるべきです");
+    }
+
+    @Test
+    void testCloseOpenDoor() {
+        door.open();
+        door.close();
+        assertEquals("閉", door.getStatus(), "開いたドアを閉めると閉じた状態になるべきです");
+    }
+
+    @Test
+    void testLockClosedDoor() {
+        door.lock();
+        assertEquals("施錠", door.getStatus(), "閉じたドアをロックすると施錠状態になるべきです");
+    }
+
+    @Test
+    void testUnlockLockedDoor() {
+        door.lock();
+        door.unlock();
+        assertEquals("閉", door.getStatus(), "施錠されたドアをアンロックすると閉じた状態になるべきです");
+    }
+
+    @Test
+    void testOpenLockedDoor() {
+        door.lock();
+        door.open();
+        assertEquals("施錠", door.getStatus(), "施錠されたドアは開けようとしても施錠状態のままです");
+    }
+
+    @Test
+    void testLockOpenDoor() {
+        door.open();
+        door.lock();
+        assertEquals("開", door.getStatus(), "開いているドアはロックできず、開いた状態のままです");
+    }
+
+    @Test
+    void testComplexSequence() {
+        door.open();
+        door.close();
+        door.lock();
+        door.open();
+        door.unlock();
+        door.open();
+        assertEquals("開", door.getStatus(), "一連の操作の後、最終的に開いた状態になるべきです");
     }
 }
