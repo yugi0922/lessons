@@ -1423,7 +1423,7 @@ class Client {
 
 <!-- _class: tinytext -->
 
-### 演習 1
+#### 演習 1
 
 path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcessor1Test.java`
 
@@ -1449,7 +1449,7 @@ path: `java-practice/strategy/src/test/java/org/example/practice1/PaymentProcess
 
 <!-- _class: tinytext -->
 
-### 演習 2
+#### 演習 2
 
 path: `java-practice/strategy/src/test/java/org/example/practice2/NotificationTest.java`
 
@@ -1473,7 +1473,7 @@ path: `java-practice/strategy/src/test/java/org/example/practice2/NotificationTe
 
 ---
 
-### 演習 1
+#### 演習 1
 
 path: `java-practice/templateMethod/src/test/java/org/example/practice1/PaymentProcessor1Test.java`
 
@@ -1490,7 +1490,7 @@ path: `java-practice/templateMethod/src/test/java/org/example/practice1/PaymentP
 
 ---
 
-## 深く理解するための問いかけ
+### 深く理解するための問いかけ
 
 - BTC のバリエーションは支払い手段として正しいだろうか？
 
@@ -1546,7 +1546,7 @@ classDiagram
 
 ```
 
-### 効果
+#### 効果
 
 - オブジェクトの生成に関するロジックをサブクラスに委譲する
   - インスタンス化に関するロジックのバリエーションに対して open-closed 原則を適用できる
@@ -1556,14 +1556,14 @@ classDiagram
 
 ---
 
-## サンプルプログラムの確認１
+#### サンプルプログラムの確認１
 
 path: `java-practice/factoryMethod/src/test/java/org/example/practice1_1/VehicleFactoryTest.java.java`
 
 - `VehicleFactory` クラスは、`Vehicle` インターフェースを実装した `Car` と `Bike` クラスのインスタンスを生成するインターフェースを提供
 - `CarFactory` と `BikeFactory` クラスは、`VehicleFactory` インターフェースを実装し、`Car` と `Bike` クラスのインスタンスを生成している
 
-## サンプルプログラムの確認 2
+### サンプルプログラムの確認 2
 
 path: `java-practice/factoryMethod/src/test/java/org/example/practice1_2/FactoryTest.java`
 
@@ -1571,7 +1571,7 @@ path: `java-practice/factoryMethod/src/test/java/org/example/practice1_2/Factory
 - 今回は、`PaymentProcessorFactory` クラスが `PaymentProcessor` インターフェースを実装した `CreditCardPaymentProcessor` と `BankTransferPaymentProcessor` クラスのインスタンスの生成を判断する責務を担っている。
   - 1 つ目の例はインスタンスを生成すること自体をカプセル化することが意図されていたが、今回は生成するインスタンスを決定するロジックがカプセル化されている
 
-## **問題 1.2**: 仕様変更として、支払い手段として BTC 決済を追加してください。
+#### **問題 1.2**: 仕様変更として、支払い手段として BTC 決済を追加してください。
 
 - 仕様
   - 1BTC は 1000 円とします。
@@ -1607,14 +1607,14 @@ classDiagram
     State <|.. ConcreteStateB
 ```
 
-###　効果
+####　効果
 
 - オブジェクトの内部状態が変化したときにその振る舞いを変更することができる
 - 状態遷移のロジックがカプセル化され、状態遷移の変更・追加が容易になる
 
 ---
 
-## サンプルプログラム
+#### サンプルプログラム
 
 自動販売機の例。コインの挿入、アイテムの選択、アイテムの提供などの状態遷移を表現する
 
@@ -1753,7 +1753,7 @@ public class VendingMachineDemo {
 
 ---
 
-## 演習
+#### 演習
 
 シナリオ
 
@@ -1781,6 +1781,30 @@ stateDiagram-v2
 
 ---
 
+#### トレードオフの理解
+
+- 状態遷移の管理をどこに記述するか？
+  - ConcreteState に記述（今回の例）
+    - 各状態が他の状態について知る必要がある
+    - ある特定の状態を追加・削除する場合などに、他の状態にも影響がある
+  - Context に記述（例の場合、VendingMachine クラス）
+    - 状態遷移のロジックが一箇所に集約され、状態間の依存関係がなくなる
+    - 状態の追加・削除が容易になる
+    - 状態変更のロジックが、場合によっては複雑になる可能性がある
+      - ドメイン特有の複雑性を表現する場合などはいい例
+- 状態遷移に使用される以外の情報をどこに持たせるか？（例: 自動販売機に入れた投入金額・選択済み商品など）
+  - State に持たせる
+    - Context と State の結合度が下がる
+    - Context に記述される振る舞いで使用されない情報が明確になる
+    - 状態遷移時に State インスタンスが生成されるため、メモリ使用量が増える
+  - Context に持たせる
+    - State に Context の依存が生じる（結合度が上がる）
+    - State に持たせる場合と異なり、メモリ使用量は抑えられる傾向にある
+
+State パターンの意図は、「オブジェクトの内部状態が変化したときに、その振る舞いを変える」というものである。その上で、実装したい問題の構造に応じて適切な実装を行うことが重要。必ずしも GoF の例示のクラス図通りの実装にこだわる必要はない。
+
+---
+
 ### Bridge Pattern
 
 カテゴリ: 構造パターン
@@ -1788,3 +1812,225 @@ stateDiagram-v2
 #### 意図
 
 - 実装と抽象を分離し、それらを独立に変更できるようにする
+
+#### クラス図
+
+```mermaid
+classDiagram
+    class Abstraction {
+        +operation()
+    }
+    class RefinedAbstractionA {
+        +operation()
+    }
+    class RefinedAbstractionB {
+        +operation()
+    }
+    class Implementor {
+        +operationImpl()
+    }
+    class ConcreteImplementorA {
+        +operationImpl()
+    }
+    class ConcreteImplementorB {
+        +operationImpl()
+    }
+    Abstraction o-- Implementor
+    Abstraction <|-- RefinedAbstractionA
+    Abstraction <|-- RefinedAbstractionB
+    Implementor <|-- ConcreteImplementorA
+    Implementor <|-- ConcreteImplementorB
+    Client --> Abstraction
+```
+
+---
+
+#### 効果
+
+- 実装と抽象を分離することで、それぞれの変更が容易になる
+- 実装の変更が抽象に影響を与えない
+- 抽象の変更が実装に影響を与えない
+
+#### 要点
+
+- Abstraction と RefinedAbstraction は継承関係（is-a）である
+- Implementor と ConcreteImplementor は委譲関係（has-a）である
+
+---
+
+#### サンプルプログラム
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+// Implementorインターフェース
+interface OutputAPI {
+    void drawLine(int x1, int y1, int x2, int y2);
+}
+
+// ConcreteImplementor A
+class ConsoleOutput implements OutputAPI {
+    @Override
+    public void drawLine(int x1, int y1, int x2, int y2) {
+        System.out.println("Drawing Line from (" + x1 + "," + y1 + ") to (" + x2 + "," + y2 + ") on Console");
+    }
+}
+
+// ConcreteImplementor B
+class FileOutput implements OutputAPI {
+    private String filename;
+
+    public FileOutput(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public void drawLine(int x1, int y1, int x2, int y2) {
+        String content = "Drawing Line from (" + x1 + "," + y1 + ") to (" + x2 + "," + y2 + ") in File";
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
+            writer.println(content);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+}
+
+// Abstraction
+abstract class Shape {
+    protected OutputAPI output;
+
+    protected Shape(OutputAPI output) {
+        this.output = output;
+    }
+
+    public abstract void draw();
+}
+
+// RefinedAbstraction A
+class Square extends Shape {
+    private int x, y, side;
+
+    public Square(int x, int y, int side, OutputAPI output) {
+        super(output);
+        this.x = x;
+        this.y = y;
+        this.side = side;
+    }
+
+    public void draw() {
+        output.drawLine(x, y, x + side, y);
+        output.drawLine(x + side, y, x + side, y + side);
+        output.drawLine(x + side, y + side, x, y + side);
+        output.drawLine(x, y + side, x, y);
+    }
+}
+
+// RefinedAbstraction B
+class Triangle extends Shape {
+    private int x, y, base, height;
+
+    public Triangle(int x, int y, int base, int height, OutputAPI output) {
+        super(output);
+        this.x = x;
+        this.y = y;
+        this.base = base;
+        this.height = height;
+    }
+
+    public void draw() {
+        output.drawLine(x, y, x + base, y);
+        output.drawLine(x + base, y, x + (base / 2), y - height);
+        output.drawLine(x + (base / 2), y - height, x, y);
+    }
+}
+
+// クライアントコード
+public class BridgePatternDemo {
+    public static void main(String[] args) {
+        OutputAPI consoleOutput = new ConsoleOutput();
+        OutputAPI fileOutput = new FileOutput("shapes.txt");
+
+        Shape consoleSquare = new Square(10, 10, 50, consoleOutput);
+        Shape fileSquare = new Square(20, 20, 60, fileOutput);
+        Shape consoleTriangle = new Triangle(100, 100, 50, 30, consoleOutput);
+        Shape fileTriangle = new Triangle(150, 150, 70, 40, fileOutput);
+
+        consoleSquare.draw();
+        fileSquare.draw();
+        consoleTriangle.draw();
+        fileTriangle.draw();
+    }
+}
+```
+
+---
+
+### 演習
+
+シナリオ: ゲームのキャラクターの行動を表現するプログラムを Bridge パターンで作成します。
+
+- abstraction: 種族（人間、エルフ、ドワーフ）
+- implementation: 職業（戦士、魔法使い、弓使い）
+
+クラス図は以下の通りです。
+
+```mermaid
+
+classDiagram
+    class Race {
+        <<abstract>>
+        -profession: Profession
+        +Race(profession: Profession)
+        +attack(): String
+        +defend(): String
+        +useSpecial(): String
+    }
+    class Human {
+        +attack(): String
+        +defend(): String
+        +useSpecial(): String
+    }
+    class Elf {
+        +attack(): String
+        +defend(): String
+        +useSpecial(): String
+    }
+    class Dwarf {
+        +attack(): String
+        +defend(): String
+        +useSpecial(): String
+    }
+    class Profession {
+        <<interface>>
+        +performAttack(): String
+        +performDefense(): String
+        +useSpecialAbility(): String
+    }
+    class Warrior {
+        +performAttack(): String
+        +performDefense(): String
+        +useSpecialAbility(): String
+    }
+    class Mage {
+        +performAttack(): String
+        +performDefense(): String
+        +useSpecialAbility(): String
+    }
+    class Archer {
+        +performAttack(): String
+        +performDefense(): String
+        +useSpecialAbility(): String
+    }
+
+    Race <|-- Human
+    Race <|-- Elf
+    Race <|-- Dwarf
+    Race o--> Profession
+    Profession <|.. Warrior
+    Profession <|.. Mage
+    Profession <|.. Archer
+```
+
+テストは実装済みなので、テストが通るように実装を行ってください。
