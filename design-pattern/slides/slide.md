@@ -2034,3 +2034,240 @@ classDiagram
 ```
 
 テストは実装済みなので、テストが通るように実装を行ってください。
+
+---
+
+Singleton パターン
+
+カテゴリ: 生成パターン
+
+#### 意図
+
+- インスタンスが 1 つしか存在しないことを保証する
+
+#### 効果
+
+- メモリ使用量を抑える
+- 同一インスタンスを共有することで、データの整合性を保てる場合がある
+
+#### 注意点
+
+- マルチスレッド環境での実装に注意が必要
+- 遅延初期化を行う場合、考慮が必要
+- マルチスレッド対応や遅延初期化の実装にはさまざまな実装方法がありトレードオフがあります。
+  - 以下は java の場合ですが、メモリ管理やスレッドセーフなどの観点から実行環境に応じた適切な実装方法を選択してください
+
+```java
+
+public class Singleton {
+    // static 修飾子を付与することで、クラス変数として定義されるため、クラスの初期化時にインスタンスが生成される
+    private static final Singleton INSTANCE = new Singleton();
+
+    // コンストラクタを private にすることで、外部からのインスタンス生成を禁止する
+    private Singleton() {
+      // 設定ファイルや環境変数からの初期化処理など
+    }
+    // インスタンスを取得するためのメソッド
+    public static Singleton getInstance() {
+        return INSTANCE;
+    }
+}
+```
+
+遅延初期化を行う場合
+
+```java
+public class Singleton {
+
+   private Singleton() {
+   }
+
+   private static class SingletonHolder {
+       public static final Singleton HOLDER_INSTANCE = new Singleton();
+   }
+
+   // getInstanceが呼び出された際にinstanceが生成される
+   public static Singleton getInstance() {
+       return SingletonHolder.HOLDER_INSTANCE;
+   }
+}
+```
+
+## 4. モダンな開発環境におけるデザインパターン
+
+## 4.1 モダンな開発環境におけるデザインパターン
+
+以下の様な批判・意見も存在する
+
+```plaintext
+一部のデザインパターンは、プログラミング言語（例: Java, C++）の機能の欠損の印であると主張されることがある。計算機科学者のピーター・ノーヴィグは、GoFによるデザインパターン本の23パターンのうち16パターンは、言語によるサポートによって単純化または除去できることをLispやDylanを用いて実演した
+```
+
+すでに言語の機能として実装されている場合もある（Iterator, Observer など）。
+デザインパターンがオブジェクト指向プログラミング・設計の基本原則を理解するための手段であることは明らかだが、こういった主張の内容を理解しておくことは重要。
+
+いくつかのパターンは、関数型プログラミング言語においては、よりシンプルに実装できる場合があることを確認してみよう。
+
+---
+
+### 関数型言語におけるデザインパターン
+
+#### strategy パターンの例
+
+クラスを作るのではなく、関数を引数として渡す（高階関数）ことで、よりシンプルに実装できる場合がある
+
+```typescript
+// デバイスの動作を表す関数型
+type DeviceAction = () => void;
+
+// デバイスの定義
+interface Device {
+  turnOn: DeviceAction;
+  turnOff: DeviceAction;
+}
+
+// 電球の実装
+const lightBulb: Device = {
+  turnOn: () => console.log("LightBulb: Bulb turned on..."),
+  turnOff: () => console.log("LightBulb: Bulb turned off..."),
+};
+
+// 扇風機の実装
+const fan: Device = {
+  turnOn: () => console.log("Fan: Fan started rotating..."),
+  turnOff: () => console.log("Fan: Fan stopped rotating..."),
+};
+
+// スイッチの実装（高階関数）
+const createElectricPowerSwitch = (device: Device) => {
+  let isOn = false;
+
+  return {
+    isOn: () => isOn,
+    press: () => {
+      if (isOn) {
+        device.turnOff("off");
+        isOn = false;
+      } else {
+        device.turnOn("on");
+        isOn = true;
+      }
+    },
+  };
+};
+
+// 使用例
+const bulbSwitch = createElectricPowerSwitch(lightBulb);
+const fanSwitch = createElectricPowerSwitch(fan);
+
+bulbSwitch.press(); // LightBulb: Bulb turned on...
+bulbSwitch.press(); // LightBulb: Bulb turned off...
+
+fanSwitch.press(); // Fan: Fan started rotating...
+fanSwitch.press(); // Fan: Fan stopped rotating...
+
+// 新しいデバイスを動的に追加
+const tv: Device = {
+  turnOn: () => console.log("TV: Screen lights up..."),
+  turnOff: () => console.log("TV: Screen goes dark..."),
+};
+
+const tvSwitch = createElectricPowerSwitch(tv);
+tvSwitch.press(); // TV: Screen lights up...
+tvSwitch.press(); // TV: Screen goes dark...
+```
+
+#### brigde パターンの例
+
+関数の合成（コンポジション）を使って、インターフェースと実装を分離することができる
+
+```typescript
+// Implementation
+import * as fs from "fs";
+
+// OutputAPI型の定義
+type OutputAPI = {
+  drawLine: (x1: number, y1: number, x2: number, y2: number) => void;
+};
+
+// ConsoleOutput実装
+const createConsoleOutput = (): OutputAPI => ({
+  drawLine: (x1, y1, x2, y2) => {
+    console.log(`Drawing Line from (${x1},${y1}) to (${x2},${y2}) on Console`);
+  },
+});
+
+// FileOutput実装
+const createFileOutput = (filename: string): OutputAPI => ({
+  drawLine: (x1, y1, x2, y2) => {
+    const content = `Drawing Line from (${x1},${y1}) to (${x2},${y2}) in File\n`;
+    fs.appendFileSync(filename, content);
+  },
+});
+
+// Shape型の定義
+type Shape = {
+  draw: () => void;
+};
+
+// Square作成
+const createSquare = (
+  x: number,
+  y: number,
+  side: number,
+  output: OutputAPI
+): Shape => ({
+  draw: () => {
+    output.drawLine(x, y, x + side, y);
+    output.drawLine(x + side, y, x + side, y + side);
+    output.drawLine(x + side, y + side, x, y + side);
+    output.drawLine(x, y + side, x, y);
+  },
+});
+
+// Triangle作成関数
+const createTriangle = (
+  x: number,
+  y: number,
+  base: number,
+  height: number,
+  output: OutputAPI
+): Shape => ({
+  draw: () => {
+    output.drawLine(x, y, x + base, y);
+    output.drawLine(x + base, y, x + base / 2, y - height);
+    output.drawLine(x + base / 2, y - height, x, y);
+  },
+});
+
+// クライアントコード
+const consoleOutput = createConsoleOutput();
+const fileOutput = createFileOutput("shapes.txt");
+
+const consoleSquare = createSquare(10, 10, 50, consoleOutput);
+const fileSquare = createSquare(20, 20, 60, fileOutput);
+const consoleTriangle = createTriangle(100, 100, 50, 30, consoleOutput);
+const fileTriangle = createTriangle(150, 150, 70, 40, fileOutput);
+
+consoleSquare.draw();
+fileSquare.draw();
+consoleTriangle.draw();
+fileTriangle.draw();
+```
+
+#### singleton パターンの例
+
+実行環境に依存するが、ブラウザや node.js(シングルスレッドが保証される)環境では、モジュールのインポートによってシングルトンを実現できる
+
+```typescript
+// singleton.ts
+class Singleton {
+  private data: Data;
+  private constructor() {
+    // 初期化処理（例: 設定ファイルの読み込みなど）
+  }
+}
+
+// シングルトンインスタンスをエクスポート。ファイル読み込み時に一度だけインスタンスが生成される
+export default new Singleton();
+```
