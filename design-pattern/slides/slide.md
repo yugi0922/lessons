@@ -2271,3 +2271,17 @@ class Singleton {
 // シングルトンインスタンスをエクスポート。ファイル読み込み時に一度だけインスタンスが生成される
 export default new Singleton();
 ```
+
+#### 終わりに
+
+内部品質の向上によって速度と品質が向上されること、デザインパターンはそのための手段の一つであることを学習してきました。
+このトレーニングを通じて、デザインパターンの基本的な理解を得られていれば幸いです。
+よりよいものを作るためには実践と学習をし続けることが重要です。今回の内容は足がかりに、これからの学習に役立てていただけると嬉しいです。
+
+#### 参考文献
+
+[質とスピード - 和田卓人](https://www.veriserve.co.jp/asset/approach/column/software-quality/)software-quality07.html
+[よりよいコードとは何か 株式会社サイバーエージェント 新卒研修 - 森 篤人](https://note.com/cyberz_cto/n/n26f535d6c575)
+[レガシーコードからの脱却 - David Scott Bernstein](https://www.oreilly.co.jp//books/9784873118864/)
+[ソフトフェアアーキテクチャの基礎 - Mark Richards、Neal Ford](https://www.oreilly.co.jp//books/9784873119823/)
+[Java 言語で学ぶデザインパターン入門 - 結城 浩](https://www.amazon.co.jp/Java%E8%A8%80%E8%AA%9E%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E5%85%A5%E9%96%80%E7%AC%AC3%E7%89%88-%E7%B5%90%E5%9F%8E-%E6%B5%A9/dp/4815609802)
