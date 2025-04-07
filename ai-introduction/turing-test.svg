@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">チューリングテストの仕組み</text>
+
+  <!-- 人間（質問者） -->
+  <circle cx="150" cy="200" r="60" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="150" y="205" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">質問者</text>
+
+  <!-- コンピュータ -->
+  <rect x="520" y="140" width="120" height="80" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="580" y="185" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">コンピュータ</text>
+
+  <!-- 人間（回答者） -->
+  <circle cx="580" cy="300" r="60" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="580" y="305" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">人間</text>
+
+  <!-- コミュニケーションライン -->
+  <line x1="210" y1="180" x2="520" y2="180" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="510,180 520,175 520,185" fill="#3b82f6" />
+  <text x="370" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">質問</text>
+
+  <line x1="520" y1="200" x2="210" y2="200" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="220,200 210,195 210,205" fill="#3b82f6" />
+  <text x="370" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">回答</text>
+
+  <line x1="210" y1="220" x2="520" y2="300" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="510,295 520,300 510,305" fill="#c2410c" />
+  <text x="370" y="250" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">質問</text>
+
+  <line x1="520" y1="320" x2="210" y2="240" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="220,240 210,235 210,245" fill="#c2410c" />
+  <text x="370" y="300" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">回答</text>
+
+  <!-- 説明テキスト -->
+  <rect x="100" y="350" width="600" height="40" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="375" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    質問者は、どちらの回答者がコンピュータでどちらが人間か区別できなければ、コンピュータは「知的」とみなされる
+  </text>
+</svg>

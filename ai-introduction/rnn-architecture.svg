@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">RNNの基本構造</text>
+
+  <!-- 左側：折りたたみ表現 -->
+  <rect x="80" y="100" width="220" height="200" rx="10" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="190" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">折りたたみ表現</text>
+
+  <!-- RNNセル（折りたたみ） -->
+  <rect x="150" y="180" width="80" height="80" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="190" y="215" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <!-- 自己ループ -->
+  <path d="M 230 200 Q 250 180, 250 210 Q 250 240, 230 220" fill="none" stroke="#d97706" stroke-width="2" />
+  <polygon points="235,216 230,220 236,225" fill="#d97706" />
+
+  <!-- 入力 x -->
+  <text x="130" y="215" font-family="Arial, sans-serif" font-size="18" text-anchor="end" fill="#c2410c">x</text>
+  <line x1="135" y1="215" x2="150" y2="215" stroke="#c2410c" stroke-width="1.5" />
+  <polygon points="145,212 150,215 145,218" fill="#c2410c" />
+
+  <!-- 出力 h -->
+  <text x="250" y="215" font-family="Arial, sans-serif" font-size="18" text-anchor="start" fill="#c2410c">h</text>
+  <line x1="230" y1="215" x2="245" y2="215" stroke="#c2410c" stroke-width="1.5" />
+  <polygon points="240,212 245,215 240,218" fill="#c2410c" />
+
+  <!-- 右側：展開表現 -->
+  <rect x="350" y="100" width="400" height="200" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="550" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">時間的に展開した表現</text>
+
+  <!-- RNNセル（展開） -->
+  <rect x="390" y="180" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="420" y="210" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="520" y="180" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="550" y="210" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="650" y="180" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="680" y="210" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <!-- 入力 x_t -->
+  <text x="390" y="260" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#3b82f6">x₁</text>
+  <line x1="390" y1="240" x2="390" y2="255" stroke="#3b82f6" stroke-width="1.5" />
+  <polygon points="387,250 390,255 393,250" fill="#3b82f6" />
+
+  <text x="520" y="260" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#3b82f6">x₂</text>
+  <line x1="520" y1="240" x2="520" y2="255" stroke="#3b82f6" stroke-width="1.5" />
+  <polygon points="517,250 520,255 523,250" fill="#3b82f6" />
+
+  <text x="650" y="260" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#3b82f6">x₃</text>
+  <line x1="650" y1="240" x2="650" y2="255" stroke="#3b82f6" stroke-width="1.5" />
+  <polygon points="647,250 650,255 653,250" fill="#3b82f6" />
+
+  <!-- 出力 h_t -->
+  <text x="450" y="165" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#3b82f6">h₁</text>
+  <line x1="450" y1="180" x2="450" y2="170" stroke="#3b82f6" stroke-width="1.5" />
+  <polygon points="447,175 450,170 453,175" fill="#3b82f6" />
+
+  <text x="580" y="165" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#3b82f6">h₂</text>
+  <line x1="580" y1="180" x2="580" y2="170" stroke="#3b82f6" stroke-width="1.5" />
+  <polygon points="577,175 580,170 583,175" fill="#3b82f6" />
+
+  <text x="710" y="165" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#3b82f6">h₃</text>
+  <line x1="710" y1="180" x2="710" y2="170" stroke="#3b82f6" stroke-width="1.5" />
+  <polygon points="707,175 710,170 713,175" fill="#3b82f6" />
+
+  <!-- 隠れ状態の接続 -->
+  <line x1="450" y1="210" x2="520" y2="210" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="515,207 520,210 515,213" fill="#d97706" />
+
+  <line x1="580" y1="210" x2="650" y2="210" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="645,207 650,210 645,213" fill="#d97706" />
+
+  <text x="485" y="200" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#d97706">h₁</text>
+  <text x="615" y="200" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#d97706">h₂</text>
+
+  <!-- 初期隠れ状態 -->
+  <text x="350" y="210" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#3b82f6">h₀</text>
+  <line x1="355" y1="210" x2="390" y2="210" stroke="#3b82f6" stroke-width="1.5" />
+  <polygon points="385,207 390,210 385,213" fill="#3b82f6" />
+
+  <!-- 説明 -->
+  <rect x="100" y="330" width="600" height="50" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="355" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    RNNは内部状態（メモリ）を持ち、時間的に展開すると同じセルが異なる時間ステップで繰り返し使用される
+  </text>
+  <text x="400" y="375" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    各時間ステップでの出力は、現在の入力と前の時間ステップからの隠れ状態に依存する
+  </text>
+</svg>

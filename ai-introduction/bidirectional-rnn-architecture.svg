@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">双方向RNN/LSTMの構造</text>
+
+  <!-- 前向き層 -->
+  <rect x="100" y="100" width="600" height="80" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="130" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">前向き層 (Forward)</text>
+
+  <!-- 前向きRNNセル -->
+  <rect x="150" y="110" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="180" y="145" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="250" y="110" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="280" y="145" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="350" y="110" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="380" y="145" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="450" y="110" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="480" y="145" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="550" y="110" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="580" y="145" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <!-- 前向きの接続 -->
+  <line x1="210" y1="140" x2="250" y2="140" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="245,137 250,140 245,143" fill="#d97706" />
+
+  <line x1="310" y1="140" x2="350" y2="140" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="345,137 350,140 345,143" fill="#d97706" />
+
+  <line x1="410" y1="140" x2="450" y2="140" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="445,137 450,140 445,143" fill="#d97706" />
+
+  <line x1="510" y1="140" x2="550" y2="140" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="545,137 550,140 545,143" fill="#d97706" />
+
+  <!-- 後向き層 -->
+  <rect x="100" y="220" width="600" height="80" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="400" y="250" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">後向き層 (Backward)</text>
+
+  <!-- 後向きRNNセル -->
+  <rect x="150" y="230" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="180" y="265" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="250" y="230" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="280" y="265" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="350" y="230" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="380" y="265" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="450" y="230" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="480" y="265" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="550" y="230" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="580" y="265" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <!-- 後向きの接続 -->
+  <line x1="550" y1="260" x2="510" y2="260" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="515,263 510,260 515,257" fill="#d97706" />
+
+  <line x1="450" y1="260" x2="410" y2="260" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="415,263 410,260 415,257" fill="#d97706" />
+
+  <line x1="350" y1="260" x2="310" y2="260" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="315,263 310,260 315,257" fill="#d97706" />
+
+  <line x1="250" y1="260" x2="210" y2="260" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="215,263 210,260 215,257" fill="#d97706" />
+
+  <!-- 入力 -->
+  <text x="180" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#64748b">x₁</text>
+  <line x1="180" y1="170" x2="180" y2="185" stroke="#64748b" stroke-width="1" />
+  <polygon points="177,180 180,185 183,180" fill="#64748b" />
+
+  <text x="280" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#64748b">x₂</text>
+  <line x1="280" y1="170" x2="280" y2="185" stroke="#64748b" stroke-width="1" />
+  <polygon points="277,180 280,185 283,180" fill="#64748b" />
+
+  <text x="380" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#64748b">x₃</text>
+  <line x1="380" y1="170" x2="380" y2="185" stroke="#64748b" stroke-width="1" />
+  <polygon points="377,180 380,185 383,180" fill="#64748b" />
+
+  <text x="480" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#64748b">x₄</text>
+  <line x1="480" y1="170" x2="480" y2="185" stroke="#64748b" stroke-width="1" />
+  <polygon points="477,180 480,185 483,180" fill="#64748b" />
+
+  <text x="580" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#64748b">x₅</text>
+  <line x1="580" y1="170" x2="580" y2="185" stroke="#64748b" stroke-width="1" />
+  <polygon points="577,180 580,185 583,180" fill="#64748b" />
+
+  <!-- 後向き層への入力 -->
+  <line x1="180" y1="190" x2="180" y2="230" stroke="#64748b" stroke-width="1" />
+  <polygon points="177,225 180,230 183,225" fill="#64748b" />
+
+  <line x1="280" y1="190" x2="280" y2="230" stroke="#64748b" stroke-width="1" />
+  <polygon points="277,225 280,230 283,225" fill="#64748b" />
+
+  <line x1="380" y1="190" x2="380" y2="230" stroke="#64748b" stroke-width="1" />
+  <polygon points="377,225 380,230 383,225" fill="#64748b" />
+
+  <line x1="480" y1="190" x2="480" y2="230" stroke="#64748b" stroke-width="1" />
+  <polygon points="477,225 480,230 483,225" fill="#64748b" />
+
+  <line x1="580" y1="190" x2="580" y2="230" stroke="#64748b" stroke-width="1" />
+  <polygon points="577,225 580,230 583,225" fill="#64748b" />
+
+  <!-- 出力層 -->
+  <rect x="100" y="320" width="600" height="60" rx="10" fill="#fef9c3" stroke="#eab308" stroke-width="2" />
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#eab308">結合出力層</text>
+
+  <!-- 出力への接続 -->
+  <line x1="180" y1="170" x2="180" y2="320" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+  <line x1="180" y1="290" x2="180" y2="320" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,5" />
+
+  <line x1="280" y1="170" x2="280" y2="320" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+  <line x1="280" y1="290" x2="280" y2="320" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,5" />
+
+  <line x1="380" y1="170" x2="380" y2="320" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+  <line x1="380" y1="290" x2="380" y2="320" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,5" />
+
+  <line x1="480" y1="170" x2="480" y2="320" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+  <line x1="480" y1="290" x2="480" y2="320" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,5" />
+
+  <line x1="580" y1="170" x2="580" y2="320" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5,5" />
+  <line x1="580" y1="290" x2="580" y2="320" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,5" />
+
+  <!-- 説明テキスト -->
+  <rect x="100" y="385" width="600" height="15" rx="0" fill="none" />
+  <text x="400" y="395" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">
+    双方向RNNは前向き・後向きの両方から文脈を捉え、より豊かな表現を可能にします
+  </text>
+</svg>

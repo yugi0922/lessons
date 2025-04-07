@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <!-- 背景 -->
+  <rect width="800" height="300" fill="#f8f9fa" />
+
+  <!-- タイムライン本体 -->
+  <line x1="50" y1="150" x2="750" y2="150" stroke="#333" stroke-width="4" />
+
+  <!-- 時代区分1: ルールベースAI -->
+  <rect x="50" y="90" width="200" height="120" rx="10" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
+  <text x="150" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">ルールベースAIの時代</text>
+  <text x="150" y="145" font-family="Arial, sans-serif" font-size="14" text-anchor="middle"
+    fill="#c2410c">1950-1990年代</text>
+  <text x="150" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle"
+    fill="#c2410c">エキスパートシステム</text>
+  <text x="150" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle"
+    fill="#c2410c">人間が定義したルール</text>
+
+  <!-- 時代区分2: 機械学習 -->
+  <rect x="300" y="90" width="200" height="120" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1d4ed8">機械学習の時代</text>
+  <text x="400" y="145" font-family="Arial, sans-serif" font-size="14" text-anchor="middle"
+    fill="#1d4ed8">1990-2016年</text>
+  <text x="400" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle"
+    fill="#1d4ed8">ニューラルネットワーク</text>
+  <text x="400" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#1d4ed8">CNN,
+    RNN/LSTM</text>
+
+  <!-- 時代区分3: 生成AI -->
+  <rect x="550" y="90" width="200" height="120" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="650" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">生成AIの時代</text>
+  <text x="650" y="145" font-family="Arial, sans-serif" font-size="14" text-anchor="middle"
+    fill="#15803d">2017年-現在</text>
+  <text x="650" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#15803d">Transformer,
+    LLM</text>
+  <text x="650" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#15803d">ChatGPT,
+    DALL-E</text>
+
+  <!-- 主要イベント -->
+  <circle cx="100" cy="150" r="8" fill="#c2410c" />
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">チューリングテスト</text>
+  <text x="100" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">1950</text>
+
+  <circle cx="200" cy="150" r="8" fill="#c2410c" />
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">エキスパートシステム</text>
+  <text x="200" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">1970-80年代</text>
+
+  <circle cx="350" cy="150" r="8" fill="#1d4ed8" />
+  <text x="350" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">深層学習の台頭</text>
+  <text x="350" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">2006</text>
+
+  <circle cx="450" cy="150" r="8" fill="#1d4ed8" />
+  <text x="450" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">AlexNet画像認識</text>
+  <text x="450" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">2012</text>
+
+  <circle cx="600" cy="150" r="8" fill="#15803d" />
+  <text x="600" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">Transformer発表</text>
+  <text x="600" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">2017</text>
+
+  <circle cx="700" cy="150" r="8" fill="#15803d" />
+  <text x="700" y="180" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">ChatGPT登場</text>
+  <text x="700" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">2022</text>
+
+  <!-- タイトル -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AIの進化タイムライン：3つの時代</text>
+</svg>

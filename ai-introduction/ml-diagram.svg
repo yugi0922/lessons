@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">従来のプログラミングと機械学習の比較</text>
+
+  <!-- 左側: 従来のプログラミング -->
+  <rect x="50" y="100" width="300" height="350" rx="10" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="200" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">従来のプログラミング</text>
+
+  <!-- 右側: 機械学習 -->
+  <rect x="450" y="100" width="300" height="350" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="600" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">機械学習</text>
+
+  <!-- 従来のプログラミングのフロー -->
+  <rect x="100" y="170" width="200" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1" />
+  <text x="200" y="205" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">入力データ</text>
+
+  <rect x="100" y="260" width="200" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1" />
+  <text x="200" y="290" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">ルール</text>
+  <text x="200" y="310" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">(人間が設計)</text>
+
+  <rect x="100" y="350" width="200" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1" />
+  <text x="200" y="385" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">出力</text>
+
+  <!-- 従来のプログラミングの矢印 -->
+  <line x1="200" y1="230" x2="200" y2="260" stroke="#d97706" stroke-width="2" />
+  <polygon points="200,250 195,240 205,240" fill="#d97706" />
+
+  <line x1="200" y1="320" x2="200" y2="350" stroke="#d97706" stroke-width="2" />
+  <polygon points="200,340 195,330 205,330" fill="#d97706" />
+
+  <!-- 機械学習のフロー -->
+  <rect x="500" y="170" width="200" height="60" rx="5" fill="#e0f2fe" stroke="#0369a1" stroke-width="1" />
+  <text x="600" y="205" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">学習データ + ラベル</text>
+
+  <rect x="500" y="260" width="200" height="60" rx="5" fill="#e0f2fe" stroke="#0369a1" stroke-width="1" />
+  <text x="600" y="290" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">モデル</text>
+  <text x="600" y="310" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">(自動的に学習)</text>
+
+  <rect x="500" y="350" width="200" height="60" rx="5" fill="#e0f2fe" stroke="#0369a1" stroke-width="1" />
+  <text x="600" y="385" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">新データに対する予測</text>
+
+  <!-- 機械学習の矢印 -->
+  <line x1="600" y1="230" x2="600" y2="260" stroke="#0369a1" stroke-width="2" />
+  <polygon points="600,250 595,240 605,240" fill="#0369a1" />
+
+  <line x1="600" y1="320" x2="600" y2="350" stroke="#0369a1" stroke-width="2" />
+  <polygon points="600,340 595,330 605,330" fill="#0369a1" />
+
+  <!-- 特徴の比較 -->
+  <rect x="100" y="430" width="600" height="60" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <line x1="400" y1="430" x2="400" y2="490" stroke="#64748b" stroke-width="1" />
+
+  <text x="250" y="450" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">・人間がルールを明示的に定義</text>
+  <text x="250" y="470" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">・ドメイン知識を直接コード化</text>
+  <text x="250" y="490" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">・例外処理が複雑化しやすい</text>
+
+  <text x="550" y="450" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">・データからパターンを自動的に学習</text>
+  <text x="550" y="470" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">・明示的に記述困難な関係性も捉えられる</text>
+  <text x="550" y="490" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">・高品質なデータが必要</text>
+</svg>

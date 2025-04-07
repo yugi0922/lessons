@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">CNNの基本構造</text>
+
+  <!-- 入力画像 -->
+  <rect x="50" y="100" width="100" height="100" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="100" y="160" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">入力画像</text>
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="12" text-anchor="middle"
+    fill="#c2410c">224×224×3</text>
+
+  <!-- 畳み込み層1 -->
+  <rect x="180" y="110" width="80" height="80" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="220" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">畳み込み層</text>
+  <text x="220" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">+ReLU</text>
+
+  <!-- プーリング層1 -->
+  <rect x="290" y="120" width="60" height="60" rx="5" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="320" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">プーリング層</text>
+  <text x="320" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#22c55e">Max
+    Pool</text>
+
+  <!-- 畳み込み層2 -->
+  <rect x="380" y="110" width="80" height="80" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="420" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">畳み込み層</text>
+  <text x="420" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">+ReLU</text>
+
+  <!-- プーリング層2 -->
+  <rect x="490" y="120" width="60" height="60" rx="5" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="520" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">プーリング層</text>
+  <text x="520" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#22c55e">Max
+    Pool</text>
+
+  <!-- 全結合層 -->
+  <rect x="580" y="100" width="80" height="100" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="620" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">全結合層</text>
+  <text x="620" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle"
+    fill="#9333ea">Flatten</text>
+  <text x="620" y="180" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#9333ea">+Dense</text>
+
+  <!-- 出力層 -->
+  <rect x="690" y="110" width="60" height="80" rx="5" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="720" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">出力層</text>
+  <text x="720" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle"
+    fill="#ef4444">Softmax</text>
+
+  <!-- 接続線 -->
+  <line x1="150" y1="150" x2="180" y2="150" stroke="#333" stroke-width="1.5" />
+  <polygon points="170,150 180,145 180,155" fill="#333" />
+
+  <line x1="260" y1="150" x2="290" y2="150" stroke="#333" stroke-width="1.5" />
+  <polygon points="280,150 290,145 290,155" fill="#333" />
+
+  <line x1="350" y1="150" x2="380" y2="150" stroke="#333" stroke-width="1.5" />
+  <polygon points="370,150 380,145 380,155" fill="#333" />
+
+  <line x1="460" y1="150" x2="490" y2="150" stroke="#333" stroke-width="1.5" />
+  <polygon points="480,150 490,145 490,155" fill="#333" />
+
+  <line x1="550" y1="150" x2="580" y2="150" stroke="#333" stroke-width="1.5" />
+  <polygon points="570,150 580,145 580,155" fill="#333" />
+
+  <line x1="660" y1="150" x2="690" y2="150" stroke="#333" stroke-width="1.5" />
+  <polygon points="680,150 690,145 690,155" fill="#333" />
+
+  <!-- 畳み込み処理の説明 -->
+  <rect x="50" y="230" width="240" height="150" rx="5" fill="#fff7ed" stroke="#ea580c" stroke-width="1" />
+  <text x="170" y="250" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">畳み込み層の処理</text>
+
+  <!-- 入力特徴マップ -->
+  <rect x="70" y="270" width="60" height="60" rx="2" fill="#ffedd5" stroke="#c2410c" stroke-width="1" />
+  <text x="100" y="290" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">入力</text>
+  <text x="100" y="305" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">特徴マップ</text>
+
+  <!-- フィルタ -->
+  <rect x="150" y="280" width="30" height="30" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="165" y="295" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">フィルタ</text>
+  <text x="165" y="310" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">3×3</text>
+
+  <!-- 矢印 -->
+  <line x1="135" y1="295" x2="145" y2="295" stroke="#333" stroke-width="1" />
+  <polygon points="140,295 145,292 145,298" fill="#333" />
+
+  <!-- 出力特徴マップ -->
+  <rect x="200" y="275" width="50" height="50" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="225" y="290" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">出力</text>
+  <text x="225" y="305" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">特徴マップ</text>
+
+  <!-- 矢印 -->
+  <line x1="185" y1="295" x2="195" y2="295" stroke="#333" stroke-width="1" />
+  <polygon points="190,295 195,292 195,298" fill="#333" />
+
+  <text x="170" y="365" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">フィルタを画像全体に適用して</text>
+  <text x="170" y="380" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">特徴を抽出</text>
+
+  <!-- プーリング処理の説明 -->
+  <rect x="310" y="230" width="240" height="150" rx="5" fill="#ecfdf5" stroke="#10b981" stroke-width="1" />
+  <text x="430" y="250" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">プーリング層の処理</text>
+
+  <!-- 入力特徴マップ -->
+  <rect x="330" y="270" width="60" height="60" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <rect x="330" y="270" width="30" height="30" rx="0" fill="none" stroke="#64748b" stroke-width="0.5" />
+  <rect x="360" y="270" width="30" height="30" rx="0" fill="none" stroke="#64748b" stroke-width="0.5" />
+  <rect x="330" y="300" width="30" height="30" rx="0" fill="none" stroke="#64748b" stroke-width="0.5" />
+  <rect x="360" y="300" width="30" height="30" rx="0" fill="none" stroke="#64748b" stroke-width="0.5" />
+  <text x="338" y="285" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">1</text>
+  <text x="368" y="285" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">3</text>
+  <text x="338" y="315" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">2</text>
+  <text x="368" y="315" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">4</text>
+
+  <!-- 矢印 -->
+  <line x1="395" y1="295" x2="410" y2="295" stroke="#333" stroke-width="1" />
+  <polygon points="405,295 410,292 410,298" fill="#333" />
+
+  <!-- 出力特徴マップ -->
+  <rect x="420" y="280" width="30" height="30" rx="2" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="435" y="300" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">4</text>
+
+  <!-- Max Pooling テキスト -->
+  <text x="435" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Max Pooling</text>
+  <text x="435" y="345" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">最大値を選択</text>
+
+  <!-- 全結合層の説明 -->
+  <rect x="570" y="230" width="180" height="150" rx="5" fill="#faf5ff" stroke="#a855f7" stroke-width="1" />
+  <text x="660" y="250" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">全結合層と出力</text>
+
+  <rect x="590" y="270" width="50" height="70" rx="2" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+  <text x="615" y="290" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">特徴</text>
+  <text x="615" y="305" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">ベクトル</text>
+  <text x="615" y="320" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">変換</text>
+
+  <!-- 矢印 -->
+  <line x1="645" y1="295" x2="660" y2="295" stroke="#333" stroke-width="1" />
+  <polygon points="655,295 660,292 660,298" fill="#333" />
+
+  <rect x="670" y="280" width="50" height="50" rx="2" fill="#fee2e2" stroke="#ef4444" stroke-width="1" />
+  <text x="695" y="295" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">クラス</text>
+  <text x="695" y="310" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">確率</text>
+
+  <text x="660" y="355" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">特徴を分類に変換</text>
+  <text x="660" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">出力：クラスごとの確率</text>
+</svg>

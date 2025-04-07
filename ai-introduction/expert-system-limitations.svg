@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">エキスパートシステムの限界</text>
+
+  <!-- 中央のエキスパートシステムアイコン -->
+  <rect x="350" y="100" width="100" height="100" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="400" y="155" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">エキスパート</text>
+  <text x="400" y="175" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">システム</text>
+
+  <!-- 限界1: 知識獲得のボトルネック -->
+  <rect x="100" y="120" width="200" height="80" rx="10" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="200" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">知識獲得のボトルネック</text>
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">専門家の知識抽出と</text>
+  <text x="200" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">形式化の困難さ</text>
+  <line x1="300" y1="160" x2="350" y2="160" stroke="#c2410c" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="340,160 350,155 350,165" fill="#c2410c" />
+
+  <!-- 限界2: 柔軟性の欠如 -->
+  <rect x="100" y="250" width="200" height="80" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="200" y="280" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">柔軟性の欠如</text>
+  <text x="200" y="310" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">予期せぬ状況や例外への</text>
+  <text x="200" y="325" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">対応能力の低さ</text>
+  <line x1="300" y1="290" x2="370" y2="200" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="363,205 370,200 368,210" fill="#3b82f6" />
+
+  <!-- 限界3: スケーラビリティの問題 -->
+  <rect x="500" y="120" width="200" height="80" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="600" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">スケーラビリティの問題</text>
+  <text x="600" y="180" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">ルール数増加に伴う</text>
+  <text x="600" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">管理と性能の課題</text>
+  <line x1="500" y1="160" x2="450" y2="160" stroke="#22c55e" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="460,160 450,155 450,165" fill="#22c55e" />
+
+  <!-- 限界4: 不確実性への対応 -->
+  <rect x="500" y="250" width="200" height="80" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="600" y="280" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">不確実性への対応</text>
+  <text x="600" y="310" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">あいまいな情報や確率的</text>
+  <text x="600" y="325" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">判断の取り扱いが困難</text>
+  <line x1="500" y1="290" x2="430" y2="200" stroke="#9333ea" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="435,205 430,200 425,210" fill="#9333ea" />
+
+  <!-- 限界5: AIの冬の時代へ -->
+  <rect x="250" y="380" width="300" height="80" rx="10" fill="#fef9c3" stroke="#eab308" stroke-width="2" />
+  <text x="400" y="410" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">AIの冬の時代（1980年代後半〜）</text>
+  <text x="400" y="440" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">期待と現実のギャップによる研究投資の減少</text>
+  <line x1="400" y1="200" x2="400" y2="380" stroke="#eab308" stroke-width="2" stroke-dasharray="5,5" />
+  <polygon points="400,370 395,380 405,380" fill="#eab308" />
+</svg>

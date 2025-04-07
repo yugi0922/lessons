@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">バイアス・バリアンストレードオフ</text>
+
+  <!-- グラフの軸 -->
+  <line x1="100" y1="400" x2="700" y2="400" stroke="#333" stroke-width="2" />
+  <line x1="100" y1="400" x2="100" y2="100" stroke="#333" stroke-width="2" />
+
+  <!-- 軸ラベル -->
+  <text x="400" y="440" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">モデルの複雑さ</text>
+  <text x="50" y="250" font-family="Arial, sans-serif" font-size="16" text-anchor="middle"
+    transform="rotate(-90, 50, 250)">誤差</text>
+
+  <!-- バイアス曲線 -->
+  <path d="M 100 350 Q 200 300, 400 200 T 700 150" fill="none" stroke="#ef4444" stroke-width="3" />
+  <text x="700" y="140" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#ef4444">バイアス</text>
+
+  <!-- バリアンス曲線 -->
+  <path d="M 100 150 Q 200 200, 400 300 T 700 350" fill="none" stroke="#3b82f6" stroke-width="3" />
+  <text x="700" y="360" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#3b82f6">バリアンス</text>
+
+  <!-- 合計誤差曲線 -->
+  <path d="M 100 320 Q 150 300, 200 280 Q 300 250, 400 240 Q 500 250, 600 280 T 700 320" fill="none" stroke="#22c55e"
+    stroke-width="3" />
+  <text x="700" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="end" fill="#22c55e">合計誤差</text>
+
+  <!-- 最適点 -->
+  <circle cx="400" cy="240" r="8" fill="#22c55e" />
+  <line x1="400" y1="240" x2="400" y2="400" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <text x="400" y="230" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#22c55e">最適点</text>
+
+  <!-- 領域ラベル -->
+  <text x="200" y="100" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">過小適合(Under-fitting)</text>
+  <text x="600" y="100" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">過剰適合(Over-fitting)</text>
+
+  <!-- 説明 -->
+  <rect x="100" y="450" width="600" height="40" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="475" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    バイアスとバリアンスのトレードオフ関係によって、最適なモデルの複雑さが決まる
+  </text>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">ニューラルネットワークの基本構造</text>
+
+  <!-- 入力層 -->
+  <circle cx="150" cy="150" r="25" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="150" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">x₁</text>
+
+  <circle cx="150" cy="250" r="25" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="150" y="255" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">x₂</text>
+
+  <circle cx="150" cy="350" r="25" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="150" y="355" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">x₃</text>
+
+  <text x="150" cy="400" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">入力層</text>
+
+  <!-- 隠れ層 -->
+  <circle cx="400" cy="100" r="25" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="105" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">h₁</text>
+
+  <circle cx="400" cy="200" r="25" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="205" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">h₂</text>
+
+  <circle cx="400" cy="300" r="25" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="305" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">h₃</text>
+
+  <circle cx="400" cy="400" r="25" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="405" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">h₄</text>
+
+  <text x="400" cy="450" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">隠れ層</text>
+
+  <!-- 出力層 -->
+  <circle cx="650" cy="200" r="25" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="650" y="205" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">y₁</text>
+
+  <circle cx="650" cy="300" r="25" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="650" y="305" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">y₂</text>
+
+  <text x="650" cy="400" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">出力層</text>
+
+  <!-- 入力層から隠れ層への接続 -->
+  <line x1="175" y1="150" x2="375" y2="100" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="150" x2="375" y2="200" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="150" x2="375" y2="300" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="150" x2="375" y2="400" stroke="#64748b" stroke-width="1" />
+
+  <line x1="175" y1="250" x2="375" y2="100" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="250" x2="375" y2="200" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="250" x2="375" y2="300" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="250" x2="375" y2="400" stroke="#64748b" stroke-width="1" />
+
+  <line x1="175" y1="350" x2="375" y2="100" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="350" x2="375" y2="200" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="350" x2="375" y2="300" stroke="#64748b" stroke-width="1" />
+  <line x1="175" y1="350" x2="375" y2="400" stroke="#64748b" stroke-width="1" />
+
+  <!-- 隠れ層から出力層への接続 -->
+  <line x1="425" y1="100" x2="625" y2="200" stroke="#64748b" stroke-width="1" />
+  <line x1="425" y1="200" x2="625" y2="200" stroke="#64748b" stroke-width="1" />
+  <line x1="425" y1="300" x2="625" y2="200" stroke="#64748b" stroke-width="1" />
+  <line x1="425" y1="400" x2="625" y2="200" stroke="#64748b" stroke-width="1" />
+
+  <line x1="425" y1="100" x2="625" y2="300" stroke="#64748b" stroke-width="1" />
+  <line x1="425" y1="200" x2="625" y2="300" stroke="#64748b" stroke-width="1" />
+  <line x1="425" y1="300" x2="625" y2="300" stroke="#64748b" stroke-width="1" />
+  <line x1="425" y1="400" x2="625" y2="300" stroke="#64748b" stroke-width="1" />
+
+  <!-- 重みの例 -->
+  <text x="250" y="130" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">w₁₁</text>
+  <text x="275" y="230" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">w₂₂</text>
+  <text x="250" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">w₃₃</text>
+
+  <text x="530" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">w₁₁</text>
+  <text x="550" y="270" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">w₃₂</text>
+
+  <!-- 構造の説明 -->
+  <rect x="100" y="470" width="600" height="20" rx="5" fill="none" />
+  <text x="400" y="485" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    フィードフォワードニューラルネットワーク (3入力-4隠れノード-2出力)
+  </text>
+</svg>

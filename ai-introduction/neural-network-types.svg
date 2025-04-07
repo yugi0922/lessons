@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">ニューラルネットワークの発展形</text>
+
+  <!-- 通常のニューラルネットワーク -->
+  <rect x="50" y="80" width="200" height="170" rx="10" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="150" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">フィードフォワード</text>
+  <text x="150" y="130" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">ニューラルネットワーク</text>
+
+  <!-- 通常のNNの図 -->
+  <circle cx="90" cy="170" r="10" fill="#c2410c" />
+  <circle cx="90" cy="200" r="10" fill="#c2410c" />
+  <circle cx="90" cy="230" r="10" fill="#c2410c" />
+
+  <circle cx="150" cy="155" r="10" fill="#c2410c" />
+  <circle cx="150" cy="185" r="10" fill="#c2410c" />
+  <circle cx="150" cy="215" r="10" fill="#c2410c" />
+  <circle cx="150" cy="245" r="10" fill="#c2410c" />
+
+  <circle cx="210" cy="170" r="10" fill="#c2410c" />
+  <circle cx="210" cy="200" r="10" fill="#c2410c" />
+  <circle cx="210" cy="230" r="10" fill="#c2410c" />
+
+  <line x1="100" y1="170" x2="140" y2="155" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="170" x2="140" y2="185" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="170" x2="140" y2="215" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="170" x2="140" y2="245" stroke="#c2410c" stroke-width="1" />
+
+  <line x1="100" y1="200" x2="140" y2="155" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="200" x2="140" y2="185" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="200" x2="140" y2="215" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="200" x2="140" y2="245" stroke="#c2410c" stroke-width="1" />
+
+  <line x1="100" y1="230" x2="140" y2="155" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="230" x2="140" y2="185" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="230" x2="140" y2="215" stroke="#c2410c" stroke-width="1" />
+  <line x1="100" y1="230" x2="140" y2="245" stroke="#c2410c" stroke-width="1" />
+
+  <line x1="160" y1="155" x2="200" y2="170" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="155" x2="200" y2="200" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="155" x2="200" y2="230" stroke="#c2410c" stroke-width="1" />
+
+  <line x1="160" y1="185" x2="200" y2="170" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="185" x2="200" y2="200" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="185" x2="200" y2="230" stroke="#c2410c" stroke-width="1" />
+
+  <line x1="160" y1="215" x2="200" y2="170" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="215" x2="200" y2="200" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="215" x2="200" y2="230" stroke="#c2410c" stroke-width="1" />
+
+  <line x1="160" y1="245" x2="200" y2="170" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="245" x2="200" y2="200" stroke="#c2410c" stroke-width="1" />
+  <line x1="160" y1="245" x2="200" y2="230" stroke="#c2410c" stroke-width="1" />
+
+  <!-- CNN -->
+  <rect x="300" y="80" width="200" height="170" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">畳み込みニューラルネットワーク</text>
+  <text x="400" y="130" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">(CNN)</text>
+
+  <!-- CNNの図 -->
+  <rect x="330" y="150" width="40" height="40" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="350" y="175" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">入力</text>
+
+  <rect x="380" y="150" width="40" height="40" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="400" y="175" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">畳み込み</text>
+
+  <rect x="430" y="150" width="40" height="40" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="450" y="175" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">プーリング</text>
+
+  <circle cx="500" cy="150" r="10" fill="#3b82f6" />
+  <circle cx="500" cy="170" r="10" fill="#3b82f6" />
+  <circle cx="500" cy="190" r="10" fill="#3b82f6" />
+
+  <line x1="370" y1="170" x2="380" y2="170" stroke="#3b82f6" stroke-width="1" />
+  <line x1="420" y1="170" x2="430" y2="170" stroke="#3b82f6" stroke-width="1" />
+  <line x1="470" y1="170" x2="490" y2="170" stroke="#3b82f6" stroke-width="1" />
+
+  <!-- RNN -->
+  <rect x="550" y="80" width="200" height="170" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="650" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">再帰型ニューラルネットワーク</text>
+  <text x="650" y="130" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">(RNN/LSTM)</text>
+
+  <!-- RNNの図 -->
+  <rect x="600" y="170" width="40" height="40" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="620" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">A</text>
+
+  <path d="M 640 170 Q 660 160, 660 190 Q 660 220, 640 210" fill="none" stroke="#22c55e" stroke-width="1.5" />
+  <polygon points="645,205 640,210 645,215" fill="#22c55e" />
+
+  <line x1="580" y1="190" x2="600" y2="190" stroke="#22c55e" stroke-width="1.5" />
+  <polygon points="590,190 600,185 600,195" fill="#22c55e" />
+
+  <line x1="640" y1="190" x2="660" y2="190" stroke="#22c55e" stroke-width="1.5" />
+  <polygon points="650,190 660,185 660,195" fill="#22c55e" />
+
+  <!-- 説明テキスト -->
+  <rect x="50" y="270" width="200" height="200" rx="5" fill="#fff7ed" stroke="#ea580c" stroke-width="1" />
+  <text x="150" y="295" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">フィードフォワードNN</text>
+  <text x="150" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・基本的な多層構造</text>
+  <text x="150" y="345" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・全ての層が完全結合</text>
+  <text x="150" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・一方向の情報の流れ</text>
+  <text x="150" y="395" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・用途: 表形式データ分析</text>
+  <text x="150" y="420" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">　　　 シンプルな分類/回帰</text>
+  <text x="150" y="445" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・隣接ピクセル関係を考慮せず</text>
+
+  <rect x="300" y="270" width="200" height="200" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1" />
+  <text x="400" y="295" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">CNN</text>
+  <text x="400" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・局所的特徴を抽出するフィルタ</text>
+  <text x="400" y="345" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・パラメータ共有による効率化</text>
+  <text x="400" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・空間的階層構造を認識</text>
+  <text x="400" y="395" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・用途: 画像認識</text>
+  <text x="400" y="420" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">　　　 物体検出</text>
+  <text x="400" y="445" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">　　　 コンピュータビジョン</text>
+
+  <rect x="550" y="270" width="200" height="200" rx="5" fill="#ecfdf5" stroke="#10b981" stroke-width="1" />
+  <text x="650" y="295" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">RNN/LSTM</text>
+  <text x="650" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・内部状態を持つ（メモリ）</text>
+  <text x="650" y="345" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・時系列データの処理に適する</text>
+  <text x="650" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・LSTMは長期依存関係を捉える</text>
+  <text x="650" y="395" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・用途: 自然言語処理</text>
+  <text x="650" y="420" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">　　　 音声認識</text>
+  <text x="650" y="445" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">　　　 時系列予測</text>
+</svg>

@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">RNNとLSTMの比較</text>
+
+  <!-- 上部: RNN -->
+  <rect x="100" y="80" width="600" height="150" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="100" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">単純RNN</text>
+
+  <!-- RNNセル -->
+  <rect x="150" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="180" y="155" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="250" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="280" y="155" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="350" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="380" y="155" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="450" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="480" y="155" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="550" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="580" y="155" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <!-- 隠れ状態の接続 -->
+  <line x1="210" y1="150" x2="250" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="245,147 250,150 245,153" fill="#d97706" />
+
+  <line x1="310" y1="150" x2="350" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="345,147 350,150 345,153" fill="#d97706" />
+
+  <line x1="410" y1="150" x2="450" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="445,147 450,150 445,153" fill="#d97706" />
+
+  <line x1="510" y1="150" x2="550" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="545,147 550,150 545,153" fill="#d97706" />
+
+  <!-- 下部: LSTM -->
+  <rect x="100" y="260" width="600" height="190" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">LSTM</text>
+
+  <!-- LSTMセル -->
+  <rect x="150" y="300" width="60" height="100" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <circle cx="180" cy="325" r="15" fill="#ffedd5" stroke="#c2410c" stroke-width="1" />
+  <text x="180" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">f</text>
+  <circle cx="180" cy="355" r="15" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="180" y="360" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">i</text>
+  <circle cx="180" cy="385" r="15" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="180" y="390" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">o</text>
+
+  <rect x="250" y="300" width="60" height="100" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <circle cx="280" cy="325" r="15" fill="#ffedd5" stroke="#c2410c" stroke-width="1" />
+  <text x="280" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">f</text>
+  <circle cx="280" cy="355" r="15" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="280" y="360" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">i</text>
+  <circle cx="280" cy="385" r="15" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="280" y="390" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">o</text>
+
+  <rect x="350" y="300" width="60" height="100" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <circle cx="380" cy="325" r="15" fill="#ffedd5" stroke="#c2410c" stroke-width="1" />
+  <text x="380" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">f</text>
+  <circle cx="380" cy="355" r="15" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="380" y="360" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">i</text>
+  <circle cx="380" cy="385" r="15" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="380" y="390" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">o</text>
+
+  <rect x="450" y="300" width="60" height="100" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <circle cx="480" cy="325" r="15" fill="#ffedd5" stroke="#c2410c" stroke-width="1" />
+  <text x="480" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">f</text>
+  <circle cx="480" cy="355" r="15" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="480" y="360" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">i</text>
+  <circle cx="480" cy="385" r="15" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="480" y="390" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">o</text>
+
+  <rect x="550" y="300" width="60" height="100" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <circle cx="580" cy="325" r="15" fill="#ffedd5" stroke="#c2410c" stroke-width="1" />
+  <text x="580" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">f</text>
+  <circle cx="580" cy="355" r="15" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="580" y="360" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">i</text>
+  <circle cx="580" cy="385" r="15" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="580" y="390" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">o</text>
+
+  <!-- 隠れ状態の接続 -->
+  <line x1="210" y1="350" x2="250" y2="350" stroke="#9333ea" stroke-width="1.5" />
+  <polygon points="245,347 250,350 245,353" fill="#9333ea" />
+
+  <line x1="310" y1="350" x2="350" y2="350" stroke="#9333ea" stroke-width="1.5" />
+  <polygon points="345,347 350,350 345,353" fill="#9333ea" />
+
+  <line x1="410" y1="350" x2="450" y2="350" stroke="#9333ea" stroke-width="1.5" />
+  <polygon points="445,347 450,350 445,353" fill="#9333ea" />
+
+  <line x1="510" y1="350" x2="550" y2="350" stroke="#9333ea" stroke-width="1.5" />
+  <polygon points="545,347 550,350 545,353" fill="#9333ea" />
+
+  <!-- セル状態の接続 -->
+  <line x1="180" y1="300" x2="580" y2="300" stroke="#9333ea" stroke-width="3" />
+
+  <!-- 比較テーブル -->
+  <rect x="100" y="460" width="300" height="30" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="250" y="480" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">単純RNN</text>
+
+  <rect x="400" y="460" width="300" height="30" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="550" y="480" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">LSTM</text>
+
+  <text x="250" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・単純な構造</text>
+  <text x="250" y="450" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・短期的な依存関係のみ捉えられる</text>
+
+  <text x="550" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・複雑なゲート機構</text>
+  <text x="550" y="450" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">・長期的な依存関係を捉えられる</text>
+</svg>

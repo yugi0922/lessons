@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">RNNの勾配消失問題</text>
+
+  <!-- 展開したRNN -->
+  <rect x="100" y="80" width="600" height="120" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+
+  <!-- RNNセル -->
+  <rect x="150" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="180" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="250" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="280" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="350" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="380" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="450" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="480" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <rect x="550" y="120" width="60" height="60" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="580" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#d97706">A</text>
+
+  <!-- 隠れ状態の接続 -->
+  <line x1="210" y1="150" x2="250" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="245,147 250,150 245,153" fill="#d97706" />
+
+  <line x1="310" y1="150" x2="350" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="345,147 350,150 345,153" fill="#d97706" />
+
+  <line x1="410" y1="150" x2="450" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="445,147 450,150 445,153" fill="#d97706" />
+
+  <line x1="510" y1="150" x2="550" y2="150" stroke="#d97706" stroke-width="1.5" />
+  <polygon points="545,147 550,150 545,153" fill="#d97706" />
+
+  <!-- 勾配フロー -->
+  <path d="M 580 100 Q 550 90, 480 90 Q 380 90, 280 90 Q 180 90, 150 100" fill="none" stroke="#ef4444" stroke-width="2"
+    stroke-dasharray="5,5" />
+  <text x="180" y="85" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#ef4444">勾配フロー</text>
+
+  <!-- 勾配の大きさ -->
+  <circle cx="580" cy="100" r="10" fill="#ef4444" />
+  <circle cx="480" cy="90" r="8" fill="#ef4444" />
+  <circle cx="380" cy="90" r="6" fill="#ef4444" />
+  <circle cx="280" cy="90" r="4" fill="#ef4444" />
+  <circle cx="180" cy="90" r="2" fill="#ef4444" />
+
+  <!-- グラフ -->
+  <rect x="100" y="220" width="600" height="150" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="400" y="240" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">時間ステップとともに減少する勾配</text>
+
+  <!-- 座標軸 -->
+  <line x1="150" y1="320" x2="650" y2="320" stroke="#333" stroke-width="1.5" />
+  <text x="400" y="345" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">時間ステップ</text>
+
+  <line x1="150" y1="320" x2="150" y2="260" stroke="#333" stroke-width="1.5" />
+  <text x="130" y="290" font-family="Arial, sans-serif" font-size="14" text-anchor="middle"
+    transform="rotate(-90, 130, 290)">勾配の大きさ</text>
+
+  <!-- 勾配の減衰曲線 -->
+  <path d="M 150 270 Q 200 280, 250 290 Q 300 300, 350 305 Q 400 310, 450 315 Q 500 318, 550 319 Q 600 319.5, 650 320"
+    fill="none" stroke="#ef4444" stroke-width="2" />
+
+  <!-- 説明 -->
+  <rect x="100" y="380" width="600" height="15" rx="5" fill="none" />
+  <text x="400" y="390" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    長い時間依存関係を学習する際、勾配が指数関数的に小さくなり、学習が困難になる
+  </text>
+</svg>
