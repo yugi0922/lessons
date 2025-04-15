@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">音声・音楽生成AIの概要</text>
+
+  <!-- 音声合成 -->
+  <rect x="50" y="80" width="340" height="130" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="220" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">音声合成</text>
+
+  <text x="70" y="140" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• ElevenLabs:
+    高品質多言語音声合成</text>
+  <text x="70" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• Whisper (OpenAI):
+    高精度音声認識</text>
+  <text x="70" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• VALL-E (Microsoft):
+    少量サンプルから声を模倣</text>
+
+  <!-- 音楽生成 -->
+  <rect x="410" y="80" width="340" height="130" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="580" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">音楽生成</text>
+
+  <text x="430" y="140" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• Suno: テキストからの音楽・歌声生成</text>
+  <text x="430" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• MusicLM (Google):
+    テキスト指示から音楽創作</text>
+  <text x="430" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• AudioCraft (Meta):
+    音楽/効果音/環境音の生成</text>
+
+  <!-- 応用事例 -->
+  <rect x="50" y="230" width="700" height="120" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="260" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">主な応用事例</text>
+
+  <rect x="80" y="280" width="200" height="50" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="180" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">コンテンツ制作</text>
+  <text x="180" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">ポッドキャスト、ナレーション</text>
+
+  <rect x="300" y="280" width="200" height="50" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="400" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">アクセシビリティ</text>
+  <text x="400" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">読み上げ、字幕、翻訳</text>
+
+  <rect x="520" y="280" width="200" height="50" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="620" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">クリエイティブ制作</text>
+  <text x="620" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">音楽作曲、ゲーム/映像制作</text>
+
+  <!-- 説明テキスト -->
+  <rect x="50" y="360" width="700" height="30" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="380" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    音声・音楽生成AIは、2023年から急速に発展し、自然な音声合成や高品質な音楽生成が可能に
+  </text>
+</svg>

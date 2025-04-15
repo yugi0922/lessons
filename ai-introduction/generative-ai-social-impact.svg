@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">生成AIの社会的影響と課題</text>
+
+  <!-- 左側: ポジティブ影響 -->
+  <rect x="50" y="80" width="340" height="360" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="220" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">ポジティブな影響</text>
+
+  <rect x="70" y="130" width="300" height="60" rx="5" fill="#f0fdf4" stroke="#22c55e" stroke-width="1" />
+  <text x="220" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">生産性向上</text>
+  <text x="220" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">ルーティン作業の自動化と創造的業務の効率化</text>
+
+  <rect x="70" y="200" width="300" height="60" rx="5" fill="#f0fdf4" stroke="#22c55e" stroke-width="1" />
+  <text x="220" y="220" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">アクセシビリティ向上</text>
+  <text x="220" y="245" font-family="Arial, sans-serif" font-size="12"
+    text-anchor="middle">専門知識や技術がなくても高品質コンテンツ作成可能に</text>
+
+  <rect x="70" y="270" width="300" height="60" rx="5" fill="#f0fdf4" stroke="#22c55e" stroke-width="1" />
+  <text x="220" y="290" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">イノベーション促進</text>
+  <text x="220" y="315" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">新しいビジネスモデルと創造的手法の誕生</text>
+
+  <rect x="70" y="340" width="300" height="60" rx="5" fill="#f0fdf4" stroke="#22c55e" stroke-width="1" />
+  <text x="220" y="360" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">教育・学習の変革</text>
+  <text x="220" y="385" font-family="Arial, sans-serif" font-size="12"
+    text-anchor="middle">パーソナライズされた学習体験とリソースの拡大</text>
+
+  <!-- 右側: 課題と懸念 -->
+  <rect x="410" y="80" width="340" height="360" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="580" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">課題と懸念</text>
+
+  <rect x="430" y="130" width="300" height="60" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="580" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">倫理的・法的問題</text>
+  <text x="580" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">著作権、知的財産権、なりすまし、偽情報</text>
+
+  <rect x="430" y="200" width="300" height="60" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="580" y="220" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">雇用と労働市場への影響</text>
+  <text x="580" y="245" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">一部職種の自動化と新たなスキル要求の出現</text>
+
+  <rect x="430" y="270" width="300" height="60" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="580" y="290" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">プライバシーとセキュリティ</text>
+  <text x="580" y="315" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">データ利用の透明性と個人情報保護の課題</text>
+
+  <rect x="430" y="340" width="300" height="60" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="580" y="360" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">デジタルディバイドの拡大</text>
+  <text x="580" y="385" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">技術へのアクセス格差による不平等の可能性</text>
+
+  <!-- 説明テキスト -->
+  <rect x="50" y="450" width="700" height="40" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="470" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    生成AIは社会に多大な便益をもたらす一方、責任ある開発と利用のための
+  </text>
+  <text x="400" y="490" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    適切な規制枠組みと倫理的ガイドラインの整備が求められています
+  </text>
+</svg>
