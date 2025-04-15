@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">シーケンスモデルの進化</text>
+
+  <!-- 時間軸 -->
+  <line x1="100" y1="100" x2="700" y2="100" stroke="#64748b" stroke-width="2" />
+  <circle cx="150" cy="100" r="8" fill="#3b82f6" />
+  <circle cx="300" cy="100" r="8" fill="#22c55e" />
+  <circle cx="450" cy="100" r="8" fill="#9333ea" />
+  <circle cx="600" cy="100" r="8" fill="#ef4444" />
+
+  <text x="150" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2000年代前半</text>
+  <text x="300" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2014年頃</text>
+  <text x="450" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2017年</text>
+  <text x="600" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2018-現在</text>
+
+  <!-- RNN -->
+  <rect x="100" y="120" width="100" height="220" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="150" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">RNN/LSTM</text>
+
+  <rect x="120" y="160" width="60" height="60" rx="5" fill="#93c5fd" stroke="#3b82f6" stroke-width="1" />
+  <text x="150" y="195" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">A</text>
+
+  <path d="M 150 160 C 180 150, 180 170, 150 160" fill="none" stroke="#3b82f6" stroke-width="2" />
+  <polygon points="153,160 150,158 152,163" fill="#3b82f6" />
+
+  <text x="150" y="240" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">• 逐次処理</text>
+  <text x="150" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    長期依存問題</text>
+  <text x="150" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    並列処理困難</text>
+  <text x="150" y="300" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    勾配消失問題</text>
+  <text x="150" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    文脈理解に限界</text>
+
+  <!-- Seq2Seq with Attention -->
+  <rect x="250" y="120" width="100" height="220" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="300" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">Seq2Seq+</text>
+  <text x="300" y="165" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">Attention</text>
+
+  <rect x="260" y="180" width="35" height="35" rx="5" fill="#86efac" stroke="#22c55e" stroke-width="1" />
+  <text x="277" y="203" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">E</text>
+
+  <rect x="305" y="180" width="35" height="35" rx="5" fill="#86efac" stroke="#22c55e" stroke-width="1" />
+  <text x="322" y="203" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">D</text>
+
+  <line x1="277" y1="160" x2="322" y2="180" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="2,2" />
+  <line x1="282" y1="160" x2="320" y2="180" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="2,2" />
+
+  <text x="300" y="240" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    エンコーダ・</text>
+  <text x="300" y="255" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">
+    デコーダ構造</text>
+  <text x="300" y="275" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    注意機構の導入</text>
+  <text x="300" y="295" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    関連部分に</text>
+  <text x="300" y="310" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155"> 注目可能に</text>
+  <text x="300" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    依然RNNベース</text>
+
+  <!-- Transformer -->
+  <rect x="400" y="120" width="100" height="220" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="450" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">Transformer</text>
+
+  <rect x="420" y="170" width="60" height="60" rx="5" fill="#d8b4fe" stroke="#9333ea" stroke-width="1" />
+  <circle cx="450" cy="185" r="10" fill="#9333ea" />
+  <circle cx="430" cy="200" r="10" fill="#9333ea" />
+  <circle cx="470" cy="200" r="10" fill="#9333ea" />
+  <circle cx="450" cy="215" r="10" fill="#9333ea" />
+  <line x1="430" y1="200" x2="470" y2="200" stroke="#9333ea" stroke-width="1" />
+  <line x1="450" y1="185" x2="450" y2="215" stroke="#9333ea" stroke-width="1" />
+  <line x1="430" y1="200" x2="450" y2="185" stroke="#9333ea" stroke-width="1" />
+  <line x1="430" y1="200" x2="450" y2="215" stroke="#9333ea" stroke-width="1" />
+  <line x1="470" y1="200" x2="450" y2="185" stroke="#9333ea" stroke-width="1" />
+  <line x1="470" y1="200" x2="450" y2="215" stroke="#9333ea" stroke-width="1" />
+
+  <text x="450" y="250" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    自己注意機構</text>
+  <text x="450" y="270" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    RNNを排除</text>
+  <text x="450" y="290" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    並列計算可能</text>
+  <text x="450" y="310" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    長距離依存性</text>
+  <text x="450" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    大規模化に適合</text>
+
+  <!-- Pre-trained LLMs -->
+  <rect x="550" y="120" width="100" height="220" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="600" y="145" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">事前学習LLM</text>
+
+  <rect x="570" y="165" width="60" height="60" rx="5" fill="#fca5a5" stroke="#ef4444" stroke-width="1" />
+  <text x="600" y="200" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">GPT</text>
+  <text x="600" y="220" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">BERT</text>
+
+  <text x="600" y="250" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    自己回帰/マスク</text>
+  <text x="600" y="270" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    大規模コーパス</text>
+  <text x="600" y="290" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">• 転移学習</text>
+  <text x="600" y="310" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">•
+    数十億～数兆の</text>
+  <text x="600" y="325" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155"> パラメータ</text>
+
+  <!-- 進化の矢印 -->
+  <line x1="200" y1="225" x2="250" y2="225" stroke="#64748b" stroke-width="1.5" />
+  <polygon points="245,222 250,225 245,228" fill="#64748b" />
+
+  <line x1="350" y1="225" x2="400" y2="225" stroke="#64748b" stroke-width="1.5" />
+  <polygon points="395,222 400,225 395,228" fill="#64748b" />
+
+  <line x1="500" y1="225" x2="550" y2="225" stroke="#64748b" stroke-width="1.5" />
+  <polygon points="545,222 550,225 545,228" fill="#64748b" />
+
+  <!-- 説明テキスト -->
+  <rect x="100" y="350" width="600" height="40" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="375" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    Transformerの登場は、シーケンス処理に革命をもたらし、大規模言語モデル（LLM）への道を開きました
+  </text>
+</svg>

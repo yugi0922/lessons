@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">自己注意機構の仕組み</text>
+
+  <!-- 入力シーケンス -->
+  <rect x="50" y="80" width="700" height="60" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="115" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">入力シーケンス:
+    "人工知能の研究は進化している"</text>
+
+  <!-- 入力トークン -->
+  <rect x="100" y="150" width="80" height="40" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="140" y="175" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">人工</text>
+
+  <rect x="200" y="150" width="80" height="40" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="240" y="175" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">知能</text>
+
+  <rect x="300" y="150" width="80" height="40" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="340" y="175" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">の</text>
+
+  <rect x="400" y="150" width="80" height="40" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="440" y="175" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">研究</text>
+
+  <rect x="500" y="150" width="80" height="40" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="540" y="175" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">は</text>
+
+  <rect x="600" y="150" width="80" height="40" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="640" y="175" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">進化</text>
+
+  <!-- クエリ、キー、バリュー変換 -->
+  <rect x="100" y="210" width="80" height="30" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="140" y="230" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#3b82f6">Q</text>
+
+  <rect x="100" y="250" width="80" height="30" rx="5" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="140" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#22c55e">K</text>
+
+  <rect x="100" y="290" width="80" height="30" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+  <text x="140" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#9333ea">V</text>
+
+  <rect x="200" y="210" width="80" height="30" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="240" y="230" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#3b82f6">Q</text>
+
+  <rect x="200" y="250" width="80" height="30" rx="5" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="240" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#22c55e">K</text>
+
+  <rect x="200" y="290" width="80" height="30" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+  <text x="240" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#9333ea">V</text>
+
+  <rect x="400" y="210" width="80" height="30" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="440" y="230" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#3b82f6">Q</text>
+
+  <rect x="400" y="250" width="80" height="30" rx="5" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="440" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#22c55e">K</text>
+
+  <rect x="400" y="290" width="80" height="30" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+  <text x="440" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#9333ea">V</text>
+
+  <rect x="600" y="210" width="80" height="30" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="640" y="230" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#3b82f6">Q</text>
+
+  <rect x="600" y="250" width="80" height="30" rx="5" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="640" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#22c55e">K</text>
+
+  <rect x="600" y="290" width="80" height="30" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="1" />
+  <text x="640" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#9333ea">V</text>
+
+  <!-- 注意スコア計算の例 -->
+  <line x1="140" y1="330" x2="140" y2="350" stroke="#3b82f6" stroke-width="1" />
+  <line x1="240" y1="330" x2="240" y2="350" stroke="#22c55e" stroke-width="1" />
+  <line x1="140" y1="350" x2="240" y2="350" stroke="#64748b" stroke-width="1" />
+  <text x="190" y="345" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">Q·K^T</text>
+
+  <line x1="440" y1="330" x2="440" y2="350" stroke="#3b82f6" stroke-width="1" />
+  <line x1="640" y1="330" x2="640" y2="350" stroke="#22c55e" stroke-width="1" />
+  <line x1="440" y1="350" x2="640" y2="350" stroke="#64748b" stroke-width="1" />
+  <text x="545" y="345" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">Q·K^T</text>
+
+  <!-- 注意スコア行列 -->
+  <rect x="200" y="360" width="400" height="40" rx="5" fill="#fef9c3" stroke="#eab308" stroke-width="2" />
+  <text x="400" y="385" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#eab308">注意スコア行列（各単語間の関連度）</text>
+
+  <!-- 出力計算 -->
+  <rect x="200" y="410" width="400" height="30" rx="5" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">Attention(Q, K, V) = softmax(QK^T/√d_k)V</text>
+
+  <!-- 説明テキスト -->
+  <line x1="320" y1="200" x2="360" y2="200" stroke="none" />
+  <text x="350" y="205" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">...</text>
+  <line x1="520" y1="200" x2="560" y2="200" stroke="none" />
+  <text x="550" y="205" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#64748b">...</text>
+
+  <text x="190" y="265" font-family="Arial, sans-serif" font-size="10" text-anchor="end" fill="#3b82f6">Query:
+    「何について知りたいか」</text>
+  <text x="190" y="285" font-family="Arial, sans-serif" font-size="10" text-anchor="end" fill="#22c55e">Key:
+    「何を提供できるか」</text>
+  <text x="190" y="305" font-family="Arial, sans-serif" font-size="10" text-anchor="end" fill="#9333ea">Value:
+    「提供する情報」</text>
+</svg>
