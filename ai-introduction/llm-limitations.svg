@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <!-- 背景 -->
+  <rect width="800" height="550" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">LLMの主要な限界</text>
+
+  <!-- 左上: 事実の誤り -->
+  <rect x="50" y="80" width="340" height="120" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="220" y="105" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">幻覚（Hallucination）と事実の誤り</text>
+
+  <text x="70" y="130" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 存在しない情報の作り出し</text>
+  <text x="70" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 誤った事実や参照の生成</text>
+  <text x="70" y="180" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 自信を持って誤情報を提示</text>
+
+  <!-- 右上: 知識の制限 -->
+  <rect x="410" y="80" width="340" height="120" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="580" y="105" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">知識の制限</text>
+
+  <text x="430" y="130" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 学習データのカットオフ日以降の情報不足</text>
+  <text x="430" y="155" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 一部の専門分野での知識不足</text>
+  <text x="430" y="180" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• データの偏りによる知識の偏り</text>
+
+  <!-- 左中: 推論の限界 -->
+  <rect x="50" y="220" width="340" height="120" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="220" y="245" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">推論と思考の限界</text>
+
+  <text x="70" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 複雑な数学問題での計算ミス</text>
+  <text x="70" y="295" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 多段階推論での誤り蓄積</text>
+  <text x="70" y="320" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 論理的一貫性の維持困難</text>
+
+  <!-- 右中: 文脈理解の制約 -->
+  <rect x="410" y="220" width="340" height="120" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="580" y="245" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">文脈理解の制約</text>
+
+  <text x="430" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• コンテキストウィンドウの制限</text>
+  <text x="430" y="295" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 長文脈での情報統合の難しさ</text>
+  <text x="430" y="320" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 複雑な指示の誤解</text>
+
+  <!-- 左下: バイアスの問題 -->
+  <rect x="50" y="360" width="340" height="120" rx="10" fill="#fef9c3" stroke="#eab308" stroke-width="2" />
+  <text x="220" y="385" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#eab308">バイアスと倫理的問題</text>
+
+  <text x="70" y="410" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• トレーニングデータのバイアスの継承</text>
+  <text x="70" y="435" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• イデオロギー・文化的バイアス</text>
+  <text x="70" y="460" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 有害コンテンツ生成のリスク</text>
+
+  <!-- 右下: 技術的限界 -->
+  <rect x="410" y="360" width="340" height="120" rx="10" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="580" y="385" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">技術的・計算的限界</text>
+
+  <text x="430" y="410" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 膨大な計算資源とエネルギー消費</text>
+  <text x="430" y="435" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 真の理解なしのパターンマッチング</text>
+  <text x="430" y="460" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 自己認識・意識の欠如</text>
+
+  <!-- 説明テキスト -->
+  <rect x="50" y="500" width="700" height="40" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="525" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    LLMは多くの驚異的な能力を持つ一方で、根本的な限界も抱えており、
+    これらの限界を理解して適切に活用することが重要
+  </text>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">LLMの課題解決と将来展望</text>
+
+  <!-- 左側：課題と解決アプローチ -->
+  <rect x="50" y="80" width="340" height="370" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="220" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">主要課題と解決アプローチ</text>
+
+  <!-- 幻覚への対策 -->
+  <rect x="70" y="130" width="300" height="70" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="220" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">幻覚への対策</text>
+  <text x="220" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 検索拡張生成（RAG）</text>
+  <text x="220" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 外部知識ソース参照・ファクトチェック</text>
+
+  <!-- 推論強化 -->
+  <rect x="70" y="210" width="300" height="70" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="220" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">推論能力の強化</text>
+  <text x="220" y="255" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">•
+    Chain-of-Thought（思考の連鎖）</text>
+  <text x="220" y="275" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• ツール利用（計算機、コード実行など）</text>
+
+  <!-- 長文脈処理 -->
+  <rect x="70" y="290" width="300" height="70" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="220" y="310" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">長文脈処理</text>
+  <text x="220" y="335" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コンテキストウィンドウの拡大</text>
+  <text x="220" y="355" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 効率的な注意機構（Flash
+    Attentionなど）</text>
+
+  <!-- 安全性と倫理 -->
+  <rect x="70" y="370" width="300" height="70" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="220" y="390" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">安全性と倫理</text>
+  <text x="220" y="415" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">•
+    RLHF（人間フィードバックからの強化学習）</text>
+  <text x="220" y="435" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• バイアス低減のデータセット多様化</text>
+
+  <!-- 右側：未来の展望 -->
+  <rect x="410" y="80" width="340" height="370" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="580" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">将来展望</text>
+
+  <!-- マルチモーダル -->
+  <rect x="430" y="130" width="300" height="70" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="580" y="150" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">マルチモーダル統合</text>
+  <text x="580" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• テキスト・画像・音声・動画の統合理解</text>
+  <text x="580" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 複数感覚モダリティでの推論と生成</text>
+
+  <!-- エージェント化 -->
+  <rect x="430" y="210" width="300" height="70" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="580" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">AIエージェント</text>
+  <text x="580" y="255" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 自律的なタスク計画と実行</text>
+  <text x="580" y="275" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 環境とのインタラクションと適応</text>
+
+  <!-- 知識獲得 -->
+  <rect x="430" y="290" width="300" height="70" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="580" y="310" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">継続的知識獲得</text>
+  <text x="580" y="335" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 最新情報への自動アップデート</text>
+  <text x="580" y="355" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 知識グラフとの深い統合</text>
+
+  <!-- 社会的課題 -->
+  <rect x="430" y="370" width="300" height="70" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="580" y="390" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">社会的課題と共存</text>
+  <text x="580" y="415" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AI規制と倫理的ガイドラインの発展</text>
+  <text x="580" y="435" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 社会的インパクトの責任ある管理</text>
+
+  <!-- 説明テキスト -->
+  <rect x="50" y="460" width="700" height="30" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    LLMの限界を克服する技術的取り組みは急速に進展しており、次世代モデルの可能性を広げている
+  </text>
+</svg>

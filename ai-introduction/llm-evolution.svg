@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">大規模言語モデルの進化</text>
+
+  <!-- タイムライン -->
+  <line x1="100" y1="100" x2="700" y2="100" stroke="#64748b" stroke-width="2" />
+
+  <!-- タイムポイント -->
+  <circle cx="150" cy="100" r="8" fill="#c2410c" />
+  <circle cx="250" cy="100" r="8" fill="#2563eb" />
+  <circle cx="350" cy="100" r="8" fill="#9333ea" />
+  <circle cx="450" cy="100" r="8" fill="#16a34a" />
+  <circle cx="550" cy="100" r="8" fill="#ef4444" />
+  <circle cx="650" cy="100" r="8" fill="#9333ea" />
+
+  <text x="150" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2018</text>
+  <text x="250" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2019</text>
+  <text x="350" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2020</text>
+  <text x="450" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2022</text>
+  <text x="550" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2023</text>
+  <text x="650" y="85" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">2024</text>
+
+  <!-- GPTシリーズ -->
+  <rect x="110" y="120" width="80" height="120" rx="5" fill="#ffedd5" stroke="#c2410c" stroke-width="2" />
+  <text x="150" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">GPT-1</text>
+  <text x="150" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">117M</text>
+  <text x="150" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">パラメータ</text>
+  <text x="150" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">初の大規模</text>
+  <text x="150" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">事前学習LM</text>
+  <text x="150" y="230" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">OpenAI</text>
+
+  <rect x="210" y="120" width="80" height="120" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="2" />
+  <text x="250" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#2563eb">GPT-2</text>
+  <text x="250" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">1.5B</text>
+  <text x="250" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">パラメータ</text>
+  <text x="250" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">テキスト生成</text>
+  <text x="250" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">能力の向上</text>
+  <text x="250" y="230" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">OpenAI</text>
+
+  <rect x="310" y="120" width="80" height="170" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="350" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">GPT-3</text>
+  <text x="350" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">175B</text>
+  <text x="350" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">パラメータ</text>
+  <text x="350" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">「創発的能力」</text>
+  <text x="350" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">少ショット</text>
+  <text x="350" y="225" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">学習の実現</text>
+  <text x="350" y="245" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">基盤モデルの</text>
+  <text x="350" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">確立</text>
+  <text x="350" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">OpenAI</text>
+
+  <rect x="410" y="120" width="80" height="190" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="2" />
+  <text x="450" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#16a34a">ChatGPT</text>
+  <text x="450" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">GPT-3.5→4</text>
+  <text x="450" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">RLHF導入</text>
+  <text x="450" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">対話特化</text>
+  <text x="450" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">大衆普及</text>
+  <text x="450" y="225" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">1億ユーザー</text>
+  <text x="450" y="245" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">AIのメイン</text>
+  <text x="450" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">ストリームへ</text>
+  <text x="450" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">OpenAI</text>
+
+  <rect x="510" y="120" width="80" height="190" rx="5" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="550" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">GPT-4</text>
+  <text x="550" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">1.8T+?</text>
+  <text x="550" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">パラメータ</text>
+  <text x="550" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">マルチモーダル</text>
+  <text x="550" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">高度な推論</text>
+  <text x="550" y="225" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">専門知識</text>
+  <text x="550" y="245" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">LLMツール</text>
+  <text x="550" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">利用の拡大</text>
+  <text x="550" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">OpenAI</text>
+
+  <rect x="610" y="120" width="80" height="190" rx="5" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="650" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">Claude</text>
+  <text x="650" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Claude 3</text>
+  <text x="650" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Gemini</text>
+  <text x="650" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">最高の人間</text>
+  <text x="650" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">モデルへ</text>
+  <text x="650" y="230" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Anthropic</text>
+  <text x="650" y="245" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Google</text>
+  <text x="650" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">他社</text>
+
+  <!-- パラメータ規模の増加 -->
+  <polygon points="150,340 650,340 650,400 150,400" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="360" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">パラメータ数の急激な増加</text>
+
+  <circle cx="150" cy="380" r="2" fill="#c2410c" />
+  <text x="155" y="380" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#c2410c">117M</text>
+
+  <circle cx="180" cy="380" r="2" fill="#2563eb" />
+  <text x="185" y="380" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#2563eb">1.5B</text>
+
+  <circle cx="230" cy="380" r="3" fill="#9333ea" />
+  <text x="235" y="380" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#9333ea">175B</text>
+
+  <circle cx="400" cy="380" r="5" fill="#ef4444" />
+  <text x="410" y="380" font-family="Arial, sans-serif" font-size="10" text-anchor="start"
+    fill="#ef4444">500B-1T+</text>
+
+  <circle cx="550" cy="380" r="7" fill="#64748b" />
+  <text x="560" y="380" font-family="Arial, sans-serif" font-size="10" text-anchor="start" fill="#64748b">1T-10T+</text>
+
+  <!-- 説明テキスト -->
+  <rect x="100" y="410" width="600" height="30" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    6年間でパラメータ数は約1万倍に増加し、言語理解・生成能力は飛躍的に向上
+  </text>
+</svg>
