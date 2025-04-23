@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">主要なAI
+    APIプロバイダー比較</text>
+
+  <!-- OpenAI -->
+  <rect x="50" y="80" width="340" height="150" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="220" y="110" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#3b82f6">OpenAI API</text>
+
+  <text x="70" y="140" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• モデル: GPT-3.5/4, DALL-E,
+    Whisper</text>
+  <text x="70" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 強み: 高性能LLM、豊富な実績と事例</text>
+  <text x="70" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 料金: トークン単位の従量課金</text>
+  <text x="70" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 向いている用途:
+    対話型AI、コンテンツ生成</text>
+
+  <!-- Google AI -->
+  <rect x="410" y="80" width="340" height="150" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="580" y="110" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#22c55e">Google AI / Vertex AI</text>
+
+  <text x="430" y="140" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• モデル: Gemini, PaLM 2,
+    Imagen</text>
+  <text x="430" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 強み:
+    Google検索との連携、豊富なAI製品群</text>
+  <text x="430" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 料金: 階層型料金体系、無料枠あり</text>
+  <text x="430" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 向いている用途:
+    企業向け統合AIソリューション</text>
+
+  <!-- Anthropic -->
+  <rect x="50" y="250" width="340" height="150" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="220" y="280" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#9333ea">Anthropic Claude API</text>
+
+  <text x="70" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• モデル: Claude (Opus, Sonnet,
+    Haiku)</text>
+  <text x="70" y="335" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 強み: 安全性重視、長文脈処理、説明能力</text>
+  <text x="70" y="360" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 料金: 入出力トークン別の従量課金</text>
+  <text x="70" y="385" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 向いている用途:
+    長文書分析、企業向け安全対話</text>
+
+  <!-- Microsoft Azure AI -->
+  <rect x="410" y="250" width="340" height="150" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="580" y="280" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">Microsoft Azure AI</text>
+
+  <text x="430" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• モデル: GPT-4/3.5, DALL-E
+    (OpenAI連携)</text>
+  <text x="430" y="335" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 強み:
+    エンタープライズ向け機能、コンプライアンス</text>
+  <text x="430" y="360" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 料金:
+    企業向け契約オプション、SLA提供</text>
+  <text x="430" y="385" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 向いている用途:
+    企業システム統合、セキュリティ重視</text>
+
+  <!-- オープンソース/代替オプション -->
+  <rect x="50" y="420" width="700" height="130" rx="10" fill="#fef9c3" stroke="#eab308" stroke-width="2" />
+  <text x="400" y="450" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#eab308">オープンソース/代替オプション</text>
+
+  <text x="70" y="480" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• Hugging Face:
+    多様なオープンソースモデルへのAPIアクセス、自己ホスティング可能</text>
+  <text x="70" y="505" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• Replicate:
+    研究モデルの簡易APIホスティング、クラウド実行環境</text>
+  <text x="70" y="530" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• Ollama: ローカル実行のLLM
+    API、プライバシー重視、コスト削減</text>
+
+  <!-- 説明テキスト -->
+  <rect x="50" y="560" width="700" height="30" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="580" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#334155">
+    各プロバイダーはモデル性能、価格体系、特化機能、セキュリティなどの面で特徴が異なります
+  </text>
+</svg>
