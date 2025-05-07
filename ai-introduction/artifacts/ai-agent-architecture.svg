@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AIエージェントのアーキテクチャと応用</text>
+
+  <!-- 中央のLLMエンジン -->
+  <circle cx="400" cy="200" r="80" fill="#dcfce7" stroke="#22c55e" stroke-width="3" />
+  <text x="400" y="180" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#15803d">大規模言語</text>
+  <text x="400" y="205" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#15803d">モデル</text>
+  <text x="400" y="230" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#15803d">(LLM
+    Core)</text>
+
+  <!-- 左上: 計画と推論 -->
+  <rect x="100" y="80" width="160" height="100" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" />
+  <text x="180" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">計画と推論</text>
+  <text x="180" y="135" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• タスク分解</text>
+  <text x="180" y="155" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 優先順位付け</text>
+  <text x="180" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 意思決定</text>
+
+  <line x1="260" y1="130" x2="320" y2="170" stroke="#22c55e" stroke-width="2" />
+  <polygon points="315,167 320,170 317,175" fill="#22c55e" />
+
+  <!-- 右上: ツールとAPI連携 -->
+  <rect x="540" y="80" width="160" height="100" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" />
+  <text x="620" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">ツール統合</text>
+  <text x="620" y="135" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• APIアクセス</text>
+  <text x="620" y="155" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• データベース照会</text>
+  <text x="620" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 外部サービス連携</text>
+
+  <line x1="540" y1="130" x2="480" y2="170" stroke="#22c55e" stroke-width="2" />
+  <polygon points="480,165 480,170 485,170" fill="#22c55e" />
+
+  <!-- 左下: メモリと学習 -->
+  <rect x="100" y="300" width="160" height="100" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" />
+  <text x="180" y="330" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">メモリと学習</text>
+  <text x="180" y="355" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 対話履歴の保持</text>
+  <text x="180" y="375" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 体験からの学習</text>
+  <text x="180" y="395" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 長期記憶の構築</text>
+
+  <line x1="260" y1="330" x2="320" y2="230" stroke="#22c55e" stroke-width="2" />
+  <polygon points="317,235 320,230 323,235" fill="#22c55e" />
+
+  <!-- 右下: フィードバックと評価 -->
+  <rect x="540" y="300" width="160" height="100" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" />
+  <text x="620" y="330" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">自己評価</text>
+  <text x="620" y="355" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 結果の検証</text>
+  <text x="620" y="375" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 戦略の調整</text>
+  <text x="620" y="395" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 継続的な改善</text>
+
+  <line x1="540" y1="330" x2="480" y2="230" stroke="#22c55e" stroke-width="2" />
+  <polygon points="480,235 480,230 485,235" fill="#22c55e" />
+
+  <!-- 下部: Web開発への応用例 -->
+  <rect x="100" y="430" width="600" height="60" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="455" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">Web開発における応用例</text>
+  <text x="200" y="480" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">自動コード生成・テスト</text>
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">インテリジェントなCMS管理</text>
+  <text x="600" y="480" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">パーソナライズされたUI/UX設計</text>
+</svg>

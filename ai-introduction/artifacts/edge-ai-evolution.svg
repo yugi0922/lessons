@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">オンデバイスAI・エッジコンピューティングの進化</text>
+
+  <!-- クラウドからエッジへの移行図 -->
+  <rect x="100" y="80" width="180" height="120" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="190" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#b91c1c">クラウドAI</text>
+  <text x="190" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 高性能・大規模モデル</text>
+  <text x="190" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• レイテンシの問題</text>
+  <text x="190" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• プライバシー懸念</text>
+  <text x="190" y="185" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• インターネット接続必須</text>
+
+  <line x1="280" y1="140" x2="340" y2="140" stroke="#64748b" stroke-width="3" stroke-dasharray="10,5" />
+  <polygon points="335,135 340,140 335,145" fill="#64748b" />
+  <text x="310" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">進化</text>
+
+  <rect x="340" y="80" width="180" height="120" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+  <text x="430" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#b45309">ハイブリッドAI</text>
+  <text x="430" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 一部処理をデバイス側で</text>
+  <text x="430" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 軽量モデルの活用</text>
+  <text x="430" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 効率的なモデル圧縮</text>
+  <text x="430" y="185" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 部分的オフライン対応</text>
+
+  <line x1="520" y1="140" x2="580" y2="140" stroke="#64748b" stroke-width="3" stroke-dasharray="10,5" />
+  <polygon points="575,135 580,140 575,145" fill="#64748b" />
+
+  <rect x="580" y="80" width="180" height="120" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="670" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">エッジAI</text>
+  <text x="670" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 完全オンデバイス実行</text>
+  <text x="670" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 高速レスポンス</text>
+  <text x="670" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• プライバシー保護</text>
+  <text x="670" y="185" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• オフライン完全対応</text>
+
+  <!-- Web開発における応用図 -->
+  <rect x="100" y="240" width="680" height="240" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-width="2" />
+  <text x="440" y="270" font-family="Arial, sans-serif" font-size="18" font-weight="bold"
+    text-anchor="middle">Web開発におけるエッジAIの応用</text>
+
+  <!-- 応用1: ブラウザ内AI -->
+  <rect x="130" y="300" width="190" height="150" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="225" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">ブラウザ内AI</text>
+  <text x="225" y="350" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• WebGPU/WebGL活用</text>
+  <text x="225" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• Transformers.js</text>
+  <text x="225" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• リアルタイム言語処理</text>
+  <text x="225" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• オフライン対応Webアプリ</text>
+  <text x="225" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: WebLLM, WebGPT</text>
+
+  <!-- 応用2: PWA統合AI -->
+  <rect x="340" y="300" width="190" height="150" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="435" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">PWA統合AI</text>
+  <text x="435" y="350" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• ServiceWorker連携</text>
+  <text x="435" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• IndexedDBデータ分析</text>
+  <text x="435" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• バックグラウンド処理</text>
+  <text x="435" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• キャッシュ最適化</text>
+  <text x="435" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: ML対応PWA</text>
+
+  <!-- 応用3: WebAssembly AI -->
+  <rect x="550" y="300" width="190" height="150" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="645" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">WebAssembly AI</text>
+  <text x="645" y="350" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• ネイティブに近い性能</text>
+  <text x="645" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• C/C++/Rustモデル移植</text>
+  <text x="645" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• クロスプラットフォーム</text>
+  <text x="645" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• セキュアなサンドボックス</text>
+  <text x="645" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: Wasm ML, Tensor.js</text>
+</svg>

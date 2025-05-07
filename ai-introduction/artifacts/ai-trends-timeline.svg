@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AI技術トレンドの発展タイムライン</text>
+
+  <!-- タイムライン背景 -->
+  <line x1="100" y1="200" x2="700" y2="200" stroke="#d1d5db" stroke-width="6" />
+
+  <!-- タイムライン地点：現在 -->
+  <circle cx="350" cy="200" r="12" fill="#3b82f6" stroke="#1e40af" stroke-width="2" />
+  <text x="350" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">現在</text>
+  <text x="350" y="250" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">(2025)</text>
+
+  <!-- タイムライン地点：短期 -->
+  <circle cx="500" cy="200" r="10" fill="#a3e635" stroke="#65a30d" stroke-width="2" />
+  <text x="500" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#65a30d">短期</text>
+  <text x="500" y="250" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">(1-2年)</text>
+
+  <!-- タイムライン地点：中期 -->
+  <circle cx="650" cy="200" r="10" fill="#fbbf24" stroke="#b45309" stroke-width="2" />
+  <text x="650" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#b45309">中期</text>
+  <text x="650" y="250" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">(3-5年)</text>
+
+  <!-- タイムライン地点：最近 -->
+  <circle cx="200" cy="200" r="10" fill="#a78bfa" stroke="#7e22ce" stroke-width="2" />
+  <text x="200" y="230" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#7e22ce">最近</text>
+  <text x="200" y="250" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">(2023-2024)</text>
+
+  <!-- 最近のトレンド -->
+  <text x="200" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#7e22ce">最近確立したトレンド</text>
+  <text x="200" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• マルチモーダルAI (GPT-4V)</text>
+  <text x="200" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 基本的なRAG実装</text>
+  <text x="200" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AI開発者ツール</text>
+
+  <!-- 現在のトレンド -->
+  <text x="350" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">現在発展中のトレンド</text>
+  <text x="350" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AI Web開発の効率化</text>
+  <text x="350" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AIエージェントの実用化</text>
+  <text x="350" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• オンデバイスAIの拡大</text>
+
+  <!-- 短期的なトレンド -->
+  <text x="500" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#65a30d">短期的なトレンド</text>
+  <text x="500" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• Webブラウザ内LLM</text>
+  <text x="500" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AI駆動型UIの一般化</text>
+  <text x="500" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• マルチエージェントシステム</text>
+
+  <!-- 中期的なトレンド -->
+  <text x="650" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#b45309">中期的なトレンド</text>
+  <text x="650" y="125" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 完全没入型Web体験</text>
+  <text x="650" y="145" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 高度な自律型Webシステム</text>
+  <text x="650" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AIとWeb3/分散型Webの融合</text>
+
+  <!-- Web開発者への影響 -->
+  <rect x="100" y="280" width="600" height="100" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" />
+  <text x="400" y="310" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">Web開発者に求められるスキルの変化</text>
+
+  <text x="150" y="340" font-family="Arial, sans-serif" font-size="12" text-anchor="start">•
+    基本的なAI概念とプロンプトエンジニアリングの理解</text>
+  <text x="150" y="360" font-family="Arial, sans-serif" font-size="12" text-anchor="start">• APIとモデル統合のための技術スキル</text>
+  <text x="400" y="340" font-family="Arial, sans-serif" font-size="12" text-anchor="start">• データ構造とベクトルデータベースの知識</text>
+  <text x="400" y="360" font-family="Arial, sans-serif" font-size="12" text-anchor="start">• ユーザー体験デザインの再考</text>
+  <text x="650" y="340" font-family="Arial, sans-serif" font-size="12" text-anchor="end">• AIツールを活用した効率化能力</text>
+  <text x="650" y="360" font-family="Arial, sans-serif" font-size="12" text-anchor="end">• 倫理的配慮とアクセシビリティ</text>
+</svg>

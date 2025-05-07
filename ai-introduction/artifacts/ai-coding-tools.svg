@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AIコーディング支援ツールの進化</text>
+
+  <!-- タイムライン背景 -->
+  <line x1="100" y1="150" x2="700" y2="150" stroke="#d1d5db" stroke-width="6" />
+
+  <!-- タイムラインポイント1：単純コード補完 -->
+  <circle cx="150" cy="150" r="15" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="150" y="185" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#b91c1c">第1世代</text>
+  <text x="150" y="205" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">単純コード補完</text>
+
+  <!-- タイムラインポイント2：コンテキスト考慮型 -->
+  <circle cx="350" cy="150" r="15" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="350" y="185" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#b91c1c">第2世代</text>
+  <text x="350" y="205" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">コンテキスト考慮型</text>
+
+  <!-- タイムラインポイント3：対話型AI支援 -->
+  <circle cx="550" cy="150" r="15" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="550" y="185" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#b91c1c">第3世代</text>
+  <text x="550" y="205" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">対話型AI支援</text>
+
+  <!-- タイムラインポイント4：自律型開発 -->
+  <circle cx="700" cy="150" r="12" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3" />
+  <text x="700" y="185" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#b91c1c">将来</text>
+  <text x="700" y="205" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">自律型開発</text>
+
+  <!-- 第1世代の特徴 -->
+  <rect x="70" y="220" width="160" height="100" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="150" y="240" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">単純コード補完</text>
+  <text x="150" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• シンタックス補完</text>
+  <text x="150" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 単純なスニペット提案</text>
+  <text x="150" y="300" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 統計的パターン利用</text>
+  <text x="150" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: 初期のIDE機能</text>
+
+  <!-- 第2世代の特徴 -->
+  <rect x="270" y="220" width="160" height="100" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="350" y="240" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">コンテキスト考慮型</text>
+  <text x="350" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• プロジェクト全体考慮</text>
+  <text x="350" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 関数・クラス単位生成</text>
+  <text x="350" y="300" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コードの意図理解</text>
+  <text x="350" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: GitHub Copilot</text>
+
+  <!-- 第3世代の特徴 -->
+  <rect x="470" y="220" width="160" height="100" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="550" y="240" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">対話型AI支援</text>
+  <text x="550" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 自然言語での指示理解</text>
+  <text x="550" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 複雑なリファクタリング</text>
+  <text x="550" y="300" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• バグ理解と修正提案</text>
+  <text x="550" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: Cursor, Github Copilot
+    X</text>
+
+  <!-- 将来の展望 -->
+  <rect x="670" y="220" width="110" height="100" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="1"
+    stroke-dasharray="5,3" />
+  <text x="725" y="240" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">将来展望</text>
+  <text x="725" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 自律型開発</text>
+  <text x="725" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コード生成と</text>
+  <text x="725" y="295" font-family="Arial, sans-serif" font-size="12" text-anchor="middle"> テストの自動化</text>
+  <text x="725" y="315" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AIペアプロ</text>
+
+  <!-- 下部の主要ツール一覧 -->
+  <rect x="100" y="350" width="600" height="130" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="375" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">主要なAIコーディング支援ツール</text>
+
+  <!-- ツール群1 -->
+  <rect x="120" y="395" width="170" height="70" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="205" y="415" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">IDE統合型</text>
+  <text x="205" y="435" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">GitHub Copilot</text>
+  <text x="205" y="455" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Codeium, TabNine</text>
+
+  <!-- ツール群2 -->
+  <rect x="310" y="395" width="170" height="70" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="395" y="415" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">特化エディタ</text>
+  <text x="395" y="435" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Cursor, Replit
+    GhostWriter</text>
+  <text x="395" y="455" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">JetBrains AI,
+    CodeWhisperer</text>
+
+  <!-- ツール群3 -->
+  <rect x="500" y="395" width="170" height="70" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="585" y="415" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    text-anchor="middle">自律型開発支援</text>
+  <text x="585" y="435" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">GPT Engineer, Devin</text>
+  <text x="585" y="455" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">AutoDev, Aider</text>
+</svg>

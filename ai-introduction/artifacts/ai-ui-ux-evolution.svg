@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <!-- 背景 -->
+  <rect width="800" height="550" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AIによるUI/UXの進化</text>
+
+  <!-- 従来のUI -->
+  <rect x="50" y="100" width="200" height="150" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+  <text x="150" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#b45309">従来のUI</text>
+
+  <rect x="70" y="140" width="160" height="95" rx="5" fill="#fffbeb" />
+  <line x1="85" y1="155" x2="215" y2="155" stroke="#f59e0b" stroke-width="2" />
+  <rect x="85" y="165" width="130" height="15" rx="2" fill="#fcd34d" />
+  <rect x="85" y="190" width="130" height="15" rx="2" fill="#fcd34d" />
+  <rect x="85" y="215" width="50" height="15" rx="2" fill="#f59e0b" />
+
+  <text x="150" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• 静的なレイアウト</text>
+  <text x="150" y="290" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• 全ユーザー共通の体験</text>
+  <text x="150" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• 標準的な操作方法</text>
+
+  <!-- 現在のAI強化UI -->
+  <rect x="300" y="100" width="200" height="150" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">現在のAI強化UI</text>
+
+  <rect x="320" y="140" width="160" height="95" rx="5" fill="#eff6ff" />
+  <line x1="335" y1="155" x2="465" y2="155" stroke="#3b82f6" stroke-width="2" />
+  <rect x="335" y="165" width="130" height="15" rx="2" fill="#93c5fd" />
+
+  <rect x="335" y="190" width="15" height="15" rx="7.5" fill="#3b82f6" />
+  <text x="360" y="201" font-family="Arial, sans-serif" font-size="10" fill="#1e40af">AIアシスタント</text>
+
+  <rect x="335" y="215" width="50" height="15" rx="2" fill="#3b82f6" />
+
+  <text x="400" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• 部分的パーソナライズ</text>
+  <text x="400" y="290" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• AIレコメンデーション</text>
+  <text x="400" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• 簡易チャットサポート</text>
+
+  <!-- 次世代AI UI -->
+  <rect x="550" y="100" width="200" height="150" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="650" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">次世代AI UI</text>
+
+  <rect x="570" y="140" width="160" height="95" rx="5" fill="#f0fdf4" />
+  <!-- 会話型インターフェースの視覚化 -->
+  <rect x="585" y="165" width="130" height="55" rx="10" fill="#86efac" />
+  <text x="650" y="195" font-family="Arial, sans-serif" font-size="10" text-anchor="middle"
+    fill="#15803d">自然言語インターフェース</text>
+  <text x="650" y="210" font-family="Arial, sans-serif" font-size="10" text-anchor="middle"
+    fill="#15803d">「ページを要約して」</text>
+
+  <text x="650" y="270" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• 完全な自然言語操作</text>
+  <text x="650" y="290" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• コンテキスト認識UI</text>
+  <text x="650" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">• マルチモーダル相互作用</text>
+
+  <!-- 進化の矢印 -->
+  <line x1="250" y1="175" x2="300" y2="175" stroke="#64748b" stroke-width="3" />
+  <polygon points="295,170 300,175 295,180" fill="#64748b" />
+
+  <line x1="500" y1="175" x2="550" y2="175" stroke="#64748b" stroke-width="3" />
+  <polygon points="545,170 550,175 545,180" fill="#64748b" />
+
+  <!-- 主要UI革新の詳細 -->
+  <rect x="50" y="350" width="700" height="180" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-width="2" />
+  <text x="400" y="380" font-family="Arial, sans-serif" font-size="18" font-weight="bold"
+    text-anchor="middle">AI駆動の主要UI/UX革新</text>
+
+  <!-- 革新1: 会話型インターフェース -->
+  <rect x="80" y="400" width="200" height="110" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="180" y="425" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">会話型インターフェース</text>
+  <text x="180" y="450" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 自然言語によるWebサイト操作</text>
+  <text x="180" y="470" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 文脈を理解した応答と支援</text>
+  <text x="180" y="490" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 音声UIとチャットUIの融合</text>
+
+  <!-- 革新2: 予測型インターフェース -->
+  <rect x="300" y="400" width="200" height="110" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="400" y="425" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">予測型インターフェース</text>
+  <text x="400" y="450" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• ユーザー意図の先読み</text>
+  <text x="400" y="470" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 動的なUI要素の自動調整</text>
+  <text x="400" y="490" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コンテキスト認識型ナビゲーション</text>
+
+  <!-- 革新3: 没入型インターフェース -->
+  <rect x="520" y="400" width="200" height="110" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="620" y="425" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">没入型インターフェース</text>
+  <text x="620" y="450" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• AR/VR/MRとAIの統合</text>
+  <text x="620" y="470" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• ジェスチャー・視線認識</text>
+  <text x="620" y="490" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 感情認識と応答の調整</text>
+</svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AIツール導入戦略とベストプラクティス</text>
+
+  <!-- 左側: 導入ステップ -->
+  <rect x="50" y="80" width="300" height="300" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" />
+  <text x="200" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">AIツール導入ステップ</text>
+
+  <!-- ステップ1 -->
+  <rect x="70" y="130" width="260" height="50" rx="5" fill="#f0f9ff" stroke="#0284c7" stroke-width="1" />
+  <text x="100" y="160" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0284c7">1</text>
+  <text x="125" y="150" font-family="Arial, sans-serif" font-size="14" fill="#0284c7">ニーズと目標の特定</text>
+  <text x="125" y="170" font-family="Arial, sans-serif" font-size="12" fill="#0284c7">効率化したい作業と成功指標を明確に</text>
+
+  <!-- ステップ2 -->
+  <rect x="70" y="190" width="260" height="50" rx="5" fill="#f0f9ff" stroke="#0284c7" stroke-width="1" />
+  <text x="100" y="220" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0284c7">2</text>
+  <text x="125" y="210" font-family="Arial, sans-serif" font-size="14" fill="#0284c7">小規模な実験から始める</text>
+  <text x="125" y="230" font-family="Arial, sans-serif" font-size="12" fill="#0284c7">少人数チームでのPoC実施と効果測定</text>
+
+  <!-- ステップ3 -->
+  <rect x="70" y="250" width="260" height="50" rx="5" fill="#f0f9ff" stroke="#0284c7" stroke-width="1" />
+  <text x="100" y="280" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0284c7">3</text>
+  <text x="125" y="270" font-family="Arial, sans-serif" font-size="14" fill="#0284c7">ワークフロー統合</text>
+  <text x="125" y="290" font-family="Arial, sans-serif" font-size="12" fill="#0284c7">既存ツールとの連携と自動化の構築</text>
+
+  <!-- ステップ4 -->
+  <rect x="70" y="310" width="260" height="50" rx="5" fill="#f0f9ff" stroke="#0284c7" stroke-width="1" />
+  <text x="100" y="340" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0284c7">4</text>
+  <text x="125" y="330" font-family="Arial, sans-serif" font-size="14" fill="#0284c7">チーム全体への展開と教育</text>
+  <text x="125" y="350" font-family="Arial, sans-serif" font-size="12" fill="#0284c7">トレーニングと継続的なフィードバック</text>
+
+  <!-- 右側: ベストプラクティス -->
+  <rect x="450" y="80" width="300" height="300" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="600" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#ef4444">成功のためのベストプラクティス</text>
+
+  <!-- プラクティス1 -->
+  <rect x="470" y="130" width="260" height="60" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="490" y="155" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    fill="#ef4444">完全な自動化より人間中心設計</text>
+  <text x="490" y="175" font-family="Arial, sans-serif" font-size="12" fill="#ef4444">AIを代替ではなく補助ツールとして位置づけ</text>
+
+  <!-- プラクティス2 -->
+  <rect x="470" y="200" width="260" height="60" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="490" y="225" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    fill="#ef4444">プロンプトエンジニアリングの習得</text>
+  <text x="490" y="245" font-family="Arial, sans-serif" font-size="12" fill="#ef4444">効果的な指示方法をチーム内で共有・改善</text>
+
+  <!-- プラクティス3 -->
+  <rect x="470" y="270" width="260" height="60" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1" />
+  <text x="490" y="295" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+    fill="#ef4444">品質管理プロセスの確立</text>
+  <text x="490" y="315" font-family="Arial, sans-serif" font-size="12" fill="#ef4444">AIの出力を検証・修正する一貫した方法</text>
+
+  <!-- 下部: 課題と対策 -->
+  <rect x="50" y="400" width="700" height="180" rx="10" fill="#f0fdfa" stroke="#10b981" stroke-width="2" />
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#10b981">AIツール導入の課題と対策</text>
+
+  <!-- 左側の課題 -->
+  <rect x="80" y="450" width="300" height="110" rx="5" fill="#ecfdf5" stroke="#10b981" stroke-width="1" />
+  <text x="100" y="475" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#10b981">主な課題</text>
+  <text x="100" y="495" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• チームの抵抗感と変化への不安</text>
+  <text x="100" y="515" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• 出力の質と一貫性の維持</text>
+  <text x="100" y="535" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• セキュリティとプライバシーの懸念</text>
+  <text x="100" y="555" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• スキルセットの変化と再教育</text>
+
+  <!-- 右側の対策 -->
+  <rect x="420" y="450" width="300" height="110" rx="5" fill="#ecfdf5" stroke="#10b981" stroke-width="1" />
+  <text x="440" y="475" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#10b981">効果的な対策</text>
+  <text x="440" y="495" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• 早期からのチーム参加とフィードバック</text>
+  <text x="440" y="515" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• 明確なレビュープロセスと品質基準の設定</text>
+  <text x="440" y="535" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• 部分的導入とデータポリシーの透明化</text>
+  <text x="440" y="555" font-family="Arial, sans-serif" font-size="12" fill="#10b981">• 継続的な学習機会とスキルアップ支援</text>
+
+  <!-- 中央の矢印 -->
+  <line x1="380" y1="505" x2="420" y2="505" stroke="#10b981" stroke-width="2" />
+  <polygon points="415,500 420,505 415,510" fill="#10b981" />
+</svg>

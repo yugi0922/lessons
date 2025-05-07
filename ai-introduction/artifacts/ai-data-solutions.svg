@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AIデータソリューションと検索拡張生成(RAG)</text>
+
+  <!-- 左側: ベクトルデータベース -->
+  <rect x="50" y="80" width="280" height="180" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="190" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">ベクトルデータベース</text>
+  <text x="70" y="140" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• テキストをベクトル化して格納</text>
+  <text x="70" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 意味的類似性による検索</text>
+  <text x="70" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 高速なニアレストネイバー検索</text>
+  <text x="70" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• スケーラブルな設計</text>
+  <text x="70" y="240" font-family="Arial, sans-serif" font-size="14" text-anchor="start">例: Pinecone, Weaviate,
+    Milvus</text>
+
+  <!-- 右側: RAGアーキテクチャ -->
+  <rect x="470" y="80" width="280" height="180" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="610" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#7e22ce">検索拡張生成 (RAG)</text>
+  <text x="490" y="140" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• LLMに外部知識を提供</text>
+  <text x="490" y="165" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 最新情報でAI応答を強化</text>
+  <text x="490" y="190" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• 幻覚の低減と事実の正確性向上</text>
+  <text x="490" y="215" font-family="Arial, sans-serif" font-size="14" text-anchor="start">• ドメイン固有知識の活用</text>
+  <text x="490" y="240" font-family="Arial, sans-serif" font-size="14" text-anchor="start">例: LlamaIndex,
+    LangChain</text>
+
+  <!-- 中央の矢印 -->
+  <line x1="330" y1="170" x2="470" y2="170" stroke="#64748b" stroke-width="2" stroke-dasharray="10,5" />
+  <polygon points="465,165 470,170 465,175" fill="#64748b" />
+  <text x="400" y="160" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">統合</text>
+
+  <!-- 下部: Web開発での活用例 -->
+  <rect x="50" y="290" width="700" height="180" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-width="2" />
+  <text x="400" y="320" font-family="Arial, sans-serif" font-size="18" font-weight="bold"
+    text-anchor="middle">Web開発における活用例</text>
+
+  <!-- 活用例1 -->
+  <rect x="80" y="340" width="200" height="110" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="180" y="365" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">スマートドキュメント検索</text>
+  <text x="180" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 自然言語でのドキュメント検索</text>
+  <text x="180" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 意味に基づく関連情報表示</text>
+  <text x="180" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 文脈を理解した回答生成</text>
+
+  <!-- 活用例2 -->
+  <rect x="300" y="340" width="200" height="110" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="400" y="365" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">インテリジェントCMS</text>
+  <text x="400" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コンテンツの自動タグ付け</text>
+  <text x="400" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 関連コンテンツのスマート推奨</text>
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 質問応答システム統合</text>
+
+  <!-- 活用例3 -->
+  <rect x="520" y="340" width="200" height="110" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="620" y="365" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle"
+    fill="#0284c7">パーソナライズドUI</text>
+  <text x="620" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• ユーザー行動ベースの推奨</text>
+  <text x="620" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 動的コンテンツ生成</text>
+  <text x="620" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コンテキスト認識インターフェース</text>
+</svg>

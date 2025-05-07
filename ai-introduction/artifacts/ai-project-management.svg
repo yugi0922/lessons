@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">AIによるプロジェクト管理の効率化</text>
+
+  <!-- 要件分析・計画 -->
+  <rect x="100" y="80" width="280" height="150" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+  <text x="240" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#b45309">要件分析・プロジェクト計画</text>
+  
+  <rect x="120" y="120" width="240" height="90" rx="5" fill="#fffbeb" />
+  <text x="140" y="140" font-family="Arial, sans-serif" font-size="12">• ユーザーストーリー自動生成</text>
+  <text x="140" y="160" font-family="Arial, sans-serif" font-size="12">• タスク分解と優先順位付け</text>
+  <text x="140" y="180" font-family="Arial, sans-serif" font-size="12">• リスク分析と緩和策提案</text>
+  <text x="140" y="200" font-family="Arial, sans-serif" font-size="12">例: ChatGPT, Linear AI, Jira AI</text>
+
+  <!-- ドキュメント自動生成 -->
+  <rect x="420" y="80" width="280" height="150" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+  <text x="560" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#b45309">ドキュメント自動生成</text>
+  
+  <rect x="440" y="120" width="240" height="90" rx="5" fill="#fffbeb" />
+  <text x="460" y="140" font-family="Arial, sans-serif" font-size="12">• 仕様書・API文書の自動作成</text>
+  <text x="460" y="160" font-family="Arial, sans-serif" font-size="12">• コードからのドキュメント生成</text>
+  <text x="460" y="180" font-family="Arial, sans-serif" font-size="12">• ユーザーガイド・マニュアル作成</text>
+  <text x="460" y="200" font-family="Arial, sans-serif" font-size="12">例: Mintlify, Documatic, GitBook AI</text>
+
+  <!-- 進捗管理・分析 -->
+  <rect x="100" y="250" width="280" height="150" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+  <text x="240" y="275" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#b45309">進捗管理・分析</text>
+  
+  <rect x="120" y="290" width="240" height="90" rx="5" fill="#fffbeb" />
+  <text x="140" y="310" font-family="Arial, sans-serif" font-size="12">• プロジェクト進捗の自動追跡</text>
+  <text x="140" y="330" font-family="Arial, sans-serif" font-size="12">• ボトルネックとリスクの早期検出</text>
+  <text x="140" y="350" font-family="Arial, sans-serif" font-size="12">• チームメンバーの負荷分析</text>
+  <text x="140" y="370" font-family="Arial, sans-serif" font-size="12">例: Forecast.app, ClickUp AI</text>
+
+  <!-- コミュニケーション支援 -->
+  <rect x="420" y="250" width="280" height="150" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+  <text x="560" y="275" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#b45309">コミュニケーション支援</text>
+  
+  <rect x="440" y="290" width="240" height="90" rx="5" fill="#fffbeb" />
+  <text x="460" y="310" font-family="Arial, sans-serif" font-size="12">• 会議録の自動作成</text>
+  <text x="460" y="330" font-family="Arial, sans-serif" font-size="12">• デイリーアップデートの自動要約</text>
+  <text x="460" y="350" font-family="Arial, sans-serif" font-size="12">• ステークホルダー報告書の生成</text>
+  <text x="460" y="370" font-family="Arial, sans-serif" font-size="12">例: Otter.ai, Fireflies, Fathom</text>
+
+  <!-- 下部の効果概要 -->
+  <rect x="100" y="420" width="600" height="60" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="450" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1e40af">効果: 管理作業の40%削減・チーム連携強化・透明性向上</text>
+
+  <!-- 矢印 -->
+  <line x1="380" y1="150" x2="420" y2="150" stroke="#f59e0b" stroke-width="2" />
+  <polygon points="415,145 420,150 415,155" fill="#f59e0b" />
+  
+  <line x1="380" y1="320" x2="420" y2="320" stroke="#f59e0b" stroke-width="2" />
+  <polygon points="415,315 420,320 415,325" fill="#f59e0b" />
+</svg>

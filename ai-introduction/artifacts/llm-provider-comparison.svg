@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">主要 LLM
+    プロバイダーの比較</text>
+
+  <!-- テーブルヘッダー -->
+  <rect x="50" y="70" width="180" height="50" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="140" y="100" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">プロバイダー</text>
+
+  <rect x="230" y="70" width="120" height="50" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="290" y="100" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">コスト</text>
+
+  <rect x="350" y="70" width="120" height="50" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="410" y="100" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">文脈長</text>
+
+  <rect x="470" y="70" width="130" height="50" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="535" y="100" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">特徴的な強み</text>
+
+  <rect x="600" y="70" width="150" height="50" fill="#dbeafe" stroke="#3b82f6" stroke-width="1" />
+  <text x="675" y="100" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">最適なユースケース</text>
+
+  <!-- OpenAI -->
+  <rect x="50" y="120" width="180" height="80" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="140" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">OpenAI</text>
+  <text x="140" y="175" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">GPT-3.5 / GPT-4</text>
+
+  <rect x="230" y="120" width="120" height="80" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="290" y="150" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">中～高</text>
+  <text x="290" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">$0.5~$30/百万トークン</text>
+
+  <rect x="350" y="120" width="120" height="80" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="410" y="150" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">4K～128K</text>
+  <text x="410" y="175" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">モデルによる</text>
+
+  <rect x="470" y="120" width="130" height="80" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="535" y="140" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 汎用性の高さ</text>
+  <text x="535" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• ツール使用能力</text>
+  <text x="535" y="180" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 豊富なエコシステム</text>
+
+  <rect x="600" y="120" width="150" height="80" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" />
+  <text x="675" y="140" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• エンタープライズアプリ</text>
+  <text x="675" y="160" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 多機能チャットボット</text>
+  <text x="675" y="180" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• プログラミング支援</text>
+
+  <!-- Anthropic -->
+  <rect x="50" y="200" width="180" height="80" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="140" y="230" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">Anthropic</text>
+  <text x="140" y="255" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Claude (Sonnet/Opus)</text>
+
+  <rect x="230" y="200" width="120" height="80" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="290" y="230" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">中～高</text>
+  <text x="290" y="255" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">$3~$15/百万トークン</text>
+
+  <rect x="350" y="200" width="120" height="80" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="410" y="230" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">100K～200K</text>
+  <text x="410" y="255" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">業界最長級</text>
+
+  <rect x="470" y="200" width="130" height="80" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="535" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 長文脈処理</text>
+  <text x="535" y="240" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 安全性・説明能力</text>
+  <text x="535" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 詳細かつ正確な応答</text>
+
+  <rect x="600" y="200" width="150" height="80" fill="#f5f3ff" stroke="#9333ea" stroke-width="1" />
+  <text x="675" y="220" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 長文書の分析・要約</text>
+  <text x="675" y="240" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 教育・説明コンテンツ</text>
+  <text x="675" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 規制産業での利用</text>
+
+  <!-- Google AI -->
+  <rect x="50" y="280" width="180" height="80" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="140" y="310" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Google
+    AI</text>
+  <text x="140" y="335" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Gemini (Pro/Ultra)</text>
+
+  <rect x="230" y="280" width="120" height="80" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="290" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">中</text>
+  <text x="290" y="335" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">$0.5~$10/百万トークン</text>
+
+  <rect x="350" y="280" width="120" height="80" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="410" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">32K～128K</text>
+  <text x="410" y="335" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">モデルによる</text>
+
+  <rect x="470" y="280" width="130" height="80" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="535" y="300" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• Google製品との統合</text>
+  <text x="535" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• マルチモーダル機能</text>
+  <text x="535" y="340" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• クラウド環境統合</text>
+
+  <rect x="600" y="280" width="150" height="80" fill="#dcfce7" stroke="#22c55e" stroke-width="1" />
+  <text x="675" y="300" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• Google製品利用者</text>
+  <text x="675" y="320" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• エンタープライズ向け</text>
+  <text x="675" y="340" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• データ分析との連携</text>
+
+  <!-- Mistral AI -->
+  <rect x="50" y="360" width="180" height="80" fill="#fee2e2" stroke="#ef4444" stroke-width="1" />
+  <text x="140" y="390" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Mistral
+    AI</text>
+  <text x="140" y="415" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Mistral/Mixtral</text>
+
+  <rect x="230" y="360" width="120" height="80" fill="#fee2e2" stroke="#ef4444" stroke-width="1" />
+  <text x="290" y="390" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">低～中</text>
+  <text x="290" y="415" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">$0.2~$2/百万トークン</text>
+
+  <rect x="350" y="360" width="120" height="80" fill="#fee2e2" stroke="#ef4444" stroke-width="1" />
+  <text x="410" y="390" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">8K～32K</text>
+  <text x="410" y="415" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">一部オープンソース</text>
+
+  <rect x="470" y="360" width="130" height="80" fill="#fee2e2" stroke="#ef4444" stroke-width="1" />
+  <text x="535" y="380" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コスト効率</text>
+  <text x="535" y="400" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• セルフホスト可能</text>
+  <text x="535" y="420" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 柔軟な利用条件</text>
+
+  <rect x="600" y="360" width="150" height="80" fill="#fee2e2" stroke="#ef4444" stroke-width="1" />
+  <text x="675" y="380" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• スタートアップ</text>
+  <text x="675" y="400" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 予算優先のプロジェクト</text>
+  <text x="675" y="420" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 内部開発・実験</text>
+
+  <!-- Microsoft Azure OpenAI -->
+  <rect x="50" y="440" width="180" height="80" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="140" y="470" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+    text-anchor="middle">Microsoft</text>
+  <text x="140" y="495" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Azure OpenAI</text>
+
+  <rect x="230" y="440" width="120" height="80" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="290" y="470" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">中～高</text>
+  <text x="290" y="495" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">OpenAIと同等+α</text>
+
+  <rect x="350" y="440" width="120" height="80" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="410" y="470" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">4K～128K</text>
+  <text x="410" y="495" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">OpenAIと同等</text>
+
+  <rect x="470" y="440" width="130" height="80" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="535" y="460" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• エンタープライズ統合</text>
+  <text x="535" y="480" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コンプライアンス</text>
+  <text x="535" y="500" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• SLA保証</text>
+
+  <rect x="600" y="440" width="150" height="80" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+  <text x="675" y="460" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 企業向けソリューション</text>
+  <text x="675" y="480" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• Microsoft製品利用者</text>
+  <text x="675" y="500" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 規制対象業界</text>
+
+  <!-- 注釈 -->
+  <rect x="50" y="540" width="700" height="40" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="1" />
+  <text x="400" y="565" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#334155">
+    ※ コストや機能は常に変化しています。最新情報は各プロバイダーの公式サイトでご確認ください。(料金は2025年5月時点の概算)
+  </text>
+</svg>

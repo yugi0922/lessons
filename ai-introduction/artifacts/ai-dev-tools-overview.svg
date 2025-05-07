@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AIツールによる開発効率化の全体像</text>
+
+  <!-- 中央のWeb開発者ノード -->
+  <circle cx="400" cy="200" r="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="3" />
+  <text x="400" y="190" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">Web</text>
+  <text x="400" y="215" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">開発者</text>
+
+  <!-- コーディング支援 -->
+  <rect x="100" y="80" width="180" height="120" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="190" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#b91c1c">コーディング支援</text>
+  <text x="190" y="130" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• コード生成・補完</text>
+  <text x="190" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• リファクタリング支援</text>
+  <text x="190" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• バグ検出・修正</text>
+  <text x="190" y="190" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: GitHub Copilot,
+    Codeium</text>
+
+  <line x1="240" y1="200" x2="340" y2="200" stroke="#ef4444" stroke-width="2" />
+  <polygon points="335,195 340,200 335,205" fill="#ef4444" />
+
+  <!-- デザイン支援 -->
+  <rect x="520" y="80" width="180" height="120" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="610" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">デザイン支援</text>
+  <text x="610" y="130" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• UIコンポーネント生成</text>
+  <text x="610" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• モックアップからコード</text>
+  <text x="610" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• デザインアイデア発想</text>
+  <text x="610" y="190" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: Figma AI,
+    MidJourney</text>
+
+  <line x1="520" y1="200" x2="460" y2="200" stroke="#22c55e" stroke-width="2" />
+  <polygon points="465,205 460,200 465,195" fill="#22c55e" />
+
+  <!-- テスト・デバッグ -->
+  <rect x="100" y="280" width="180" height="120" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="190" y="305" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#7e22ce">テスト・デバッグ</text>
+  <text x="190" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• テストケース自動生成</text>
+  <text x="190" y="350" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• エラー解析・修正提案</text>
+  <text x="190" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 性能最適化提案</text>
+  <text x="190" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: Waldo, GPTEngineer</text>
+
+  <line x1="240" y1="280" x2="350" y2="240" stroke="#9333ea" stroke-width="2" />
+  <polygon points="346,244 350,240 348,245" fill="#9333ea" />
+
+  <!-- プロジェクト管理 -->
+  <rect x="520" y="280" width="180" height="120" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" />
+  <text x="610" y="305" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#b45309">プロジェクト管理</text>
+  <text x="610" y="330" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 要件分析・定義</text>
+  <text x="610" y="350" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• タスク分解と見積り</text>
+  <text x="610" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">• 技術文書の自動生成</text>
+  <text x="610" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: Jira AI, Linear</text>
+
+  <line x1="520" y1="280" x2="450" y2="240" stroke="#f59e0b" stroke-width="2" />
+  <polygon points="452,245 450,240 454,244" fill="#f59e0b" />
+
+  <!-- 下部の生産性向上の指標 -->
+  <rect x="100" y="430" width="600" height="50" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="460" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">
+    開発時間の30-50%削減・品質向上・創造的タスクへの集中
+  </text>
+</svg>

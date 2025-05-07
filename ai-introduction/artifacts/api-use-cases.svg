@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">AI
+    API別のユースケースと推奨プロバイダー</text>
+
+  <!-- テキスト生成 API -->
+  <rect x="50" y="80" width="700" height="160" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="400" y="110" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">テキスト生成 API</text>
+
+  <!-- 左側: ユースケース -->
+  <text x="80" y="140" font-family="Arial, sans-serif" font-size="16" font-weight="bold">主要ユースケース:</text>
+  <text x="90" y="165" font-family="Arial, sans-serif" font-size="14">• チャットボット・カスタマーサポート</text>
+  <text x="90" y="190" font-family="Arial, sans-serif" font-size="14">• コンテンツ生成・要約</text>
+  <text x="90" y="215" font-family="Arial, sans-serif" font-size="14">• プログラミング支援・コード生成</text>
+
+  <!-- 右側: プロバイダーとその特性 -->
+  <text x="400" y="140" font-family="Arial, sans-serif" font-size="16" font-weight="bold">推奨プロバイダーと特性:</text>
+  <text x="410" y="165" font-family="Arial, sans-serif" font-size="14">• OpenAI GPT-4: 高精度・多機能、ツール使用能力、高コスト</text>
+  <text x="410" y="190" font-family="Arial, sans-serif" font-size="14">• Anthropic Claude: 長文脈処理・安全性、説明能力に優れる</text>
+  <text x="410" y="215" font-family="Arial, sans-serif" font-size="14">• Mistral AI: オープン・低コスト、特定分野で高性能</text>
+
+  <!-- 画像生成 API -->
+  <rect x="50" y="260" width="700" height="160" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="400" y="290" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#15803d">画像生成 API</text>
+
+  <!-- 左側: ユースケース -->
+  <text x="80" y="320" font-family="Arial, sans-serif" font-size="16" font-weight="bold">主要ユースケース:</text>
+  <text x="90" y="345" font-family="Arial, sans-serif" font-size="14">• マーケティング素材・ブログイラスト</text>
+  <text x="90" y="370" font-family="Arial, sans-serif" font-size="14">• プロダクトデザイン・コンセプト可視化</text>
+  <text x="90" y="395" font-family="Arial, sans-serif" font-size="14">• 教育コンテンツ・説明図表</text>
+
+  <!-- 右側: プロバイダーとその特性 -->
+  <text x="400" y="320" font-family="Arial, sans-serif" font-size="16" font-weight="bold">推奨プロバイダーと特性:</text>
+  <text x="410" y="345" font-family="Arial, sans-serif" font-size="14">• DALL-E 3: テキスト指示に忠実、UI生成に強み</text>
+  <text x="410" y="370" font-family="Arial, sans-serif" font-size="14">• Midjourney: 芸術性・美的クオリティが高い</text>
+  <text x="410" y="395" font-family="Arial, sans-serif" font-size="14">• Stable Diffusion API: カスタマイズ性、セルフホスト可能</text>
+
+  <!-- 音声処理 API -->
+  <rect x="50" y="440" width="700" height="140" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="400" y="470" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle"
+    fill="#7e22ce">音声処理 API</text>
+
+  <!-- 左側: ユースケース -->
+  <text x="80" y="500" font-family="Arial, sans-serif" font-size="16" font-weight="bold">主要ユースケース:</text>
+  <text x="90" y="525" font-family="Arial, sans-serif" font-size="14">• 音声アシスタント・IVRシステム</text>
+  <text x="90" y="550" font-family="Arial, sans-serif" font-size="14">• コンテンツナレーション・ポッドキャスト</text>
+  <text x="90" y="575" font-family="Arial, sans-serif" font-size="14">• 会議録・インタビュー文字起こし</text>
+
+  <!-- 右側: プロバイダーとその特性 -->
+  <text x="400" y="500" font-family="Arial, sans-serif" font-size="16" font-weight="bold">推奨プロバイダーと特性:</text>
+  <text x="410" y="525" font-family="Arial, sans-serif" font-size="14">• ElevenLabs: 高品質音声合成、多言語・感情表現</text>
+  <text x="410" y="550" font-family="Arial, sans-serif" font-size="14">• OpenAI Whisper: 正確な文字起こし、多言語対応</text>
+  <text x="410" y="575" font-family="Arial, sans-serif" font-size="14">• Google Speech API: エンタープライズ向け、高い信頼性</text>
+</svg>

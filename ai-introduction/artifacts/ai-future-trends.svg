@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+    text-anchor="middle">AI技術の今後の主要トレンド</text>
+
+  <!-- 中央のノード -->
+  <circle cx="400" cy="240" r="70" fill="#dbeafe" stroke="#3b82f6" stroke-width="3" />
+  <text x="400" y="230" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">Web開発</text>
+  <text x="400" y="255" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">×</text>
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">AI技術</text>
+
+  <!-- トレンド1: マルチモーダルAI -->
+  <rect x="80" y="100" width="180" height="120" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2" />
+  <text x="170" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#7e22ce">マルチモーダルAI</text>
+  <text x="170" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">テキスト・画像・音声・動画を</text>
+  <text x="170" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">統合して理解・生成する</text>
+  <text x="170" y="190" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">次世代のUIを実現</text>
+  <text x="170" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: GPT-4V, Claude 3,
+    Gemini</text>
+
+  <line x1="180" y1="220" x2="330" y2="240" stroke="#9333ea" stroke-width="2" />
+  <polygon points="325,240 330,240 327.5,245" fill="#9333ea" />
+
+  <!-- トレンド2: AIエージェント -->
+  <rect x="540" y="100" width="180" height="120" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="630" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#15803d">AIエージェント</text>
+  <text x="630" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">複雑なタスクを自律的に</text>
+  <text x="630" y="170" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">複数ステップで実行</text>
+  <text x="630" y="190" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">APIやツールと連携</text>
+  <text x="630" y="210" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: AutoGPT, LangChain</text>
+
+  <line x1="540" y1="160" x2="470" y2="220" stroke="#22c55e" stroke-width="2" />
+  <polygon points="470,215 470,220 465,220" fill="#22c55e" />
+
+  <!-- トレンド3: ローカルAI -->
+  <rect x="80" y="320" width="180" height="120" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2" />
+  <text x="170" y="345" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#b91c1c">オンデバイスAI</text>
+  <text x="170" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">小型で効率的なモデル</text>
+  <text x="170" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">ブラウザ内/エッジでの実行</text>
+  <text x="170" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">プライバシーとレイテンシの向上</text>
+  <text x="170" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: WebLLM, Llama.cpp</text>
+
+  <line x1="260" y1="360" x2="330" y2="280" stroke="#ef4444" stroke-width="2" />
+  <polygon points="327,285 330,280 332,285" fill="#ef4444" />
+
+  <!-- トレンド4: AIに最適化されたデータベース -->
+  <rect x="540" y="320" width="180" height="120" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" />
+  <text x="630" y="345" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#1e40af">AIネイティブデータ</text>
+  <text x="630" y="370" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">ベクトルDB・エンベディング</text>
+  <text x="630" y="390" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">RAG (検索拡張生成)</text>
+  <text x="630" y="410" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">セマンティック検索</text>
+  <text x="630" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: Pinecone, Weaviate</text>
+
+  <line x1="540" y1="360" x2="470" y2="280" stroke="#3b82f6" stroke-width="2" />
+  <polygon points="470,285 470,280 475,280" fill="#3b82f6" />
+
+  <!-- トレンド5: AIユーザーインターフェース -->
+  <rect x="310" y="460" width="180" height="120" rx="10" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
+  <text x="400" y="485" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle"
+    fill="#c2410c">AIによる新しいUI/UX</text>
+  <text x="400" y="510" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">会話型インターフェース</text>
+  <text x="400" y="530" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">マルチモーダル入出力</text>
+  <text x="400" y="550" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">パーソナライズされた体験</text>
+  <text x="400" y="570" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">例: ChatGPT Plugins,
+    Midjourney</text>
+
+  <line x1="400" y1="460" x2="400" y2="310" stroke="#f97316" stroke-width="2" />
+  <polygon points="395,315 400,310 405,315" fill="#f97316" />
+</svg>
