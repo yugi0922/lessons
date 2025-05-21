@@ -2,7 +2,7 @@
 
 <!-- 画像サンプルとして -->
 
-![thumbnail](./images/thumbnail.png)
+![thumbnail](images/thumbnail.png)
 
 # 1. xxx
 
