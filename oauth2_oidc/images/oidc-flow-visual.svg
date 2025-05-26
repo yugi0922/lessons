@@ -1,0 +1,150 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1000" height="700" fill="#f8f9fa"/>
+
+    <!-- Title -->
+    <text x="500" y="40" text-anchor="middle" font-size="28" font-weight="bold" fill="#2c3e50">
+        OpenID Connect (OIDC) 概要
+    </text>
+
+    <!-- Subtitle -->
+    <text x="500" y="70" text-anchor="middle" font-size="16" fill="#7f8c8d">
+        OAuth 2.0 上に構築された認証レイヤー
+    </text>
+
+    <!-- User -->
+    <g id="user">
+        <circle cx="150" cy="200" r="40" fill="#3498db" stroke="#2980b9" stroke-width="3"/>
+        <text x="150" y="208" text-anchor="middle" font-size="14" fill="white" font-weight="bold">👤</text>
+        <text x="150" y="260" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">ユーザー</text>
+        <text x="150" y="280" text-anchor="middle" font-size="12" fill="#7f8c8d">(Resource Owner)</text>
+    </g>
+
+    <!-- Client (RP) -->
+    <g id="client">
+        <rect x="380" y="160" width="120" height="80" rx="10" fill="#e74c3c" stroke="#c0392b" stroke-width="3"/>
+        <text x="440" y="190" text-anchor="middle" font-size="14" fill="white" font-weight="bold">🖥️</text>
+        <text x="440" y="210" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Webアプリ</text>
+        <text x="440" y="225" text-anchor="middle" font-size="12" fill="white" font-weight="bold">モバイルアプリ</text>
+        <text x="440" y="260" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">クライアント</text>
+        <text x="440" y="280" text-anchor="middle" font-size="12" fill="#7f8c8d">(Relying Party)</text>
+    </g>
+
+    <!-- IdP -->
+    <g id="idp">
+        <rect x="680" y="160" width="120" height="80" rx="10" fill="#27ae60" stroke="#229954" stroke-width="3"/>
+        <text x="740" y="190" text-anchor="middle" font-size="14" fill="white" font-weight="bold">🔐</text>
+        <text x="740" y="210" text-anchor="middle" font-size="12" fill="white" font-weight="bold">認証サーバー</text>
+        <text x="740" y="225" text-anchor="middle" font-size="12" fill="white" font-weight="bold">IDプロバイダー</text>
+        <text x="740" y="260" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">IdP</text>
+        <text x="740" y="280" text-anchor="middle" font-size="12" fill="#7f8c8d">(Identity Provider)</text>
+    </g>
+
+    <!-- Flow arrows and steps -->
+
+    <!-- Step 1: Authentication Request -->
+    <g id="step1">
+        <path d="M 190 180 Q 315 160 380 180" fill="none" stroke="#e67e22" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="285" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#e67e22">①認証要求</text>
+        <text x="285" y="165" text-anchor="middle" font-size="10" fill="#e67e22">ログインボタン押下</text>
+    </g>
+
+    <!-- Step 2: Redirect to IdP -->
+    <g id="step2">
+        <path d="M 500 200 L 680 200" fill="none" stroke="#8e44ad" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="590" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#8e44ad">②IdPへリダイレクト</text>
+        <text x="590" y="195" text-anchor="middle" font-size="10" fill="#8e44ad">認証画面表示</text>
+    </g>
+
+    <!-- Step 3: User Authentication -->
+    <g id="step3">
+        <path d="M 680 160 Q 600 120 500 160" fill="none" stroke="#f39c12" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="595" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#f39c12">③ユーザー認証</text>
+        <text x="595" y="135" text-anchor="middle" font-size="10" fill="#f39c12">ID/PW, 生体認証等</text>
+    </g>
+
+    <!-- Step 4: Authorization Code -->
+    <g id="step4">
+        <path d="M 680 220 L 500 220" fill="none" stroke="#16a085" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="590" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#16a085">④認可コード</text>
+    </g>
+
+    <!-- Step 5: Token Exchange -->
+    <g id="step5">
+        <path d="M 500 240 Q 590 290 680 240" fill="none" stroke="#c0392b" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="590" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⑤トークン取得</text>
+        <text x="590" y="295" text-anchor="middle" font-size="10" fill="#c0392b">認証コード → トークン</text>
+    </g>
+
+    <!-- Step 6: Return to User -->
+    <g id="step6">
+        <path d="M 378 240 Q 268 285 190 230" fill="none" stroke="#2980b9" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="285" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2980b9">⑥ログイン完了</text>
+        <text x="285" y="290" text-anchor="middle" font-size="10" fill="#2980b9">アプリに戻る</text>
+    </g>
+
+    <!-- Token explanation -->
+    <g id="tokens">
+        <rect x="50" y="380" width="900" height="280" rx="15" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+        <text x="500" y="410" text-anchor="middle" font-size="20" font-weight="bold" fill="#2c3e50">
+            OIDCで取得される主要なトークン
+        </text>
+
+        <!-- ID Token -->
+        <g id="id-token">
+            <rect x="80" y="440" width="250" height="180" rx="10" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+            <text x="205" y="470" text-anchor="middle" font-size="16" font-weight="bold" fill="white">IDトークン (JWT)</text>
+            <text x="205" y="495" text-anchor="middle" font-size="12" fill="white">「誰なのか」を証明</text>
+
+            <text x="100" y="520" font-size="11" fill="white" font-weight="bold">含まれる情報:</text>
+            <text x="100" y="540" font-size="10" fill="white">• ユーザーID (sub)</text>
+            <text x="100" y="555" font-size="10" fill="white">• 名前 (name)</text>
+            <text x="100" y="570" font-size="10" fill="white">• メールアドレス (email)</text>
+            <text x="100" y="585" font-size="10" fill="white">• 発行者 (iss)</text>
+            <text x="100" y="600" font-size="10" fill="white">• 有効期限 (exp)</text>
+        </g>
+
+        <!-- Access Token -->
+        <g id="access-token">
+            <rect x="370" y="440" width="250" height="180" rx="10" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+            <text x="495" y="470" text-anchor="middle" font-size="16" font-weight="bold" fill="white">アクセストークン</text>
+            <text x="495" y="495" text-anchor="middle" font-size="12" fill="white">「何ができるか」を証明</text>
+
+            <text x="390" y="520" font-size="11" fill="white" font-weight="bold">用途:</text>
+            <text x="390" y="540" font-size="10" fill="white">• APIへのアクセス</text>
+            <text x="390" y="555" font-size="10" fill="white">• リソースサーバーの認可</text>
+            <text x="390" y="570" font-size="10" fill="white">• スコープによる権限制御</text>
+            <text x="390" y="585" font-size="10" fill="white">• 短い有効期限</text>
+            <text x="390" y="600" font-size="10" fill="white">• リフレッシュトークンで更新</text>
+        </g>
+
+        <!-- Refresh Token -->
+        <g id="refresh-token">
+            <rect x="660" y="440" width="250" height="180" rx="10" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+            <text x="785" y="470" text-anchor="middle" font-size="16" font-weight="bold" fill="white">リフレッシュトークン</text>
+            <text x="785" y="495" text-anchor="middle" font-size="12" fill="white">「更新」のためのトークン</text>
+
+            <text x="680" y="520" font-size="11" fill="white" font-weight="bold">特徴:</text>
+            <text x="680" y="540" font-size="10" fill="white">• 長い有効期限</text>
+            <text x="680" y="555" font-size="10" fill="white">• 新しいアクセストークン取得</text>
+            <text x="680" y="570" font-size="10" fill="white">• 安全に保管が必要</text>
+            <text x="680" y="585" font-size="10" fill="white">• 再認証なしでの継続利用</text>
+            <text x="680" y="600" font-size="10" fill="white">• 一度だけ使用（通常）</text>
+        </g>
+    </g>
+
+    <!-- Arrow marker definition -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="currentColor"/>
+        </marker>
+    </defs>
+
+    <!-- Key benefits -->
+    <text x="50" y="680" font-size="14" font-weight="bold" fill="#2c3e50">✅ メリット：</text>
+    <text x="150" y="680" font-size="12" fill="#27ae60">シングルサインオン</text>
+    <text x="280" y="680" font-size="12" fill="#27ae60">標準プロトコル</text>
+    <text x="380" y="680" font-size="12" fill="#27ae60">セキュア</text>
+    <text x="450" y="680" font-size="12" fill="#27ae60">ユーザビリティ向上</text>
+    <text x="580" y="680" font-size="12" fill="#27ae60">多様な認証方式対応</text>
+</svg>
