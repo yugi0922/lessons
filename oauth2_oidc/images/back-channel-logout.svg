@@ -1,0 +1,87 @@
+<svg width="500" height="600" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            .title { font: bold 28px 'Segoe UI', Arial, sans-serif; fill: #e74c3c; text-anchor: middle; }
+            .actor-text { font: 14px 'Segoe UI', Arial, sans-serif; text-anchor: middle; fill: #333; }
+            .step-text { font: 14px 'Segoe UI', Arial, sans-serif; fill: #333; }
+            .step-number { font: bold 12px 'Segoe UI', Arial, sans-serif; fill: white; text-anchor: middle; }
+            .comm-type { font: bold 16px 'Segoe UI', Arial, sans-serif; text-anchor: middle; fill: #c62828; }
+            .purpose-text { font: 14px 'Segoe UI', Arial, sans-serif; text-anchor: middle; fill: #666; }
+
+            .back-channel-border { fill: #fafafa; stroke: #e74c3c; stroke-width: 3; }
+            .rp-actor { fill: #e8f8f5; stroke: #27ae60; stroke-width: 2; }
+            .op-actor { fill: #fdf2e9; stroke: #e67e22; stroke-width: 2; }
+            .server-comm-bg { fill: #ffebee; stroke: #c62828; stroke-width: 2; }
+            .step-bg { fill: white; stroke: #e0e0e0; stroke-width: 1; }
+            .step-circle { fill: #e74c3c; }
+        </style>
+
+        <!-- Arrow markers -->
+        <marker id="direct-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0,0 0,6 9,3" fill="#e74c3c"/>
+        </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect x="0" y="0" width="500" height="600" rx="15" class="back-channel-border"/>
+
+    <!-- Title -->
+    <text x="250" y="40" class="title">🔄 Back-Channel Logout</text>
+    <line x1="50" y1="55" x2="450" y2="55" stroke="#e74c3c" stroke-width="3"/>
+
+    <!-- Actors -->
+    <rect x="50" y="80" width="100" height="70" rx="10" class="op-actor"/>
+    <text x="100" y="105" class="actor-text" font-size="20">🏢</text>
+    <text x="100" y="130" class="actor-text" font-weight="bold">OP</text>
+
+    <rect x="200" y="80" width="100" height="70" rx="10" class="rp-actor"/>
+    <text x="250" y="105" class="actor-text" font-size="20">🖥️</text>
+    <text x="250" y="130" class="actor-text" font-weight="bold">RP1</text>
+
+    <rect x="350" y="80" width="100" height="70" rx="10" class="rp-actor"/>
+    <text x="400" y="105" class="actor-text" font-size="20">🖥️</text>
+    <text x="400" y="130" class="actor-text" font-weight="bold">RP2</text>
+
+    <!-- Communication type -->
+    <rect x="50" y="180" width="400" height="40" rx="10" class="server-comm-bg"/>
+    <text x="250" y="205" class="comm-type">サーバー間直接通信 (JWT)</text>
+
+    <!-- Flow arrows from OP to RPs -->
+    <g transform="translate(0, 117)">
+        <!-- OP to RP1 -->
+        <line x1="130" y1="0" x2="225" y2="0" stroke="#e74c3c" stroke-width="2" marker-end="url(#direct-arrow)"/>
+<!--        <text x="200" y="-10" class="step-text" font-size="12" text-anchor="middle" fill="#e74c3c">⟹</text>-->
+
+        <!-- OP to RP2 -->
+        <path d="M 130 20 Q 270 80 380 20" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#direct-arrow)"/>
+<!--        <text x="300" y="50" class="step-text" font-size="12" text-anchor="middle" fill="#e74c3c">⟹</text>-->
+    </g>
+
+    <!-- Steps -->
+    <g transform="translate(25, 250)">
+        <rect x="0" y="0" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#e74c3c" stroke-width="1"/>
+        <circle cx="25" cy="22" r="18" class="step-circle"/>
+        <text x="25" y="28" class="step-number">1</text>
+        <text x="60" y="28" class="step-text" font-size="16">OP: セッション終了検知</text>
+
+        <rect x="0" y="60" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#e74c3c" stroke-width="1"/>
+        <circle cx="25" cy="82" r="18" class="step-circle"/>
+        <text x="25" y="88" class="step-number">2</text>
+        <text x="60" y="88" class="step-text" font-size="16">OP ⟹ RP1: HTTP POST (Logout Token)</text>
+
+        <rect x="0" y="120" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#e74c3c" stroke-width="1"/>
+        <circle cx="25" cy="142" r="18" class="step-circle"/>
+        <text x="25" y="148" class="step-number">3</text>
+        <text x="60" y="148" class="step-text" font-size="16">OP ⟹ RP2: HTTP POST (Logout Token)</text>
+
+        <rect x="0" y="180" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#e74c3c" stroke-width="1"/>
+        <circle cx="25" cy="202" r="18" class="step-circle"/>
+        <text x="25" y="208" class="step-number">4</text>
+        <text x="60" y="208" class="step-text" font-size="16">各RP: セッション終了処理</text>
+    </g>
+
+    <!-- Purpose -->
+    <rect x="50" y="510" width="400" height="50" rx="10" fill="#ffebee" stroke="#e74c3c" stroke-width="2"/>
+    <text x="250" y="530" class="purpose-text" font-weight="bold" font-size="16">目的</text>
+    <text x="250" y="550" class="purpose-text" font-size="14">OPから関連RPへの確実な通知</text>
+</svg>

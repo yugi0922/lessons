@@ -1,0 +1,240 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Arrow marker -->
+        <marker id="arrowhead" markerWidth="10" markerHeight="7"
+                refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+        </marker>
+
+        <!-- Gradient definitions -->
+        <linearGradient id="frontChannelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:0.2" />
+            <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:0.8" />
+        </linearGradient>
+
+        <linearGradient id="backChannelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#4ECDC4;stop-opacity:0.2" />
+            <stop offset="100%" style="stop-color:#4ECDC4;stop-opacity:0.8" />
+        </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1200" height="800" fill="#f8f9fa"/>
+
+    <!-- Title -->
+    <text x="600" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+        OIDC Authentication Flows 比較
+    </text>
+
+    <!-- Flow sections -->
+    <!-- Authorization Code Flow -->
+    <g>
+        <rect x="50" y="70" width="350" height="220" fill="#e8f5e8" stroke="#27ae60" stroke-width="2" rx="10"/>
+        <text x="225" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#27ae60">
+            Authorization Code Flow
+        </text>
+        <text x="225" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555">
+            （最もセキュア・推奨）
+        </text>
+
+        <!-- Browser -->
+        <rect x="70" y="140" width="60" height="40" fill="#3498db" rx="5"/>
+        <text x="100" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Browser</text>
+
+        <!-- Auth Server -->
+        <rect x="310" y="140" width="70" height="40" fill="#e74c3c" rx="5"/>
+        <text x="345" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Auth</text>
+        <text x="345" y="172" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Server</text>
+
+        <!-- Client App -->
+        <rect x="190" y="220" width="70" height="40" fill="#9b59b6" rx="5"/>
+        <text x="225" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Client App</text>
+
+        <!-- Front channel arrow -->
+        <path d="M 130 160 Q 200 130 310 160" stroke="#FF6B6B" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+        <text x="220" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="9">認可コード</text>
+
+        <!-- Back channel arrow -->
+        <path d="M 260 220 Q 290 200 310 180" stroke="#4ECDC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+        <text x="280" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4ECDC4">ID Token</text>
+        <text x="280" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4ECDC4">Access Token</text>
+    </g>
+
+    <!-- Implicit Flow -->
+    <g>
+        <rect x="425" y="70" width="350" height="220" fill="#ffeaa7" stroke="#fdcb6e" stroke-width="2" rx="10"/>
+        <text x="600" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e17055">
+            Implicit Flow
+        </text>
+        <text x="600" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555">
+            （非推奨）
+        </text>
+
+        <!-- Browser -->
+        <rect x="445" y="140" width="60" height="40" fill="#3498db" rx="5"/>
+        <text x="475" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Browser</text>
+
+        <!-- Auth Server -->
+        <rect x="685" y="140" width="70" height="40" fill="#e74c3c" rx="5"/>
+        <text x="720" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Auth</text>
+        <text x="720" y="172" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Server</text>
+
+        <!-- Client App -->
+        <rect x="565" y="220" width="70" height="40" fill="#9b59b6" rx="5"/>
+        <text x="600" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Client App</text>
+
+        <!-- Direct token flow -->
+        <path d="M 505 160 Q 595 130 685 160" stroke="#FF6B6B" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+        <text x="595" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="9">ID Token</text>
+        <text x="595" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="9">Access Token</text>
+
+        <!-- Warning icon -->
+        <circle cx="750" cy="100" r="15" fill="#e74c3c"/>
+        <text x="750" y="106" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="white">!</text>
+    </g>
+
+    <!-- Hybrid Flow -->
+    <g>
+        <rect x="800" y="70" width="350" height="220" fill="#dda0dd" stroke="#9b59b6" stroke-width="2" rx="10"/>
+        <text x="975" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#9b59b6">
+            Hybrid Flow
+        </text>
+        <text x="975" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555">
+            （複合型）
+        </text>
+
+        <!-- Browser -->
+        <rect x="820" y="140" width="60" height="40" fill="#3498db" rx="5"/>
+        <text x="850" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Browser</text>
+
+        <!-- Auth Server -->
+        <rect x="1060" y="140" width="70" height="40" fill="#e74c3c" rx="5"/>
+        <text x="1095" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Auth</text>
+        <text x="1095" y="172" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Server</text>
+
+        <!-- Client App -->
+        <rect x="940" y="220" width="70" height="40" fill="#9b59b6" rx="5"/>
+        <text x="975" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Client App</text>
+
+        <!-- Hybrid flow - front channel -->
+        <path d="M 880 160 Q 970 130 1060 160" stroke="#FF6B6B" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+        <text x="970" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="9">認可コード +</text>
+        <text x="970" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="9">ID Token</text>
+
+        <!-- Hybrid flow - back channel -->
+        <path d="M 1010 220 Q 1040 200 1060 180" stroke="#4ECDC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+        <text x="1030" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#4ECDC4">Access Token</text>
+    </g>
+
+    <!-- Legend -->
+    <g>
+        <rect x="50" y="320" width="1100" height="120" fill="#ffffff" stroke="#bdc3c7" stroke-width="1" rx="10"/>
+        <text x="600" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+            凡例・特徴
+        </text>
+
+        <!-- Front Channel -->
+        <line x1="70" y1="365" x2="120" y2="365" stroke="#FF6B6B" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <text x="130" y="370" font-family="Arial, sans-serif" font-size="12" fill="#333">
+            フロントチャネル（ブラウザリダイレクト） - URLパラメータでデータ受け渡し
+        </text>
+
+        <!-- Back Channel -->
+        <line x1="70" y1="385" x2="120" y2="385" stroke="#4ECDC4" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <text x="130" y="390" font-family="Arial, sans-serif" font-size="12" fill="#333">
+            バックチャネル（サーバー間直接通信） - セキュアな通信
+        </text>
+
+        <!-- Security levels -->
+        <text x="70" y="415" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60">Authorization Code Flow:</text>
+        <text x="220" y="415" font-family="Arial, sans-serif" font-size="11" fill="#333">最高セキュリティ・PKCE推奨・現在の標準</text>
+
+        <text x="450" y="415" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e17055">Implicit Flow:</text>
+        <text x="550" y="415" font-family="Arial, sans-serif" font-size="11" fill="#333">非推奨・セキュリティリスク有</text>
+
+        <text x="750" y="415" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9b59b6">Hybrid Flow:</text>
+        <text x="840" y="415" font-family="Arial, sans-serif" font-size="11" fill="#333">複雑・特殊用途</text>
+    </g>
+
+    <!-- Security comparison table -->
+    <g>
+        <rect x="50" y="470" width="1100" height="280" fill="#ffffff" stroke="#bdc3c7" stroke-width="1" rx="10"/>
+        <text x="600" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+            セキュリティ・用途比較
+        </text>
+
+        <!-- Table headers -->
+        <rect x="70" y="510" width="120" height="30" fill="#ecf0f1" stroke="#bdc3c7"/>
+        <rect x="190" y="510" width="280" height="30" fill="#ecf0f1" stroke="#bdc3c7"/>
+        <rect x="470" y="510" width="280" height="30" fill="#ecf0f1" stroke="#bdc3c7"/>
+        <rect x="750" y="510" width="280" height="30" fill="#ecf0f1" stroke="#bdc3c7"/>
+
+        <text x="130" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">項目</text>
+        <text x="330" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Authorization Code</text>
+        <text x="610" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Implicit</text>
+        <text x="890" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Hybrid</text>
+
+        <!-- Table rows -->
+        <!-- Row 1: Security -->
+        <rect x="70" y="540" width="120" height="30" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="190" y="540" width="280" height="30" fill="#d5f4e6" stroke="#bdc3c7"/>
+        <rect x="470" y="540" width="280" height="30" fill="#fadbd8" stroke="#bdc3c7"/>
+        <rect x="750" y="540" width="280" height="30" fill="#fff3cd" stroke="#bdc3c7"/>
+
+        <text x="130" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">セキュリティ</text>
+        <text x="330" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">高（バックチャネル）</text>
+        <text x="610" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">低（フロントチャネルのみ）</text>
+        <text x="890" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">中（両チャネル使用）</text>
+
+        <!-- Row 2: Use cases -->
+        <rect x="70" y="570" width="120" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="190" y="570" width="280" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="470" y="570" width="280" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="750" y="570" width="280" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+
+        <text x="130" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">主な用途</text>
+        <text x="330" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">Webアプリ、モバイルアプリ</text>
+        <text x="330" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">SPA（PKCE併用）</text>
+        <text x="610" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">非推奨</text>
+        <text x="610" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">（レガシーSPA）</text>
+        <text x="890" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">高度な要件がある</text>
+        <text x="890" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">特殊ケース</text>
+
+        <!-- Row 3: Token storage -->
+        <rect x="70" y="610" width="120" height="30" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="190" y="610" width="280" height="30" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="470" y="610" width="280" height="30" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="750" y="610" width="280" height="30" fill="#ffffff" stroke="#bdc3c7"/>
+
+        <text x="130" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">トークン保存</text>
+        <text x="330" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">サーバーサイド（安全）</text>
+        <text x="610" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">ブラウザ（リスク）</text>
+        <text x="890" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">混合</text>
+
+        <!-- Row 4: Client Secret -->
+        <rect x="70" y="640" width="120" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="190" y="640" width="280" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="470" y="640" width="280" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="750" y="640" width="280" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+
+        <text x="130" y="664" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">Client Secret</text>
+        <text x="330" y="659" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">必要（Confidential Client）</text>
+        <text x="330" y="669" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">PKCE（Public Client）</text>
+        <text x="610" y="664" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">不要（Public Client）</text>
+        <text x="890" y="664" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">ケースによる</text>
+
+        <!-- Row 5: Best practice -->
+        <rect x="70" y="680" width="120" height="40" fill="#ffffff" stroke="#bdc3c7"/>
+        <rect x="190" y="680" width="280" height="40" fill="#d5f4e6" stroke="#bdc3c7"/>
+        <rect x="470" y="680" width="280" height="40" fill="#fadbd8" stroke="#bdc3c7"/>
+        <rect x="750" y="680" width="280" height="40" fill="#fff3cd" stroke="#bdc3c7"/>
+
+        <text x="130" y="704" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">現在の推奨</text>
+        <text x="330" y="699" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">強く推奨</text>
+        <text x="330" y="709" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">（PKCEも推奨）</text>
+        <text x="610" y="699" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">廃止推奨</text>
+        <text x="610" y="709" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">（OAuth 2.1で削除）</text>
+        <text x="890" y="699" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">特殊用途のみ</text>
+        <text x="890" y="709" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">（複雑性のため）</text>
+    </g>
+</svg>

@@ -14,28 +14,31 @@ IDトークンは、以下の3つの部分から構成されます。
 
 ### ヘッダー (Header): トークンの種類 (typ) や署名アルゴリズム (alg) などのメタデータを含みます。
 
-    ```
-    {
-      "alg": "RS256",
-      "kid": "xxxxxxxxxxxxxx"
-    }
-    ```
+```
+{
+    "alg": "RS256",
+    "kid": "xxxxxxxxxxxxxx"
+}
+```
+   
 
 ### ペイロード (Payload): ユーザーに関する情報（クレーム）を含みます。
 
-    ```
-    {
-      "iss": "[https://auth.example.com](https://auth.example.com)",
-      "sub": "xxxxxxxxxxxxxx",
-      "aud": "xxxxxxxxxxxxxx",
-      "exp": 1678886400,
-      "iat": 1678882800,
-      "auth_time": 1678882700,
-      "nonce": "xxxxxxxxxxxxxx",
-      "name": "山田 太郎",
-      "email": "yamada.taro@example.com"
-    }
-    ```
+```
+{
+    "iss": "[https://auth.example.com](https://auth.example.com)",
+    "sub": "xxxxxxxxxxxxxx",
+    "aud": "xxxxxxxxxxxxxx",
+    "exp": 1678886400,
+    "iat": 1678882800,
+    "auth_time": 1678882700,
+    "nonce": "xxxxxxxxxxxxxx",
+    "name": "山田 太郎",
+    "email": "yamada.taro@example.com"
+}
+```
+
+![idtoken-structure](./images/idtoken-structure.svg)
 
 ### 署名 (Signature): ヘッダーとペイロードを結合し、指定されたアルゴリズムと秘密鍵で署名したものです。これにより、トークンの改ざんを防ぎ、発行者の正当性を検証できます。
 
@@ -276,6 +279,8 @@ OIDCで定義されている主要なスコープ：
 # 3.3 OIDCフロー
 
 OIDCは、OAuth 2.0の認可フローをベースに、IDトークンを取得するためのフローを定義しています。
+
+![oidc-flows](./images/oidc-flow.svg)
 
 ## 3.3.1 Authorization Code Flow (認可コードフロー)
 
@@ -963,6 +968,7 @@ sequenceDiagram
 
 - **デメリット**: OPのセッションのみが終了し、同じOPを利用する他のRPのセッションは直接的には終了しません（Session Managementと組み合わせることで間接的に対応可能）。
 
+![rp-initiated-logout](./images/rp-initiated-logout.svg)
 
 ### 2. Back-Channel Logout (バックチャネルログアウト)
 
@@ -1058,6 +1064,7 @@ sequenceDiagram
 
 - **デメリット**: RP側でバックチャネルログアウト通知を受け付けるエンドポイントを実装し、Logout Tokenを適切に検証・処理する必要があります。OPが各RPのオンライン状態を把握できない場合、通知が届かない可能性も考慮が必要です。
 
+![back-channel-logout](./images/back-channel-logout.svg)
 
 ### 3. Front-Channel Logout (フロントチャネルログアウト)
 
@@ -1138,6 +1145,7 @@ sequenceDiagram
 
     - ユーザーが途中でブラウザを閉じてしまうと、全てのRPでログアウトが完了しない可能性があります。
 
+![front-channel-logout](./images/front-channel-logout.svg)
 
 **セッション管理とログアウトの使い分け**:
 
