@@ -1,0 +1,206 @@
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- 背景 -->
+    <rect width="900" height="700" fill="#f8f9fa"/>
+
+    <!-- タイトル -->
+    <text x="450" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+        OIDC IDトークンの構造（JWT形式）
+    </text>
+
+    <!-- トークン全体の枠 -->
+    <rect x="50" y="80" width="800" height="110" fill="#e8f4fd" stroke="#3498db" stroke-width="2" rx="8"/>
+    <text x="60" y="105" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+        IDトークン（JWT）の完全な形式:
+    </text>
+
+    <!-- Header部分 -->
+    <rect x="60" y="120" width="220" height="40" fill="#e74c3c" rx="4"/>
+    <text x="170" y="142" font-family="monospace" font-size="12" text-anchor="middle" fill="white" font-weight="bold">
+        Header（Base64URL）
+    </text>
+
+    <!-- ドット1 -->
+    <circle cx="295" cy="140" r="8" fill="#34495e"/>
+    <text x="295" y="145" font-family="monospace" font-size="14" text-anchor="middle" fill="white" font-weight="bold">.</text>
+
+    <!-- Payload部分 -->
+    <rect x="310" y="120" width="280" height="40" fill="#27ae60" rx="4"/>
+    <text x="450" y="142" font-family="monospace" font-size="12" text-anchor="middle" fill="white" font-weight="bold">
+        Payload（Base64URL）
+    </text>
+
+    <!-- ドット2 -->
+    <circle cx="605" cy="140" r="8" fill="#34495e"/>
+    <text x="605" y="145" font-family="monospace" font-size="14" text-anchor="middle" fill="white" font-weight="bold">.</text>
+
+    <!-- Signature部分 -->
+    <rect x="620" y="120" width="220" height="40" fill="#9b59b6" rx="4"/>
+    <text x="730" y="142" font-family="monospace" font-size="12" text-anchor="middle" fill="white" font-weight="bold">
+        Signature（Base64URL）
+    </text>
+
+    <!-- Header詳細 -->
+    <g>
+        <rect x="50" y="280" width="250" height="180" fill="#fff" stroke="#e74c3c" stroke-width="2" rx="8"/>
+        <rect x="50" y="280" width="250" height="35" fill="#e74c3c" rx="8"/>
+        <text x="175" y="302" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">
+            Header
+        </text>
+
+        <text x="60" y="335" font-family="monospace" font-size="11" fill="#2c3e50">
+            {
+        </text>
+        <text x="70" y="350" font-family="monospace" font-size="11" fill="#2c3e50">
+            "alg": "RS256",
+        </text>
+        <text x="70" y="365" font-family="monospace" font-size="11" fill="#2c3e50">
+            "typ": "JWT",
+        </text>
+        <text x="70" y="380" font-family="monospace" font-size="11" fill="#2c3e50">
+            "kid": "key-id-123"
+        </text>
+        <text x="60" y="395" font-family="monospace" font-size="11" fill="#2c3e50">
+            }
+        </text>
+
+        <text x="60" y="420" font-family="Arial, sans-serif" font-size="10" fill="#7f8c8d">
+            • alg: 署名アルゴリズム
+        </text>
+        <text x="60" y="435" font-family="Arial, sans-serif" font-size="10" fill="#7f8c8d">
+            • typ: トークンタイプ
+        </text>
+        <text x="60" y="450" font-family="Arial, sans-serif" font-size="10" fill="#7f8c8d">
+            • kid: キーID
+        </text>
+    </g>
+
+    <!-- Payload詳細 -->
+    <g>
+        <rect x="325" y="280" width="250" height="327" fill="#fff" stroke="#27ae60" stroke-width="2" rx="8"/>
+        <rect x="325" y="280" width="250" height="35" fill="#27ae60" rx="8"/>
+        <text x="450" y="302" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">
+            Payload（クレーム）
+        </text>
+
+        <text x="335" y="335" font-family="monospace" font-size="11" fill="#2c3e50">
+            {
+        </text>
+        <text x="345" y="350" font-family="monospace" font-size="11" fill="#e74c3c">
+            "iss": "https://provider.com",
+        </text>
+        <text x="345" y="365" font-family="monospace" font-size="11" fill="#e74c3c">
+            "sub": "user-123",
+        </text>
+        <text x="345" y="380" font-family="monospace" font-size="11" fill="#e74c3c">
+            "aud": "client-app-id",
+        </text>
+        <text x="345" y="395" font-family="monospace" font-size="11" fill="#e74c3c">
+            "exp": 1640995200,
+        </text>
+        <text x="345" y="410" font-family="monospace" font-size="11" fill="#e74c3c">
+            "iat": 1640991600,
+        </text>
+        <text x="345" y="425" font-family="monospace" font-size="11" fill="#3498db">
+            "auth_time": 1640991500,
+        </text>
+        <text x="345" y="440" font-family="monospace" font-size="11" fill="#3498db">
+            "nonce": "abc123",
+        </text>
+        <text x="345" y="455" font-family="monospace" font-size="11" fill="#3498db">
+            "email": "user@example.com",
+        </text>
+        <text x="345" y="470" font-family="monospace" font-size="11" fill="#3498db">
+            "name": "田中太郎"
+        </text>
+        <text x="335" y="485" font-family="monospace" font-size="11" fill="#2c3e50">
+            }
+        </text>
+
+        <rect x="330" y="500" width="240" height="1" fill="#bdc3c7"/>
+        <text x="335" y="520" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" font-weight="bold">
+            必須クレーム:
+        </text>
+        <text x="335" y="535" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">
+            • iss: 発行者、sub: 主体、aud: オーディエンス
+        </text>
+        <text x="335" y="548" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">
+            • exp: 有効期限、iat: 発行時刻
+        </text>
+
+        <text x="335" y="570" font-family="Arial, sans-serif" font-size="10" fill="#3498db" font-weight="bold">
+            オプションクレーム:
+        </text>
+        <text x="335" y="585" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">
+            • auth_time: 認証時刻、nonce: リプレイ攻撃防止
+        </text>
+        <text x="335" y="598" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">
+            • email, name: ユーザー情報
+        </text>
+    </g>
+
+    <!-- Signature詳細 -->
+    <g>
+        <rect x="600" y="280" width="250" height="180" fill="#fff" stroke="#9b59b6" stroke-width="2" rx="8"/>
+        <rect x="600" y="280" width="250" height="35" fill="#9b59b6" rx="8"/>
+        <text x="725" y="302" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">
+            Signature
+        </text>
+
+        <text x="610" y="335" font-family="monospace" font-size="11" fill="#2c3e50">
+            RSASHA256(
+        </text>
+        <text x="620" y="350" font-family="monospace" font-size="11" fill="#2c3e50">
+            base64UrlEncode(header) +
+        </text>
+        <text x="620" y="365" font-family="monospace" font-size="11" fill="#2c3e50">
+            "." +
+        </text>
+        <text x="620" y="380" font-family="monospace" font-size="11" fill="#2c3e50">
+            base64UrlEncode(payload),
+        </text>
+        <text x="620" y="395" font-family="monospace" font-size="11" fill="#2c3e50">
+            secret
+        </text>
+        <text x="610" y="410" font-family="monospace" font-size="11" fill="#2c3e50">
+            )
+        </text>
+
+        <text x="610" y="435" font-family="Arial, sans-serif" font-size="10" fill="#7f8c8d">
+            • トークンの改ざん検知
+        </text>
+        <text x="610" y="450" font-family="Arial, sans-serif" font-size="10" fill="#7f8c8d">
+            • 発行者の正当性確認
+        </text>
+    </g>
+
+    <!-- フロー矢印 -->
+    <path d="M 170 200 L 170 270" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+    <path d="M 450 200 L 450 270" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+    <path d="M 730 200 L 730 270" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead-purple)"/>
+
+    <!-- 矢印マーカー定義 -->
+    <defs>
+        <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+        </marker>
+        <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+        </marker>
+        <marker id="arrowhead-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#9b59b6"/>
+        </marker>
+    </defs>
+
+    <!-- セキュリティ注意点 -->
+    <rect x="50" y="620" width="800" height="60" fill="#fff3cd" stroke="#ffc107" stroke-width="2" rx="8"/>
+    <text x="60" y="640" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#856404">
+        🔒 セキュリティのポイント:
+    </text>
+    <text x="60" y="655" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+        • IDトークンは署名によって改ざんを検知可能　• 有効期限（exp）は短時間に設定　• nonceでリプレイ攻撃を防止
+    </text>
+    <text x="60" y="670" font-family="Arial, sans-serif" font-size="11" fill="#856404">
+        • 機密情報は含めない（アクセストークンとは別物）　• HTTPS通信必須
+    </text>
+</svg>

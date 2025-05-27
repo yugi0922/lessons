@@ -1,0 +1,92 @@
+<svg width="500" height="600" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            .title { font: bold 28px 'Segoe UI', Arial, sans-serif; fill: #f39c12; text-anchor: middle; }
+            .actor-text { font: 14px 'Segoe UI', Arial, sans-serif; text-anchor: middle; fill: #333; }
+            .step-text { font: 14px 'Segoe UI', Arial, sans-serif; fill: #333; }
+            .step-number { font: bold 12px 'Segoe UI', Arial, sans-serif; fill: white; text-anchor: middle; }
+            .comm-type { font: bold 16px 'Segoe UI', Arial, sans-serif; text-anchor: middle; fill: #ef6c00; }
+            .purpose-text { font: 14px 'Segoe UI', Arial, sans-serif; text-anchor: middle; fill: #666; }
+
+            .front-channel-border { fill: #fafafa; stroke: #f39c12; stroke-width: 3; }
+            .user-actor { fill: #e8f4fd; stroke: #2980b9; stroke-width: 2; }
+            .rp-actor { fill: #e8f8f5; stroke: #27ae60; stroke-width: 2; }
+            .op-actor { fill: #fdf2e9; stroke: #e67e22; stroke-width: 2; }
+            .iframe-comm-bg { fill: #fff3e0; stroke: #ef6c00; stroke-width: 2; }
+            .step-bg { fill: white; stroke: #e0e0e0; stroke-width: 1; }
+            .step-circle { fill: #f39c12; }
+        </style>
+
+        <!-- Arrow markers -->
+        <marker id="iframe-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0,0 0,6 9,3" fill="#f39c12"/>
+        </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect x="0" y="0" width="500" height="600" rx="15" class="front-channel-border"/>
+
+    <!-- Title -->
+    <text x="250" y="40" class="title">📱 Front-Channel Logout</text>
+    <line x1="50" y1="55" x2="450" y2="55" stroke="#f39c12" stroke-width="3"/>
+
+    <!-- Actors -->
+    <rect x="50" y="80" width="80" height="70" rx="10" class="user-actor"/>
+    <text x="90" y="105" class="actor-text" font-size="18">👤</text>
+    <text x="90" y="130" class="actor-text" font-weight="bold">User</text>
+
+    <rect x="156" y="80" width="80" height="70" rx="10" class="op-actor"/>
+    <text x="196" y="105" class="actor-text" font-size="18">🏢</text>
+    <text x="196" y="130" class="actor-text" font-weight="bold">OP</text>
+
+    <rect x="264" y="80" width="80" height="70" rx="10" class="rp-actor"/>
+    <text x="304" y="105" class="actor-text" font-size="18">🖥️</text>
+    <text x="304" y="130" class="actor-text" font-weight="bold">RP1</text>
+
+    <rect x="370" y="80" width="80" height="70" rx="10" class="rp-actor"/>
+    <text x="410" y="105" class="actor-text" font-size="18">🖥️</text>
+    <text x="410" y="130" class="actor-text" font-weight="bold">RP2</text>
+
+    <!-- Communication type -->
+    <rect x="50" y="180" width="400" height="40" rx="10" class="iframe-comm-bg"/>
+    <text x="250" y="205" class="comm-type">ブラウザ経由 (iframe)</text>
+
+    <!-- Flow arrows via browser -->
+    <g transform="translate(0, 117)">
+        <!-- Browser to RP1 -->
+        <line x1="220" y1="0" x2="280" y2="0" stroke="#f39c12" stroke-width="2" marker-end="url(#iframe-arrow)"/>
+<!--        <text x="210" y="-10" class="step-text" font-size="12" text-anchor="middle" fill="#f39c12">⇢</text>-->
+
+        <!-- Browser to RP2 -->
+        <path d="M 200 25 Q 300 70 400 20" stroke="#f39c12" stroke-width="2" fill="none" marker-end="url(#iframe-arrow)"/>
+<!--        <text x="260" y="50" class="step-text" font-size="12" text-anchor="middle" fill="#f39c12">⇢</text>-->
+    </g>
+
+    <!-- Steps -->
+    <g transform="translate(25, 250)">
+        <rect x="0" y="0" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#f39c12" stroke-width="1"/>
+        <circle cx="25" cy="22" r="18" class="step-circle"/>
+        <text x="25" y="28" class="step-number">1</text>
+        <text x="60" y="28" class="step-text" font-size="16">OP: ログアウトページ表示</text>
+
+        <rect x="0" y="60" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#f39c12" stroke-width="1"/>
+        <circle cx="25" cy="82" r="18" class="step-circle"/>
+        <text x="25" y="88" class="step-number">2</text>
+        <text x="60" y="88" class="step-text" font-size="16">Browser ⇢ RP1: iframe GET リクエスト</text>
+
+        <rect x="0" y="120" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#f39c12" stroke-width="1"/>
+        <circle cx="25" cy="142" r="18" class="step-circle"/>
+        <text x="25" y="148" class="step-number">3</text>
+        <text x="60" y="148" class="step-text" font-size="16">Browser ⇢ RP2: iframe GET リクエスト</text>
+
+        <rect x="0" y="180" width="450" height="45" rx="10" class="step-bg" fill="#ffffff" stroke="#f39c12" stroke-width="1"/>
+        <circle cx="25" cy="202" r="18" class="step-circle"/>
+        <text x="25" y="208" class="step-number">4</text>
+        <text x="60" y="208" class="step-text" font-size="16">各RP: セッション終了処理</text>
+    </g>
+
+    <!-- Purpose -->
+    <rect x="50" y="510" width="400" height="50" rx="10" fill="#fff3e0" stroke="#f39c12" stroke-width="2"/>
+    <text x="250" y="530" class="purpose-text" font-weight="bold" font-size="16">目的</text>
+    <text x="250" y="550" class="purpose-text" font-size="14">OPから関連RPへのブラウザ経由通知</text>
+</svg>
