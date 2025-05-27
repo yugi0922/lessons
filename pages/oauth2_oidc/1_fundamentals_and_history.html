@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuthとOIDC入門：基本概念と歴史的背景</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+        .section-title {
+            color: #343a40; /* Dark gray for titles */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .concept-box {
+            border: 2px solid;
+            padding: 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .authn-box {
+            border-color: #007bff; /* Blue for Authentication */
+            color: #007bff;
+        }
+        .authz-box {
+            border-color: #28a745; /* Green for Authorization */
+            color: #28a745;
+        }
+        .arrow-symbol { /* PC用横矢印の基本スタイル */
+            font-size: 2rem;
+            color: #6c757d; /* Muted gray for arrows */
+        }
+        .problem-box, .solution-box, .role-definition-box {
+            border-left: 4px solid;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        .problem-box {
+            border-color: #dc3545; /* Red for problems */
+        }
+        .solution-box {
+            border-color: #17a2b8; /* Teal for solutions */
+        }
+        .role-definition-box {
+            border-color: #ffc107; /* Amber for roles */
+            background-color: #fffbeb; /* Light yellow background */
+        }
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flow-step {
+            background-color: #e9ecef; /* Light gray for steps */
+            border: 1px solid #ced4da; /* Gray border */
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem; /* rounded-sm */
+            margin-bottom: 0.5rem;
+            text-align: center;
+            min-width: 200px;
+        }
+        .flow-arrow { /* モバイル用・グループ間用 縦矢印の基本スタイル */
+            font-size: 1.5rem; /* text-2xl */
+            color: #6c757d;
+        }
+        .icon-style {
+            font-size: 2.5rem; /* text-4xl */
+            margin-bottom: 0.5rem;
+        }
+        .role-icon {
+            font-size: 1.8rem;
+            margin-right: 0.5rem;
+        }
+        .token-explanation {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+        }
+        .access-token-exp {
+            background-color: #e0f2f7; /* Light blue for access token */
+            border-left: 3px solid #45B7D1;
+        }
+        .id-token-exp {
+            background-color: #e8f5e9; /* Light green for id token */
+            border-left: 3px solid #66bb6a;
+        }
+        .hotel-flow-item, .scraping-flow-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0.75rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem; /* rounded-md */
+            background-color: #f8f9fa;
+            min-width: 150px; /* 各要素の最小幅を確保 */
+            flex-shrink: 0; /* 縮まないようにする */
+        }
+        .hotel-flow-icon, .scraping-flow-icon {
+            font-size: 2rem; /* text-3xl */
+            margin-bottom: 0.25rem;
+        }
+        .hotel-flow-label, .scraping-flow-label {
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 600; /* font-semibold */
+        }
+        .hotel-flow-description, .scraping-flow-description {
+            font-size: 0.75rem; /* text-xs */
+            color: #495057;
+        }
+        .hotel-flow-connector, .scraping-flow-connector { /* 使われていないが念のため残す */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body class="text-gray-800 leading-relaxed">
+
+    <header class="bg-gray-800 text-white py-8 shadow-lg">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold">OAuthとOIDC入門</h1>
+            <p class="mt-2 text-xl">基本概念と歴史的背景を学ぶ (エンジニア向け)</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="authn-authz" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 section-title border-b-2 pb-2 border-gray-300">1. 認証と認可の明確な違い</h2>
+            
+            <div class="card">
+                <p class="mb-6 text-lg">OAuth (RFC 6749) および OpenID Connect (OIDC) を理解する上で、まず「認証 (Authentication)」と「認可 (Authorization)」の区別を明確にすることが不可欠です。これらは関連しつつも、異なる目的を持つプロセスです。</p>
+
+                <div class="grid md:grid-cols-2 gap-8 items-stretch mb-8">
+                    <div class="concept-box authn-box">
+                        <div class="icon-style">🔑</div>
+                        <h3 class="text-2xl font-semibold mb-2">認証 (Authentication)</h3>
+                        <p class="text-lg">エンティティ（ユーザーやシステム）が<strong class="font-semibold">「誰であるか」を検証する</strong>プロセスです。</br> (AuthN とも略される)</p>
+                        <p class="text-sm mt-2">(例: ユーザー名とパスワードの検証、多要素認証、デジタル署名の検証)</p>
+                    </div>
+                    <div class="concept-box authz-box">
+                        <div class="icon-style">🛡️</div>
+                        <h3 class="text-2xl font-semibold mb-2">認可 (Authorization)</h3>
+                        <p class="text-lg">認証されたエンティティが、特定のリソースに対して<strong class="font-semibold">「何をする権限を持つか」を決定し、許可を与える</strong>プロセスです。(AuthZ とも略される)</p>
+                        <p class="text-sm mt-2">(例: ファイルへの読み取り/書き込み権限の付与、APIエンドポイントへのアクセス許可)</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-8 p-4 bg-gray-100 rounded-md">
+                    <span class="text-gray-700 text-lg">一般的に、<strong class="text-blue-600">認証</strong>が成功した後に、その認証情報に基づいて<strong class="text-green-600">認可</strong>の判断が行われます。</span>
+                </div>
+
+                <h4 class="text-xl font-semibold mb-4 text-gray-700">具体例：ホテルのチェックインと部屋へのアクセス</h4>
+                <div class="bg-blue-50 p-6 rounded-lg shadow">
+                    <ol class="list-decimal list-inside space-y-3 text-gray-700 mb-6">
+                        <li>
+                            <strong>認証:</strong> ホテルのフロントで、予約者名と身分証明書（パスポートや運転免許証など）を提示します。フロントスタッフは、提示された情報が予約記録と一致し、あなたが主張する本人であることを検証します。
+                            <span class="block text-sm text-blue-600 mt-1">➡️ 「あなたは確かに予約者の山田様ですね」という<strong class="font-semibold">本人確認</strong>が完了します。</span>
+                        </li>
+                        <li>
+                            <strong>認可:</strong> 本人確認（認証）が完了すると、フロントスタッフはあなたに部屋のカードキーを渡します。このカードキーは、あなたが宿泊する特定の部屋（例: 305号室）のドアを開ける<strong class="font-semibold">権限</strong>を付与します。しかし、他の宿泊客の部屋や、ホテルのスタッフルーム、金庫室などへのアクセス権限は与えません。
+                            <span class="block text-sm text-green-600 mt-1">➡️ 「山田様、305号室のカードキーです。このキーで305号室のドアを開けることができます」という<strong class="font-semibold">限定的なアクセス許可</strong>が与えられます。</span>
+                        </li>
+                    </ol>
+
+                    <div class="mt-6 border-t pt-6 border-blue-200">
+                        <h5 class="text-lg font-semibold mb-4 text-center text-gray-700">ホテルの例：フロー図</h5>
+                        <div class="flex flex-col md:flex-row justify-around items-start md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                            <div class="w-full md:w-auto p-4 border-2 border-blue-500 rounded-lg bg-white shadow-md">
+                                <p class="text-center font-semibold text-blue-700 mb-3 text-lg">認証 (Authentication)</p>
+                                <div class="flex flex-col items-center space-y-2">
+                                    <div class="hotel-flow-item">
+                                        <div class="hotel-flow-icon">👤</div>
+                                        <div class="hotel-flow-label">宿泊客 (あなた)</div>
+                                        <div class="hotel-flow-description">予約名・身分証を提示</div>
+                                    </div>
+                                    <div class="flow-arrow my-1">▼</div>
+                                    <div class="hotel-flow-item">
+                                        <div class="hotel-flow-icon">🏨</div>
+                                        <div class="hotel-flow-label">ホテルフロント</div>
+                                        <div class="hotel-flow-description">本人確認・予約照合</div>
+                                    </div>
+                                    <div class="flow-arrow my-1">✔️</div>
+                                    <div class="p-2 bg-blue-100 text-blue-700 rounded-md text-sm">
+                                        「山田様ですね」<br/>(本人であると確認)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hidden md:flex items-center justify-center text-3xl text-gray-500 mx-4">➡️</div>
+                            <div class="md:hidden w-full text-center text-2xl text-gray-500 my-2">⬇️</div>
+
+
+                            <div class="w-full md:w-auto p-4 border-2 border-green-500 rounded-lg bg-white shadow-md">
+                                <p class="text-center font-semibold text-green-700 mb-3 text-lg">認可 (Authorization)</p>
+                                <div class="flex flex-col items-center space-y-2">
+                                    <div class="hotel-flow-item">
+                                        <div class="hotel-flow-icon">🏨</div>
+                                        <div class="hotel-flow-label">ホテルフロント</div>
+                                        <div class="hotel-flow-description">(認証後) カードキー発行</div>
+                                    </div>
+                                    <div class="flow-arrow my-1">▼</div>
+                                    <div class="hotel-flow-item">
+                                        <div class="hotel-flow-icon">🔑</div>
+                                        <div class="hotel-flow-label">カードキー</div>
+                                        <div class="hotel-flow-description">305号室へのアクセス権</div>
+                                    </div>
+                                    <div class="flow-arrow my-1">✔️</div>
+                                    <div class="p-2 bg-green-100 text-green-700 rounded-md text-sm">
+                                        「305号室に入れます」<br/>(特定の部屋へのアクセス許可)
+                                    </div>
+                                    <div class="flow-arrow my-1">🚫</div>
+                                     <div class="p-2 bg-red-100 text-red-700 rounded-md text-sm">
+                                        「他の部屋はダメです」<br/>(他へのアクセスは不許可)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="evolution" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 section-title border-b-2 pb-2 border-gray-300">2. 伝統的な認証・認可からの進化</h2>
+            <div class="card">
+                <p class="mb-6 text-lg">OAuthやOIDCが登場する以前のウェブサービス間連携では、主にユーザーのクレデンシャル（ID/パスワード）を直接共有する方法が用いられていましたが、これには深刻なセキュリティリスクが伴いました。</p>
+                
+                <h4 class="text-xl font-semibold mb-2 text-red-600">アンチパターン：クレデンシャル共有のリスク (Password Anti-Pattern)</h4>
+                
+                <div class="problem-box border-red-500 bg-red-50 p-4 rounded-md mb-6">
+                    <h5 class="text-lg font-semibold mb-3 text-red-700">例1: サードパーティアプリへのパスワード提供</h5>
+                    <p class="mb-2">サードパーティアプリケーション（例: 写真印刷サービスA）が、ユーザーのデータが保存されているサービス（例: オンライン写真ストレージサービスB）のリソース（例: 写真アルバム）にアクセスしたい場合、ユーザーはサービスAに<strong class="text-red-700">サービスBのユーザー名とパスワードを直接提供する</strong>必要がありました。</p>
+                    <div class="my-4 p-4 border border-red-300 rounded-md bg-white shadow-sm">
+                        <div class="flex flex-col md:flex-row items-center justify-around text-center">
+                            <div class="scraping-flow-item mb-2 md:mb-0">
+                                <div class="scraping-flow-icon">👤</div>
+                                <div class="scraping-flow-label">ユーザー</div>
+                            </div>
+                            <div class="arrow-symbol hidden md:block md:mx-2">→</div>
+                            <div class="md:hidden flow-arrow my-1">▼</div>
+                            <div class="scraping-flow-item mb-2 md:mb-0">
+                                <div class="text-red-500 font-bold p-2 border border-red-500 rounded">写真サービスBのID/PW</div>
+                            </div>
+                            <div class="arrow-symbol hidden md:block md:mx-2">→</div>
+                            <div class="md:hidden flow-arrow my-1">▼</div>
+                            <div class="scraping-flow-item mb-2 md:mb-0">
+                                <div class="scraping-flow-icon">💻</div>
+                                <div class="scraping-flow-label">写真印刷サービスA</div>
+                            </div>
+                            <div class="arrow-symbol hidden md:block md:mx-2">→</div>
+                            <div class="md:hidden flow-arrow my-1">▼</div>
+                            <div class="scraping-flow-item">
+                                <div class="scraping-flow-icon">🖼️</div>
+                                <div class="scraping-flow-label">写真サービスBの全データ</div>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-center text-red-700 font-semibold">危険！サービスAがユーザーの完全な権限を取得します。</p>
+                    </div>
+                </div>
+
+                <div class="problem-box border-red-500 bg-red-50 p-4 rounded-md mb-6">
+                    <h5 class="text-lg font-semibold mb-3 text-red-700">例2: 家計簿アプリによる銀行口座スクレイピング</h5>
+                    <p class="mb-2">一部の家計簿アプリでは、ユーザーの銀行口座の取引明細を取得するために、ユーザーに<strong class="text-red-700">オンラインバンキングのユーザーIDとパスワード</strong>の提供を求め、アプリがその情報を使って銀行サイトにログインし、画面情報を解析（スクレイピング）してデータを取得する方式が用いられることがあります。</p>
+                    <div class="my-4 p-4 border border-red-300 rounded-md bg-white shadow-sm overflow-x-auto">
+                        <div class="flex flex-col items-center"> <div class="flex flex-col md:flex-row items-center justify-center text-center w-full md:gap-x-2">
+                                <div class="scraping-flow-item mb-2 md:mb-0">
+                                    <div class="scraping-flow-icon">👤</div>
+                                    <div class="scraping-flow-label">ユーザー</div>
+                                </div>
+                                <div class="arrow-symbol hidden md:block md:mx-2">→</div>
+                                <div class="md:hidden flow-arrow my-1">▼</div>
+                                <div class="scraping-flow-item mb-2 md:mb-0">
+                                    <div class="text-red-500 font-bold p-2 border border-red-500 rounded break-all">銀行のID/PW</div>
+                                    <div class="scraping-flow-description">(家計簿アプリに預ける)</div>
+                                </div>
+                            </div>
+
+                            <div class="flow-arrow my-2">▼</div>
+
+                            <div class="flex flex-col md:flex-row items-center justify-center text-center w-full md:gap-x-2">
+                                <div class="scraping-flow-item mb-2 md:mb-0">
+                                    <div class="scraping-flow-icon">📱</div>
+                                    <div class="scraping-flow-label">家計簿アプリ</div>
+                                    <div class="scraping-flow-description">(預かったID/PWで<br/>ログイン試行)</div>
+                                </div>
+                                <div class="arrow-symbol hidden md:block md:mx-2">→</div>
+                                <div class="md:hidden flow-arrow my-1">▼</div>
+                                <div class="scraping-flow-item">
+                                    <div class="scraping-flow-icon">🏦</div>
+                                    <div class="scraping-flow-label">銀行サイト</div>
+                                    <div class="scraping-flow-description">(アプリが画面を<br/>スクレイピング)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-center text-red-700 font-semibold">危険！家計簿アプリが銀行口座の全操作権限を持つ可能性があり、セキュリティリスクが非常に高いです。</p>
+                    </div>
+                </div>
+                
+                <h5 class="text-lg font-semibold mb-2 text-red-800">これらのクレデンシャル共有における共通のリスク：</h5>
+                <ul class="list-disc list-inside text-red-700 space-y-1 bg-red-100 p-4 rounded-md">
+                    <li><strong class="font-semibold">広範すぎる権限 (Over-scoping):</strong> クライアント（サードパーティアプリや家計簿アプリ）は、ユーザーの意図する範囲（例: 写真の閲覧のみ、取引明細の取得のみ）を超えて、全データアクセス権や場合によっては資金移動などの操作権限まで得てしまう可能性がある。</li>
+                    <li><strong class="font-semibold">パスワード漏洩リスク:</strong> クライアントが悪意を持つ、またはセキュリティ侵害を受けた場合、ユーザーの重要なクレデンシャル（銀行のパスワードなど）が漏洩し、不正利用される危険性がある。</li>
+                    <li><strong class="font-semibold">権限剥奪の困難さ:</strong> 一度クレデンシャルを渡すと、そのアプリからのアクセスだけを選択的に無効化することが難しく、パスワード変更などの対応が必要になる。</li>
+                    <li><strong class="font-semibold">ユーザー体験の低下と不安:</strong> 重要なパスワードを第三者に預けることへのユーザーの抵抗感や不安感。</li>
+                    <li><strong class="font-semibold">(スクレイピングの場合) サービス提供者側の仕様変更への脆弱性:</strong> 銀行サイトのデザインやHTML構造が変更されると、家計簿アプリはデータを正しく取得できなくなる可能性がある。</li>
+                </ul>
+
+                <p class="text-lg mt-6">これらの課題を解決し、より安全で柔軟な権限委譲の仕組みとしてOAuthが、そしてその上で堅牢な認証の仕組みとしてOIDCが標準化されました。</p>
+            </div>
+        </section>
+
+        <section id="solution" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 section-title border-b-2 pb-2 border-gray-300">3. OAuthとOIDCが解決する問題</h2>
+            <div class="card">
+                <p class="mb-6 text-lg">OAuth 2.0は「認可」のフレームワークであり、OIDCはOAuth 2.0を基盤として「認証」機能を提供するアイデンティティレイヤーです。</p>
+
+                <div class="solution-box border-blue-500 bg-blue-50 p-4 rounded-md mb-8">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-700">OAuth 2.0 (Open Authorization)</h4>
+                    <p class="mb-2">主に<strong class="text-blue-700">「認可 (Authorization)」</strong>のためのフレームワークです (RFC 6749)。</p>
+                    <p class="mb-3">サードパーティアプリケーション（クライアント）に対し、リソースオーナー（通常はエンドユーザー）の代わりに、特定のリソースへの限定的なアクセス権限を付与する（委任する）ための標準的な方法を定義します。この際、リソースオーナーのクレデンシャル（パスワードなど）をクライアントに直接渡す必要はありません。</p>
+                    
+                    <h5 class="text-lg font-semibold mb-2 text-blue-600">OAuth 2.0の主要なロール</h5>
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div class="role-definition-box p-3">
+                            <p><span class="role-icon">👤</span><strong class="font-semibold">リソースオーナー (Resource Owner):</strong> 保護されたリソースへのアクセスを許可する権限を持つエンティティ（通常はエンドユーザー）。</p>
+                        </div>
+                        <div class="role-definition-box p-3">
+                            <p><span class="role-icon">💻</span><strong class="font-semibold">クライアント (Client):</strong> リソースオーナーの代わりに保護されたリソースへアクセスしようとするアプリケーション。</p>
+                        </div>
+                        <div class="role-definition-box p-3">
+                            <p><span class="role-icon">🔑</span><strong class="font-semibold">認可サーバー (Authorization Server):</strong> リソースオーナーの認証に成功し、認可を取得した後、クライアントにアクセストークンを発行するサーバー。</p>
+                        </div>
+                        <div class="role-definition-box p-3">
+                            <p><span class="role-icon">🗄️</span><strong class="font-semibold">リソースサーバー (Resource Server):</strong> 保護されたリソースをホストし、アクセストークンを使用してクライアントからのリクエストを受け付け、応答するサーバー。</p>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-2">OAuthの核心は、クライアントがリソースオーナーの同意を得て認可サーバーから<strong class="text-blue-700">アクセストークン (Access Token)</strong> を取得し、そのトークンを使ってリソースサーバー上の保護されたリソースにアクセスすることです。</p>
+                    <div class="token-explanation access-token-exp">
+                        <p><strong class="font-semibold">アクセストークン:</strong> 特定のスコープ（権限範囲）と有効期間を持つ文字列。リソースサーバーはこれ検証し、リクエストされた操作を許可するか判断します。</p>
+                    </div>
+                </div>
+
+                <div class="solution-box border-green-500 bg-green-50 p-4 rounded-md">
+                    <h4 class="text-xl font-semibold mb-3 text-green-700">OIDC (OpenID Connect)</h4>
+                    <p class="mb-2">OAuth 2.0プロトコルの上に構築された、シンプルなアイデンティティレイヤーです。主に<strong class="text-green-700">「認証 (Authentication)」</strong>の機能を提供します。</p>
+                    <p class="mb-3">クライアントがエンドユーザーのアイデンティティを検証し、基本的なプロファイル情報を相互運用可能なRESTfulな方法で取得できるようにします。OIDCは、認可サーバー（OIDCではIdP: Identity Providerとも呼ばれる）がユーザー認証を行い、その結果として<strong class="text-green-700">IDトークン (ID Token)</strong> と、多くの場合アクセストークンをクライアントに発行します。</p>
+                    
+                    <p class="mb-2">OIDCはOAuth 2.0の認可フローを利用しますが、その目的はユーザー認証情報の伝達です。</p>
+                    <div class="token-explanation id-token-exp">
+                        <p><strong class="font-semibold">IDトークン:</strong> JWT (JSON Web Token) 形式のクレーム（ユーザーに関する情報、認証イベントに関する情報など）を含む文字列。クライアントはIDトークンを検証することでユーザーが認証されたことを確認できます。</p>
+                    </div>
+
+                    <div class="mt-4 p-3 border border-green-300 rounded-md bg-white shadow-sm">
+                        <h5 class="text-md font-semibold mb-2 text-green-700">OIDCにおける認証と認可の明確な区別</h5>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li><strong>認証 (OIDCの主目的):</strong> IDトークンによって実現されます。ユーザーが誰であるかを確認し、その認証情報をクライアントに伝えます。</li>
+                            <li><strong>認可 (OAuth 2.0の機能を利用):</strong> アクセストークンによって実現されます。クライアントがユーザーのリソース（例: メールアドレス、プロフィール写真など）にアクセスするための権限を付与します。OIDCでは、`openid` スコープに加えて、`profile` や `email` などのスコープを要求することで、対応する情報へのアクセストークンを取得できます。</li>
+                        </ul>
+                        <p class="text-xs mt-2">つまり、OIDCは「あなたは誰か（認証）」をIDトークンで伝え、「あなたは何をしてよいか（認可）」をアクセストークンで（OAuth 2.0の仕組みに則って）伝えます。</p>
+                    </div>
+                </div>
+                
+                <h4 class="text-xl font-semibold mb-4 text-gray-700">OAuthとOIDCによる主な改善点</h4>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 bg-gray-50 p-6 rounded-lg shadow">
+                    <li><strong class="text-green-600">クレデンシャルの保護:</strong> ユーザーのパスワードなどのクレデンシャルがクライアントに渡らない。</li>
+                    <li><strong class="text-green-600">限定的な権限委譲 (Scoped Access):</strong> クライアントは要求されたスコープ（権限範囲）内でのみリソースにアクセス可能。</li>
+                    <li><strong class="text-green-600">標準化された認証・認可フロー:</strong> サービス間の相互運用性が向上し、開発者は標準的な方法で連携を実装できる。</li>
+                    <li><strong class="text-green-600">ユーザー体験の向上:</strong> シングルサインオン (SSO) や、より安全なサービス連携が可能になる。</li>
+                    <li><strong class="text-green-600">(OIDC) 標準化されたアイデンティティ情報取得:</strong> クライアントはユーザーの基本的なプロファイル情報を一貫した方法で取得できる。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="standardization" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 section-title border-b-2 pb-2 border-gray-300">4. 標準化団体と仕様策定プロセス</h2>
+            <div class="card">
+                <p class="mb-6 text-lg">OAuthとOIDCの仕様は、広範なレビューと合意形成を経て、信頼性と相互運用性を確保するために、国際的な標準化団体によって策定・維持されています。</p>
+
+                <h4 class="text-xl font-semibold mb-4 text-gray-700">主要な標準化団体</h4>
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-gray-100 p-6 rounded-lg shadow">
+                        <h5 class="text-lg font-semibold mb-2 text-gray-800">IETF (Internet Engineering Task Force)</h5>
+                        <p class="text-sm text-gray-600">インターネット技術のプロトコルやアーキテクチャの標準化を推進するオープンな国際コミュニティ。主に <strong class="text-gray-700">OAuth (例: RFC 6749 - The OAuth 2.0 Authorization Framework)</strong> のコア仕様を策定しています。</p>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg shadow">
+                        <h5 class="text-lg font-semibold mb-2 text-gray-800">OpenID Foundation (OIDF)</h5>
+                        <p class="text-sm text-gray-600">オープンなアイデンティティ技術の標準化と普及を目的とする国際的な非営利団体。主に <strong class="text-gray-700">OpenID Connect</strong> の仕様を策定・維持しています。OIDCはOAuth 2.0を基盤としています。</p>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-semibold mb-4 text-gray-700">仕様策定プロセス (一般的な流れ)</h4>
+                <div class="flow-diagram bg-white p-6 rounded-lg shadow border border-gray-200">
+                    <div class="flow-step">1. 問題提起・ユースケースの特定</div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="flow-step">2. ワーキンググループ (WG) /仕様策定グループの結成</div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="flow-step">3. インターネットドラフト (ID) /仕様草案の作成と公開</div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="flow-step">4. コミュニティによるレビュー、議論、実装経験のフィードバック</div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="flow-step">5. 草案の改訂 (複数回繰り返されることが多い)</div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="flow-step">6. 標準化 (例: IETFではRFCとして発行、OIDFではFinal Specificationとして承認)</div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="flow-step">7. 普及活動、相互運用性テスト、必要に応じた改訂・拡張</div>
+                </div>
+                <p class="mt-4 text-sm text-gray-600 text-center">このオープンで透明性の高いプロセスにより、技術仕様は堅牢で、広く受け入れられるものとなります。</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center py-6 mt-12">
+        <p>&copy; 2024 OAuth/OIDC 入門講座. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
