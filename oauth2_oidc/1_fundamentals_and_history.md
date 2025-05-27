@@ -1,11 +1,5 @@
 # 1. 基本概念と歴史的背景
 
-<!-- 画像サンプルとして -->
+[こちら](https://cbmrham.github.io/lessons/oauth2_oidc/1_fundamentals_and_history.html)
 
-![thumbnail](./images/thumbnail.png)
-
-## 1.1. xxx
-
-## 1.2. xxx
-
-## 1.3. xxx
+リッチなコンテンツを提供するための HTML ファイルを作成しました。`/docs/oauth2_oidc/1_fundamentals_and_history.html`に配置しているものを github pages でホストしています
