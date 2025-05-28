@@ -417,13 +417,8 @@ OAuth 2.0 の発行から約10年が経過し、その間に多くのベスト�
 OAuth 2.1 は、既存のOAuth 2.0の複雑さを減らし、セキュリティをデフォルトで高めることを目的としており、今後の新規実装ではOAuth 2.1を意識することが推奨されます。
 
 #### 主な変更点・目指す方向性
-- 廃止される仕様
-  セキュリティ上の懸念がある古いフロー（Implicit Grant、Resource Owner Password Credentials Grant）は廃止されます。
-- PKCEの必須化
-  Authorization Code Flow を利用する全てのクライアント（PublicだけでなくConfidentialも含む）でPKCE (Proof Key for Code Exchange) の利用が必須となります。これにより認可コード横取り攻撃への耐性が向上します。
-- リダイレクトURIの厳格化
-  リダイレクトURIの完全一致がより強く推奨・要求されます。
-- Bearer Tokenの取り扱いの明確化
-  Bearer Tokenの送信方法に関する規定がより明確になります。
-- その他
-  複数のRFCに分散していた推奨事項を統合し、開発者がより安全な実装を行いやすくすることを目指しています。
+- 廃止される仕様  セキュリティ上の懸念がある古いフロー（Implicit Grant、Resource Owner Password Credentials Grant）は廃止されます。
+- PKCEの必須化  Authorization Code Flow を利用する全てのクライアント（PublicだけでなくConfidentialも含む）でPKCE (Proof Key for Code Exchange) の利用が必須となります。これにより認可コード横取り攻撃への耐性が向上します。
+- リダイレクトURIの厳格化  リダイレクトURIの完全一致がより強く推奨・要求されます。
+- Bearer Tokenの取り扱いの明確化  Bearer Tokenの送信方法に関する規定がより明確になります。
+- その他  複数のRFCに分散していた推奨事項を統合し、開発者がより安全な実装を行いやすくすることを目指しています。
