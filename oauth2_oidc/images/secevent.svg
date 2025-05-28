@@ -1,0 +1,136 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#ff8e8e;stop-opacity:0.8" />
+        </linearGradient>
+        <linearGradient id="payloadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#4ecdc4;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#6ee7df;stop-opacity:0.8" />
+        </linearGradient>
+        <linearGradient id="signatureGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#45b7d1;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#6bc5e8;stop-opacity:0.8" />
+        </linearGradient>
+        <filter id="shadow">
+            <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1200" height="800" fill="#f8f9fa"/>
+
+    <!-- Title -->
+    <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50">SECEVENT (Security Event Token) - RFC 8417</text>
+
+    <!-- JWT Structure Section -->
+    <text x="50" y="90" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">JWT構造 (JSON Web Token)</text>
+
+    <!-- Header -->
+    <rect x="50" y="110" width="350" height="120" rx="8" fill="url(#headerGrad)" filter="url(#shadow)"/>
+    <text x="225" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Header</text>
+    <text x="65" y="155" font-family="monospace" font-size="12" fill="#2c3e50">{</text>
+    <text x="75" y="175" font-family="monospace" font-size="12" fill="#2c3e50">"alg": "RS256",</text>
+    <text x="75" y="190" font-family="monospace" font-size="12" fill="#2c3e50">"typ": "secevent+jwt"</text>
+    <text x="65" y="210" font-family="monospace" font-size="12" fill="#2c3e50">}</text>
+
+    <!-- Payload -->
+    <rect x="425" y="110" width="350" height="120" rx="8" fill="url(#payloadGrad)" filter="url(#shadow)"/>
+    <text x="600" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Payload (Event Data)</text>
+    <text x="440" y="155" font-family="monospace" font-size="11" fill="#2c3e50">セキュリティイベントの詳細情報</text>
+    <text x="440" y="175" font-family="monospace" font-size="11" fill="#2c3e50">- イベントタイプ</text>
+    <text x="440" y="190" font-family="monospace" font-size="11" fill="#2c3e50">- 対象ユーザー</text>
+    <text x="440" y="205" font-family="monospace" font-size="11" fill="#2c3e50">- タイムスタンプ等</text>
+
+    <!-- Signature -->
+    <rect x="800" y="110" width="350" height="120" rx="8" fill="url(#signatureGrad)" filter="url(#shadow)"/>
+    <text x="975" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff">Signature</text>
+    <text x="815" y="155" font-family="monospace" font-size="12" fill="#2c3e50">RS256(</text>
+    <text x="825" y="175" font-family="monospace" font-size="12" fill="#2c3e50">  base64(header) + "." +</text>
+    <text x="825" y="190" font-family="monospace" font-size="12" fill="#2c3e50">  base64(payload),</text>
+    <text x="825" y="205" font-family="monospace" font-size="12" fill="#2c3e50">  private_key)</text>
+
+    <!-- Arrows between sections -->
+    <polygon points="410,170 420,165 420,175" fill="#7f8c8d"/>
+    <polygon points="785,170 795,165 795,175" fill="#7f8c8d"/>
+
+    <!-- Event Types Section -->
+    <text x="50" y="280" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">主要なセキュリティイベントタイプ</text>
+
+    <!-- Event Type Boxes -->
+    <rect x="50" y="300" width="200" height="80" rx="8" fill="#e74c3c" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="150" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Account Disabled</text>
+    <text x="150" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">アカウント無効化</text>
+    <text x="150" y="365" text-anchor="middle" font-family="monospace" font-size="10" fill="#ffffff">account-disabled</text>
+
+    <rect x="270" y="300" width="200" height="80" rx="8" fill="#f39c12" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="370" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Credential Change</text>
+    <text x="370" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">認証情報変更</text>
+    <text x="370" y="365" text-anchor="middle" font-family="monospace" font-size="10" fill="#ffffff">credential-change</text>
+
+    <rect x="490" y="300" width="200" height="80" rx="8" fill="#8e44ad" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="590" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Session Revoked</text>
+    <text x="590" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">セッション取消</text>
+    <text x="590" y="365" text-anchor="middle" font-family="monospace" font-size="10" fill="#ffffff">session-revoked</text>
+
+    <rect x="710" y="300" width="200" height="80" rx="8" fill="#27ae60" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="810" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Risky Account</text>
+    <text x="810" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">リスクアカウント</text>
+    <text x="810" y="365" text-anchor="middle" font-family="monospace" font-size="10" fill="#ffffff">risky-account</text>
+
+    <rect x="930" y="300" width="200" height="80" rx="8" fill="#2980b9" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="1030" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Identity Assurance</text>
+    <text x="1030" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">本人確認レベル変更</text>
+    <text x="1030" y="365" text-anchor="middle" font-family="monospace" font-size="10" fill="#ffffff">identity-assurance</text>
+
+    <!-- Flow Diagram -->
+    <text x="50" y="420" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">SECEVENTの送信フロー</text>
+
+    <!-- Sender -->
+    <rect x="50" y="440" width="150" height="100" rx="8" fill="#3498db" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="125" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Event Sender</text>
+    <text x="125" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">(Identity Provider)</text>
+    <text x="125" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">Auth0, Okta等</text>
+
+    <!-- Arrow 1 -->
+    <line x1="200" y1="490" x2="280" y2="490" stroke="#7f8c8d" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <text x="240" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">HTTP POST</text>
+
+    <!-- SET Transmitter -->
+    <rect x="300" y="440" width="150" height="100" rx="8" fill="#e67e22" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="375" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">SET Transmitter</text>
+    <text x="375" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">イベント配信</text>
+    <text x="375" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">エンドポイント</text>
+
+    <!-- Arrow 2 -->
+    <line x1="450" y1="490" x2="530" y2="490" stroke="#7f8c8d" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <text x="490" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">SECEVENT</text>
+
+    <!-- Receiver -->
+    <rect x="550" y="440" width="150" height="100" rx="8" fill="#9b59b6" fill-opacity="0.8" filter="url(#shadow)"/>
+    <text x="625" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Event Receiver</text>
+    <text x="625" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">(Relying Party)</text>
+    <text x="625" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">アプリケーション</text>
+
+    <!-- Example Payload -->
+    <text x="50" y="580" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">ペイロード例 - アカウント無効化イベント</text>
+
+    <rect x="50" y="600" width="1100" height="160" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
+    <text x="70" y="625" font-family="monospace" font-size="12" fill="#f8f9fa">{</text>
+    <text x="90" y="645" font-family="monospace" font-size="12" fill="#f8f9fa">"iss": "https://idp.example.com",</text>
+    <text x="90" y="665" font-family="monospace" font-size="12" fill="#f8f9fa">"sub": "user123@example.com",</text>
+    <text x="90" y="685" font-family="monospace" font-size="12" fill="#f8f9fa">"aud": "https://app.example.com",</text>
+    <text x="90" y="705" font-family="monospace" font-size="12" fill="#f8f9fa">"iat": 1609459200,</text>
+    <text x="90" y="725" font-family="monospace" font-size="12" fill="#f8f9fa">"events": {</text>
+    <text x="110" y="745" font-family="monospace" font-size="12" fill="#4ecdc4">"https://schemas.openid.net/secevent/risc/event-type/account-disabled": {}</text>
+    <text x="90" y="765" font-family="monospace" font-size="12" fill="#f8f9fa">}</text>
+    <text x="70" y="785" font-family="monospace" font-size="12" fill="#f8f9fa">}</text>
+
+    <!-- Arrow marker definition -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7"
+                refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d" />
+        </marker>
+    </defs>
+</svg>

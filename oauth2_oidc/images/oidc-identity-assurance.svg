@@ -1,0 +1,109 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+            .label { font-family: Arial, sans-serif; font-size: 12px; fill: #34495e; }
+            .small-label { font-family: Arial, sans-serif; font-size: 10px; fill: #7f8c8d; }
+            .flow-text { font-family: Arial, sans-serif; font-size: 10px; fill: #2980b9; }
+            .assurance-text { font-family: Arial, sans-serif; font-size: 9px; fill: #e74c3c; font-weight: bold; }
+            .user-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+            .provider-box { fill: #e8f5e8; stroke: #27ae60; stroke-width: 2; }
+            .oidc-box { fill: #fff3cd; stroke: #f39c12; stroke-width: 2; }
+            .rp-box { fill: #f0e6ff; stroke: #9b59b6; stroke-width: 2; }
+            .flow-arrow { stroke: #2980b9; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+            .assurance-arrow { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#arrowhead-red); }
+            .consent-box { fill: #ffeaa7; stroke: #fdcb6e; stroke-width: 1; stroke-dasharray: 5,5; }
+        </style>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2980b9" />
+        </marker>
+        <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
+        </marker>
+    </defs>
+
+    <!-- Title -->
+    <text x="400" y="25" text-anchor="middle" class="title">OIDC と eKYC・Identity Assurance の連携</text>
+
+    <!-- User -->
+    <rect x="340" y="50" width="120" height="60" rx="5" class="user-box"/>
+    <text x="400" y="75" text-anchor="middle" class="label" fill="white">ユーザー</text>
+    <text x="400" y="90" text-anchor="middle" class="small-label" fill="white">本人確認を受ける</text>
+
+    <!-- eKYC Provider -->
+    <rect x="50" y="180" width="150" height="80" rx="5" class="provider-box"/>
+    <text x="125" y="205" text-anchor="middle" class="label">eKYC プロバイダー</text>
+    <text x="125" y="220" text-anchor="middle" class="small-label">・本人確認実施</text>
+    <text x="125" y="235" text-anchor="middle" class="small-label">・身元保証レベル決定</text>
+    <text x="125" y="250" text-anchor="middle" class="small-label">・確認結果の証明</text>
+
+    <!-- OIDC Provider -->
+    <rect x="300" y="200" width="200" height="120" rx="5" class="oidc-box"/>
+    <text x="400" y="225" text-anchor="middle" class="label">OpenID Connect Provider</text>
+    <text x="400" y="245" text-anchor="middle" class="small-label">・ユーザー認証</text>
+    <text x="400" y="260" text-anchor="middle" class="small-label">・IAL/AAL レベル管理</text>
+    <text x="400" y="275" text-anchor="middle" class="small-label">・IDトークン発行</text>
+    <text x="400" y="290" text-anchor="middle" class="small-label">・acrクレームで保証レベル通知</text>
+    <text x="400" y="305" text-anchor="middle" class="small-label">・eKYC結果連携</text>
+
+    <!-- Relying Party -->
+    <rect x="600" y="180" width="150" height="80" rx="5" class="rp-box"/>
+    <text x="675" y="205" text-anchor="middle" class="label">Relying Party</text>
+    <text x="675" y="220" text-anchor="middle" class="small-label">・リスクベース判定</text>
+    <text x="675" y="235" text-anchor="middle" class="small-label">・サービス提供</text>
+    <text x="675" y="250" text-anchor="middle" class="small-label">・保証レベル活用</text>
+
+    <!-- User Consent Box -->
+    <rect x="320" y="370" width="160" height="50" rx="3" class="consent-box"/>
+    <text x="400" y="390" text-anchor="middle" class="label">ユーザー同意管理</text>
+    <text x="400" y="405" text-anchor="middle" class="small-label">情報開示範囲の制御</text>
+
+    <!-- Flow Arrows -->
+    <!-- User to eKYC -->
+    <path d="M 360 110 Q 250 150 200 180" class="flow-arrow"/>
+    <text x="280" y="145" class="flow-text">1. 本人確認要求</text>
+
+    <!-- eKYC to OIDC -->
+    <path d="M 200 220 L 300 240" class="flow-arrow"/>
+    <text x="220" y="235" class="flow-text">2. 確認結果</text>
+
+    <!-- User to OIDC -->
+    <path d="M 400 110 L 400 200" class="flow-arrow"/>
+    <text x="320" y="155" class="flow-text">3. 認証要求</text>
+
+    <!-- OIDC to RP -->
+    <path d="M 500 240 L 600 220" class="flow-arrow"/>
+    <text x="520" y="235" class="flow-text">4. IDトークン</text>
+
+    <!-- Assurance Level Arrows -->
+    <path d="M 200 250 Q 400 330 600 250" class="assurance-arrow"/>
+    <text x="380" y="345" class="assurance-text">保証レベル (IAL/AAL) の伝達</text>
+
+    <!-- Consent Arrow -->
+    <path d="M 400 370 Q 350 340 350 320" class="flow-arrow"/>
+
+    <!-- Identity Assurance Levels -->
+    <rect x="50" y="450" width="700" height="120" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+    <text x="400" y="475" text-anchor="middle" class="label">Identity Assurance の要素</text>
+
+    <rect x="80" y="490" width="150" height="70" rx="3" fill="#e8f8f5" stroke="#1abc9c" stroke-width="1"/>
+    <text x="155" y="510" text-anchor="middle" class="small-label">IAL (Identity Assurance)</text>
+    <text x="155" y="525" text-anchor="middle" class="small-label">・身元確認の信頼性</text>
+    <text x="155" y="540" text-anchor="middle" class="small-label">・本人性の保証レベル</text>
+
+    <rect x="250" y="490" width="150" height="70" rx="3" fill="#fef9e7" stroke="#f1c40f" stroke-width="1"/>
+    <text x="325" y="510" text-anchor="middle" class="small-label">AAL (Authentication)</text>
+    <text x="325" y="525" text-anchor="middle" class="small-label">・認証方式の強度</text>
+    <text x="325" y="540" text-anchor="middle" class="small-label">・多要素認証レベル</text>
+
+    <rect x="420" y="490" width="150" height="70" rx="3" fill="#fdf2e9" stroke="#e67e22" stroke-width="1"/>
+    <text x="495" y="510" text-anchor="middle" class="small-label">FAPI連携</text>
+    <text x="495" y="525" text-anchor="middle" class="small-label">・金融グレード</text>
+    <text x="495" y="540" text-anchor="middle" class="small-label">・高セキュリティ要件</text>
+
+    <rect x="590" y="490" width="130" height="70" rx="3" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1"/>
+    <text x="655" y="510" text-anchor="middle" class="small-label">相互運用性</text>
+    <text x="655" y="525" text-anchor="middle" class="small-label">・国際標準</text>
+    <text x="655" y="540" text-anchor="middle" class="small-label">・クロスボーダー</text>
+
+</svg>

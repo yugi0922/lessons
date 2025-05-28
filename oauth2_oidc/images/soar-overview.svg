@@ -1,0 +1,216 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#5b21b6;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="inputGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="soarCoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f3e8ff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ddd6fe;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="automationGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ecfdf5;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#bbf7d0;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="responseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#fee2e2;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#fca5a5;stop-opacity:1" />
+        </linearGradient>
+        <filter id="shadow">
+            <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+        </filter>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+        </marker>
+        <marker id="arrowheadBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+        </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1200" height="800" fill="#f8fafc"/>
+
+    <!-- Header -->
+    <rect x="0" y="0" width="1200" height="60" fill="url(#headerGrad)"/>
+    <text x="600" y="35" text-anchor="middle" fill="white" font-size="24" font-weight="bold">SOAR (Security Orchestration, Automation and Response)</text>
+
+    <!-- Input Sources -->
+    <text x="50" y="90" fill="#374151" font-size="18" font-weight="bold">脅威・インシデント情報</text>
+
+    <!-- SIEM Alerts -->
+    <rect x="30" y="110" width="140" height="80" rx="8" fill="url(#inputGrad)" stroke="#f59e0b" filter="url(#shadow)"/>
+    <text x="100" y="130" text-anchor="middle" fill="#92400e" font-size="12" font-weight="bold">SIEMアラート</text>
+    <text x="100" y="145" text-anchor="middle" fill="#78350f" font-size="10">• 自動検知</text>
+    <text x="100" y="160" text-anchor="middle" fill="#78350f" font-size="10">• 相関分析結果</text>
+    <text x="100" y="175" text-anchor="middle" fill="#78350f" font-size="10">• 異常イベント</text>
+
+    <!-- Manual Reports -->
+    <rect x="190" y="110" width="140" height="80" rx="8" fill="url(#inputGrad)" stroke="#f59e0b" filter="url(#shadow)"/>
+    <text x="260" y="130" text-anchor="middle" fill="#92400e" font-size="12" font-weight="bold">手動報告</text>
+    <text x="260" y="145" text-anchor="middle" fill="#78350f" font-size="10">• ユーザー報告</text>
+    <text x="260" y="160" text-anchor="middle" fill="#78350f" font-size="10">• SOC分析官</text>
+    <text x="260" y="175" text-anchor="middle" fill="#78350f" font-size="10">• 外部通報</text>
+
+    <!-- Threat Intelligence -->
+    <rect x="350" y="110" width="140" height="80" rx="8" fill="url(#inputGrad)" stroke="#f59e0b" filter="url(#shadow)"/>
+    <text x="420" y="130" text-anchor="middle" fill="#92400e" font-size="12" font-weight="bold">脅威インテリジェンス</text>
+    <text x="420" y="145" text-anchor="middle" fill="#78350f" font-size="10">• IoC情報</text>
+    <text x="420" y="160" text-anchor="middle" fill="#78350f" font-size="10">• CTI フィード</text>
+    <text x="420" y="175" text-anchor="middle" fill="#78350f" font-size="10">• CVE情報</text>
+
+    <!-- Vulnerability Scans -->
+    <rect x="510" y="110" width="140" height="80" rx="8" fill="url(#inputGrad)" stroke="#f59e0b" filter="url(#shadow)"/>
+    <text x="580" y="130" text-anchor="middle" fill="#92400e" font-size="12" font-weight="bold">脆弱性スキャン</text>
+    <text x="580" y="145" text-anchor="middle" fill="#78350f" font-size="10">• ネットワーク</text>
+    <text x="580" y="160" text-anchor="middle" fill="#78350f" font-size="10">• アプリケーション</text>
+    <text x="580" y="175" text-anchor="middle" fill="#78350f" font-size="10">• 設定診断</text>
+
+    <!-- Arrows to SOAR Core -->
+    <path d="M 100 190 Q 100 220 200 250" stroke="#f59e0b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M 260 190 Q 260 220 300 250" stroke="#f59e0b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M 420 190 Q 420 220 400 250" stroke="#f59e0b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M 580 190 Q 580 220 500 250" stroke="#f59e0b" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+    <!-- SOAR Core Platform -->
+    <rect x="100" y="250" width="600" height="280" rx="12" fill="url(#soarCoreGrad)" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
+    <text x="400" y="275" text-anchor="middle" fill="#5b21b6" font-size="18" font-weight="bold">SOAR プラットフォーム</text>
+
+    <!-- Incident Ingestion -->
+    <rect x="120" y="290" width="160" height="70" rx="6" fill="white" stroke="#a78bfa" filter="url(#shadow)"/>
+    <text x="200" y="310" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">インシデント受信</text>
+    <text x="200" y="325" text-anchor="middle" fill="#6b7280" font-size="10">• 正規化・分類</text>
+    <text x="200" y="340" text-anchor="middle" fill="#6b7280" font-size="10">• 重複排除</text>
+    <text x="200" y="355" text-anchor="middle" fill="#6b7280" font-size="10">• 優先度付け</text>
+
+    <!-- Case Management -->
+    <rect x="300" y="290" width="160" height="70" rx="6" fill="white" stroke="#a78bfa" filter="url(#shadow)"/>
+    <text x="380" y="310" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">ケース管理</text>
+    <text x="380" y="325" text-anchor="middle" fill="#6b7280" font-size="10">• チケット作成</text>
+    <text x="380" y="340" text-anchor="middle" fill="#6b7280" font-size="10">• 進捗追跡</text>
+    <text x="380" y="355" text-anchor="middle" fill="#6b7280" font-size="10">• 割り当て</text>
+
+    <!-- Playbook Engine -->
+    <rect x="480" y="290" width="160" height="70" rx="6" fill="white" stroke="#a78bfa" filter="url(#shadow)"/>
+    <text x="560" y="310" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">プレイブック</text>
+    <text x="560" y="325" text-anchor="middle" fill="#6b7280" font-size="10">• ワークフロー</text>
+    <text x="560" y="340" text-anchor="middle" fill="#6b7280" font-size="10">• 自動実行</text>
+    <text x="560" y="355" text-anchor="middle" fill="#6b7280" font-size="10">• 手順書</text>
+
+    <!-- Orchestration Layer -->
+    <rect x="120" y="380" width="160" height="70" rx="6" fill="white" stroke="#a78bfa" filter="url(#shadow)"/>
+    <text x="200" y="400" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">オーケストレーション</text>
+    <text x="200" y="415" text-anchor="middle" fill="#6b7280" font-size="10">• API統合</text>
+    <text x="200" y="430" text-anchor="middle" fill="#6b7280" font-size="10">• ツール連携</text>
+    <text x="200" y="445" text-anchor="middle" fill="#6b7280" font-size="10">• データ交換</text>
+
+    <!-- Analytics -->
+    <rect x="300" y="380" width="160" height="70" rx="6" fill="white" stroke="#a78bfa" filter="url(#shadow)"/>
+    <text x="380" y="400" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">分析・エンリッチ</text>
+    <text x="380" y="415" text-anchor="middle" fill="#6b7280" font-size="10">• コンテキスト追加</text>
+    <text x="380" y="430" text-anchor="middle" fill="#6b7280" font-size="10">• 脅威スコアリング</text>
+    <text x="380" y="445" text-anchor="middle" fill="#6b7280" font-size="10">• 関連付け</text>
+
+    <!-- Decision Engine -->
+    <rect x="480" y="380" width="160" height="70" rx="6" fill="white" stroke="#a78bfa" filter="url(#shadow)"/>
+    <text x="560" y="400" text-anchor="middle" fill="#5b21b6" font-size="12" font-weight="bold">意思決定エンジン</text>
+    <text x="560" y="415" text-anchor="middle" fill="#6b7280" font-size="10">• 自動判定</text>
+    <text x="560" y="430" text-anchor="middle" fill="#6b7280" font-size="10">• 人的承認</text>
+    <text x="560" y="445" text-anchor="middle" fill="#6b7280" font-size="10">• 条件分岐</text>
+
+    <!-- Automated Actions -->
+    <text x="50" y="580" fill="#374151" font-size="18" font-weight="bold">自動化アクション</text>
+
+    <!-- Containment -->
+    <rect x="30" y="600" width="150" height="100" rx="8" fill="url(#automationGrad)" stroke="#10b981" filter="url(#shadow)"/>
+    <text x="105" y="625" text-anchor="middle" fill="#047857" font-size="12" font-weight="bold">封じ込め</text>
+    <text x="105" y="645" text-anchor="middle" fill="#065f46" font-size="10">• ネットワーク遮断</text>
+    <text x="105" y="660" text-anchor="middle" fill="#065f46" font-size="10">• アカウント無効化</text>
+    <text x="105" y="675" text-anchor="middle" fill="#065f46" font-size="10">• プロセス停止</text>
+    <text x="105" y="690" text-anchor="middle" fill="#065f46" font-size="10">• ファイル隔離</text>
+
+    <!-- Investigation -->
+    <rect x="200" y="600" width="150" height="100" rx="8" fill="url(#automationGrad)" stroke="#10b981" filter="url(#shadow)"/>
+    <text x="275" y="625" text-anchor="middle" fill="#047857" font-size="12" font-weight="bold">調査</text>
+    <text x="275" y="645" text-anchor="middle" fill="#065f46" font-size="10">• ログ収集</text>
+    <text x="275" y="660" text-anchor="middle" fill="#065f46" font-size="10">• IoC検索</text>
+    <text x="275" y="675" text-anchor="middle" fill="#065f46" font-size="10">• 脅威ハンティング</text>
+    <text x="275" y="690" text-anchor="middle" fill="#065f46" font-size="10">• 証拠保全</text>
+
+    <!-- Enrichment -->
+    <rect x="370" y="600" width="150" height="100" rx="8" fill="url(#automationGrad)" stroke="#10b981" filter="url(#shadow)"/>
+    <text x="445" y="625" text-anchor="middle" fill="#047857" font-size="12" font-weight="bold">エンリッチメント</text>
+    <text x="445" y="645" text-anchor="middle" fill="#065f46" font-size="10">• 脅威Intel照合</text>
+    <text x="445" y="660" text-anchor="middle" fill="#065f46" font-size="10">• レピュテーション</text>
+    <text x="445" y="675" text-anchor="middle" fill="#065f46" font-size="10">• 関連情報取得</text>
+    <text x="445" y="690" text-anchor="middle" fill="#065f46" font-size="10">• コンテキスト追加</text>
+
+    <!-- Communication -->
+    <rect x="540" y="600" width="150" height="100" rx="8" fill="url(#automationGrad)" stroke="#10b981" filter="url(#shadow)"/>
+    <text x="615" y="625" text-anchor="middle" fill="#047857" font-size="12" font-weight="bold">コミュニケーション</text>
+    <text x="615" y="645" text-anchor="middle" fill="#065f46" font-size="10">• アラート通知</text>
+    <text x="615" y="660" text-anchor="middle" fill="#065f46" font-size="10">• エスカレーション</text>
+    <text x="615" y="675" text-anchor="middle" fill="#065f46" font-size="10">• ステータス更新</text>
+    <text x="615" y="690" text-anchor="middle" fill="#065f46" font-size="10">• レポート生成</text>
+
+    <!-- Response Actions -->
+    <rect x="710" y="600" width="150" height="100" rx="8" fill="url(#responseGrad)" stroke="#dc2626" filter="url(#shadow)"/>
+    <text x="785" y="625" text-anchor="middle" fill="#991b1b" font-size="12" font-weight="bold">対応アクション</text>
+    <text x="785" y="645" text-anchor="middle" fill="#7f1d1d" font-size="10">• パッチ適用</text>
+    <text x="785" y="660" text-anchor="middle" fill="#7f1d1d" font-size="10">• 設定変更</text>
+    <text x="785" y="675" text-anchor="middle" fill="#7f1d1d" font-size="10">• ルール追加</text>
+    <text x="785" y="690" text-anchor="middle" fill="#7f1d1d" font-size="10">• バックアップ復元</text>
+
+    <!-- External Tools Integration -->
+    <rect x="880" y="600" width="150" height="100" rx="8" fill="#f0f9ff" stroke="#0284c7" filter="url(#shadow)"/>
+    <text x="955" y="625" text-anchor="middle" fill="#0369a1" font-size="12" font-weight="bold">外部ツール連携</text>
+    <text x="955" y="645" text-anchor="middle" fill="#075985" font-size="10">• EDR/XDR</text>
+    <text x="955" y="660" text-anchor="middle" fill="#075985" font-size="10">• ファイアウォール</text>
+    <text x="955" y="675" text-anchor="middle" fill="#075985" font-size="10">• DNS</text>
+    <text x="955" y="690" text-anchor="middle" fill="#075985" font-size="10">• クラウドAPI</text>
+
+    <!-- Arrows from SOAR to actions -->
+    <path d="M 200 530 Q 200 560 105 600" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#arrowheadBlue)"/>
+    <path d="M 300 530 Q 300 560 275 600" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#arrowheadBlue)"/>
+    <path d="M 400 530 Q 400 560 445 600" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#arrowheadBlue)"/>
+    <path d="M 500 530 Q 500 560 615 600" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#arrowheadBlue)"/>
+    <path d="M 600 530 Q 600 560 785 600" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#arrowheadBlue)"/>
+    <path d="M 650 530 Q 650 560 955 600" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#arrowheadBlue)"/>
+
+    <!-- Feedback Loop -->
+    <path d="M 500 700 Q 800 750 700 400" stroke="#6b7280" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+    <text x="700" y="745" fill="#6b7280" font-size="10" text-anchor="middle">フィードバック・学習</text>
+
+    <!-- Key Benefits -->
+    <rect x="750" y="250" width="220" height="200" rx="8" fill="#f8fafc" stroke="#64748b" stroke-dasharray="5,5"/>
+    <text x="860" y="275" text-anchor="middle" fill="#374151" font-size="14" font-weight="bold">SOARの主要メリット</text>
+    <text x="760" y="295" fill="#6b7280" font-size="11">✓ 対応時間の大幅短縮</text>
+    <text x="760" y="310" fill="#6b7280" font-size="11">✓ 人的ミスの削減</text>
+    <text x="760" y="325" fill="#6b7280" font-size="11">✓ 標準化された対応</text>
+    <text x="760" y="340" fill="#6b7280" font-size="11">✓ 24/7対応能力</text>
+    <text x="760" y="355" fill="#6b7280" font-size="11">✓ スケーラビリティ</text>
+    <text x="760" y="370" fill="#6b7280" font-size="11">✓ 詳細な監査証跡</text>
+    <text x="760" y="385" fill="#6b7280" font-size="11">✓ コスト効率向上</text>
+    <text x="760" y="400" fill="#6b7280" font-size="11">✓ アナリストの生産性向上</text>
+    <text x="760" y="415" fill="#6b7280" font-size="11">✓ 複雑な攻撃への対応</text>
+    <text x="760" y="430" fill="#6b7280" font-size="11">✓ 継続的改善</text>
+
+    <!-- Playbook Examples -->
+    <rect x="1020" y="250" width="160" height="150" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-dasharray="3,3"/>
+    <text x="1100" y="275" text-anchor="middle" fill="#ea580c" font-size="12" font-weight="bold">プレイブック例</text>
+    <text x="1030" y="295" fill="#9a3412" font-size="10">• マルウェア感染対応</text>
+    <text x="1030" y="310" fill="#9a3412" font-size="10">• フィッシング調査</text>
+    <text x="1030" y="325" fill="#9a3412" font-size="10">• DDoS攻撃対応</text>
+    <text x="1030" y="340" fill="#9a3412" font-size="10">• データ漏洩調査</text>
+    <text x="1030" y="355" fill="#9a3412" font-size="10">• 不正ログイン対応</text>
+    <text x="1030" y="370" fill="#9a3412" font-size="10">• 脆弱性管理</text>
+    <text x="1030" y="385" fill="#9a3412" font-size="10">• インシデント報告</text>
+
+    <!-- Labels -->
+    <text x="350" y="230" fill="#f59e0b" font-size="10" text-anchor="middle">インシデント情報</text>
+    <text x="400" y="560" fill="#7c3aed" font-size="10" text-anchor="middle">自動化された対応</text>
+
+</svg>

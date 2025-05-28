@@ -1,0 +1,152 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="centerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#357ABD;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="threatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#E74C3C;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#C0392B;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="defenseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#27AE60;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+        </linearGradient>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1200" height="800" fill="#F8F9FA"/>
+
+    <!-- Title -->
+    <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2C3E50">OAuth/OIDC セキュリティ脅威と対策</text>
+
+    <!-- Central OAuth/OIDC System -->
+    <circle cx="600" cy="400" r="120" fill="url(#centerGrad)" filter="url(#shadow)"/>
+    <text x="600" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">OAuth/OIDC</text>
+    <text x="600" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">認証・認可</text>
+    <text x="600" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">システム</text>
+
+    <!-- Defense Layers -->
+    <circle cx="600" cy="400" r="160" fill="none" stroke="url(#defenseGrad)" stroke-width="3" stroke-dasharray="10,5" opacity="0.7"/>
+    <circle cx="600" cy="400" r="200" fill="none" stroke="url(#defenseGrad)" stroke-width="2" stroke-dasharray="15,10" opacity="0.5"/>
+    <circle cx="600" cy="400" r="240" fill="none" stroke="url(#defenseGrad)" stroke-width="1" stroke-dasharray="20,15" opacity="0.3"/>
+
+    <!-- Threat 1: Supply Chain Attack -->
+    <g transform="translate(200,150)">
+        <rect x="0" y="0" width="160" height="80" rx="10" fill="url(#threatGrad)" filter="url(#shadow)"/>
+        <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">サプライチェーン攻撃</text>
+        <text x="80" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">ライブラリ改ざん</text>
+        <text x="80" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">IdP侵害</text>
+        <text x="80" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">SDK問題</text>
+    </g>
+
+    <!-- Defense for Supply Chain -->
+    <g transform="translate(200,250)">
+        <rect x="0" y="0" width="160" height="60" rx="8" fill="url(#defenseGrad)" opacity="0.8"/>
+        <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">対策: SBOM活用</text>
+        <text x="80" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">コード署名・検証</text>
+        <text x="80" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">ベンダーリスク管理</text>
+    </g>
+
+    <!-- Threat 2: Consent Phishing -->
+    <g transform="translate(840,150)">
+        <rect x="0" y="0" width="160" height="80" rx="10" fill="url(#threatGrad)" filter="url(#shadow)"/>
+        <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">同意フィッシング</text>
+        <text x="80" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">悪意のあるアプリ</text>
+        <text x="80" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">広範な権限要求</text>
+        <text x="80" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">ユーザー欺瞞</text>
+    </g>
+
+    <!-- Defense for Consent Phishing -->
+    <g transform="translate(840,250)">
+        <rect x="0" y="0" width="160" height="60" rx="8" fill="url(#defenseGrad)" opacity="0.8"/>
+        <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">対策: ユーザー啓発</text>
+        <text x="80" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">アプリ検証強化</text>
+        <text x="80" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">スコープ最小化</text>
+    </g>
+
+    <!-- Threat 3: Client Impersonation -->
+    <g transform="translate(120,520)">
+        <rect x="0" y="0" width="160" height="80" rx="10" fill="url(#threatGrad)" filter="url(#shadow)"/>
+        <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">クライアント</text>
+        <text x="80" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">なりすまし</text>
+        <text x="80" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">悪意のあるアプリが</text>
+        <text x="80" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">正規クライアント偽装</text>
+    </g>
+
+    <!-- Defense for Client Impersonation -->
+    <g transform="translate(120,620)">
+        <rect x="0" y="0" width="160" height="50" rx="8" fill="url(#defenseGrad)" opacity="0.8"/>
+        <text x="80" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">対策: PKCE必須化</text>
+        <text x="80" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">App Attestation</text>
+    </g>
+
+    <!-- Threat 4: Redirect Attack -->
+    <g transform="translate(920,520)">
+        <rect x="0" y="0" width="160" height="80" rx="10" fill="url(#threatGrad)" filter="url(#shadow)"/>
+        <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">リダイレクト攻撃</text>
+        <text x="80" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">redirect_uri</text>
+        <text x="80" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">検証不備を</text>
+        <text x="80" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">突く攻撃</text>
+    </g>
+
+    <!-- Defense for Redirect Attack -->
+    <g transform="translate(920,620)">
+        <rect x="0" y="0" width="160" height="50" rx="8" fill="url(#defenseGrad)" opacity="0.8"/>
+        <text x="80" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">対策: 完全一致検証</text>
+        <text x="80" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">事前登録の徹底</text>
+    </g>
+
+    <!-- Threat 5: AI-powered Attacks -->
+    <g transform="translate(450,650)">
+        <rect x="0" y="0" width="140" height="70" rx="10" fill="url(#threatGrad)" filter="url(#shadow)"/>
+        <text x="70" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">AI攻撃</text>
+        <text x="70" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">高度フィッシング</text>
+        <text x="70" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">自動脆弱性探索</text>
+        <text x="70" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">認証情報推測</text>
+    </g>
+
+    <!-- Threat 6: Quantum Computing -->
+    <g transform="translate(610,650)">
+        <rect x="0" y="0" width="140" height="70" rx="10" fill="url(#threatGrad)" filter="url(#shadow)"/>
+        <text x="70" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">量子コンピュータ</text>
+        <text x="70" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">暗号解読リスク</text>
+        <text x="70" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">公開鍵暗号の</text>
+        <text x="70" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">脆弱性</text>
+    </g>
+
+    <!-- Central Defense Strategy -->
+    <g transform="translate(520,750)">
+        <rect x="0" y="0" width="160" height="40" rx="8" fill="url(#defenseGrad)"/>
+        <text x="80" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">多層防御アプローチ</text>
+        <text x="80" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">技術・運用・教育の統合</text>
+    </g>
+
+    <!-- Attack arrows -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#E74C3C"/>
+        </marker>
+    </defs>
+
+    <!-- Arrows pointing to center -->
+    <line x1="360" y1="190" x2="480" y2="320" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="840" y1="190" x2="720" y2="320" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="280" y1="560" x2="480" y2="480" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="920" y1="560" x2="720" y2="480" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="520" y1="650" x2="560" y2="520" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="680" y1="650" x2="640" y2="520" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Legend -->
+    <g transform="translate(50,750)">
+        <rect x="0" y="0" width="15" height="15" fill="url(#threatGrad)"/>
+        <text x="25" y="12" font-family="Arial, sans-serif" font-size="12" fill="#2C3E50">脅威</text>
+        <rect x="70" y="0" width="15" height="15" fill="url(#defenseGrad)"/>
+        <text x="95" y="12" font-family="Arial, sans-serif" font-size="12" fill="#2C3E50">対策</text>
+        <circle cx="157" cy="7" r="7" fill="none" stroke="url(#defenseGrad)" stroke-width="2" stroke-dasharray="3,2"/>
+        <text x="175" y="12" font-family="Arial, sans-serif" font-size="12" fill="#2C3E50">防御層</text>
+    </g>
+</svg>
