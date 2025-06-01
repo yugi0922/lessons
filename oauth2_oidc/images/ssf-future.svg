@@ -1,0 +1,197 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#7B68EE;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#9370DB;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="cardGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:1" />
+        </linearGradient>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.2"/>
+        </filter>
+    </defs>
+
+    <!-- タイトル -->
+    <text x="600" y="40" text-anchor="middle" class="title" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+        SSF（Shared Signals Framework）今後の展望
+    </text>
+
+    <!-- 現在地マーカー -->
+    <g id="current-status">
+        <circle cx="100" cy="100" r="8" fill="#e74c3c"/>
+        <text x="120" y="106" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e74c3c">現在：2025年5月</text>
+        <text x="120" y="125" font-family="Arial, sans-serif" font-size="12" fill="#666">Implementer's Draft 03段階</text>
+    </g>
+
+    <!-- タイムライン -->
+    <g id="timeline">
+        <rect x="80" y="160" width="1040" height="6" fill="url(#timelineGradient)" rx="3"/>
+
+        <!-- 2025年後半 -->
+        <g id="timeline-2025-h2">
+            <circle cx="300" cy="163" r="8" fill="#4A90E2"/>
+            <line x1="300" y1="163" x2="300" y2="200" stroke="#4A90E2" stroke-width="2"/>
+            <text x="300" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4A90E2">2025年後半</text>
+            <text x="300" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Final Specification</text>
+            <text x="300" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">予定</text>
+        </g>
+
+        <!-- 2026年 -->
+        <g id="timeline-2026">
+            <circle cx="500" cy="163" r="8" fill="#7B68EE"/>
+            <line x1="500" y1="163" x2="500" y2="200" stroke="#7B68EE" stroke-width="2"/>
+            <text x="500" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7B68EE">2026年</text>
+            <text x="500" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">本格普及開始</text>
+        </g>
+
+        <!-- 2027年〜 -->
+        <g id="timeline-2027">
+            <circle cx="800" cy="163" r="8" fill="#9370DB"/>
+            <line x1="800" y1="163" x2="800" y2="200" stroke="#9370DB" stroke-width="2"/>
+            <text x="800" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9370DB">2027年〜</text>
+            <text x="800" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">業界標準として定着</text>
+        </g>
+    </g>
+
+    <!-- 展望カード群 -->
+    <g id="roadmap-cards">
+        <!-- 対応製品・サービスの拡大 -->
+        <g id="card1">
+            <rect x="80" y="280" width="220" height="140" fill="url(#cardGradient)" stroke="#4A90E2" stroke-width="2" rx="8" filter="url(#shadow)"/>
+            <rect x="80" y="280" width="220" height="30" fill="#4A90E2" rx="8"/>
+            <rect x="80" y="300" width="220" height="10" fill="#4A90E2"/>
+            <text x="190" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">製品・サービス拡大</text>
+            <text x="90" y="330" font-family="Arial, sans-serif" font-size="11" fill="#333">• 主要IdPベンダー対応</text>
+            <text x="90" y="345" font-family="Arial, sans-serif" font-size="11" fill="#333">• 大手サービスプロバイダ</text>
+            <text x="90" y="360" font-family="Arial, sans-serif" font-size="11" fill="#333">• エンタープライズ向け</text>
+            <text x="90" y="375" font-family="Arial, sans-serif" font-size="11" fill="#333">• SaaS製品への組込み</text>
+            <text x="90" y="390" font-family="Arial, sans-serif" font-size="11" fill="#333">• クラウドサービス標準</text>
+            <text x="90" y="405" font-family="Arial, sans-serif" font-size="11" fill="#333">  機能として実装</text>
+        </g>
+
+        <!-- 多様なシグナルの活用 -->
+        <g id="card2">
+            <rect x="320" y="280" width="220" height="140" fill="url(#cardGradient)" stroke="#27AE60" stroke-width="2" rx="8" filter="url(#shadow)"/>
+            <rect x="320" y="280" width="220" height="30" fill="#27AE60" rx="8"/>
+            <rect x="320" y="300" width="220" height="10" fill="#27AE60"/>
+            <text x="430" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">シグナル多様化</text>
+            <text x="330" y="330" font-family="Arial, sans-serif" font-size="11" fill="#333">• IoTデバイス状態</text>
+            <text x="330" y="345" font-family="Arial, sans-serif" font-size="11" fill="#333">• 生体認証情報</text>
+            <text x="330" y="360" font-family="Arial, sans-serif" font-size="11" fill="#333">• デバイス健全性</text>
+            <text x="330" y="375" font-family="Arial, sans-serif" font-size="11" fill="#333">• ネットワーク脅威</text>
+            <text x="330" y="390" font-family="Arial, sans-serif" font-size="11" fill="#333">• アプリケーション</text>
+            <text x="330" y="405" font-family="Arial, sans-serif" font-size="11" fill="#333">  セキュリティ状態</text>
+        </g>
+
+        <!-- AI/機械学習との連携 -->
+        <g id="card3">
+            <rect x="560" y="280" width="220" height="140" fill="url(#cardGradient)" stroke="#E67E22" stroke-width="2" rx="8" filter="url(#shadow)"/>
+            <rect x="560" y="280" width="220" height="30" fill="#E67E22" rx="8"/>
+            <rect x="560" y="300" width="220" height="10" fill="#E67E22"/>
+            <text x="670" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">AI/ML連携強化</text>
+            <text x="570" y="330" font-family="Arial, sans-serif" font-size="11" fill="#333">• 脅威インテリジェンス</text>
+            <text x="570" y="345" font-family="Arial, sans-serif" font-size="11" fill="#333">• 予測的セキュリティ</text>
+            <text x="570" y="360" font-family="Arial, sans-serif" font-size="11" fill="#333">• 自動インシデント対応</text>
+            <text x="570" y="375" font-family="Arial, sans-serif" font-size="11" fill="#333">• 異常検知精度向上</text>
+            <text x="570" y="390" font-family="Arial, sans-serif" font-size="11" fill="#333">• リアルタイム</text>
+            <text x="570" y="405" font-family="Arial, sans-serif" font-size="11" fill="#333">  リスク評価</text>
+        </g>
+
+        <!-- 業界標準化 -->
+        <g id="card4">
+            <rect x="800" y="280" width="220" height="140" fill="url(#cardGradient)" stroke="#8E44AD" stroke-width="2" rx="8" filter="url(#shadow)"/>
+            <rect x="800" y="280" width="220" height="30" fill="#8E44AD" rx="8"/>
+            <rect x="800" y="300" width="220" height="10" fill="#8E44AD"/>
+            <text x="910" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">業界標準化</text>
+            <text x="810" y="330" font-family="Arial, sans-serif" font-size="11" fill="#333">• 金融業界標準</text>
+            <text x="810" y="345" font-family="Arial, sans-serif" font-size="11" fill="#333">• ヘルスケア業界</text>
+            <text x="810" y="360" font-family="Arial, sans-serif" font-size="11" fill="#333">• 政府・公共機関</text>
+            <text x="810" y="375" font-family="Arial, sans-serif" font-size="11" fill="#333">• 教育機関</text>
+            <text x="810" y="390" font-family="Arial, sans-serif" font-size="11" fill="#333">• 規制要件への</text>
+            <text x="810" y="405" font-family="Arial, sans-serif" font-size="11" fill="#333">  組み込み</text>
+        </g>
+    </g>
+
+    <!-- クロスドメイン連携 -->
+    <g id="cross-domain">
+        <rect x="80" y="440" width="940" height="120" fill="url(#cardGradient)" stroke="#C0392B" stroke-width="2" rx="8" filter="url(#shadow)"/>
+        <rect x="80" y="440" width="940" height="30" fill="#C0392B" rx="8"/>
+        <rect x="80" y="460" width="940" height="10" fill="#C0392B"/>
+        <text x="550" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">クロスドメイン連携の拡大</text>
+
+        <!-- 企業間連携 -->
+        <g id="enterprise-collab">
+            <circle cx="200" cy="520" r="35" fill="#3498DB" stroke="white" stroke-width="3"/>
+            <text x="200" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">企業間</text>
+            <text x="200" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">連携</text>
+        </g>
+
+        <!-- 業界間連携 -->
+        <g id="industry-collab">
+            <circle cx="400" cy="520" r="35" fill="#2ECC71" stroke="white" stroke-width="3"/>
+            <text x="400" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">業界間</text>
+            <text x="400" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">連携</text>
+        </g>
+
+        <!-- 国際連携 -->
+        <g id="global-collab">
+            <circle cx="600" cy="520" r="35" fill="#E74C3C" stroke="white" stroke-width="3"/>
+            <text x="600" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">国際</text>
+            <text x="600" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">連携</text>
+        </g>
+
+        <!-- 政府連携 -->
+        <g id="gov-collab">
+            <circle cx="800" cy="520" r="35" fill="#9B59B6" stroke="white" stroke-width="3"/>
+            <text x="800" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">政府</text>
+            <text x="800" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">連携</text>
+        </g>
+
+        <!-- 連携線 -->
+        <line x1="235" y1="520" x2="365" y2="520" stroke="#34495E" stroke-width="3" stroke-dasharray="5,5"/>
+        <line x1="435" y1="520" x2="565" y2="520" stroke="#34495E" stroke-width="3" stroke-dasharray="5,5"/>
+        <line x1="635" y1="520" x2="765" y2="520" stroke="#34495E" stroke-width="3" stroke-dasharray="5,5"/>
+    </g>
+
+    <!-- 期待効果 -->
+    <g id="expected-effects">
+        <text x="600" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">期待される効果</text>
+
+        <g id="effect-boxes">
+            <rect x="100" y="620" width="200" height="80" fill="#E8F6F3" stroke="#16A085" stroke-width="2" rx="5"/>
+            <text x="200" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#16A085">セキュリティ向上</text>
+            <text x="110" y="655" font-family="Arial, sans-serif" font-size="10" fill="#333">リアルタイム脅威対応</text>
+            <text x="110" y="670" font-family="Arial, sans-serif" font-size="10" fill="#333">攻撃拡散防止</text>
+            <text x="110" y="685" font-family="Arial, sans-serif" font-size="10" fill="#333">ゼロトラスト実現</text>
+
+            <rect x="320" y="620" width="200" height="80" fill="#FEF9E7" stroke="#F39C12" stroke-width="2" rx="5"/>
+            <text x="420" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#F39C12">運用効率化</text>
+            <text x="330" y="655" font-family="Arial, sans-serif" font-size="10" fill="#333">自動化されたレスポンス</text>
+            <text x="330" y="670" font-family="Arial, sans-serif" font-size="10" fill="#333">運用負荷軽減</text>
+            <text x="330" y="685" font-family="Arial, sans-serif" font-size="10" fill="#333">コスト削減</text>
+
+            <rect x="540" y="620" width="200" height="80" fill="#FADBD8" stroke="#E74C3C" stroke-width="2" rx="5"/>
+            <text x="640" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#E74C3C">ユーザー体験向上</text>
+            <text x="550" y="655" font-family="Arial, sans-serif" font-size="10" fill="#333">シームレス認証</text>
+            <text x="550" y="670" font-family="Arial, sans-serif" font-size="10" fill="#333">透明性のあるセキュリティ</text>
+            <text x="550" y="685" font-family="Arial, sans-serif" font-size="10" fill="#333">利便性とセキュリティ両立</text>
+
+            <rect x="760" y="620" width="200" height="80" fill="#EBF5FB" stroke="#3498DB" stroke-width="2" rx="5"/>
+            <text x="860" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#3498DB">業界全体の強化</text>
+            <text x="770" y="655" font-family="Arial, sans-serif" font-size="10" fill="#333">エコシステム防御</text>
+            <text x="770" y="670" font-family="Arial, sans-serif" font-size="10" fill="#333">集合知の活用</text>
+            <text x="770" y="685" font-family="Arial, sans-serif" font-size="10" fill="#333">サイバー攻撃耐性向上</text>
+        </g>
+    </g>
+
+    <!-- 注記 -->
+    <text x="600" y="750" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">
+        ※ 標準化時期は現在の進捗状況から推定。実際の完了時期は変更される可能性があります。
+    </text>
+    <text x="600" y="770" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">
+        出典：OpenID Foundation、業界動向調査を基に作成
+    </text>
+</svg>

@@ -1,0 +1,103 @@
+<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1000" height="500" fill="#f8f9fa"/>
+
+    <!-- Title -->
+    <text x="500" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#333">
+        Shared Signals Framework (SSF) 概要
+    </text>
+
+    <!-- Transmitter Section -->
+    <g id="transmitters">
+        <!-- Section Background -->
+        <rect x="50" y="80" width="280" height="370" rx="15" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+        <text x="190" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1976d2">
+            Transmitter
+        </text>
+
+        <!-- Identity Provider -->
+        <rect x="70" y="130" width="240" height="60" rx="8" fill="#2196f3" stroke="#1565c0" stroke-width="2"/>
+        <text x="190" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+            Identity Provider
+        </text>
+
+        <!-- Security Service -->
+        <rect x="70" y="210" width="240" height="60" rx="8" fill="#2196f3" stroke="#1565c0" stroke-width="2"/>
+        <text x="190" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+            Security Service
+        </text>
+
+        <!-- Device Management -->
+        <rect x="70" y="290" width="240" height="60" rx="8" fill="#2196f3" stroke="#1565c0" stroke-width="2"/>
+        <text x="190" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+            Device Management System
+        </text>
+
+        <!-- Applications -->
+        <rect x="70" y="370" width="240" height="60" rx="8" fill="#2196f3" stroke="#1565c0" stroke-width="2"/>
+        <text x="190" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+            Application
+        </text>
+    </g>
+
+    <!-- SSF Core -->
+    <g id="ssf-core">
+        <!-- Events Section -->
+        <rect x="390" y="130" width="220" height="100" rx="10" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/>
+        <text x="500" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#f57c00">
+            Security Event Token (SET)
+        </text>
+
+        <!-- CAEP Events -->
+        <rect x="400" y="170" width="90" height="50" rx="8" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+        <text x="445" y="193" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">CAEP</text>
+        <text x="445" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Event</text>
+
+        <!-- RISC Events -->
+        <rect x="510" y="170" width="90" height="50" rx="8" fill="#f44336" stroke="#d32f2f" stroke-width="2"/>
+        <text x="555" y="193" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">RISC</text>
+        <text x="555" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Event</text>
+    </g>
+
+    <!-- Receiver Section -->
+    <g id="receivers">
+        <!-- Section Background -->
+        <rect x="670" y="80" width="280" height="370" rx="15" fill="#e8f5e8" stroke="#388e3c" stroke-width="2"/>
+        <text x="810" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#388e3c">
+            Receiver
+        </text>
+
+        <!-- SaaS Applications -->
+        <rect x="690" y="130" width="240" height="60" rx="8" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+        <text x="810" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+            Application
+        </text>
+
+        <!-- Security Systems -->
+        <rect x="690" y="210" width="240" height="60" rx="8" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+        <text x="810" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+            Security Service
+        </text>
+
+        <!-- Access Control -->
+        <rect x="690" y="290" width="240" height="60" rx="8" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+        <text x="810" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+            Access Control
+        </text>
+
+    </g>
+
+    <!-- Event Flow Arrows -->
+    <g id="event-flows">
+        <defs>
+            <marker id="arrowhead-main" markerWidth="12" markerHeight="8" refX="12" refY="4" orient="auto">
+                <polygon points="0 0, 12 4, 0 8" fill="#ff6b6b"/>
+            </marker>
+        </defs>
+
+        <!-- Main Flow -->
+        <path d="M 333 260 L 667 260" stroke="#ff6b6b" stroke-width="4" fill="none" marker-end="url(#arrowhead-main)"/>
+
+        <text x="500" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ff6b6b">イベント配信</text>
+    </g>
+</svg>
