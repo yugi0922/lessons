@@ -1,0 +1,132 @@
+<svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1000" height="400" fill="#f8f9fa"/>
+
+    <!-- Title -->
+    <text x="500" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+
+    </text>
+
+    <!-- Traditional vs CAEP comparison -->
+    <text x="250" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e74c3c">
+        従来の静的認証
+    </text>
+    <text x="750" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#27ae60">
+        CAEP (動的認証)
+    </text>
+
+    <!-- Traditional Authentication -->
+    <rect x="50" y="100" width="400" height="230" fill="#ffeaea" stroke="#e74c3c" stroke-width="2" rx="10"/>
+
+    <!-- User login traditional -->
+    <circle cx="140" cy="140" r="20" fill="#3498db"/>
+    <text x="140" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">👤</text>
+    <text x="60" y="145" font-family="Arial, sans-serif" font-size="14">ユーザー</text>
+
+    <!-- Arrow to IdP -->
+    <path d="M 170 140 Q 200 140 280 140" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <text x="220" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">①認証</text>
+
+    <!-- 2. Token to resource -->
+    <path d="M 140 163 Q 140 178 140 190" stroke="#8e44ad" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <text x="150" y="180" font-family="Arial, sans-serif" font-size="10" fill="#8e44ad">②アクセス</text>
+
+    <!-- IdP traditional -->
+    <rect x="290" y="120" width="80" height="40" fill="#27ae60" rx="5"/>
+    <text x="330" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">IdP</text>
+
+    <!-- Resource Server -->
+    <rect x="100" y="195" width="100" height="40" fill="#8e44ad" rx="5"/>
+    <text x="150" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Resource Server /</text>
+    <text x="150" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Relying Party</text>
+
+<!--    &lt;!&ndash; Token issued &ndash;&gt;-->
+<!--    <path d="M 330 160 Q 330 180 330 200" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>-->
+<!--    <text x="345" y="185" font-family="Arial, sans-serif" font-size="12" fill="#e67e22">トークン発行</text>-->
+
+<!--    &lt;!&ndash; Token validity &ndash;&gt;-->
+<!--    <rect x="240" y="200" width="180" height="30" fill="#f39c12" rx="5"/>-->
+<!--    <text x="330" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">トークン有効期限まで継続</text>-->
+
+    <!-- Problem indicator -->
+    <circle cx="330" cy="220" r="15" fill="#e74c3c"/>
+    <text x="330" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">⚠️</text>
+    <text x="255" y="250" font-family="Arial, sans-serif" font-size="12" fill="#e74c3c">セキュリティイベント発生</text>
+
+    <!-- Still valid indicator -->
+    <text x="255" y="270" font-family="Arial, sans-serif" font-size="12" fill="#e74c3c">トークンは依然として有効</text>
+    <text x="255" y="290" font-family="Arial, sans-serif" font-size="12" fill="#c0392b">セキュリティリスクは継続</text>
+
+    <!-- CAEP Authentication -->
+    <rect x="550" y="100" width="400" height="230" fill="#eafaf1" stroke="#27ae60" stroke-width="2" rx="10"/>
+
+    <!-- Components in CAEP -->
+    <!-- User -->
+    <circle cx="650" cy="140" r="20" fill="#3498db"/>
+    <text x="650" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">👤</text>
+    <text x="570" y="145" font-family="Arial, sans-serif" font-size="14">ユーザー</text>
+
+    <!-- IdP CAEP -->
+    <rect x="800" y="120" width="80" height="40" fill="#27ae60" rx="5"/>
+    <text x="840" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">IdP</text>
+
+    <!-- Resource Server -->
+    <rect x="600" y="200" width="100" height="40" fill="#8e44ad" rx="5"/>
+    <text x="650" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Resource Server /</text>
+    <text x="650" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">Relying Party</text>
+
+    <!-- Security Event Transmitter -->
+    <rect x="770" y="270" width="120" height="40" fill="#f39c12" rx="5"/>
+    <text x="830" y="293" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Transmitter</text>
+
+    <!-- CAEP Flow -->
+    <!-- 1. Initial authentication -->
+    <path d="M 680 140 Q 750 140 790 140" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <text x="730" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">①認証</text>
+
+    <!-- 2. Token to resource -->
+    <path d="M 650 163 Q 650 178 650 195" stroke="#8e44ad" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <text x="660" y="180" font-family="Arial, sans-serif" font-size="10" fill="#8e44ad">②アクセス</text>
+
+    <!-- 3. Security Event -->
+    <circle cx="830" cy="220" r="15" fill="#e74c3c"/>
+    <text x="830" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">⚠️</text>
+    <text x="880" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">セキュリティ</text>
+    <text x="880" y="251" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">イベント検知</text>
+
+    <!-- 4. CAEP Event transmission -->
+    <path d="M 830 230 Q 830 250 830 270" stroke="#e74c3c" stroke-width="3" fill="none"/>
+    <path d="M 813 220 Q 740 220 705 220" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M 830 190 Q 830 220 830 163" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+    <text x="767" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">③CAEPイベント送信</text>
+
+<!--    &lt;!&ndash; 5. Immediate revocation &ndash;&gt;-->
+<!--    <rect x="620" y="340" width="260" height="40" fill="#e74c3c" rx="5"/>-->
+<!--    <text x="750" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">④即座にアクセス無効化</text>-->
+
+<!--    &lt;!&ndash; Benefits box &ndash;&gt;-->
+<!--    <rect x="620" y="400" width="260" height="120" fill="#d5f4e6" stroke="#27ae60" stroke-width="1" rx="5"/>-->
+<!--    <text x="750" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#27ae60">CAEPの利点</text>-->
+
+<!--    <text x="640" y="440" font-family="Arial, sans-serif" font-size="12" fill="#2d5016">✓ リアルタイムセキュリティ対応</text>-->
+<!--    <text x="640" y="460" font-family="Arial, sans-serif" font-size="12" fill="#2d5016">✓ ゼロトラストセキュリティ実現</text>-->
+<!--    <text x="640" y="480" font-family="Arial, sans-serif" font-size="12" fill="#2d5016">✓ 複数サービス間での統一的管理</text>-->
+<!--    <text x="640" y="500" font-family="Arial, sans-serif" font-size="12" fill="#2d5016">✓ セキュリティインシデント被害軽減</text>-->
+
+<!--    &lt;!&ndash; CAEP Events examples &ndash;&gt;-->
+<!--    <text x="750" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#34495e">主要なCAEPイベント例</text>-->
+<!--    <text x="610" y="570" font-family="Arial, sans-serif" font-size="11" fill="#34495e">• アカウント無効化/削除 • パスワード変更 • MFA状態変更</text>-->
+<!--    <text x="610" y="585" font-family="Arial, sans-serif" font-size="11" fill="#34495e">• デバイス紛失/侵害 • 権限変更 • セッション無効化</text>-->
+
+    <!-- Vertical separator -->
+    <line x1="500" y1="90" x2="500" y2="350" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,5"/>
+
+    <!-- Arrow markers definition -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7"
+                refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+        </marker>
+    </defs>
+</svg>

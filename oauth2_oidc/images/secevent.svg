@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 635" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:0.8" />
@@ -21,7 +21,7 @@
     <rect width="1200" height="800" fill="#f8f9fa"/>
 
     <!-- Title -->
-    <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50">SECEVENT (Security Event Token) - RFC 8417</text>
+    <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50">SET (Security Event Token) - RFC 8417</text>
 
     <!-- JWT Structure Section -->
     <text x="50" y="90" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">JWT構造 (JSON Web Token)</text>
@@ -83,48 +83,19 @@
     <text x="1030" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">本人確認レベル変更</text>
     <text x="1030" y="365" text-anchor="middle" font-family="monospace" font-size="10" fill="#ffffff">identity-assurance</text>
 
-    <!-- Flow Diagram -->
-    <text x="50" y="420" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">SECEVENTの送信フロー</text>
-
-    <!-- Sender -->
-    <rect x="50" y="440" width="150" height="100" rx="8" fill="#3498db" fill-opacity="0.8" filter="url(#shadow)"/>
-    <text x="125" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Event Sender</text>
-    <text x="125" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">(Identity Provider)</text>
-    <text x="125" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">Auth0, Okta等</text>
-
-    <!-- Arrow 1 -->
-    <line x1="200" y1="490" x2="280" y2="490" stroke="#7f8c8d" stroke-width="3" marker-end="url(#arrowhead)"/>
-    <text x="240" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">HTTP POST</text>
-
-    <!-- SET Transmitter -->
-    <rect x="300" y="440" width="150" height="100" rx="8" fill="#e67e22" fill-opacity="0.8" filter="url(#shadow)"/>
-    <text x="375" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">SET Transmitter</text>
-    <text x="375" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">イベント配信</text>
-    <text x="375" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">エンドポイント</text>
-
-    <!-- Arrow 2 -->
-    <line x1="450" y1="490" x2="530" y2="490" stroke="#7f8c8d" stroke-width="3" marker-end="url(#arrowhead)"/>
-    <text x="490" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">SECEVENT</text>
-
-    <!-- Receiver -->
-    <rect x="550" y="440" width="150" height="100" rx="8" fill="#9b59b6" fill-opacity="0.8" filter="url(#shadow)"/>
-    <text x="625" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">Event Receiver</text>
-    <text x="625" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">(Relying Party)</text>
-    <text x="625" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">アプリケーション</text>
-
     <!-- Example Payload -->
-    <text x="50" y="580" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">ペイロード例 - アカウント無効化イベント</text>
+    <text x="50" y="430" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#34495e">ペイロード例（アカウント無効化イベント）</text>
 
-    <rect x="50" y="600" width="1100" height="160" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
-    <text x="70" y="625" font-family="monospace" font-size="12" fill="#f8f9fa">{</text>
-    <text x="90" y="645" font-family="monospace" font-size="12" fill="#f8f9fa">"iss": "https://idp.example.com",</text>
-    <text x="90" y="665" font-family="monospace" font-size="12" fill="#f8f9fa">"sub": "user123@example.com",</text>
-    <text x="90" y="685" font-family="monospace" font-size="12" fill="#f8f9fa">"aud": "https://app.example.com",</text>
-    <text x="90" y="705" font-family="monospace" font-size="12" fill="#f8f9fa">"iat": 1609459200,</text>
-    <text x="90" y="725" font-family="monospace" font-size="12" fill="#f8f9fa">"events": {</text>
-    <text x="110" y="745" font-family="monospace" font-size="12" fill="#4ecdc4">"https://schemas.openid.net/secevent/risc/event-type/account-disabled": {}</text>
-    <text x="90" y="765" font-family="monospace" font-size="12" fill="#f8f9fa">}</text>
-    <text x="70" y="785" font-family="monospace" font-size="12" fill="#f8f9fa">}</text>
+    <rect x="50" y="460" width="1100" height="160" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
+    <text x="70" y="475" font-family="monospace" font-size="12" fill="#f8f9fa">{</text>
+    <text x="90" y="495" font-family="monospace" font-size="12" fill="#f8f9fa">"iss": "https://idp.example.com",</text>
+    <text x="90" y="515" font-family="monospace" font-size="12" fill="#f8f9fa">"sub": "user123@example.com",</text>
+    <text x="90" y="535" font-family="monospace" font-size="12" fill="#f8f9fa">"aud": "https://app.example.com",</text>
+    <text x="90" y="555" font-family="monospace" font-size="12" fill="#f8f9fa">"iat": 1609459200,</text>
+    <text x="90" y="575" font-family="monospace" font-size="12" fill="#f8f9fa">"events": {</text>
+    <text x="110" y="595" font-family="monospace" font-size="12" fill="#4ecdc4">"https://schemas.openid.net/secevent/risc/event-type/account-disabled": {}</text>
+    <text x="90" y="615" font-family="monospace" font-size="12" fill="#f8f9fa">}</text>
+    <text x="70" y="635" font-family="monospace" font-size="12" fill="#f8f9fa">}</text>
 
     <!-- Arrow marker definition -->
     <defs>
