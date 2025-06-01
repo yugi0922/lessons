@@ -4,6 +4,8 @@
 
 ## 9.1 OAuth 2.1/3.0 の展望
 
+![oauth-prospection](./images/oauth-prospection.svg)
+
 ### OAuth 2.1
 
 OAuth 2.0 は広く普及しましたが、その仕様にはいくつかの曖昧さやセキュリティ上の懸念点が指摘されてきました。OAuth 2.1 は、これらの課題に対処し、ベストプラクティスを統合することを目的としています。
@@ -57,7 +59,54 @@ OIDCは、認証プロトコルとしての地位を確立しつつ、さらな�
 ### 9.2.1. eKYC & Identity Assurance (IDA)
 
 #### 概要
-eKYC (electronic Know Your Customer) は、オンラインで完結する本人確認手続きのことです。一方、Identity Assurance (IDA) は、提示されたアイデンティティ情報が確かにその本人に属し、かつその情報が正確であることを示す信頼性の度合いや、その保証の枠組みを指します。金融サービスや行政手続きなど、高い信頼性が求められる場面で重要となります。
+eKYC (electronic Know Your Customer) は、オンラインで完結する本人確認手続きのことです。一方、Identity Assurance (IDA) は、提示されたアイデンティティ情報が確かにその本人に属し、かつその情報が正確であることを示す信頼性の度合いや、その保証の枠組みを指します。金融サービスや行政手続きなど、高い信頼性が求められる場面で重要となります。  
+ID TokenやUserInfoエンドポイントで、要求してきたクライアントに対して身元確認情報を返すための標準規格です
+
+IdPのメタデータ
+```json
+{
+  "verified_claims_supported": true,
+  "trust_frameworks_supported": ["eidas", "jpki"],
+  "evidence_supported": ["document", "electronic_signature"],
+  "verified_claims": ["given_name", "family_name", "birthdate"]
+}
+```
+
+クライアントは身元情報を要求する場合、リクエストに以下のような内容を追加します
+```json
+{
+  "userinfo": {
+    "verified_claims": {
+      "verification": {
+        "trust_framework": null  // または {"value": "jpki"}など
+      },
+      "claims": {
+        "given_name": null,
+        "family_name": null,
+        "birthdate": null
+      }
+    }
+  }
+}
+```
+
+レスポンス例
+```json
+{
+  "verified_claims": {
+    "verification": {
+      "trust_framework": "eidas", // eidas:EU規則に基づく電子身分証明, nist_800_63a:アメリカNISTの標準, de_aml:ドイツのマネロン対策法準拠, jpki:日本の公的個人認証サービス
+      "time": "2024-01-15T10:30:00Z",
+      "verification_process": "abc123-def456"
+    },
+    "claims": {
+      "given_name": "太郎",
+      "family_name": "山田",
+      "birthdate": "1990-01-01"
+    }
+  }
+}
+```
 
 #### 現状と課題
 多くの国や地域でeKYCの導入が進んでいますが、その手法や法的要件は様々です。国際的な相互運用性や、多様なeKYC手段とアイデンティティ保証レベルの標準的な紐付けが課題となっています。また、ユーザーが自身のどのレベルのアイデンティティ情報を、どのサービスに提供するかをコントロールできる仕組みも求められています。
@@ -74,12 +123,18 @@ OIDCは、ユーザー認証の事実をRPに伝えるプロトコルですが�
 ### 9.2.2. OpenID for Verifiable Credentials (OIDC4VC)
 
 #### 概要
-OpenID for Verifiable Credentials (OIDC4VC) は、検証可能な資格情報 (VC: Verifiable Credentials) をOIDCのフローを通じてリライングパーティ (RP) に安全かつ効率的に提示するための仕様です。 VCは、デジタル化された運転免許証、卒業証明書、従業員証など、特定の属性や資格を暗号学的に検証可能な形で表現したものです。
+OpenID for Verifiable Credentials (OIDC4VC) は、**「スマホのWalletアプリ等に入ったデジタル資格証（VC, Verifiable Credentials）を、暗号学的署名により真正性を保証しつつ、Relying Partyに提示・検証するための標準規格」** 仕様です。 VCは、デジタル化された運転免許証、卒業証明書、従業員証など、特定の属性や資格を暗号学的に検証可能な形で表現したものです。
 
 #### 現状とOIDC仕様
 OIDC4VCの仕様策定はOpenID Foundationで進められており、既存のOIDCの認証フローを拡張する形で定義されています。主な流れとして、RPがユーザーに対して特定のVCの提示を要求し、ユーザーは自身のデジタルウォレットなどから該当するVCを選択し、VP (Verifiable Presentation: VCとその所有者証明などを含む提示用のデータ形式) としてRPに提出します。RPはVPを検証することで、ユーザーの属性を確認します。
 
-「勉強会-OpenID Connect (OIDC).md」の3.7章で触れられているように、これはOIDC Core仕様の拡張として位置づけられています。
+#### フロー
+
+1. RP（Verifier）がVC情報の提示を要求
+2. WalletアプリがVPを返す
+3. RPがVPを検証する
+
+![oidc4vc](./images/oidc4vc.svg)
 
 #### 展望とユースケース
 OIDC4VCは、自己主権型アイデンティティ (SSI) のエコシステムと従来のOIDCベースのWebサービスとの橋渡しをする技術として非常に重要です。
@@ -90,15 +145,15 @@ OIDC4VCは、自己主権型アイデンティティ (SSI) のエコシステム
 
 将来的には、より多くの種類のVCが発行され、それらを安全に管理・提示するためのウォレットアプリが普及し、OIDC4VCを通じて様々なオンラインサービスでVCが活用される世界が広がることが期待されます。
 
-### 9.2.3. Federation (OpenID Connect Federation)
+### 9.2.3. Federation (OpenID Connect Federation, OpenID Federation 1.0)
 
 #### 概要
-OpenID Connect Federation (OIDC Federation) は、多数のOpenIDプロバイダー (OP) とリライングパーティ (RP) が参加する大規模な環境において、それらの間で信頼関係を動的かつ安全に構築・管理するための仕様です。 事前にすべてのOPとRP間で直接的な信頼設定を行うことなく、信頼できる第三者（トラストアンカー）を介した信頼の連鎖 (Chain of Trust) によって、フェデレーション参加者間の信頼を確立します。
+OpenID Connect Federation (OpenID Federation 1.0) は、多数のOpenIDプロバイダー (OP) とリライングパーティ (RP) が参加する大規模な環境において、それらの間で信頼関係を動的かつ安全に構築・管理するための仕様です。 事前にすべてのOPとRP間で直接的な信頼設定を行うことなく、信頼できる第三者（トラストアンカー）を介した信頼の連鎖 (Chain of Trust) によって、フェデレーション参加者間の信頼を確立します。
 
 #### 現状とOIDC仕様
 OIDC Federationの仕様はOpenID Foundationによって策定されています。 この仕様では、各エンティティ (OPやRP) が自身のメタデータを公開し、そのメタデータがフェデレーション内の他のエンティティやトラストアンカーによって署名されることで、信頼性が担保されます。RPはOPのメタデータを取得し、その署名を検証することで、そのOPが信頼できるフェデレーションのメンバーであることを確認できます。
 
-「勉強会-OpenID Connect (OIDC).md」の3.7章で述べられているように、信頼関係のメタデータを集約・署名し、安全に交換する仕組みを提供します。
+![oidc-federation](./images/oidc-federation.svg)
 
 #### 展望とユースケース
 OIDC Federationは、特に参加組織が多数にのぼる場合や、組織間の関係性が動的に変化するような大規模環境でのアイデンティティ連携において強力なソリューションとなります。

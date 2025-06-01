@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
     <!-- Background gradient -->
     <defs>
         <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -130,89 +130,20 @@
     <!-- Evolution arrows -->
     <g>
         <!-- OAuth 2.0 to 2.1 -->
-        <line x1="350" y1="180" x2="390" y2="180" stroke="#16a34a" stroke-width="3" marker-end="url(#arrowhead)"/>
-        <text x="370" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#16a34a">
+        <line x1="355" y1="180" x2="390" y2="180" stroke="#16a34a" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="375" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#16a34a">
             改善
         </text>
 
         <!-- OAuth 2.1 to 3.0 -->
-        <line x1="600" y1="180" x2="640" y2="180" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="3,3"/>
-        <text x="620" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7c3aed">
+        <line x1="605" y1="180" x2="640" y2="180" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="3,3"/>
+        <text x="620" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7c3aed">
             展望
         </text>
     </g>
 
-    <!-- Key themes section -->
-    <g transform="translate(100, 380)">
-        <text x="0" y="0" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">
-            進化のテーマ
-        </text>
-
-        <!-- Security theme -->
-        <g transform="translate(0, 30)">
-            <rect x="0" y="0" width="250" height="80" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
-            <circle cx="20" cy="20" r="8" fill="#ef4444"/>
-            <text x="20" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">🔐</text>
-            <text x="35" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">
-                セキュリティ強化
-            </text>
-            <text x="10" y="45" font-family="Arial, sans-serif" font-size="11" fill="#dc2626">
-                • フロー見直し・PKCE必須化
-            </text>
-            <text x="10" y="60" font-family="Arial, sans-serif" font-size="11" fill="#dc2626">
-                • トークン保護・DPoP導入
-            </text>
-        </g>
-
-        <!-- Privacy theme -->
-        <g transform="translate(270, 30)">
-            <rect x="0" y="0" width="250" height="80" rx="8" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="1"/>
-            <circle cx="20" cy="20" r="8" fill="#0ea5e9"/>
-            <text x="20" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">🛡️</text>
-            <text x="35" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">
-                プライバシー保護
-            </text>
-            <text x="10" y="45" font-family="Arial, sans-serif" font-size="11" fill="#0284c7">
-                • 細粒度同意管理
-            </text>
-            <text x="10" y="60" font-family="Arial, sans-serif" font-size="11" fill="#0284c7">
-                • 最小開示・選択的開示
-            </text>
-        </g>
-
-        <!-- Developer Experience theme -->
-        <g transform="translate(540, 30)">
-            <rect x="0" y="0" width="250" height="80" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="1"/>
-            <circle cx="20" cy="20" r="8" fill="#eab308"/>
-            <text x="20" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">⚡</text>
-            <text x="35" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ca8a04">
-                開発者体験
-            </text>
-            <text x="10" y="45" font-family="Arial, sans-serif" font-size="11" fill="#ca8a04">
-                • 仕様の簡素化・一貫性
-            </text>
-            <text x="10" y="60" font-family="Arial, sans-serif" font-size="11" fill="#ca8a04">
-                • 設定複雑さの軽減
-            </text>
-        </g>
-    </g>
-
-    <!-- GNAP connection -->
-    <g transform="translate(150, 550)">
-        <rect x="0" y="0" width="700" height="60" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/>
-        <text x="10" y="20" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#475569">
-            GNAP (Grant Negotiation and Authorization Protocol) との関連
-        </text>
-        <text x="10" y="35" font-family="Arial, sans-serif" font-size="11" fill="#475569">
-            IETFワーキンググループで議論され、2023年10月に結論。その成果は将来のOAuth進化に影響を与える
-        </text>
-        <text x="10" y="50" font-family="Arial, sans-serif" font-size="11" fill="#475569">
-            可能性がある。より柔軟な権限委任、対話的やり取り、強力なセキュリティ機能を目指していた。
-        </text>
-    </g>
-
     <!-- Legend -->
-    <g transform="translate(50, 640)">
+    <g transform="translate(50, 370)">
         <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#64748b">
             凡例：
         </text>
