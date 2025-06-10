@@ -21,14 +21,14 @@ SPA：JavaScriptコードが全て見える ❌
 ```
 
 #### 🌐 課題2: CORS制約
-![thumbnail](./images/implimentation_patterns2.png)
+![thumbnail](./images/mplimentation_patterns2.png)
 ```
 同一ドメイン：制限なし ✅
 異なるドメイン：ブラウザが制限 ❌
 ```
 
 #### ⚠️ 課題3: XSS攻撃リスク
-![thumbnail](./images/implimentation_patterns3.png)
+![thumbnail](./images/mplimentation_patterns3.png)
 ```
 サーバーサイド：セッションクッキー ✅
 SPA：JavaScriptでトークン管理 ❌
