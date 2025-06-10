@@ -266,11 +266,7 @@ Keychainの利点：
 ### Service Meshパターン
 
 #### 🕸️ 統一認証アーキテクチャ
-```
-外部リクエスト → API Gateway → Service Mesh → 各マイクロサービス
-                     ↓           ↓
-                  JWT検証    追加検証・認可
-```
+![thumbnail](./images/implimentation_patterns4.png)
 
 #### 🎯 Istio実装パターン
 ```
@@ -287,6 +283,7 @@ AuthorizationPolicy：認可ルール定義
 
 ### Token Relayパターン
 
+![thumbnail](./images/implimentation_patterns5.png)
 #### 🔄 トークン転送フロー
 ```
 1. クライアント → API Gateway（JWTトークン付き）
@@ -302,6 +299,7 @@ AuthorizationPolicy：認可ルール定義
 
 ### Service-to-Service認証
 
+![thumbnail](./images/implimentation_patterns6.png)
 #### 🤝 Client Credentials Flow
 ```
 サービスA → 認証サーバー：「サービスBにアクセスしたい」
