@@ -11,6 +11,264 @@
 
 ## 1. SPAアプリケーションでの実装
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA認証の3つの課題</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .challenges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .challenge {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .challenge:hover {
+            transform: translateY(-5px);
+        }
+        
+        .challenge-1 { border-left-color: #e74c3c; }
+        .challenge-2 { border-left-color: #f39c12; }
+        .challenge-3 { border-left-color: #e67e22; }
+        
+        .challenge-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .challenge-1 .challenge-title { color: #e74c3c; }
+        .challenge-2 .challenge-title { color: #f39c12; }
+        .challenge-3 .challenge-title { color: #e67e22; }
+        
+        .comparison {
+            margin: 15px 0;
+        }
+        
+        .comparison-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+        
+        .good {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .bad {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+        
+        .description {
+            color: #555;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+        }
+        
+        .visual-element {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .server-icon, .browser-icon {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+        }
+        
+        .server-icon {
+            background: linear-gradient(145deg, #3498db, #2980b9);
+        }
+        
+        .browser-icon {
+            background: linear-gradient(145deg, #f39c12, #e67e22);
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #7f8c8d;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🔒 SPAアプリケーションの認証における3つの課題</h1>
+        
+        <div class="challenges">
+            <div class="challenge challenge-1">
+                <div class="challenge-title">
+                    <span class="icon">🔐</span>
+                    課題1: Publicクライアント問題
+                </div>
+                
+                <div class="visual-element">
+                    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 20px;">
+                        <div style="text-align: center;">
+                            <div class="server-icon">🖥️</div>
+                            <div style="margin-top: 10px; font-weight: bold; color: #2c3e50;">従来のWebアプリ</div>
+                        </div>
+                        <div class="arrow">vs</div>
+                        <div style="text-align: center;">
+                            <div class="browser-icon">🌐</div>
+                            <div style="margin-top: 10px; font-weight: bold; color: #2c3e50;">SPA</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison">
+                    <div class="comparison-item good">
+                        <span class="icon">✅</span>
+                        <span>サーバー上でシークレット保存</span>
+                    </div>
+                    <div class="comparison-item bad">
+                        <span class="icon">❌</span>
+                        <span>JavaScriptコードが全て見える</span>
+                    </div>
+                </div>
+                
+                <div class="description">
+                    SPAではブラウザ上でJavaScriptが実行されるため、クライアントシークレットを安全に保存することができません。
+                </div>
+            </div>
+            
+            <div class="challenge challenge-2">
+                <div class="challenge-title">
+                    <span class="icon">🌐</span>
+                    課題2: CORS制約
+                </div>
+                
+                <div class="visual-element">
+                    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 15px;">
+                        <div style="padding: 15px; background: #2ecc71; color: white; border-radius: 8px; font-weight: bold;">
+                            app.example.com
+                        </div>
+                        <div class="arrow">→</div>
+                        <div style="padding: 15px; background: #2ecc71; color: white; border-radius: 8px; font-weight: bold;">
+                            app.example.com
+                        </div>
+                    </div>
+                    <div style="margin: 10px 0; color: #2ecc71; font-weight: bold;">✅ 同一ドメイン：OK</div>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 20px;">
+                        <div style="padding: 15px; background: #e74c3c; color: white; border-radius: 8px; font-weight: bold;">
+                            app.example.com
+                        </div>
+                        <div class="arrow">→</div>
+                        <div style="padding: 15px; background: #e74c3c; color: white; border-radius: 8px; font-weight: bold;">
+                            auth.provider.com
+                        </div>
+                    </div>
+                    <div style="margin: 10px 0; color: #e74c3c; font-weight: bold;">❌ 異なるドメイン：ブラウザが制限</div>
+                </div>
+                
+                <div class="description">
+                    ブラウザのセキュリティポリシーにより、異なるドメイン間でのAPIコールが制限されます。
+                </div>
+            </div>
+            
+            <div class="challenge challenge-3">
+                <div class="challenge-title">
+                    <span class="icon">⚠️</span>
+                    課題3: XSS攻撃リスク
+                </div>
+                
+                <div class="visual-element">
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div style="display: inline-block; padding: 20px; background: linear-gradient(145deg, #e74c3c, #c0392b); color: white; border-radius: 10px; margin: 10px;">
+                            <div style="font-size: 2em;">🎯</div>
+                            <div style="font-weight: bold; margin-top: 10px;">XSS攻撃</div>
+                        </div>
+                        <div class="arrow" style="display: block;">↓</div>
+                        <div style="display: inline-block; padding: 20px; background: linear-gradient(145deg, #f39c12, #e67e22); color: white; border-radius: 10px; margin: 10px;">
+                            <div style="font-size: 2em;">🍪</div>
+                            <div style="font-weight: bold; margin-top: 10px;">JavaScriptで管理されるトークン</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison">
+                    <div class="comparison-item good">
+                        <span class="icon">✅</span>
+                        <span>サーバーサイド：セッションクッキー</span>
+                    </div>
+                    <div class="comparison-item bad">
+                        <span class="icon">❌</span>
+                        <span>SPA：JavaScriptでトークン管理</span>
+                    </div>
+                </div>
+                
+                <div class="description">
+                    XSS攻撃により悪意のあるスクリプトが実行された場合、JavaScriptで管理されているトークンが盗まれる可能性があります。
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
 ### SPAの認証における3つの課題
 
 #### 🔐 課題1: Publicクライアント問題
