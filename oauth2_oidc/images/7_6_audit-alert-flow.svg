@@ -1,0 +1,111 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">監査とアラートシステム</text>
+  
+  <!-- Event Stream -->
+  <g transform="translate(50, 70)">
+    <text x="0" y="0" font-size="16" font-weight="bold" fill="#2c3e50">認可イベントストリーム</text>
+    
+    <!-- Events -->
+    <g transform="translate(0, 20)">
+      <rect x="0" y="0" width="150" height="30" rx="5" fill="#e8f4f8" stroke="#3498db"/>
+      <text x="10" y="20" font-size="11" fill="#2c3e50">09:15 User123 → AppA</text>
+      
+      <rect x="160" y="0" width="150" height="30" rx="5" fill="#e8f4f8" stroke="#3498db"/>
+      <text x="170" y="20" font-size="11" fill="#2c3e50">09:16 User456 → AppB</text>
+      
+      <rect x="320" y="0" width="150" height="30" rx="5" fill="#fee" stroke="#e74c3c"/>
+      <text x="330" y="20" font-size="11" fill="#c0392b">09:17 User123 → AppC</text>
+      
+      <rect x="480" y="0" width="150" height="30" rx="5" fill="#fee" stroke="#e74c3c"/>
+      <text x="490" y="20" font-size="11" fill="#c0392b">09:17 User123 → AppD</text>
+    </g>
+  </g>
+  
+  <!-- Arrows to Audit Log -->
+  <path d="M200 120 L200 150" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+  <path d="M400 120 L400 150" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+  <path d="M600 120 L600 150" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+  
+  <!-- Audit Log Database -->
+  <g transform="translate(100, 160)">
+    <rect width="600" height="80" rx="10" fill="#2c3e50"/>
+    <text x="300" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="white">監査ログデータベース</text>
+    
+    <!-- Log Entries -->
+    <rect x="20" y="45" width="560" height="25" rx="3" fill="#34495e"/>
+    <text x="30" y="61" font-size="10" font-family="monospace" fill="#95a5a6">
+      [2024-03-01 09:17:45] AUTH_GRANTED user=User123 client=AppD scope=payment:write ip=192.168.1.100
+    </text>
+  </g>
+  
+  <!-- Pattern Analysis -->
+  <g transform="translate(250, 270)">
+    <rect width="300" height="120" rx="10" fill="#fff" stroke="#f39c12" stroke-width="2"/>
+    <text x="150" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">パターン分析エンジン</text>
+    
+    <!-- Analysis Items -->
+    <g transform="translate(20, 40)">
+      <rect x="0" y="0" width="120" height="25" rx="3" fill="#fff3cd"/>
+      <text x="60" y="17" text-anchor="middle" font-size="11" fill="#f39c12">頻度チェック</text>
+      
+      <rect x="140" y="0" width="120" height="25" rx="3" fill="#fff3cd"/>
+      <text x="200" y="17" text-anchor="middle" font-size="11" fill="#f39c12">スコープ分析</text>
+      
+      <rect x="70" y="35" width="120" height="25" rx="3" fill="#fff3cd"/>
+      <text x="130" y="52" text-anchor="middle" font-size="11" fill="#f39c12">時系列分析</text>
+    </g>
+  </g>
+  
+  <!-- Anomaly Detection -->
+  <g transform="translate(350, 410)">
+    <circle cx="50" cy="20" r="30" fill="#e74c3c"/>
+    <text x="50" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="white">異常検知</text>
+    <text x="50" y="60" text-anchor="middle" font-size="12" fill="#e74c3c">5分間に10回の認可</text>
+  </g>
+  
+  <!-- Alert Branches -->
+  <g transform="translate(50, 480)">
+    <!-- User Alert -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="80" rx="10" fill="#e8f4f8" stroke="#3498db" stroke-width="2"/>
+      <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">ユーザー通知</text>
+      <text x="100" y="45" text-anchor="middle" font-size="20">📧</text>
+      <text x="100" y="65" text-anchor="middle" font-size="11" fill="#555">異常なアクセスを検出</text>
+    </g>
+    
+    <!-- Admin Alert -->
+    <g transform="translate(250, 0)">
+      <rect width="200" height="80" rx="10" fill="#fee" stroke="#e74c3c" stroke-width="2"/>
+      <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">管理者アラート</text>
+      <text x="100" y="45" text-anchor="middle" font-size="20">🚨</text>
+      <text x="100" y="65" text-anchor="middle" font-size="11" fill="#555">セキュリティチームに通知</text>
+    </g>
+    
+    <!-- Auto Action -->
+    <g transform="translate(500, 0)">
+      <rect width="200" height="80" rx="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+      <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">自動対応</text>
+      <text x="100" y="45" text-anchor="middle" font-size="20">🔒</text>
+      <text x="100" y="65" text-anchor="middle" font-size="11" fill="#555">一時的にアクセス制限</text>
+    </g>
+  </g>
+  
+  <!-- Alert Arrows -->
+  <path d="M400 440 L150 480" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+  <path d="M400 440 L350 480" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+  <path d="M400 440 L600 480" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowgray" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#666">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#e74c3c">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>

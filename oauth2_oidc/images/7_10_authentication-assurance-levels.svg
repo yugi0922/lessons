@@ -1,0 +1,119 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">認証保証レベル（AAL）とWebAuthn統合</text>
+  
+  <!-- AAL Levels -->
+  <!-- AAL1 -->
+  <g transform="translate(50, 80)">
+    <rect width="200" height="150" rx="10" fill="#e8f4f8" stroke="#3498db" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#3498db">AAL1</text>
+    <text x="100" y="45" text-anchor="middle" font-size="12" fill="#2c3e50">単一要素認証</text>
+    
+    <rect x="20" y="60" width="160" height="30" rx="5" fill="#fff"/>
+    <text x="100" y="80" text-anchor="middle" font-size="11" fill="#555">🔑 パスワードのみ</text>
+    
+    <text x="100" y="110" text-anchor="middle" font-size="10" fill="#7f8c8d">用途：低リスク操作</text>
+    <text x="100" y="125" text-anchor="middle" font-size="10" fill="#7f8c8d">例：公開情報閲覧</text>
+  </g>
+  
+  <!-- AAL2 -->
+  <g transform="translate(300, 80)">
+    <rect width="200" height="150" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#f39c12">AAL2</text>
+    <text x="100" y="45" text-anchor="middle" font-size="12" fill="#2c3e50">多要素認証</text>
+    
+    <rect x="20" y="60" width="160" height="30" rx="5" fill="#fff"/>
+    <text x="100" y="80" text-anchor="middle" font-size="11" fill="#555">🔑 + 📱 パスワード+OTP</text>
+    
+    <text x="100" y="110" text-anchor="middle" font-size="10" fill="#7f8c8d">用途：中リスク操作</text>
+    <text x="100" y="125" text-anchor="middle" font-size="10" fill="#7f8c8d">例：個人情報更新</text>
+  </g>
+  
+  <!-- AAL3 -->
+  <g transform="translate(550, 80)">
+    <rect width="200" height="150" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="3"/>
+    <text x="100" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#27ae60">AAL3</text>
+    <text x="100" y="45" text-anchor="middle" font-size="12" fill="#2c3e50">ハードウェア認証</text>
+    
+    <rect x="20" y="60" width="160" height="30" rx="5" fill="#fff"/>
+    <text x="100" y="80" text-anchor="middle" font-size="11" fill="#555">🔐 WebAuthn/FIDO2</text>
+    
+    <text x="100" y="110" text-anchor="middle" font-size="10" fill="#27ae60" font-weight="bold">✅ フィッシング耐性</text>
+    <text x="100" y="125" text-anchor="middle" font-size="10" fill="#7f8c8d">用途：高リスク操作</text>
+    <text x="100" y="140" text-anchor="middle" font-size="10" fill="#7f8c8d">例：送金・管理者操作</text>
+  </g>
+  
+  <!-- WebAuthn Integration Details -->
+  <g transform="translate(50, 270)">
+    <text x="0" y="0" font-size="18" font-weight="bold" fill="#2c3e50">WebAuthn統合によるAAL実装</text>
+  </g>
+  
+  <!-- Step Up Authentication Flow -->
+  <g transform="translate(50, 300)">
+    <rect width="700" height="250" rx="10" fill="#fff" stroke="#9b59b6" stroke-width="2"/>
+    <text x="350" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#9b59b6">ステップアップ認証フロー</text>
+    
+    <!-- Initial Access -->
+    <g transform="translate(30, 50)">
+      <rect width="150" height="40" rx="20" fill="#e8f4f8" stroke="#3498db"/>
+      <text x="75" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">初回アクセス</text>
+      <text x="75" y="38" text-anchor="middle" font-size="10" fill="#7f8c8d">AAL1で認証</text>
+    </g>
+    
+    <!-- Arrow 1 -->
+    <path d="M230 320 L290 320" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+    
+    <!-- Resource Check -->
+    <g transform="translate(290, 50)">
+      <rect width="150" height="60" rx="10" fill="#f3e5f5" stroke="#9b59b6"/>
+      <text x="75" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">リソース要求</text>
+      <text x="75" y="40" text-anchor="middle" font-size="10" fill="#9b59b6">必要AAL確認</text>
+      <text x="75" y="55" text-anchor="middle" font-size="10" fill="#e74c3c">AAL3が必要！</text>
+    </g>
+    
+    <!-- Arrow 2 -->
+    <path d="M490 320 L550 320" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+    
+    <!-- WebAuthn Challenge -->
+    <g transform="translate(550, 50)">
+      <rect width="120" height="60" rx="10" fill="#fee" stroke="#e74c3c"/>
+      <text x="60" y="20" text-anchor="middle" font-size="11" fill="#c0392b">追加認証要求</text>
+      <text x="60" y="35" text-anchor="middle" font-size="10" fill="#555">WebAuthn</text>
+      <text x="60" y="48" text-anchor="middle" font-size="10" fill="#555">チャレンジ</text>
+    </g>
+    
+    <!-- User Authentication -->
+    <g transform="translate(200, 140)">
+      <rect width="300" height="80" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+      <text x="150" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">WebAuthn認証実行</text>
+      
+      <!-- Icons -->
+      <text x="50" y="55" text-anchor="middle" font-size="24">👆</text>
+      <text x="100" y="55" text-anchor="middle" font-size="24">🔐</text>
+      <text x="150" y="55" text-anchor="middle" font-size="24">✅</text>
+      <text x="200" y="55" text-anchor="middle" font-size="24">🎯</text>
+      <text x="250" y="55" text-anchor="middle" font-size="24">🔓</text>
+    </g>
+  </g>
+  
+  <!-- Benefits Box -->
+  <g transform="translate(50, 570)">
+    <rect width="700" height="20" rx="10" fill="#2ecc71"/>
+    <text x="350" y="15" text-anchor="middle" font-size="12" fill="white" font-weight="bold">
+      AAL3達成 → 高リスク操作を安全に実行可能
+    </text>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowgray" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#666">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#e74c3c">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>

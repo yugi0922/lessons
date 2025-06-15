@@ -1,0 +1,128 @@
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="700" fill="#f0f4f8"/>
+  
+  <!-- Header -->
+  <rect width="900" height="70" fill="#2c3e50"/>
+  <text x="50" y="45" font-size="24" font-weight="bold" fill="white">パスキー管理</text>
+  
+  <!-- User Info -->
+  <g transform="translate(700, 15)">
+    <circle cx="20" cy="20" r="20" fill="#3498db"/>
+    <path d="M20 22 C14 22 10 26 10 32 L30 32 C30 26 26 22 20 22 Z" fill="white"/>
+    <circle cx="20" cy="15" r="6" fill="white"/>
+    <text x="50" y="25" font-size="14" fill="white">山田太郎</text>
+  </g>
+  
+  <!-- Stats Cards -->
+  <g transform="translate(50, 90)">
+    <!-- Total Passkeys -->
+    <rect width="200" height="80" rx="10" fill="white" stroke="#e0e0e0"/>
+    <text x="20" y="30" font-size="14" fill="#7f8c8d">登録済みパスキー</text>
+    <text x="20" y="55" font-size="28" font-weight="bold" fill="#2c3e50">4</text>
+    
+    <!-- Active Devices -->
+    <rect x="220" width="200" height="80" rx="10" fill="white" stroke="#e0e0e0"/>
+    <text x="240" y="30" font-size="14" fill="#7f8c8d">アクティブデバイス</text>
+    <text x="240" y="55" font-size="28" font-weight="bold" fill="#27ae60">3</text>
+    
+    <!-- Last Used -->
+    <rect x="440" width="200" height="80" rx="10" fill="white" stroke="#e0e0e0"/>
+    <text x="460" y="30" font-size="14" fill="#7f8c8d">最終使用</text>
+    <text x="460" y="55" font-size="20" font-weight="bold" fill="#3498db">2時間前</text>
+  </g>
+  
+  <!-- Passkey List -->
+  <g transform="translate(50, 200)">
+    <text x="0" y="0" font-size="20" font-weight="bold" fill="#2c3e50">パスキー一覧</text>
+    
+    <!-- Passkey 1: iCloud -->
+    <g transform="translate(0, 30)">
+      <rect width="800" height="100" rx="10" fill="white" stroke="#e0e0e0"/>
+      
+      <!-- Icon -->
+      <rect x="20" y="20" width="60" height="60" rx="10" fill="#f0f0f0"/>
+      <text x="50" y="55" text-anchor="middle" font-size="30">🍎</text>
+      
+      <!-- Info -->
+      <text x="100" y="35" font-size="16" font-weight="bold" fill="#2c3e50">iCloud Keychain</text>
+      <text x="100" y="55" font-size="12" fill="#7f8c8d">登録日: 2024年1月15日</text>
+      <text x="100" y="70" font-size="12" fill="#27ae60">最終使用: 2時間前 (iPhone 15 Pro)</text>
+      
+      <!-- Sync Status -->
+      <rect x="400" y="35" width="120" height="30" rx="15" fill="#e8f5e9"/>
+      <text x="460" y="53" text-anchor="middle" font-size="12" fill="#27ae60">☁️ 同期済み</text>
+      
+      <!-- Devices -->
+      <text x="550" y="40" font-size="12" fill="#666">利用可能デバイス:</text>
+      <text x="550" y="55" font-size="20">📱 💻 📲</text>
+      
+      <!-- Actions -->
+      <rect x="700" y="35" width="80" height="30" rx="5" fill="#e74c3c"/>
+      <text x="740" y="53" text-anchor="middle" font-size="12" fill="white">削除</text>
+    </g>
+    
+    <!-- Passkey 2: Google -->
+    <g transform="translate(0, 140)">
+      <rect width="800" height="100" rx="10" fill="white" stroke="#e0e0e0"/>
+      
+      <!-- Icon -->
+      <rect x="20" y="20" width="60" height="60" rx="10" fill="#e8f5e9"/>
+      <text x="50" y="55" text-anchor="middle" font-size="30">🔑</text>
+      
+      <!-- Info -->
+      <text x="100" y="35" font-size="16" font-weight="bold" fill="#2c3e50">Google Password Manager</text>
+      <text x="100" y="55" font-size="12" fill="#7f8c8d">登録日: 2024年2月1日</text>
+      <text x="100" y="70" font-size="12" fill="#3498db">最終使用: 昨日 (Pixel 8)</text>
+      
+      <!-- Sync Status -->
+      <rect x="400" y="35" width="120" height="30" rx="15" fill="#e8f5e9"/>
+      <text x="460" y="53" text-anchor="middle" font-size="12" fill="#27ae60">☁️ 同期済み</text>
+      
+      <!-- Devices -->
+      <text x="550" y="40" font-size="12" fill="#666">利用可能デバイス:</text>
+      <text x="550" y="55" font-size="20">📱 💻</text>
+      
+      <!-- Actions -->
+      <rect x="700" y="35" width="80" height="30" rx="5" fill="#e74c3c"/>
+      <text x="740" y="53" text-anchor="middle" font-size="12" fill="white">削除</text>
+    </g>
+    
+    <!-- Passkey 3: YubiKey -->
+    <g transform="translate(0, 250)">
+      <rect width="800" height="100" rx="10" fill="white" stroke="#e0e0e0"/>
+      
+      <!-- Icon -->
+      <rect x="20" y="20" width="60" height="60" rx="10" fill="#fff3cd"/>
+      <text x="50" y="55" text-anchor="middle" font-size="30">🔐</text>
+      
+      <!-- Info -->
+      <text x="100" y="35" font-size="16" font-weight="bold" fill="#2c3e50">YubiKey 5C NFC</text>
+      <text x="100" y="55" font-size="12" fill="#7f8c8d">登録日: 2023年12月20日</text>
+      <text x="100" y="70" font-size="12" fill="#f39c12">最終使用: 1週間前</text>
+      
+      <!-- Sync Status -->
+      <rect x="400" y="35" width="120" height="30" rx="15" fill="#fff3cd"/>
+      <text x="460" y="53" text-anchor="middle" font-size="12" fill="#f39c12">🔒 デバイス固有</text>
+      
+      <!-- Security Level -->
+      <text x="550" y="40" font-size="12" fill="#666">セキュリティ:</text>
+      <text x="550" y="55" font-size="12" fill="#e74c3c" font-weight="bold">最高レベル</text>
+      
+      <!-- Actions -->
+      <rect x="700" y="35" width="80" height="30" rx="5" fill="#e74c3c"/>
+      <text x="740" y="53" text-anchor="middle" font-size="12" fill="white">削除</text>
+    </g>
+  </g>
+  
+  <!-- Add New Passkey Button -->
+  <g transform="translate(350, 600)">
+    <rect width="200" height="50" rx="25" fill="#3498db"/>
+    <text x="100" y="32" text-anchor="middle" font-size="16" fill="white" font-weight="bold">+ 新しいパスキーを追加</text>
+  </g>
+  
+  <!-- Recovery Options -->
+  <g transform="translate(50, 660)">
+    <text x="0" y="0" font-size="12" fill="#7f8c8d">💡 ヒント: 複数のパスキーを登録しておくと、デバイス紛失時も安心です</text>
+  </g>
+</svg>
