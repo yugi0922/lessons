@@ -1,7 +1,5 @@
 # 7. セキュリティ強化プロファイル
 
-![thumbnail](./images/thumbnail.png)
-
 ## 7.1. OAuth/OIDC における EAP（Enhanced Authorization Protocol）によるセキュリティ強化
 
 ### EAP とは
@@ -178,7 +176,7 @@ public class AuthorizationManagementController {
 
 #### 1. 認可フィンガープリント
 
-各認可に一意のフィンガープリントを生成し、認可の偽造や改ざんを防ぎます。このフィンガープリントは、認可の詳細情報から生成される暗号学的ハッシュで、後から検証可能です。
+各認可に一意のフィンガープリント(あるデータや対象を一意に識別するために作られた短い識別情報（ハッシュなど)を生成し、認可の偽造や改ざんを防ぎます。このフィンガープリントは、認可の詳細情報から生成される暗号学的ハッシュで、後から検証可能です。
 
 ![7_4_authorization-management-dashboard](./images/7_4_fingerprint-generation-flow.svg)
 
@@ -371,7 +369,7 @@ WebAuthn/FIDO2 は、パスワードに代わる認証技術で、指紋認証�
 
 **FIDO2**は、FIDO Alliance（Fast IDentity Online）が策定した認証標準で、以下の 2 つの仕様から構成されています：
 
-- **WebAuthn**（Web Authentication）：W3C が標準化したブラウザ API
+- **WebAuthn**（Web Authentication）：W3C（ワールド・ワイド・ウェブ・コンソーシアムの略で、Web 技術の標準化を行う国際的な非営利団体です。HTML、CSS、XML など、Web サイトや Web アプリケーションで使用される様々な技術の標準仕様を策定しています） が標準化したブラウザ API
 - **CTAP**（Client to Authenticator Protocol）：認証器とデバイス間の通信プロトコル
 
 この技術により、ユーザーは以下のような方法でログインできます：
@@ -1243,61 +1241,6 @@ public class PasskeyManagementController {
 
 ![7_15_passkey-migration-strategy](./images/7_15_passkey-migration-strategy.svg)
 
-```java
-    // パスキー採用状況のモニタリング
-    @Scheduled(cron = "0 0 9 * * MON") // 毎週月曜9時
-    public void reportPasskeyAdoption() {
-        PasskeyAdoptionReport report = PasskeyAdoptionReport.builder()
-            .totalUsers(userService.countAll())
-            .passkeyEnabledUsers(userService.countWithPasskey())
-            .adoptionRate(calculateAdoptionRate())
-            .weeklyGrowth(calculateWeeklyGrowth())
-            .providerDistribution(getProviderDistribution())
-            .deviceTypeDistribution(getDeviceDistribution())
-            .averagePasskeysPerUser(calculateAveragePasskeys())
-            .build();
-
-        // 管理者に週次レポートを送信
-        notificationService.sendAdminReport(
-            "パスキー採用状況レポート",
-            report
-        );
-
-        // 採用率が目標に達していない場合は追加施策を実行
-        if (report.getAdoptionRate() < migrationConfig.getTargetAdoptionRate()) {
-            implementAdditionalIncentives();
-        }
-    }
-
-    // インセンティブプログラム
-    @Component
-    public class PasskeyIncentiveProgram {
-
-        public void onPasskeyRegistered(PasskeyRegisteredEvent event) {
-            OAuthUser user = event.getUser();
-
-            // 初回登録ボーナス
-            if (isFirstPasskey(user)) {
-                rewardService.grantPoints(user, 500, "パスキー登録ボーナス");
-
-                // バッジ付与
-                badgeService.grant(user, Badge.SECURITY_PIONEER);
-            }
-
-            // 複数プロバイダーボーナス
-            if (hasMultipleProviders(user)) {
-                rewardService.grantPoints(user, 200, "マルチプロバイダーボーナス");
-            }
-
-            // 早期採用者特典
-            if (isEarlyAdopter(user)) {
-                user.addFeature(Feature.PREMIUM_TRIAL_30DAYS);
-            }
-        }
-    }
-}
-```
-
 ### セキュリティと運用のベストプラクティス
 
 パスキーを安全に運用するための監視とインシデント対応の仕組みを実装します。
@@ -1476,8 +1419,6 @@ OAuth/OIDC とパスキーの連携により、以下のメリットが得られ
 
 ## 7.4. リスクベース認証の実装
 
-## OAuth/OIDC におけるリスクベース認証の実装
-
 ### 概要
 
 リスクベース認証（Risk-Based Authentication, RBA）は、ユーザーの行動パターンやコンテキスト情報を分析し、リスクレベルに応じて動的に認証要件を調整する仕組みです。OAuth/OIDC と組み合わせることで、セキュリティとユーザビリティの最適なバランスを実現できます。低リスクの場合は簡易な認証で済ませ、高リスクの場合は追加認証を要求することで、ユーザー体験を損なわずにセキュリティを強化します。
@@ -1563,13 +1504,6 @@ public class RiskAssessmentEngine {
             .build();
     }
 
-    // MLモデルの実行
-    private ModelPredictions runMLModels(FeatureVector features) {
-        // 異常検出モデル
-        double anomalyScore = mlService.
-```
-
-```java
     // MLモデルの実行
     private ModelPredictions runMLModels(FeatureVector features) {
         // 異常検出モデル
