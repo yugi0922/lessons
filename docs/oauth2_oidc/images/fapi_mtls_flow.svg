@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" style="background-color: #f8f9fa;">
+  <!-- Title -->
+  <text x="600" y="30" text-anchor="middle" font-size="24" font-weight="bold" fill="#1a365d">MTLS (Mutual TLS) Implementation Flow</text>
+  
+  <!-- Actors -->
+  <g id="actors">
+    <!-- Client -->
+    <rect x="50" y="60" width="200" height="60" fill="#4c1d95" rx="5"/>
+    <text x="150" y="95" text-anchor="middle" font-size="16" fill="white" font-weight="bold">クライアント</text>
+    
+    <!-- Authorization Server -->
+    <rect x="500" y="60" width="200" height="60" fill="#059669" rx="5"/>
+    <text x="600" y="95" text-anchor="middle" font-size="16" fill="white" font-weight="bold">認可サーバー</text>
+    
+    <!-- Resource Server -->
+    <rect x="950" y="60" width="200" height="60" fill="#dc2626" rx="5"/>
+    <text x="1050" y="95" text-anchor="middle" font-size="16" fill="white" font-weight="bold">リソースサーバー</text>
+  </g>
+  
+  <!-- Vertical Lines -->
+  <line x1="150" y1="120" x2="150" y2="880" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="600" y1="120" x2="600" y2="880" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="1050" y1="120" x2="1050" y2="880" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Phase 1: MTLS Connection -->
+  <g id="phase1">
+    <rect x="20" y="150" width="300" height="30" fill="#fee2e2" stroke="#ef4444" stroke-width="2" rx="5"/>
+    <text x="170" y="170" text-anchor="middle" font-size="14" font-weight="bold">1. MTLS接続確立</text>
+    
+    <!-- Client Hello -->
+    <path d="M 150 200 L 590 200" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowblue)"/>
+    <text x="370" y="195" text-anchor="middle" font-size="12" font-weight="bold">ClientHello</text>
+    <text x="370" y="215" text-anchor="middle" font-size="11">TLS 1.2+, 暗号スイート提案</text>
+    
+    <!-- Server Hello -->
+    <path d="M 590 240 L 160 240" stroke="#22c55e" stroke-width="2" marker-end="url(#arrowgreen)"/>
+    <text x="370" y="235" text-anchor="middle" font-size="12" font-weight="bold">ServerHello + Certificate</text>
+    <text x="370" y="255" text-anchor="middle" font-size="11">暗号スイート選択, サーバー証明書</text>
+    
+    <!-- Certificate Request -->
+    <path d="M 590 280 L 160 280" stroke="#f59e0b" stroke-width="2" marker-end="url(#arroworange)"/>
+    <text x="370" y="275" text-anchor="middle" font-size="12" font-weight="bold">CertificateRequest</text>
+    <text x="370" y="295" text-anchor="middle" font-size="11">クライアント証明書要求</text>
+    
+    <!-- Client Certificate -->
+    <path d="M 150 320 L 590 320" stroke="#9333ea" stroke-width="2" marker-end="url(#arrowpurple)"/>
+    <text x="370" y="315" text-anchor="middle" font-size="12" font-weight="bold">Certificate</text>
+    <text x="370" y="335" text-anchor="middle" font-size="11">クライアント証明書, 証明書チェーン</text>
+    
+    <!-- Certificate Verification -->
+    <rect x="530" y="360" width="140" height="80" fill="#e0e7ff" stroke="#6366f1" rx="5"/>
+    <text x="600" y="380" text-anchor="middle" font-size="12" font-weight="bold">1.3 証明書検証</text>
+    <text x="540" y="400" font-size="11">• CA署名検証</text>
+    <text x="540" y="415" font-size="11">• 有効期限確認</text>
+    <text x="540" y="430" font-size="11">• 失効確認</text>
+  </g>
+  
+  <!-- Phase 2: Token Request -->
+  <g id="phase2">
+    <rect x="20" y="460" width="300" height="30" fill="#fee2e2" stroke="#ef4444" stroke-width="2" rx="5"/>
+    <text x="170" y="480" text-anchor="middle" font-size="14" font-weight="bold">2. トークンリクエスト</text>
+    
+    <!-- Token Request -->
+    <path d="M 150 510 L 590 510" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowblue)"/>
+    <text x="370" y="505" text-anchor="middle" font-size="12" font-weight="bold">POST /token</text>
+    <text x="370" y="525" text-anchor="middle" font-size="11">grant_type, code, code_verifier</text>
+    
+    <!-- Certificate Binding -->
+    <rect x="530" y="550" width="140" height="80" fill="#dcfce7" stroke="#22c55e" rx="5"/>
+    <text x="600" y="570" text-anchor="middle" font-size="12" font-weight="bold">2.1 証明書バインディング</text>
+    <text x="540" y="590" font-size="11">• 証明書指紋計算</text>
+    <text x="540" y="605" font-size="11">• SHA-256ハッシュ</text>
+    <text x="540" y="620" font-size="11">• cnfクレーム追加</text>
+    
+    <!-- Token Response -->
+    <path d="M 590 650 L 160 650" stroke="#22c55e" stroke-width="2" marker-end="url(#arrowgreen)"/>
+    <text x="370" y="645" text-anchor="middle" font-size="12" font-weight="bold">200 OK</text>
+    <text x="370" y="665" text-anchor="middle" font-size="11">access_token (with cnf)</text>
+  </g>
+  
+  <!-- Phase 3: API Access -->
+  <g id="phase3">
+    <rect x="20" y="690" width="300" height="30" fill="#fee2e2" stroke="#ef4444" stroke-width="2" rx="5"/>
+    <text x="170" y="710" text-anchor="middle" font-size="14" font-weight="bold">3. APIアクセス</text>
+    
+    <!-- API Request -->
+    <path d="M 150 740 L 1040 740" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowred)"/>
+    <text x="600" y="735" text-anchor="middle" font-size="12" font-weight="bold">GET /api/resource</text>
+    <text x="600" y="755" text-anchor="middle" font-size="11">Authorization: Bearer (MTLS接続)</text>
+    
+    <!-- Token Verification -->
+    <rect x="980" y="780" width="140" height="80" fill="#fef3c7" stroke="#f59e0b" rx="5"/>
+    <text x="1050" y="800" text-anchor="middle" font-size="12" font-weight="bold">3.1 検証処理</text>
+    <text x="990" y="820" font-size="11">• トークン検証</text>
+    <text x="990" y="835" font-size="11">• cnfクレーム確認</text>
+    <text x="990" y="850" font-size="11">• 証明書照合</text>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arroworange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrowpurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#9333ea"/>
+    </marker>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>
