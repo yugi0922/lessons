@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAPI (Financial-grade API) - 金融グレードAPIセキュリティ完全ガイド</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.15), 0 15px 15px -5px rgba(0, 0, 0, 0.06);
+        }
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        .matrix-table {
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .matrix-table table {
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+        .matrix-table th {
+            background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .matrix-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .matrix-table tr:hover {
+            background-color: #f9fafb;
+        }
+        .flow-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .flow-box:hover {
+            transform: scale(1.05);
+        }
+        .attack-scenario {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        .defense-measure {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 4px solid #10b981;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        .code-container {
+            background: #1e293b;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .code-container code {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e2e8f0;
+        }
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+        .timeline-item {
+            position: relative;
+            padding: 2rem 0;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 4px solid #667eea;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -12px;
+        }
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -12px;
+        }
+        .component-card {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border: 2px solid #6366f1;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.25);
+        }
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 4rem !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+                left: 0 !important;
+            }
+            .timeline-dot {
+                left: 1.75rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero-gradient text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-6xl font-bold mb-6">FAPI</h1>
+            <p class="text-2xl mb-4">Financial-grade API Security</p>
+            <p class="text-xl mb-8">金融グレードAPIセキュリティの包括的フレームワーク</p>
+            <div class="flex justify-center space-x-4 flex-wrap">
+                <span class="bg-white bg-opacity-20 px-6 py-3 rounded-full m-2">OAuth 2.0 拡張</span>
+                <span class="bg-white bg-opacity-20 px-6 py-3 rounded-full m-2">金融取引対応</span>
+                <span class="bg-white bg-opacity-20 px-6 py-3 rounded-full m-2">グローバル標準</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 max-w-7xl py-8">
+        <!-- 1. FAPIとは -->
+        <div class="card">
+            <h2 class="text-4xl font-bold mb-6 flex items-center">
+                <span class="section-number">1</span>
+                FAPIとは
+            </h2>
+            
+            <p class="text-lg mb-6">
+                FAPI (Financial-grade API) は、金融サービス向けに設計された高度なセキュリティプロファイルです。
+                OAuth 2.0とOpenID Connectの上に構築され、金融取引に必要な厳格なセキュリティ要件を満たすための技術仕様を定義しています。
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-700">主な特徴</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 mr-2">🔒</span>
+                            <div>
+                                <strong>高度なセキュリティ</strong>
+                                <p class="text-sm text-gray-600">金融取引レベルのセキュリティ保証</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 mr-2">📋</span>
+                            <div>
+                                <strong>標準準拠</strong>
+                                <p class="text-sm text-gray-600">OAuth 2.0/OpenID Connectとの完全な互換性</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 mr-2">🎯</span>
+                            <div>
+                                <strong>実装の明確性</strong>
+                                <p class="text-sm text-gray-600">曖昧さを排除した具体的な実装要件</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 mr-2">🌐</span>
+                            <div>
+                                <strong>相互運用性</strong>
+                                <p class="text-sm text-gray-600">グローバルな金融エコシステムでの相互運用</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-purple-700">FAPIの位置づけ</h3>
+                    <div class="space-y-2">
+                        <div class="flow-box">アプリケーションレイヤー</div>
+                        <div class="text-center text-2xl">↓</div>
+                        <div class="flow-box bg-gradient-to-br from-purple-200 to-pink-200">FAPI Security Profile</div>
+                        <div class="text-center text-2xl">↓</div>
+                        <div class="flow-box">OpenID Connect</div>
+                        <div class="text-center text-2xl">↓</div>
+                        <div class="flow-box">OAuth 2.0</div>
+                        <div class="text-center text-2xl">↓</div>
+                        <div class="flow-box">トランスポートレイヤー (TLS)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 構成要素 -->
+        <div class="card">
+            <h2 class="text-4xl font-bold mb-6 flex items-center">
+                <span class="section-number">2</span>
+                構成要素
+            </h2>
+            
+            <p class="text-lg mb-8">FAPIは3つの主要な構成要素から成り立っています：</p>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="component-card">
+                    <div class="text-5xl mb-4">📋</div>
+                    <h3 class="text-2xl font-bold mb-3">Security Profile</h3>
+                    <p class="text-sm">セキュリティプロファイル</p>
+                    <hr class="my-4 border-indigo-300">
+                    <p>OAuth 2.0とOpenID Connectの具体的な実装要件を定義する技術仕様。必須機能、推奨機能、オプション機能を明確に区別し、実装の曖昧さを排除します。</p>
+                </div>
+
+                <div class="component-card">
+                    <div class="text-5xl mb-4">🎭</div>
+                    <h3 class="text-2xl font-bold mb-3">Attacker Model</h3>
+                    <p class="text-sm">攻撃者モデル</p>
+                    <hr class="my-4 border-indigo-300">
+                    <p>想定される攻撃者の能力と攻撃シナリオを定義。各攻撃に対する具体的な防御策を示し、セキュリティ設計の根拠を提供します。</p>
+                </div>
+
+                <div class="component-card">
+                    <div class="text-5xl mb-4">💡</div>
+                    <h3 class="text-2xl font-bold mb-3">Implementation Advice</h3>
+                    <p class="text-sm">実装アドバイス</p>
+                    <hr class="my-4 border-indigo-300">
+                    <p>実装者向けのベストプラクティスとガイダンス。一般的な実装ミスの回避方法や、パフォーマンスとセキュリティのバランスに関する指針を提供します。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. セキュリティプロファイル -->
+        <div class="card">
+            <h2 class="text-4xl font-bold mb-6 flex items-center">
+                <span class="section-number">3</span>
+                セキュリティプロファイル
+            </h2>
+
+            <!-- FAPI 1.0 プロファイル -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">3.1 FAPI 1.0 プロファイル</h3>
+                <p class="text-lg mb-6">FAPI 1.0は、用途に応じて2つのプロファイルを定義しています：</p>
+
+                <div class="matrix-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">機能カテゴリ</th>
+                                <th rowspan="2">要件</th>
+                                <th colspan="2" class="text-center">プロファイル</th>
+                            </tr>
+                            <tr>
+                                <th>Baseline (Read-Only)</th>
+                                <th>Advanced (Read-Write)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-gray-50">
+                                <td rowspan="2" class="font-bold">基本要件</td>
+                                <td>TLSバージョン</td>
+                                <td class="text-center">TLS 1.2以上 <span class="text-red-500">必須</span></td>
+                                <td class="text-center">TLS 1.2以上 <span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>クライアント認証</td>
+                                <td class="text-center">方式は実装依存</td>
+                                <td class="text-center">MTLS or Private Key JWT <span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="font-bold">PKCE</td>
+                                <td>PKCEサポート</td>
+                                <td class="text-center">S256 <span class="text-red-500">必須</span></td>
+                                <td class="text-center">S256 <span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr>
+                                <td>Plainメソッド</td>
+                                <td class="text-center text-red-600">禁止</td>
+                                <td class="text-center text-red-600">禁止</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td rowspan="5" class="font-bold">認可要求</td>
+                                <td>State パラメータ</td>
+                                <td class="text-center"><span class="text-red-500">必須</span></td>
+                                <td class="text-center"><span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>Nonce パラメータ</td>
+                                <td class="text-center"><span class="text-red-500">必須</span> (OIDC)</td>
+                                <td class="text-center"><span class="text-red-500">必須</span> (OIDC)</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>リダイレクトURI</td>
+                                <td class="text-center">完全一致 <span class="text-red-500">必須</span></td>
+                                <td class="text-center">完全一致 <span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>JAR (JWT Request)</td>
+                                <td class="text-center text-gray-500">オプション</td>
+                                <td class="text-center"><span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>Request URI</td>
+                                <td class="text-center text-gray-500">オプション</td>
+                                <td class="text-center text-orange-500">推奨</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="font-bold">認可応答</td>
+                                <td>JARM (JWT Response)</td>
+                                <td class="text-center text-gray-400">非対応</td>
+                                <td class="text-center"><span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr>
+                                <td>Response Mode</td>
+                                <td class="text-center">query/fragment</td>
+                                <td class="text-center">JWT</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td rowspan="3" class="font-bold">トークン</td>
+                                <td>送信者制約</td>
+                                <td class="text-center text-gray-400">非対応</td>
+                                <td class="text-center">MTLS <span class="text-red-500">必須</span></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>トークン有効期限</td>
+                                <td class="text-center">実装依存</td>
+                                <td class="text-center">短期間推奨</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>Refresh Token</td>
+                                <td class="text-center text-gray-500">オプション</td>
+                                <td class="text-center">送信者制約付き</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" class="font-bold">その他</td>
+                                <td>PAR</td>
+                                <td class="text-center text-gray-500">オプション</td>
+                                <td class="text-center text-orange-500">推奨</td>
+                            </tr>
+                            <tr>
+                                <td>CIBA</td>
+                                <td class="text-center text-gray-400">非対応</td>
+                                <td class="text-center text-gray-500">オプション</td>
+                            </tr>
+                            <tr>
+                                <td>用途</td>
+                                <td class="text-center bg-blue-100">参照系API</td>
+                                <td class="text-center bg-orange-100">更新系API</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FAPI 2.0 プロファイル -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">3.2 FAPI 2.0 プロファイル</h3>
+                <p class="text-lg mb-6">FAPI 2.0は、プロファイルを統一し、より柔軟な実装オプションを提供：</p>
+
+                <div class="matrix-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>機能カテゴリ</th>
+                                <th>要件</th>
+                                <th>ステータス</th>
+                                <th>備考</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-red-50">
+                                <td rowspan="4" class="font-bold text-red-700">必須要件</td>
+                                <td>PAR (Pushed Authorization Request)</td>
+                                <td class="text-center"><span class="bg-red-500 text-white px-2 py-1 rounded">必須</span></td>
+                                <td>全ての認可要求で使用</td>
+                            </tr>
+                            <tr class="bg-red-50">
+                                <td>PKCE (S256)</td>
+                                <td class="text-center"><span class="bg-red-500 text-white px-2 py-1 rounded">必須</span></td>
+                                <td>Plainは禁止</td>
+                            </tr>
+                            <tr class="bg-red-50">
+                                <td>送信者制約 (MTLS or DPoP)</td>
+                                <td class="text-center"><span class="bg-red-500 text-white px-2 py-1 rounded">必須</span></td>
+                                <td>いずれか一方を選択</td>
+                            </tr>
+                            <tr class="bg-red-50">
+                                <td>JAR (JWT Secured Request)</td>
+                                <td class="text-center"><span class="bg-red-500 text-white px-2 py-1 rounded">必須</span></td>
+                                <td>署名必須、暗号化は推奨</td>
+                            </tr>
+                            <tr class="bg-orange-50">
+                                <td rowspan="3" class="font-bold text-orange-700">推奨要件</td>
+                                <td>JARM (JWT Secured Response)</td>
+                                <td class="text-center"><span class="bg-orange-500 text-white px-2 py-1 rounded">推奨</span></td>
+                                <td>高セキュリティ環境で推奨</td>
+                            </tr>
+                            <tr class="bg-orange-50">
+                                <td>RAR (Rich Authorization Request)</td>
+                                <td class="text-center"><span class="bg-orange-500 text-white px-2 py-1 rounded">推奨</span></td>
+                                <td>詳細な権限管理</td>
+                            </tr>
+                            <tr class="bg-orange-50">
+                                <td>Grant Management</td>
+                                <td class="text-center"><span class="bg-orange-500 text-white px-2 py-1 rounded">推奨</span></td>
+                                <td>認可の管理API</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td rowspan="2" class="font-bold text-gray-700">オプション要件</td>
+                                <td>CIBA (Client Initiated Backchannel)</td>
+                                <td class="text-center"><span class="bg-gray-500 text-white px-2 py-1 rounded">オプション</span></td>
+                                <td>デカップルドフロー</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td>Lodging Intent</td>
+                                <td class="text-center"><span class="bg-gray-500 text-white px-2 py-1 rounded">オプション</span></td>
+                                <td>事前意図登録</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- セキュリティプロファイルの選択フロー -->
+            <div>
+                <h3 class="text-3xl font-bold mb-6">3.3 セキュリティプロファイルの選択フロー</h3>
+                
+                <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-lg">
+                    <div class="text-center">
+                        <div class="flow-box bg-gradient-to-br from-blue-500 to-purple-500 text-white">スタート</div>
+                        <div class="text-3xl my-4">↓</div>
+                        <div class="flow-box">APIの用途は？</div>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mt-8">
+                            <div>
+                                <div class="text-2xl mb-4">↙ 読み取り専用</div>
+                                <div class="flow-box bg-blue-200">個人情報含む</div>
+                                <div class="text-2xl my-2">↓</div>
+                                <div class="flow-box bg-blue-400 text-white">FAPI 1.0 Baseline</div>
+                                
+                                <div class="mt-4">
+                                    <div class="flow-box bg-gray-200">公開情報のみ</div>
+                                    <div class="text-2xl my-2">↓</div>
+                                    <div class="flow-box bg-gray-400 text-white">OAuth 2.0で十分</div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="text-2xl mb-4">↘ 読み書き可能</div>
+                                <div class="flow-box bg-orange-200">金融取引あり</div>
+                                <div class="text-2xl my-2">↓</div>
+                                <div class="flow-box bg-orange-500 text-white">FAPI 1.0 Advanced<br>or FAPI 2.0</div>
+                                
+                                <div class="mt-4">
+                                    <div class="flow-box bg-yellow-200">設定変更のみ</div>
+                                    <div class="text-2xl my-2">↓</div>
+                                    <div class="flow-box bg-yellow-400">FAPI 1.0 Baseline検討</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 攻撃者モデル -->
+        <div class="card">
+            <h2 class="text-4xl font-bold mb-6 flex items-center">
+                <span class="section-number">4</span>
+                攻撃者モデル
+            </h2>
+
+            <!-- 攻撃者の分類と能力 -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">4.1 攻撃者の分類と能力</h3>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- A1: ネットワーク攻撃者 -->
+                    <div class="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg border-2 border-red-300">
+                        <h4 class="text-2xl font-bold mb-4 text-red-700">A1: ネットワーク攻撃者</h4>
+                        
+                        <div class="mb-4">
+                            <h5 class="font-bold mb-2">能力:</h5>
+                            <ul class="list-disc ml-5 space-y-1 text-sm">
+                                <li>ネットワークトラフィックの盗聴・記録</li>
+                                <li>DNSの改ざん、なりすまし</li>
+                                <li>中間者攻撃（MITM）の実行</li>
+                                <li>パケットの遅延・順序変更</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-red-100 p-4 rounded">
+                            <h5 class="font-bold mb-2">攻撃シナリオ:</h5>
+                            <div class="code-container text-sm">
+                                <pre><code>[ユーザー] ---(1)認証情報---> [攻撃者] ---(2)改ざん---> [サーバー]
+              ↑                    |
+              +---(3)偽レスポンス---+</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-green-100 p-4 rounded">
+                            <h5 class="font-bold mb-2 text-green-700">FAPI対策:</h5>
+                            <ul class="list-disc ml-5 space-y-1 text-sm">
+                                <li>TLS 1.2以上の必須化</li>
+                                <li>証明書ピンニング</li>
+                                <li>HSTS (HTTP Strict Transport Security)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- A2: Web攻撃者 -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg border-2 border-yellow-300">
+                        <h4 class="text-2xl font-bold mb-4 text-yellow-700">A2: Web攻撃者</h4>
+                        
+                        <div class="mb-4">
+                            <h5 class="font-bold mb-2">能力:</h5>
+                            <ul class="list-disc ml-5 space-y-1 text-sm">
+                                <li>悪意のあるWebサイトの運営</li>
+                                <li>ユーザーのブラウザ上でのJavaScript実行</li>
+                                <li>フィッシングサイトの構築</li>
+                                <li>ソーシャルエンジニアリング</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-yellow-100 p-4 rounded">
+                            <h5 class="font-bold mb-2">攻撃シナリオ:</h5>
+                            <div class="code-container text-sm">
+                                <pre><code>正規サイト: auth.bank.com
+攻撃サイト: auth-bank.com (類似ドメイン)
+    ↓
+[ユーザー] → [攻撃サイト] → 認証情報窃取
+    ↓
+[攻撃者] → [正規サイト] → 不正アクセス</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-green-100 p-4 rounded">
+                            <h5 class="font-bold mb-2 text-green-700">FAPI対策:</h5>
+                            <ul class="list-disc ml-5 space-y-1 text-sm">
+                                <li>State/Nonceによるセッション固定攻撃対策</li>
+                                <li>PKCEによる認可コード横取り対策</li>
+                                <li>厳密なリダイレクトURI検証</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- A3: アプリケーション攻撃者 -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg border-2 border-purple-300">
+                        <h4 class="text-2xl font-bold mb-4 text-purple-700">A3: アプリケーション攻撃者</h4>
+                        
+                        <div class="mb-4">
+                            <h5 class="font-bold mb-2">能力:</h5>
+                            <ul class="list-disc ml-5 space-y-1 text-sm">
+                                <li>悪意のあるOAuth/OIDCクライアントの作成</li>
+                                <li>正規クライアントになりすまし</li>
+                                <li>脆弱なクライアントの悪用</li>
+                                <li>クライアント認証情報の窃取</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-purple-100 p-4 rounded">
+                            <h5 class="font-bold mb-2">攻撃パターン:</h5>
+                            <div class="code-container text-sm">
+                                <pre><code>1. 動的クライアント登録の悪用
+   攻撃者 → 登録API → 悪意のあるリダイレクトURI登録
+
+2. クライアント認証情報の漏洩
+   Public Client → Secret漏洩 → なりすまし
+
+3. 認可範囲の拡大
+   最小権限 → 権限昇格攻撃 → 過剰な権限取得</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-green-100 p-4 rounded">
+                            <h5 class="font-bold mb-2 text-green-700">FAPI対策:</h5>
+                            <ul class="list-disc ml-5 space-y-1 text-sm">
+                                <li>動的登録の無効化または制限</li>
+                                <li>Confidential Clientの必須化</li>
+                                <li>クライアント認証の強化（MTLS、Private Key JWT）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 具体的な攻撃シナリオと対策 -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">4.2 具体的な攻撃シナリオと対策</h3>
+
+                <!-- シナリオ1: 認可コード横取り攻撃 -->
+                <div class="attack-scenario">
+                    <h4 class="text-xl font-bold mb-4">シナリオ1: 認可コード横取り攻撃</h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-bold mb-2">攻撃フロー:</h5>
+                            <ol class="list-decimal ml-5 space-y-2">
+                                <li>[ユーザー] → [正規Client] → 認可リクエスト</li>
+                                <li>[認可サーバー] → リダイレクト → [攻撃者のサイト]</li>
+                                <li>[攻撃者] → 認可コード取得 → [トークンエンドポイント]</li>
+                                <li>[攻撃者] → アクセストークン取得 → 不正アクセス</li>
+                            </ol>
+                        </div>
+                        <div class="defense-measure">
+                            <h5 class="font-bold mb-2">FAPI対策:</h5>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li>PKCE (S256) 必須</li>
+                                <li>リダイレクトURIの完全一致検証</li>
+                                <li>認可コードの一回限り使用</li>
+                                <li>短い有効期限（60秒以内）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- シナリオ2: トークンリプレイ攻撃 -->
+                <div class="attack-scenario">
+                    <h4 class="text-xl font-bold mb-4">シナリオ2: トークンリプレイ攻撃</h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-bold mb-2">攻撃フロー:</h5>
+                            <ol class="list-decimal ml-5 space-y-2">
+                                <li>[正規ユーザー] → Bearer Token → [API]</li>
+                                <li>[攻撃者] → トークン盗聴</li>
+                                <li>[攻撃者] → 盗んだToken → [API] → 不正アクセス</li>
+                            </ol>
+                        </div>
+                        <div class="defense-measure">
+                            <h5 class="font-bold mb-2">FAPI対策:</h5>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li>送信者制約（Sender Constrained Token）</li>
+                                <li>MTLS: クライアント証明書とトークンの紐付け</li>
+                                <li>DPoP: 暗号的証明によるトークン保護</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- シナリオ3: 認可要求改ざん攻撃 -->
+                <div class="attack-scenario">
+                    <h4 class="text-xl font-bold mb-4">シナリオ3: 認可要求改ざん攻撃</h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-bold mb-2">攻撃フロー:</h5>
+                            <ol class="list-decimal ml-5 space-y-2">
+                                <li>[Client] → 認可リクエスト → [攻撃者]</li>
+                                <li>[攻撃者] → パラメータ改ざん（scope拡大など）</li>
+                                <li>[攻撃者] → 改ざんリクエスト → [認可サーバー]</li>
+                            </ol>
+                        </div>
+                        <div class="defense-measure">
+                            <h5 class="font-bold mb-2">FAPI対策:</h5>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li>JAR (JWT Secured Authorization Request)</li>
+                                <li>リクエストオブジェクトの署名検証</li>
+                                <li>PAR (バックチャンネル送信)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 攻撃者モデルに基づく脅威分析 -->
+            <div>
+                <h3 class="text-3xl font-bold mb-6">4.3 攻撃者モデルに基づく脅威分析</h3>
+                
+                <div class="matrix-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>脅威</th>
+                                <th class="text-center">A1 (Network)</th>
+                                <th class="text-center">A2 (Web)</th>
+                                <th class="text-center">A3 (App)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>認証情報の盗聴</td>
+                                <td class="text-center"><span class="text-red-600 text-2xl">●</span> 高</td>
+                                <td class="text-center"><span class="text-yellow-600 text-2xl">●</span> 中</td>
+                                <td class="text-center"><span class="text-green-600 text-2xl">●</span> 低</td>
+                            </tr>
+                            <tr>
+                                <td>セッション固定</td>
+                                <td class="text-center"><span class="text-yellow-600 text-2xl">●</span> 中</td>
+                                <td class="text-center"><span class="text-red-600 text-2xl">●</span> 高</td>
+                                <td class="text-center"><span class="text-yellow-600 text-2xl">●</span> 中</td>
+                            </tr>
+                            <tr>
+                                <td>認可コード横取り</td>
+                                <td class="text-center"><span class="text-yellow-600 text-2xl">●</span> 中</td>
+                                <td class="text-center"><span class="text-red-600 text-2xl">●</span> 高</td>
+                                <td class="text-center"><span class="text-red-600 text-2xl">●</span> 高</td>
+                            </tr>
+                            <tr>
+                                <td>トークン不正使用</td>
+                                <td class="text-center"><span class="text-red-600 text-2xl">●</span> 高</td>
+                                <td class="text-center"><span class="text-yellow-600 text-2xl">●</span> 中</td>
+                                <td class="text-center"><span class="text-red-600 text-2xl">●</span> 高</td>
+                            </tr>
+                            <tr>
+                                <td>リクエスト改ざん</td>
+                                <td class="text-center"><span class="text-red-600 text-2xl">●</span> 高</td>
+                                <td class="text-center"><span class="text-yellow-600 text-2xl">●</span> 中</td>
+                                <td class="text-center"><span class="text-yellow-600 text-2xl">●</span> 中</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 実装アドバイス -->
+        <div class="card">
+            <h2 class="text-4xl font-bold mb-6 flex items-center">
+                <span class="section-number">5</span>
+                実装アドバイス
+            </h2>
+
+            <!-- セキュリティ実装のベストプラクティス -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.1 セキュリティ実装のベストプラクティス</h3>
+
+                <!-- 暗号化実装 -->
+                <div class="mb-8">
+                    <h4 class="text-2xl font-bold mb-4">暗号化実装</h4>
+                    <div class="code-container">
+                        <pre><code class="language-python"># 推奨: 検証済みライブラリの使用
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import serialization
+
+class FAPISecurityManager:
+    def __init__(self):
+        # RSA 2048bit以上を推奨
+        self.private_key = rsa.generate_private_key(
+            public_exponent=65537,
+            key_size=2048
+        )
+    
+    def sign_request(self, payload):
+        """JARのための署名生成"""
+        # 署名アルゴリズムはRS256, ES256を推奨
+        signature = self.private_key.sign(
+            payload,
+            padding.PSS(
+                mgf=padding.MGF1(hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH
+            ),
+            hashes.SHA256()
+        )
+        return signature</code></pre>
+                    </div>
+                </div>
+
+                <!-- 鍵管理 -->
+                <div>
+                    <h4 class="text-2xl font-bold mb-4">鍵管理</h4>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
+                            <h5 class="font-bold mb-3 text-indigo-700">Storage</h5>
+                            <ul class="space-y-2 text-sm">
+                                <li>✓ HSM推奨（FIPS 140-2 Level 2以上）</li>
+                                <li>✓ 環境変数での保存は避ける</li>
+                                <li>✓ 専用の鍵管理サービス使用</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
+                            <h5 class="font-bold mb-3 text-green-700">Rotation</h5>
+                            <ul class="space-y-2 text-sm">
+                                <li>✓ 定期的なローテーション（90日推奨）</li>
+                                <li>✓ 段階的な移行期間の設定</li>
+                                <li>✓ 古い鍵の適切な廃棄</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg">
+                            <h5 class="font-bold mb-3 text-purple-700">Access Control</h5>
+                            <ul class="space-y-2 text-sm">
+                                <li>✓ 最小権限の原則</li>
+                                <li>✓ 監査ログの記録</li>
+                                <li>✓ 多要素認証での保護</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAR実装 -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.2 PAR (Pushed Authorization Request) の実装</h3>
+                
+                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg mb-6">
+                    <p class="text-lg">PARは認可リクエストをバックチャンネルで事前に送信し、セキュリティを強化する仕組みです。</p>
+                </div>
+
+                <div class="code-container">
+                    <pre><code class="language-python">import httpx
+import jwt
+from datetime import datetime, timedelta
+
+class PARClient:
+    def __init__(self, client_id, private_key, par_endpoint):
+        self.client_id = client_id
+        self.private_key = private_key
+        self.par_endpoint = par_endpoint
+    
+    async def push_authorization_request(self, 
+                                       redirect_uri, 
+                                       scope, 
+                                       state,
+                                       code_challenge):
+        """PARエンドポイントへの認可リクエスト送信"""
+        
+        # JARの作成
+        now = datetime.utcnow()
+        request_object = {
+            "iss": self.client_id,
+            "aud": self.par_endpoint,
+            "exp": now + timedelta(minutes=5),
+            "iat": now,
+            "nbf": now,
+            "response_type": "code",
+            "client_id": self.client_id,
+            "redirect_uri": redirect_uri,
+            "scope": scope,
+            "state": state,
+            "nonce": generate_nonce(),
+            "code_challenge": code_challenge,
+            "code_challenge_method": "S256"
+        }
+        
+        # JWT署名
+        signed_request = jwt.encode(
+            request_object, 
+            self.private_key, 
+            algorithm="RS256",
+            headers={"kid": self.key_id}
+        )
+        
+        # PARリクエスト送信
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                self.par_endpoint,
+                data={
+                    "client_id": self.client_id,
+                    "request": signed_request
+                },
+                headers={
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            )
+            
+        if response.status_code != 201:
+            raise Exception(f"PAR failed: {response.text}")
+            
+        par_response = response.json()
+        return par_response["request_uri"]</code></pre>
+                </div>
+            </div>
+
+            <!-- MTLS実装 -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.3 MTLS実装</h3>
+                
+                <div class="code-container">
+                    <pre><code class="language-python">import ssl
+from pathlib import Path
+
+class MTLSClient:
+    def __init__(self, client_cert_path, client_key_path, ca_cert_path):
+        self.client_cert = client_cert_path
+        self.client_key = client_key_path
+        self.ca_cert = ca_cert_path
+        
+    def create_mtls_context(self):
+        """MTLS用のSSLコンテキスト作成"""
+        context = ssl.create_default_context(
+            purpose=ssl.Purpose.CLIENT_AUTH,
+            cafile=self.ca_cert
+        )
+        
+        # クライアント証明書の設定
+        context.load_cert_chain(
+            certfile=self.client_cert,
+            keyfile=self.client_key
+        )
+        
+        # TLS 1.2以上を強制
+        context.minimum_version = ssl.TLSVersion.TLSv1_2
+        
+        # 推奨される暗号スイートのみ許可
+        context.set_ciphers(
+            'ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS'
+        )
+        
+        return context
+    
+    async def make_authenticated_request(self, url, data):
+        """MTLS認証付きリクエスト"""
+        ssl_context = self.create_mtls_context()
+        
+        async with httpx.AsyncClient(verify=ssl_context) as client:
+            response = await client.post(url, json=data)
+            return response</code></pre>
+                </div>
+            </div>
+
+            <!-- DPoP実装 -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.4 DPoP実装</h3>
+                
+                <div class="code-container">
+                    <pre><code class="language-python">import time
+import uuid
+from jose import jwk, jwt
+from cryptography.hazmat.primitives.asymmetric import ec
+
+class DPoPManager:
+    def __init__(self):
+        # ECDSAキーペアの生成
+        self.private_key = ec.generate_private_key(ec.SECP256R1())
+        self.public_key = self.private_key.public_key()
+        
+    def create_dpop_proof(self, http_method, uri, access_token=None):
+        """DPoP証明の生成"""
+        
+        # JWKサムプリント計算
+        jwk_dict = {
+            "kty": "EC",
+            "crv": "P-256",
+            "x": base64url_encode(self.public_key.x),
+            "y": base64url_encode(self.public_key.y)
+        }
+        
+        header = {
+            "typ": "dpop+jwt",
+            "alg": "ES256",
+            "jwk": jwk_dict
+        }
+        
+        payload = {
+            "jti": str(uuid.uuid4()),
+            "htm": http_method,
+            "htu": uri,
+            "iat": int(time.time()),
+            "exp": int(time.time()) + 60
+        }
+        
+        # アクセストークンがある場合はathクレームを追加
+        if access_token:
+            payload["ath"] = base64url_encode(
+                hashlib.sha256(access_token.encode()).digest()
+            )
+        
+        # DPoP証明の署名
+        dpop_proof = jwt.encode(
+            payload, 
+            self.private_key, 
+            algorithm="ES256",
+            headers=header
+        )
+        
+        return dpop_proof</code></pre>
+                </div>
+            </div>
+
+            <!-- 監視とアラート -->
+            <div>
+                <h3 class="text-3xl font-bold mb-6">5.7 監視とアラート</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-indigo-700">監視項目</h4>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between items-center">
+                                <span class="font-semibold">認証リクエスト率</span>
+                                <span class="bg-red-500 text-white px-2 py-1 rounded text-sm">1000/min</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span class="font-semibold">認証失敗率</span>
+                                <span class="bg-orange-500 text-white px-2 py-1 rounded text-sm">10%</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span class="font-semibold">トークン検証遅延</span>
+                                <span class="bg-yellow-500 text-white px-2 py-1 rounded text-sm">100ms</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span class="font-semibold">PAR可用性</span>
+                                <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">99.9%</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-purple-700">アラート設定</h4>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded">
+                                <h5 class="font-bold text-red-600">セキュリティアラート</h5>
+                                <p class="text-sm">通知先: Email, Slack, PagerDuty</p>
+                                <p class="text-sm">重要度: 高</p>
+                            </div>
+                            <div class="bg-white p-4 rounded">
+                                <h5 class="font-bold text-orange-600">パフォーマンス低下</h5>
+                                <p class="text-sm">通知先: Email, Slack</p>
+                                <p class="text-sm">重要度: 中</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. FAPIと各国標準の補完的関係 -->
+        <div class="card">
+            <h2 class="text-4xl font-bold mb-6 flex items-center">
+                <span class="section-number">6</span>
+                FAPIと各国標準の補完的関係
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Open Banking UK -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-700">🇬🇧 Open Banking UK との関係</h3>
+                    
+                    <div class="bg-white p-4 rounded mb-4">
+                        <h4 class="font-bold mb-2">技術スタック</h4>
+                        <div class="text-center">
+                            <div class="flow-box text-sm">Open Banking UK Standards</div>
+                            <div class="text-xl my-2">↓</div>
+                            <div class="flow-box text-sm bg-indigo-200">FAPI 1.0 Advanced</div>
+                            <div class="text-xl my-2">↓</div>
+                            <div class="flow-box text-sm">OpenID Connect</div>
+                            <div class="text-xl my-2">↓</div>
+                            <div class="flow-box text-sm">OAuth 2.0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded">
+                        <h4 class="font-bold mb-2">追加要件</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Customer Experience Guidelines</li>
+                            <li>• Operational Guidelines</li>
+                            <li>• Read/Write Data Standards</li>
+                            <li>• Directory Standards</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 全銀協オープンAPI -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-700">🇯🇵 全銀協オープンAPI仕様との関係</h3>
+                    
+                    <div class="bg-white p-4 rounded mb-4">
+                        <h4 class="font-bold mb-2">実装レベル</h4>
+                        <div class="space-y-3">
+                            <div class="bg-blue-50 p-3 rounded">
+                                <h5 class="font-semibold">レベル1（参照系API）</h5>
+                                <ul class="text-sm ml-4">
+                                    <li>• FAPI 1.0 Baseline準拠</li>
+                                    <li>• 残高照会、取引明細照会</li>
+                                </ul>
+                            </div>
+                            <div class="bg-orange-50 p-3 rounded">
+                                <h5 class="font-semibold">レベル2（更新系API）</h5>
+                                <ul class="text-sm ml-4">
+                                    <li>• FAPI 1.0 Advanced準拠</li>
+                                    <li>• 振込、振替、定期預金</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded">
+                        <h4 class="font-bold mb-2">日本特有の要件</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• 文字エンコーディング（UTF-8）の明確化</li>
+                            <li>• 日本語エラーメッセージの標準化</li>
+                            <li>• 金融規制への準拠</li>
+                            <li>• 全銀フォーマットとの互換性</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- グローバル相互運用性 -->
+            <div class="mt-8 bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center">グローバル相互運用性</h3>
+                
+                <div class="text-center">
+                    <div class="inline-block bg-purple-600 text-white px-8 py-4 rounded-lg text-xl font-bold mb-6">
+                        FAPI (Global Standard)
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-4 mt-8">
+                        <div>
+                            <div class="flow-box bg-blue-200">UK Open Banking</div>
+                            <div class="text-2xl my-2">↓</div>
+                            <div class="flow-box bg-blue-100">UK Banks</div>
+                        </div>
+                        <div>
+                            <div class="flow-box bg-green-200">全銀協API</div>
+                            <div class="text-2xl my-2">↓</div>
+                            <div class="flow-box bg-green-100">JP Banks</div>
+                        </div>
+                        <div>
+                            <div class="flow-box bg-yellow-200">EU PSD2</div>
+                            <div class="text-2xl my-2">↓</div>
+                            <div class="flow-box bg-yellow-100">EU Banks</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <div class="flow-box bg-gradient-to-r from-purple-500 to-pink-500 text-white text-lg">
+                            Cross-border Interoperability
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. 今後の展望 -->
+        <div class="card">
+            <h2 class="text-4xl font-bold mb-6 flex items-center">
+                <span class="section-number">7</span>
+                今後の展望
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-700">技術的進化</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🚀</span>
+                            <div>
+                                <strong>FAPI 2.0の普及</strong>
+                                <p class="text-sm text-gray-600">シンプルで実装しやすい統一プロファイル</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🔐</span>
+                            <div>
+                                <strong>新認証技術の統合</strong>
+                                <p class="text-sm text-gray-600">WebAuthn、パスキーとの連携</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🆔</span>
+                            <div>
+                                <strong>分散型ID</strong>
+                                <p class="text-sm text-gray-600">Verifiable Credentialsの活用</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🔮</span>
+                            <div>
+                                <strong>量子耐性暗号</strong>
+                                <p class="text-sm text-gray-600">ポスト量子暗号への移行準備</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-700">ビジネス展開</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">💰</span>
+                            <div>
+                                <strong>オープンファイナンス</strong>
+                                <p class="text-sm text-gray-600">銀行以外の金融サービスへの拡大</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🔧</span>
+                            <div>
+                                <strong>組込み金融</strong>
+                                <p class="text-sm text-gray-600">非金融サービスへのAPI組込み</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🌐</span>
+                            <div>
+                                <strong>国際標準化</strong>
+                                <p class="text-sm text-gray-600">ISO/IECでの標準化推進</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🌍</span>
+                            <div>
+                                <strong>新興市場</strong>
+                                <p class="text-sm text-gray-600">アジア・アフリカでの採用加速</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- まとめ -->
+        <div class="card bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+            <h2 class="text-4xl font-bold mb-6">まとめ</h2>
+            <p class="text-xl mb-8">
+                FAPIは金融グレードのセキュリティを実現するための包括的なフレームワークです
+            </p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+                    <div class="text-3xl mb-3">🛡️</div>
+                    <h3 class="text-xl font-bold mb-2">強固なセキュリティ</h3>
+                    <p>多層防御による高度な保護</p>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+                    <div class="text-3xl mb-3">📋</div>
+                    <h3 class="text-xl font-bold mb-2">標準準拠</h3>
+                    <p>OAuth 2.0/OIDCとの完全な互換性</p>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+                    <div class="text-3xl mb-3">🎯</div>
+                    <h3 class="text-xl font-bold mb-2">実装の柔軟性</h3>
+                    <p>ユースケースに応じた選択</p>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+                    <div class="text-3xl mb-3">🚀</div>
+                    <h3 class="text-xl font-bold mb-2">将来性</h3>
+                    <p>継続的な進化と改善</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-lg">
+                <p class="text-center text-xl">
+                    金融APIを実装する際は、FAPIの採用を強く推奨します。<br>
+                    セキュリティプロファイル、攻撃者モデル、実装アドバイスの3つの構成要素を理解し、<br>
+                    適切に実装することで、安全で信頼性の高い金融サービスを提供できます。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+</body>
+</html>
