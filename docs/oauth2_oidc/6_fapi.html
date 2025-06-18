@@ -782,292 +782,234 @@
                 実装アドバイス
             </h2>
 
-            <!-- セキュリティ実装のベストプラクティス -->
+            <!-- PAR実装フロー -->
             <div class="mb-12">
-                <h3 class="text-3xl font-bold mb-6">5.1 セキュリティ実装のベストプラクティス</h3>
+                <h3 class="text-3xl font-bold mb-6">5.1 PAR (Pushed Authorization Request) の実装フロー</h3>
+                
+                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg mb-6">
+                    <p class="text-lg">PARは認可リクエストをバックチャンネルで事前に送信することで、セキュリティを強化する仕組みです。</p>
+                </div>
 
-                <!-- 暗号化実装 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <img src="../../oauth2_oidc/images/fapi_par_flow.svg" alt="PAR Implementation Flow" class="w-full">
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-700 mb-2">PARの利点</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• リクエストサイズ制限の回避</li>
+                            <li>• URLパラメータの代わりにPOSTボディを使用</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-700 mb-2">完全性保証</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• JARによる署名でパラメータ改ざんを防止</li>
+                            <li>• リクエストの完全性を保証</li>
+                        </ul>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-purple-700 mb-2">機密情報の保護</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• フロントチャネルで機密情報を露出しない</li>
+                            <li>• バックチャネルでの安全な送信</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MTLS実装フロー -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.2 MTLS (Mutual TLS) の実装フロー</h3>
+                
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg mb-6">
+                    <p class="text-lg">MTLSは、クライアントとサーバー間で相互にTLS証明書を検証する仕組みです。</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <img src="../../oauth2_oidc/images/fapi_mtls_flow.svg" alt="MTLS Implementation Flow" class="w-full">
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-700 mb-2">トークン盗用防止</h4>
+                        <p class="text-sm">トークンと証明書が紐付けられ、証明書なしでは使用不可</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-yellow-700 mb-2">中間者攻撃対策</h4>
+                        <p class="text-sm">相互認証により、なりすましを防止</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-700 mb-2">強力な認証</h4>
+                        <p class="text-sm">証明書ベースの認証は、パスワードより安全</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DPoP実装フロー -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.3 DPoP (Demonstration of Proof of Possession) の実装フロー</h3>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg mb-6">
+                    <p class="text-lg">DPoPは、公開鍵暗号を使用してトークンの所有を証明する仕組みです。</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg mb-6">
+                    <img src="../../oauth2_oidc/images/fapi_dpop_flow.svg" alt="DPoP Implementation Flow" class="w-full">
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-indigo-700 mb-2">動的な証明</h4>
+                        <p class="text-sm">リクエストごとに新しい証明を生成</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-700 mb-2">柔軟性</h4>
+                        <p class="text-sm">MTLSと異なり、証明書インフラが不要</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-purple-700 mb-2">前方秘匿性</h4>
+                        <p class="text-sm">秘密鍵が漏洩しても、過去のトークンは保護される</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JARM実装フロー -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.4 JARM (JWT Secured Authorization Response Mode) の実装フロー</h3>
+                
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg mb-6">
+                    <p class="text-lg">JARMは認可レスポンスをJWTとして署名・暗号化する仕組みです。</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg mb-6">
+                    <img src="../../oauth2_oidc/images/fapi_jarm_flow.svg" alt="JARM Implementation Flow" class="w-full">
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-700 mb-2">改ざん防止</h4>
+                        <p class="text-sm">署名により認可レスポンスの完全性を保証</p>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-700 mb-2">機密性保護</h4>
+                        <p class="text-sm">暗号化により認可コードを秘匿</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-700 mb-2">発行元確認</h4>
+                        <p class="text-sm">issクレームで認可サーバーのなりすましを防止</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ベストプラクティス -->
+            <div class="mb-12">
+                <h3 class="text-3xl font-bold mb-6">5.5 実装時のベストプラクティス</h3>
+
+                <!-- セキュリティ設計の原則 -->
                 <div class="mb-8">
-                    <h4 class="text-2xl font-bold mb-4">暗号化実装</h4>
-                    <div class="code-container">
-                        <pre><code class="language-python"># 推奨: 検証済みライブラリの使用
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from cryptography.hazmat.primitives import serialization
-
-class FAPISecurityManager:
-    def __init__(self):
-        # RSA 2048bit以上を推奨
-        self.private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=2048
-        )
-    
-    def sign_request(self, payload):
-        """JARのための署名生成"""
-        # 署名アルゴリズムはRS256, ES256を推奨
-        signature = self.private_key.sign(
-            payload,
-            padding.PSS(
-                mgf=padding.MGF1(hashes.SHA256()),
-                salt_length=padding.PSS.MAX_LENGTH
-            ),
-            hashes.SHA256()
-        )
-        return signature</code></pre>
+                    <h4 class="text-2xl font-bold mb-4">セキュリティ設計の原則</h4>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <img src="../../oauth2_oidc/images/fapi_security_layers.svg" alt="Security Layers Architecture" class="w-full">
                     </div>
                 </div>
 
                 <!-- 鍵管理 -->
                 <div>
-                    <h4 class="text-2xl font-bold mb-4">鍵管理</h4>
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
-                            <h5 class="font-bold mb-3 text-indigo-700">Storage</h5>
-                            <ul class="space-y-2 text-sm">
-                                <li>✓ HSM推奨（FIPS 140-2 Level 2以上）</li>
-                                <li>✓ 環境変数での保存は避ける</li>
-                                <li>✓ 専用の鍵管理サービス使用</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
-                            <h5 class="font-bold mb-3 text-green-700">Rotation</h5>
-                            <ul class="space-y-2 text-sm">
-                                <li>✓ 定期的なローテーション（90日推奨）</li>
-                                <li>✓ 段階的な移行期間の設定</li>
-                                <li>✓ 古い鍵の適切な廃棄</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg">
-                            <h5 class="font-bold mb-3 text-purple-700">Access Control</h5>
-                            <ul class="space-y-2 text-sm">
-                                <li>✓ 最小権限の原則</li>
-                                <li>✓ 監査ログの記録</li>
-                                <li>✓ 多要素認証での保護</li>
-                            </ul>
-                        </div>
+                    <h4 class="text-2xl font-bold mb-4">鍵管理のベストプラクティス</h4>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <img src="../../oauth2_oidc/images/fapi_key_lifecycle.svg" alt="Key Lifecycle Management" class="w-full">
                     </div>
-                </div>
-            </div>
-
-            <!-- PAR実装 -->
-            <div class="mb-12">
-                <h3 class="text-3xl font-bold mb-6">5.2 PAR (Pushed Authorization Request) の実装</h3>
-                
-                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg mb-6">
-                    <p class="text-lg">PARは認可リクエストをバックチャンネルで事前に送信し、セキュリティを強化する仕組みです。</p>
-                </div>
-
-                <div class="code-container">
-                    <pre><code class="language-python">import httpx
-import jwt
-from datetime import datetime, timedelta
-
-class PARClient:
-    def __init__(self, client_id, private_key, par_endpoint):
-        self.client_id = client_id
-        self.private_key = private_key
-        self.par_endpoint = par_endpoint
-    
-    async def push_authorization_request(self, 
-                                       redirect_uri, 
-                                       scope, 
-                                       state,
-                                       code_challenge):
-        """PARエンドポイントへの認可リクエスト送信"""
-        
-        # JARの作成
-        now = datetime.utcnow()
-        request_object = {
-            "iss": self.client_id,
-            "aud": self.par_endpoint,
-            "exp": now + timedelta(minutes=5),
-            "iat": now,
-            "nbf": now,
-            "response_type": "code",
-            "client_id": self.client_id,
-            "redirect_uri": redirect_uri,
-            "scope": scope,
-            "state": state,
-            "nonce": generate_nonce(),
-            "code_challenge": code_challenge,
-            "code_challenge_method": "S256"
-        }
-        
-        # JWT署名
-        signed_request = jwt.encode(
-            request_object, 
-            self.private_key, 
-            algorithm="RS256",
-            headers={"kid": self.key_id}
-        )
-        
-        # PARリクエスト送信
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                self.par_endpoint,
-                data={
-                    "client_id": self.client_id,
-                    "request": signed_request
-                },
-                headers={
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
-            )
-            
-        if response.status_code != 201:
-            raise Exception(f"PAR failed: {response.text}")
-            
-        par_response = response.json()
-        return par_response["request_uri"]</code></pre>
-                </div>
-            </div>
-
-            <!-- MTLS実装 -->
-            <div class="mb-12">
-                <h3 class="text-3xl font-bold mb-6">5.3 MTLS実装</h3>
-                
-                <div class="code-container">
-                    <pre><code class="language-python">import ssl
-from pathlib import Path
-
-class MTLSClient:
-    def __init__(self, client_cert_path, client_key_path, ca_cert_path):
-        self.client_cert = client_cert_path
-        self.client_key = client_key_path
-        self.ca_cert = ca_cert_path
-        
-    def create_mtls_context(self):
-        """MTLS用のSSLコンテキスト作成"""
-        context = ssl.create_default_context(
-            purpose=ssl.Purpose.CLIENT_AUTH,
-            cafile=self.ca_cert
-        )
-        
-        # クライアント証明書の設定
-        context.load_cert_chain(
-            certfile=self.client_cert,
-            keyfile=self.client_key
-        )
-        
-        # TLS 1.2以上を強制
-        context.minimum_version = ssl.TLSVersion.TLSv1_2
-        
-        # 推奨される暗号スイートのみ許可
-        context.set_ciphers(
-            'ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS'
-        )
-        
-        return context
-    
-    async def make_authenticated_request(self, url, data):
-        """MTLS認証付きリクエスト"""
-        ssl_context = self.create_mtls_context()
-        
-        async with httpx.AsyncClient(verify=ssl_context) as client:
-            response = await client.post(url, json=data)
-            return response</code></pre>
-                </div>
-            </div>
-
-            <!-- DPoP実装 -->
-            <div class="mb-12">
-                <h3 class="text-3xl font-bold mb-6">5.4 DPoP実装</h3>
-                
-                <div class="code-container">
-                    <pre><code class="language-python">import time
-import uuid
-from jose import jwk, jwt
-from cryptography.hazmat.primitives.asymmetric import ec
-
-class DPoPManager:
-    def __init__(self):
-        # ECDSAキーペアの生成
-        self.private_key = ec.generate_private_key(ec.SECP256R1())
-        self.public_key = self.private_key.public_key()
-        
-    def create_dpop_proof(self, http_method, uri, access_token=None):
-        """DPoP証明の生成"""
-        
-        # JWKサムプリント計算
-        jwk_dict = {
-            "kty": "EC",
-            "crv": "P-256",
-            "x": base64url_encode(self.public_key.x),
-            "y": base64url_encode(self.public_key.y)
-        }
-        
-        header = {
-            "typ": "dpop+jwt",
-            "alg": "ES256",
-            "jwk": jwk_dict
-        }
-        
-        payload = {
-            "jti": str(uuid.uuid4()),
-            "htm": http_method,
-            "htu": uri,
-            "iat": int(time.time()),
-            "exp": int(time.time()) + 60
-        }
-        
-        # アクセストークンがある場合はathクレームを追加
-        if access_token:
-            payload["ath"] = base64url_encode(
-                hashlib.sha256(access_token.encode()).digest()
-            )
-        
-        # DPoP証明の署名
-        dpop_proof = jwt.encode(
-            payload, 
-            self.private_key, 
-            algorithm="ES256",
-            headers=header
-        )
-        
-        return dpop_proof</code></pre>
                 </div>
             </div>
 
             <!-- 監視とアラート -->
             <div>
-                <h3 class="text-3xl font-bold mb-6">5.7 監視とアラート</h3>
+                <h3 class="text-3xl font-bold mb-6">5.6 監視とアラート</h3>
                 
+                <!-- 監視ダッシュボード -->
+                <div class="bg-white p-8 rounded-lg shadow-lg mb-6">
+                    <h4 class="text-xl font-bold mb-4">監視アーキテクチャ</h4>
+                    <img src="../../oauth2_oidc/images/fapi_monitoring_dashboard.svg" alt="Monitoring Dashboard" class="w-full">
+                </div>
+                
+                <!-- 監視項目 -->
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
-                        <h4 class="text-xl font-bold mb-4 text-indigo-700">監視項目</h4>
-                        <ul class="space-y-3">
-                            <li class="flex justify-between items-center">
-                                <span class="font-semibold">認証リクエスト率</span>
-                                <span class="bg-red-500 text-white px-2 py-1 rounded text-sm">1000/min</span>
-                            </li>
-                            <li class="flex justify-between items-center">
-                                <span class="font-semibold">認証失敗率</span>
-                                <span class="bg-orange-500 text-white px-2 py-1 rounded text-sm">10%</span>
-                            </li>
-                            <li class="flex justify-between items-center">
-                                <span class="font-semibold">トークン検証遅延</span>
-                                <span class="bg-yellow-500 text-white px-2 py-1 rounded text-sm">100ms</span>
-                            </li>
-                            <li class="flex justify-between items-center">
-                                <span class="font-semibold">PAR可用性</span>
-                                <span class="bg-green-500 text-white px-2 py-1 rounded text-sm">99.9%</span>
-                            </li>
-                        </ul>
+                    <div>
+                        <h4 class="text-xl font-bold mb-4">監視項目の詳細</h4>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-blue-700 mb-2">1. 認証・認可メトリクス</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>• 認証リクエスト率: 1000req/min以下</li>
+                                    <li>• 認証成功率: 90%以上</li>
+                                    <li>• 認証失敗率: 10%以下（連続失敗でアラート）</li>
+                                    <li>• トークン発行率: 正常範囲内</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-green-700 mb-2">2. パフォーマンスメトリクス</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>• API応答時間: p95 < 500ms</li>
+                                    <li>• トークン検証時間: p95 < 100ms</li>
+                                    <li>• データベース応答時間: p95 < 50ms</li>
+                                    <li>• エラー率: 1%以下</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-purple-700 mb-2">3. セキュリティメトリクス</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>• 不正アクセス試行</li>
+                                    <li>• 異常なトラフィックパターン</li>
+                                    <li>• 証明書の有効期限</li>
+                                    <li>• 鍵使用回数</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg">
-                        <h4 class="text-xl font-bold mb-4 text-purple-700">アラート設定</h4>
+                    <div>
+                        <h4 class="text-xl font-bold mb-4">アラート設定</h4>
+                        
                         <div class="space-y-4">
-                            <div class="bg-white p-4 rounded">
-                                <h5 class="font-bold text-red-600">セキュリティアラート</h5>
-                                <p class="text-sm">通知先: Email, Slack, PagerDuty</p>
-                                <p class="text-sm">重要度: 高</p>
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-red-700 mb-2">Critical（即時対応）</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>• 認証システム停止</li>
+                                    <li>• データ漏洩の疑い</li>
+                                    <li>• 大規模な不正アクセス</li>
+                                </ul>
                             </div>
-                            <div class="bg-white p-4 rounded">
-                                <h5 class="font-bold text-orange-600">パフォーマンス低下</h5>
-                                <p class="text-sm">通知先: Email, Slack</p>
-                                <p class="text-sm">重要度: 中</p>
+                            
+                            <div class="bg-orange-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-orange-700 mb-2">High（1時間以内）</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>• 認証失敗率急上昇</li>
+                                    <li>• パフォーマンス劣化</li>
+                                    <li>• 証明書期限切れ接近</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-yellow-700 mb-2">Medium（24時間以内）</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>• 異常トラフィック検知</li>
+                                    <li>• リソース使用率上昇</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-bold text-gray-700 mb-2">Low（計画的対応）</h5>
+                                <ul class="space-y-1 text-sm">
+                                    <li>• 定期メンテナンス</li>
+                                    <li>• アップデート通知</li>
+                                </ul>
                             </div>
                         </div>
                     </div>

@@ -234,393 +234,105 @@ FAPI対策:
 
 ## 5. 実装アドバイス
 
-### 5.1 セキュリティ実装のベストプラクティス
+### 5.1 PAR (Pushed Authorization Request) の実装フロー
 
-#### 暗号化実装
-```python
-# 推奨: 検証済みライブラリの使用
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from cryptography.hazmat.primitives import serialization
+PARは認可リクエストをバックチャンネルで事前に送信することで、セキュリティを強化する仕組みです。
 
-class FAPISecurityManager:
-    def __init__(self):
-        # RSA 2048bit以上を推奨
-        self.private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=2048
-        )
-    
-    def sign_request(self, payload):
-        """JARのための署名生成"""
-        # 署名アルゴリズムはRS256, ES256を推奨
-        signature = self.private_key.sign(
-            payload,
-            padding.PSS(
-                mgf=padding.MGF1(hashes.SHA256()),
-                salt_length=padding.PSS.MAX_LENGTH
-            ),
-            hashes.SHA256()
-        )
-        return signature
-```
+![PAR Implementation Flow](./images/fapi_par_flow.svg)
 
-#### 鍵管理
-```yaml
-# 鍵管理のベストプラクティス
-key_management:
-  storage:
-    - HSM推奨（FIPS 140-2 Level 2以上）
-    - 環境変数での保存は避ける
-    - 専用の鍵管理サービス使用
-  
-  rotation:
-    - 定期的なローテーション（90日推奨）
-    - 段階的な移行期間の設定
-    - 古い鍵の適切な廃棄
-  
-  access_control:
-    - 最小権限の原則
-    - 監査ログの記録
-    - 多要素認証での保護
-```
+**PARの利点**:
+- **リクエストサイズ制限の回避**: URLパラメータの代わりにPOSTボディを使用
+- **リクエストの完全性保証**: JARによる署名でパラメータ改ざんを防止
+- **機密情報の保護**: フロントチャネルで機密情報を露出しない
 
-### 5.2 PAR (Pushed Authorization Request) の実装
+### 5.2 MTLS (Mutual TLS) の実装フロー
 
-```python
-import httpx
-import jwt
-from datetime import datetime, timedelta
+MTLSは、クライアントとサーバー間で相互にTLS証明書を検証する仕組みです。
 
-class PARClient:
-    def __init__(self, client_id, private_key, par_endpoint):
-        self.client_id = client_id
-        self.private_key = private_key
-        self.par_endpoint = par_endpoint
-    
-    async def push_authorization_request(self, 
-                                       redirect_uri, 
-                                       scope, 
-                                       state,
-                                       code_challenge):
-        """PARエンドポイントへの認可リクエスト送信"""
-        
-        # JARの作成
-        now = datetime.utcnow()
-        request_object = {
-            "iss": self.client_id,
-            "aud": self.par_endpoint,
-            "exp": now + timedelta(minutes=5),
-            "iat": now,
-            "nbf": now,
-            "response_type": "code",
-            "client_id": self.client_id,
-            "redirect_uri": redirect_uri,
-            "scope": scope,
-            "state": state,
-            "nonce": generate_nonce(),
-            "code_challenge": code_challenge,
-            "code_challenge_method": "S256"
-        }
-        
-        # JWT署名
-        signed_request = jwt.encode(
-            request_object, 
-            self.private_key, 
-            algorithm="RS256",
-            headers={"kid": self.key_id}
-        )
-        
-        # PARリクエスト送信
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                self.par_endpoint,
-                data={
-                    "client_id": self.client_id,
-                    "request": signed_request
-                },
-                headers={
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
-            )
-            
-        if response.status_code != 201:
-            raise Exception(f"PAR failed: {response.text}")
-            
-        par_response = response.json()
-        return par_response["request_uri"]
-```
+![MTLS Implementation Flow](./images/fapi_mtls_flow.svg)
 
-### 5.3 MTLS実装
+**MTLSのセキュリティ効果**:
+- **トークン盗用防止**: トークンと証明書が紐付けられ、証明書なしでは使用不可
+- **中間者攻撃対策**: 相互認証により、なりすましを防止
+- **強力な認証**: 証明書ベースの認証は、パスワードより安全
 
-```python
-import ssl
-from pathlib import Path
+### 5.3 DPoP (Demonstration of Proof of Possession) の実装フロー
 
-class MTLSClient:
-    def __init__(self, client_cert_path, client_key_path, ca_cert_path):
-        self.client_cert = client_cert_path
-        self.client_key = client_key_path
-        self.ca_cert = ca_cert_path
-        
-    def create_mtls_context(self):
-        """MTLS用のSSLコンテキスト作成"""
-        context = ssl.create_default_context(
-            purpose=ssl.Purpose.CLIENT_AUTH,
-            cafile=self.ca_cert
-        )
-        
-        # クライアント証明書の設定
-        context.load_cert_chain(
-            certfile=self.client_cert,
-            keyfile=self.client_key
-        )
-        
-        # TLS 1.2以上を強制
-        context.minimum_version = ssl.TLSVersion.TLSv1_2
-        
-        # 推奨される暗号スイートのみ許可
-        context.set_ciphers(
-            'ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS'
-        )
-        
-        return context
-    
-    async def make_authenticated_request(self, url, data):
-        """MTLS認証付きリクエスト"""
-        ssl_context = self.create_mtls_context()
-        
-        async with httpx.AsyncClient(verify=ssl_context) as client:
-            response = await client.post(url, json=data)
-            return response
-```
+DPoPは、公開鍵暗号を使用してトークンの所有を証明する仕組みです。
 
-### 5.4 DPoP実装
+![DPoP Implementation Flow](./images/fapi_dpop_flow.svg)
 
-```python
-import time
-import uuid
-from jose import jwk, jwt
-from cryptography.hazmat.primitives.asymmetric import ec
+**DPoPの特徴**:
+- **動的な証明**: リクエストごとに新しい証明を生成
+- **柔軟性**: MTLSと異なり、証明書インフラが不要
+- **前方秘匿性**: 秘密鍵が漏洩しても、過去のトークンは保護される
 
-class DPoPManager:
-    def __init__(self):
-        # ECDSAキーペアの生成
-        self.private_key = ec.generate_private_key(ec.SECP256R1())
-        self.public_key = self.private_key.public_key()
-        
-    def create_dpop_proof(self, http_method, uri, access_token=None):
-        """DPoP証明の生成"""
-        
-        # JWKサムプリント計算
-        jwk_dict = {
-            "kty": "EC",
-            "crv": "P-256",
-            "x": base64url_encode(self.public_key.x),
-            "y": base64url_encode(self.public_key.y)
-        }
-        
-        header = {
-            "typ": "dpop+jwt",
-            "alg": "ES256",
-            "jwk": jwk_dict
-        }
-        
-        payload = {
-            "jti": str(uuid.uuid4()),
-            "htm": http_method,
-            "htu": uri,
-            "iat": int(time.time()),
-            "exp": int(time.time()) + 60
-        }
-        
-        # アクセストークンがある場合はathクレームを追加
-        if access_token:
-            payload["ath"] = base64url_encode(
-                hashlib.sha256(access_token.encode()).digest()
-            )
-        
-        # DPoP証明の署名
-        dpop_proof = jwt.encode(
-            payload, 
-            self.private_key, 
-            algorithm="ES256",
-            headers=header
-        )
-        
-        return dpop_proof
-```
+### 5.4 JARM (JWT Secured Authorization Response Mode) の実装フロー
 
-### 5.5 エラーハンドリングとロギング
+JARMは認可レスポンスをJWTとして署名・暗号化する仕組みです。
 
-```python
-import logging
-import json
-from datetime import datetime
+![JARM Implementation Flow](./images/fapi_jarm_flow.svg)
 
-class FAPIErrorHandler:
-    def __init__(self):
-        self.logger = self._setup_logger()
-    
-    def _setup_logger(self):
-        """セキュアなロギング設定"""
-        logger = logging.getLogger('fapi_security')
-        handler = logging.FileHandler('fapi_audit.log')
-        
-        # 構造化ログフォーマット
-        formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
-        logger.setLevel(logging.INFO)
-        
-        return logger
-    
-    def handle_auth_error(self, error_type, details=None):
-        """認証エラーの適切な処理"""
-        
-        # センシティブ情報をマスク
-        safe_details = self._mask_sensitive_info(details)
-        
-        # 構造化ログ記録
-        log_entry = {
-            "timestamp": datetime.utcnow().isoformat(),
-            "event_type": "auth_error",
-            "error_type": error_type,
-            "details": safe_details,
-            "correlation_id": str(uuid.uuid4())
-        }
-        
-        self.logger.error(json.dumps(log_entry))
-        
-        # クライアントへの応答（詳細を隠蔽）
-        if error_type == "invalid_client":
-            return {
-                "error": "invalid_client",
-                "error_description": "Client authentication failed"
-            }, 401
-        elif error_type == "invalid_grant":
-            return {
-                "error": "invalid_grant",
-                "error_description": "The provided authorization grant is invalid"
-            }, 400
-        else:
-            return {
-                "error": "server_error",
-                "error_description": "The authorization server encountered an error"
-            }, 500
-    
-    def _mask_sensitive_info(self, data):
-        """センシティブ情報のマスキング"""
-        if not data:
-            return data
-            
-        sensitive_fields = ['password', 'client_secret', 'access_token', 'refresh_token']
-        masked_data = data.copy() if isinstance(data, dict) else {}
-        
-        for field in sensitive_fields:
-            if field in masked_data:
-                masked_data[field] = "***MASKED***"
-                
-        return masked_data
-```
+**JARMの利点**:
+- **改ざん防止**: 署名により認可レスポンスの完全性を保証
+- **機密性保護**: 暗号化により認可コードを秘匿
+- **発行元確認**: issクレームで認可サーバーのなりすましを防止
 
-### 5.6 パフォーマンス最適化
+### 5.5 実装時のベストプラクティス
 
-```python
-import asyncio
-from functools import lru_cache
-from datetime import datetime, timedelta
+#### セキュリティ設計の原則
 
-class FAPIPerformanceOptimizer:
-    def __init__(self):
-        self.cache = {}
-        self.jwks_cache = {}
-        
-    @lru_cache(maxsize=1000)
-    def verify_token_cached(self, token, public_key):
-        """トークン検証結果のキャッシング"""
-        try:
-            # トークン検証（計算コストが高い）
-            payload = jwt.decode(
-                token, 
-                public_key, 
-                algorithms=['RS256'],
-                options={"verify_aud": False}
-            )
-            return True, payload
-        except Exception as e:
-            return False, str(e)
-    
-    async def get_jwks_with_cache(self, jwks_uri):
-        """JWKSエンドポイントのキャッシング"""
-        
-        # キャッシュチェック
-        if jwks_uri in self.jwks_cache:
-            cached_data, expiry = self.jwks_cache[jwks_uri]
-            if datetime.utcnow() < expiry:
-                return cached_data
-        
-        # JWKSの取得
-        async with httpx.AsyncClient() as client:
-            response = await client.get(jwks_uri)
-            jwks_data = response.json()
-        
-        # キャッシュに保存（1時間）
-        self.jwks_cache[jwks_uri] = (
-            jwks_data,
-            datetime.utcnow() + timedelta(hours=1)
-        )
-        
-        return jwks_data
-    
-    async def parallel_token_validation(self, tokens, public_key):
-        """複数トークンの並列検証"""
-        tasks = [
-            self.verify_token_async(token, public_key) 
-            for token in tokens
-        ]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        return results
-```
+![Security Layers Architecture](./images/fapi_security_layers.svg)
 
-### 5.7 監視とアラート
+#### 鍵管理のベストプラクティス
 
-```yaml
-# 監視項目の設定例
-monitoring:
-  metrics:
-    - name: auth_request_rate
-      threshold: 1000/min
-      alert: rate_limit_warning
-      
-    - name: failed_auth_rate
-      threshold: 10%
-      alert: security_alert
-      
-    - name: token_validation_latency
-      threshold: 100ms
-      alert: performance_degradation
-      
-    - name: par_endpoint_availability
-      threshold: 99.9%
-      alert: service_degradation
+![Key Lifecycle Management](./images/fapi_key_lifecycle.svg)
 
-  alerts:
-    - type: security_alert
-      channels: [email, slack, pagerduty]
-      severity: high
-      
-    - type: performance_degradation
-      channels: [email, slack]
-      severity: medium
+### 5.6 監視とアラート
 
-  dashboards:
-    - auth_flow_metrics
-    - security_events
-    - api_performance
-    - error_rates
+#### 監視アーキテクチャ
+
+![Monitoring Dashboard](./images/fapi_monitoring_dashboard.svg)
+
+監視項目の詳細
+==============
+
+1. 認証・認可メトリクス
+   ├─ 認証リクエスト率: 1000req/min以下
+   ├─ 認証成功率: 90%以上
+   ├─ 認証失敗率: 10%以下（連続失敗でアラート）
+   └─ トークン発行率: 正常範囲内
+
+2. パフォーマンスメトリクス
+   ├─ API応答時間: p95 < 500ms
+   ├─ トークン検証時間: p95 < 100ms
+   ├─ データベース応答時間: p95 < 50ms
+   └─ エラー率: 1%以下
+
+3. セキュリティメトリクス
+   ├─ 不正アクセス試行
+   ├─ 異常なトラフィックパターン
+   ├─ 証明書の有効期限
+   └─ 鍵使用回数
+
+4. アラート設定
+   Critical（即時対応）
+   ├─ 認証システム停止
+   ├─ データ漏洩の疑い
+   └─ 大規模な不正アクセス
+
+   High（1時間以内）
+   ├─ 認証失敗率急上昇
+   ├─ パフォーマンス劣化
+   └─ 証明書期限切れ接近
+
+   Medium（24時間以内）
+   ├─ 異常トラフィック検知
+   └─ リソース使用率上昇
+
+   Low（計画的対応）
+   ├─ 定期メンテナンス
+   └─ アップデート通知
 ```
 
 ## 6. FAPIと各国標準の補完的関係
