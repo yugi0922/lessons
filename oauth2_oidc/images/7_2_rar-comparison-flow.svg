@@ -1,0 +1,117 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">Rich Authorization Request フロー</text>
+  
+  <!-- Traditional OAuth Section -->
+  <g transform="translate(50, 70)">
+    <text x="150" y="20" text-anchor="middle" font-size="16" font-weight="bold" fill="#7f8c8d">従来のOAuth</text>
+    
+    <!-- Client -->
+    <rect x="20" y="40" width="100" height="40" rx="5" fill="#ecf0f1" stroke="#95a5a6" stroke-width="2"/>
+    <text x="70" y="65" text-anchor="middle" font-size="14" fill="#2c3e50">クライアント</text>
+    
+    <!-- Arrow -->
+    <path d="M120 60 L180 60" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowgray)"/>
+    
+    <!-- Authorization Server -->
+    <rect x="180" y="40" width="100" height="40" rx="5" fill="#ecf0f1" stroke="#95a5a6" stroke-width="2"/>
+    <text x="230" y="65" text-anchor="middle" font-size="14" fill="#2c3e50">認可サーバー</text>
+    
+    <!-- Simple Scope Box -->
+    <rect x="50" y="100" width="200" height="40" rx="5" fill="#ffe5e5" stroke="#e74c3c" stroke-width="1"/>
+    <text x="150" y="125" text-anchor="middle" font-size="12" fill="#c0392b">scope="payment:write"</text>
+  </g>
+  
+  <!-- RAR Section -->
+  <g transform="translate(50, 200)">
+    <text x="150" y="20" text-anchor="middle" font-size="16" font-weight="bold" fill="#27ae60">EAP with RAR</text>
+    
+    <!-- Client -->
+    <rect x="20" y="40" width="100" height="40" rx="5" fill="#e8f8f5" stroke="#27ae60" stroke-width="2"/>
+    <text x="70" y="65" text-anchor="middle" font-size="14" fill="#2c3e50">クライアント</text>
+    
+    <!-- Arrow -->
+    <path d="M120 60 L180 60" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowgreen)"/>
+    
+    <!-- Authorization Server -->
+    <rect x="180" y="40" width="100" height="40" rx="5" fill="#e8f8f5" stroke="#27ae60" stroke-width="2"/>
+    <text x="230" y="65" text-anchor="middle" font-size="14" fill="#2c3e50">認可サーバー</text>
+    
+    <!-- Detailed Authorization Box -->
+    <rect x="20" y="100" width="260" height="120" rx="5" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+    <text x="30" y="120" font-size="12" font-weight="bold" fill="#27ae60">authorization_details:</text>
+    <text x="40" y="140" font-size="11" fill="#2c3e50">type: "payment_initiation"</text>
+    <text x="40" y="155" font-size="11" fill="#2c3e50">amount: "10,000 JPY"</text>
+    <text x="40" y="170" font-size="11" fill="#2c3e50">recipient: "口座番号1234"</text>
+    <text x="40" y="185" font-size="11" fill="#2c3e50">validity: "24時間"</text>
+    <text x="40" y="200" font-size="11" fill="#2c3e50">purpose: "商品購入"</text>
+  </g>
+  
+  <!-- User Consent Comparison -->
+  <g transform="translate(400, 70)">
+    <!-- Traditional Consent -->
+    <text x="150" y="20" text-anchor="middle" font-size="16" font-weight="bold" fill="#7f8c8d">ユーザー確認画面</text>
+    
+    <rect x="50" y="40" width="200" height="100" rx="10" fill="white" stroke="#95a5a6" stroke-width="2"/>
+    <text x="150" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#2c3e50">アプリAが以下を要求:</text>
+    <text x="70" y="90" font-size="11" fill="#7f8c8d">✓ 支払い機能へのアクセス</text>
+    
+    <rect x="90" y="110" width="60" height="25" rx="5" fill="#95a5a6"/>
+    <text x="120" y="127" text-anchor="middle" font-size="11" fill="white">許可</text>
+    <rect x="160" y="110" width="60" height="25" rx="5" fill="#ecf0f1" stroke="#95a5a6" stroke-width="1"/>
+    <text x="190" y="127" text-anchor="middle" font-size="11" fill="#7f8c8d">拒否</text>
+  </g>
+  
+  <g transform="translate(400, 200)">
+    <!-- RAR Consent -->
+    <text x="150" y="20" text-anchor="middle" font-size="16" font-weight="bold" fill="#27ae60">詳細確認画面</text>
+    
+    <rect x="50" y="40" width="200" height="180" rx="10" fill="white" stroke="#27ae60" stroke-width="2"/>
+    <text x="150" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#2c3e50">アプリAが以下を要求:</text>
+    
+    <!-- Detail Icons and Text -->
+    <circle cx="70" cy="85" r="8" fill="#3498db"/>
+    <text x="68" y="89" text-anchor="middle" font-size="10" fill="white">¥</text>
+    <text x="85" y="90" font-size="11" fill="#2c3e50">金額: 10,000円</text>
+    
+    <circle cx="70" cy="110" r="8" fill="#e74c3c"/>
+    <text x="68" y="114" text-anchor="middle" font-size="10" fill="white">→</text>
+    <text x="85" y="115" font-size="11" fill="#2c3e50">送金先: ****1234</text>
+    
+    <circle cx="70" cy="135" r="8" fill="#f39c12"/>
+    <text x="68" y="139" text-anchor="middle" font-size="10" fill="white">⏱</text>
+    <text x="85" y="140" font-size="11" fill="#2c3e50">有効期限: 24時間</text>
+    
+    <circle cx="70" cy="160" r="8" fill="#9b59b6"/>
+    <text x="68" y="164" text-anchor="middle" font-size="10" fill="white">?</text>
+    <text x="85" y="165" font-size="11" fill="#2c3e50">目的: 商品購入</text>
+    
+    <rect x="90" y="185" width="60" height="25" rx="5" fill="#27ae60"/>
+    <text x="120" y="202" text-anchor="middle" font-size="11" fill="white">承認</text>
+    <rect x="160" y="185" width="60" height="25" rx="5" fill="#ecf0f1" stroke="#27ae60" stroke-width="1"/>
+    <text x="190" y="202" text-anchor="middle" font-size="11" fill="#27ae60">拒否</text>
+  </g>
+  
+  <!-- Benefits Box -->
+  <g transform="translate(200, 400)">
+    <rect width="400" height="80" rx="10" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+    <text x="200" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#856404">RARの利点</text>
+    <text x="20" y="45" font-size="12" fill="#856404">• ユーザーが詳細を理解して承認</text>
+    <text x="20" y="60" font-size="12" fill="#856404">• 悪用時の被害を限定的に</text>
+    <text x="220" y="45" font-size="12" fill="#856404">• 監査証跡の充実</text>
+    <text x="220" y="60" font-size="12" fill="#856404">• コンプライアンス対応</text>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowgray" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#95a5a6">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#27ae60">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>

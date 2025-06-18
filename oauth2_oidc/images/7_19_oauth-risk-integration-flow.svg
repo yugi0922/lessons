@@ -1,0 +1,155 @@
+<svg viewBox="0 0 900 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">OAuth/OIDC + リスクベース認証統合フロー</text>
+  
+  <!-- Timeline -->
+  <line x1="100" y1="80" x2="100" y2="750" stroke="#ddd" stroke-width="2"/>
+  <line x1="300" y1="80" x2="300" y2="750" stroke="#ddd" stroke-width="2"/>
+  <line x1="500" y1="80" x2="500" y2="750" stroke="#ddd" stroke-width="2"/>
+  <line x1="700" y1="80" x2="700" y2="750" stroke="#ddd" stroke-width="2"/>
+  
+  <!-- Headers -->
+  <text x="100" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">ユーザー</text>
+  <text x="300" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">クライアント</text>
+  <text x="500" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">認証サーバー</text>
+  <text x="700" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">リスクエンジン</text>
+  
+  <!-- Step 1 -->
+  <g transform="translate(0, 100)">
+    <path d="M100 0 L300 0" stroke="#3498db" stroke-width="2" marker-end="url(#arrowblue)"/>
+    <text x="200" y="-5" text-anchor="middle" font-size="11" fill="#3498db">1. アクセス要求</text>
+  </g>
+  
+  <!-- Step 2 -->
+  <g transform="translate(0, 140)">
+    <path d="M300 0 L500 0" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+    <text x="400" y="-5" text-anchor="middle" font-size="11" fill="#e74c3c">2. OAuth認証要求</text>
+  </g>
+  
+  <!-- Step 3: Risk Assessment -->
+  <g transform="translate(0, 180)">
+    <path d="M500 0 L700 0" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowpurple)"/>
+    <text x="600" y="-5" text-anchor="middle" font-size="11" fill="#9b59b6">3. リスク評価要求</text>
+    
+    <!-- Risk Context Box -->
+    <rect x="510" y="10" width="180" height="80" rx="5" fill="#f3e5f5" stroke="#9b59b6"/>
+    <text x="600" y="30" text-anchor="middle" font-size="10" font-weight="bold" fill="#9b59b6">評価コンテキスト</text>
+    <text x="520" y="50" font-size="9" fill="#666">• IPアドレス</text>
+    <text x="520" y="65" font-size="9" fill="#666">• デバイス情報</text>
+    <text x="520" y="80" font-size="9" fill="#666">• リクエスト詳細</text>
+  </g>
+  
+  <!-- Step 4: Risk Score -->
+  <g transform="translate(0, 280)">
+    <path d="M700 0 L500 0" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowpurple)"/>
+    <text x="600" y="-5" text-anchor="middle" font-size="11" fill="#9b59b6">4. リスクスコア返却</text>
+    
+    <!-- Risk Score Display -->
+    <rect x="710" y="-20" width="120" height="40" rx="20" fill="#f39c12"/>
+    <text x="770" y="5" text-anchor="middle" font-size="12" fill="white" font-weight="bold">スコア: 45</text>
+  </g>
+  
+  <!-- Step 5: Decision Branch -->
+  <g transform="translate(450, 320)">
+    <rect width="200" height="60" rx="10" fill="#fff" stroke="#666" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-size="12" font-weight="bold" fill="#666">リスク判定</text>
+    <text x="100" y="45" text-anchor="middle" font-size="11" fill="#f39c12">中リスク: 追加認証必要</text>
+  </g>
+  
+  <!-- Step 6: Additional Auth Request -->
+  <g transform="translate(0, 400)">
+    <path d="M500 0 L300 0" stroke="#f39c12" stroke-width="2" marker-end="url(#arroworange)"/>
+    <text x="400" y="-5" text-anchor="middle" font-size="11" fill="#f39c12">5. 追加認証要求</text>
+  </g>
+  
+  <g transform="translate(0, 440)">
+    <path d="M300 0 L100 0" stroke="#f39c12" stroke-width="2" marker-end="url(#arroworange)"/>
+    <text x="200" y="-5" text-anchor="middle" font-size="11" fill="#f39c12">6. MFA画面表示</text>
+  </g>
+  
+  <!-- MFA Box -->
+  <g transform="translate(20, 460)">
+    <rect width="160" height="80" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+    <text x="80" y="25" text-anchor="middle" font-size="12" font-weight="bold" fill="#f39c12">追加認証</text>
+    <text x="80" y="45" text-anchor="middle" font-size="10" fill="#666">SMS: 123456</text>
+    <rect x="40" y="55" width="80" height="20" rx="5" fill="#f39c12"/>
+    <text x="80" y="68" text-anchor="middle" font-size="10" fill="white">確認</text>
+  </g>
+  
+  <!-- Step 7: MFA Response -->
+  <g transform="translate(0, 560)">
+    <path d="M100 0 L300 0" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowgreen)"/>
+    <text x="200" y="-5" text-anchor="middle" font-size="11" fill="#27ae60">7. MFA確認</text>
+  </g>
+  
+  <g transform="translate(0, 600)">
+    <path d="M300 0 L500 0" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowgreen)"/>
+    <text x="400" y="-5" text-anchor="middle" font-size="11" fill="#27ae60">8. MFA検証</text>
+  </g>
+  
+  <!-- Step 8: Update Risk Score -->
+  <g transform="translate(0, 640)">
+    <path d="M500 0 L700 0" stroke="#16a085" stroke-width="2" marker-end="url(#arrowteal)"/>
+    <text x="600" y="-5" text-anchor="middle" font-size="11" fill="#16a085">9. リスク再評価</text>
+    
+    <rect x="710" y="-20" width="120" height="40" rx="20" fill="#27ae60"/>
+    <text x="770" y="5" text-anchor="middle" font-size="12" fill="white" font-weight="bold">スコア: 15</text>
+  </g>
+  
+  <!-- Step 9: Success -->
+  <g transform="translate(0, 680)">
+    <path d="M500 0 L300 0" stroke="#2ecc71" stroke-width="2" marker-end="url(#arrowgreen2)"/>
+    <text x="400" y="-5" text-anchor="middle" font-size="11" fill="#2ecc71">10. 認証成功</text>
+  </g>
+  
+  <g transform="translate(0, 720)">
+    <path d="M300 0 L100 0" stroke="#2ecc71" stroke-width="2" marker-end="url(#arrowgreen2)"/>
+    <text x="200" y="-5" text-anchor="middle" font-size="11" fill="#2ecc71">11. アクセス許可</text>
+  </g>
+  
+  <!-- Risk Level Indicators -->
+  <g transform="translate(750, 400)">
+    <rect width="120" height="200" rx="10" fill="#fff" stroke="#666" stroke-width="2"/>
+    <text x="60" y="25" text-anchor="middle" font-size="12" font-weight="bold" fill="#666">対応アクション</text>
+    
+    <rect x="10" y="40" width="100" height="40" rx="5" fill="#e8f5e9" stroke="#27ae60"/>
+    <text x="60" y="55" text-anchor="middle" font-size="10" fill="#27ae60">低 (0-30)</text>
+    <text x="60" y="70" text-anchor="middle" font-size="9" fill="#666">通常認証</text>
+    
+    <rect x="10" y="90" width="100" height="40" rx="5" fill="#fff3cd" stroke="#f39c12"/>
+    <text x="60" y="105" text-anchor="middle" font-size="10" fill="#f39c12">中 (31-70)</text>
+    <text x="60" y="120" text-anchor="middle" font-size="9" fill="#666">追加認証</text>
+    
+    <rect x="10" y="140" width="100" height="40" rx="5" fill="#fee" stroke="#e74c3c"/>
+    <text x="60" y="155" text-anchor="middle" font-size="10" fill="#e74c3c">高 (71-100)</text>
+    <text x="60" y="170" text-anchor="middle" font-size="9" fill="#666">ブロック</text>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#3498db">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#e74c3c">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowpurple" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#9b59b6">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arroworange" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#f39c12">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#27ae60">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowteal" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#16a085">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowgreen2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#2ecc71">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>

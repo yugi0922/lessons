@@ -1,0 +1,141 @@
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="700" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">OAuth + WebAuthn 認証フロー</text>
+  
+  <!-- Timeline -->
+  <line x1="50" y1="80" x2="50" y2="650" stroke="#ddd" stroke-width="2"/>
+  <line x1="250" y1="80" x2="250" y2="650" stroke="#ddd" stroke-width="2"/>
+  <line x1="450" y1="80" x2="450" y2="650" stroke="#ddd" stroke-width="2"/>
+  <line x1="650" y1="80" x2="650" y2="650" stroke="#ddd" stroke-width="2"/>
+  
+  <!-- Headers -->
+  <text x="50" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">ユーザー</text>
+  <text x="250" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">クライアント</text>
+  <text x="450" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">IdP</text>
+  <text x="650" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">認証器</text>
+  
+  <!-- Step 1 -->
+  <g transform="translate(0, 100)">
+    <path d="M50 0 L250 0" stroke="#3498db" stroke-width="2" marker-end="url(#arrowblue)"/>
+    <text x="150" y="-5" text-anchor="middle" font-size="11" fill="#3498db">1. アクセス要求</text>
+  </g>
+  
+  <!-- Step 2 -->
+  <g transform="translate(0, 140)">
+    <path d="M250 0 L450 0" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+    <text x="350" y="-5" text-anchor="middle" font-size="11" fill="#e74c3c">2. OAuth認証要求</text>
+    <rect x="270" y="10" width="160" height="40" rx="5" fill="#fee" stroke="#e74c3c"/>
+    <text x="350" y="25" text-anchor="middle" font-size="9" fill="#c0392b">response_type=code</text>
+    <text x="350" y="38" text-anchor="middle" font-size="9" fill="#c0392b">code_challenge=xxx</text>
+  </g>
+  
+  <!-- Step 3 -->
+  <g transform="translate(0, 200)">
+    <path d="M450 0 L250 0" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowpurple)"/>
+    <text x="350" y="-5" text-anchor="middle" font-size="11" fill="#9b59b6">3. 認証ページ表示</text>
+  </g>
+  
+  <!-- Step 4 -->
+  <g transform="translate(0, 240)">
+    <path d="M250 0 L50 0" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowpurple)"/>
+    <text x="150" y="-5" text-anchor="middle" font-size="11" fill="#9b59b6">4. WebAuthn認証画面</text>
+  </g>
+  
+  <!-- WebAuthn Challenge Box -->
+  <g transform="translate(460, 280)">
+    <rect width="180" height="80" rx="10" fill="#f3e5f5" stroke="#9b59b6" stroke-width="2"/>
+    <text x="90" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#9b59b6">WebAuthnチャレンジ</text>
+    <text x="10" y="40" font-size="9" fill="#555">challenge: "abc..."</text>
+    <text x="10" y="55" font-size="9" fill="#555">rpId: "idp.example"</text>
+    <text x="10" y="70" font-size="9" fill="#555">timeout: 60000</text>
+  </g>
+  
+  <!-- Step 5 -->
+  <g transform="translate(0, 300)">
+    <path d="M50 0 L250 0" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowgreen)"/>
+    <text x="150" y="-5" text-anchor="middle" font-size="11" fill="#27ae60">5. 認証開始</text>
+  </g>
+  
+  <!-- Step 6 -->
+  <g transform="translate(0, 340)">
+    <path d="M250 0 L450 0" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowgreen)"/>
+    <text x="350" y="-5" text-anchor="middle" font-size="11" fill="#27ae60">6. チャレンジ要求</text>
+  </g>
+  
+  <!-- Step 7 -->
+  <g transform="translate(0, 380)">
+    <path d="M450 0 L650 0" stroke="#f39c12" stroke-width="2" marker-end="url(#arroworange)"/>
+    <text x="550" y="-5" text-anchor="middle" font-size="11" fill="#f39c12">7. 認証器呼び出し</text>
+  </g>
+  
+  <!-- User Verification -->
+  <g transform="translate(660, 400)">
+    <rect width="120" height="60" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+    <text x="60" y="20" text-anchor="middle" font-size="11" font-weight="bold" fill="#f39c12">本人確認</text>
+    <text x="60" y="35" text-anchor="middle" font-size="20">👆</text>
+    <text x="60" y="50" text-anchor="middle" font-size="9" fill="#555">生体認証/PIN</text>
+  </g>
+  
+  <!-- Step 8 -->
+  <g transform="translate(0, 480)">
+    <path d="M650 0 L450 0" stroke="#2ecc71" stroke-width="2" marker-end="url(#arrowgreen2)"/>
+    <text x="550" y="-5" text-anchor="middle" font-size="11" fill="#2ecc71">8. 署名レスポンス</text>
+    <rect x="470" y="10" width="160" height="40" rx="5" fill="#e8f5e9" stroke="#2ecc71"/>
+    <text x="550" y="25" text-anchor="middle" font-size="9" fill="#27ae60">signature: "xyz..."</text>
+    <text x="550" y="38" text-anchor="middle" font-size="9" fill="#27ae60">credentialId: "abc..."</text>
+  </g>
+  
+  <!-- Step 9 -->
+  <g transform="translate(0, 540)">
+    <path d="M450 0 L250 0" stroke="#3498db" stroke-width="2" marker-end="url(#arrowblue)"/>
+    <text x="350" y="-5" text-anchor="middle" font-size="11" fill="#3498db">9. 認証成功</text>
+    <rect x="270" y="10" width="160" height="30" rx="5" fill="#e8f4f8" stroke="#3498db"/>
+    <text x="350" y="28" text-anchor="middle" font-size="9" fill="#2980b9">code=authorization_code</text>
+  </g>
+  
+  <!-- Step 10 -->
+  <g transform="translate(0, 590)">
+    <path d="M250 0 L450 0" stroke="#16a085" stroke-width="2" marker-end="url(#arrowteal)"/>
+    <text x="350" y="-5" text-anchor="middle" font-size="11" fill="#16a085">10. トークン交換</text>
+    <rect x="270" y="10" width="160" height="40" rx="5" fill="#e8f8f5" stroke="#16a085"/>
+    <text x="350" y="25" text-anchor="middle" font-size="9" fill="#16a085">grant_type=auth_code</text>
+    <text x="350" y="38" text-anchor="middle" font-size="9" fill="#16a085">code_verifier=yyy</text>
+  </g>
+  
+  <!-- Success Box -->
+  <g transform="translate(700, 580)">
+    <rect width="150" height="80" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="3"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">認証完了</text>
+    <text x="75" y="45" text-anchor="middle" font-size="10" fill="#555">Access Token</text>
+    <text x="75" y="58" text-anchor="middle" font-size="10" fill="#555">ID Token</text>
+    <text x="75" y="71" text-anchor="middle" font-size="10" fill="#555">Refresh Token</text>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#3498db">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#e74c3c">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#27ae60">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowpurple" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#9b59b6">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arroworange" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#f39c12">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowgreen2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#2ecc71">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowteal" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#16a085">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>
