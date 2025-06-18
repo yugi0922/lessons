@@ -1,0 +1,170 @@
+<svg viewBox="0 0 900 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">OAuth/OIDC MFA強制メカニズム</text>
+  
+  <!-- MFA Factors -->
+  <g transform="translate(50, 80)">
+    <text x="200" y="0" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">認証要素の種類</text>
+    
+    <!-- Factor 1: Knowledge -->
+    <g transform="translate(0, 30)">
+      <rect width="180" height="100" rx="10" fill="#e8f4f8" stroke="#3498db" stroke-width="2"/>
+      <text x="90" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#3498db">知識要素</text>
+      <text x="90" y="45" text-anchor="middle" font-size="12" fill="#666">（Something you know）</text>
+      <text x="90" y="65" text-anchor="middle" font-size="20">🔑</text>
+      <text x="20" y="85" font-size="10" fill="#555">• パスワード</text>
+      <text x="20" y="95" font-size="10" fill="#555">• PIN • 秘密の質問</text>
+    </g>
+    
+    <!-- Factor 2: Possession -->
+    <g transform="translate(200, 30)">
+      <rect width="180" height="100" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+      <text x="90" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">所持要素</text>
+      <text x="90" y="45" text-anchor="middle" font-size="12" fill="#666">（Something you have）</text>
+      <text x="90" y="65" text-anchor="middle" font-size="20">📱</text>
+      <text x="20" y="85" font-size="10" fill="#555">• スマートフォン</text>
+      <text x="20" y="95" font-size="10" fill="#555">• トークン • カード</text>
+    </g>
+    
+    <!-- Factor 3: Inherence -->
+    <g transform="translate(0, 150)">
+      <rect width="180" height="100" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+      <text x="90" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#f39c12">生体要素</text>
+      <text x="90" y="45" text-anchor="middle" font-size="12" fill="#666">（Something you are）</text>
+      <text x="90" y="65" text-anchor="middle" font-size="20">👆</text>
+      <text x="20" y="85" font-size="10" fill="#555">• 指紋 • 顔認証</text>
+      <text x="20" y="95" font-size="10" fill="#555">• 虹彩 • 声紋</text>
+    </g>
+    
+    <!-- Factor 4: Context -->
+    <g transform="translate(200, 150)">
+      <rect width="180" height="100" rx="10" fill="#f3e5f5" stroke="#9b59b6" stroke-width="2"/>
+      <text x="90" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#9b59b6">文脈要素</text>
+      <text x="90" y="45" text-anchor="middle" font-size="12" fill="#666">（Where/When）</text>
+      <text x="90" y="65" text-anchor="middle" font-size="20">📍</text>
+      <text x="20" y="85" font-size="10" fill="#555">• 位置情報</text>
+      <text x="20" y="95" font-size="10" fill="#555">• 時間 • ネットワーク</text>
+    </g>
+  </g>
+  
+  <!-- OAuth/OIDC Flow with MFA -->
+  <g transform="translate(450, 80)">
+    <rect width="400" height="250" rx="10" fill="#fff" stroke="#e74c3c" stroke-width="2"/>
+    <text x="200" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#e74c3c">OIDCフローでのMFA強制</text>
+    
+    <!-- ACR Values -->
+    <g transform="translate(20, 50)">
+      <rect width="360" height="80" rx="10" fill="#fee" stroke="#e74c3c"/>
+      <text x="180" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#e74c3c">ACR (Authentication Context)</text>
+      
+      <text x="20" y="40" font-size="11" fill="#666">クライアントが要求:</text>
+      <rect x="20" y="45" width="320" height="25" rx="5" fill="#fff"/>
+      <text x="30" y="61" font-size="10" font-family="monospace" fill="#333">acr_values=urn:mfa:sms:otp urn:mfa:push</text>
+    </g>
+    
+    <!-- AMR Claims -->
+    <g transform="translate(20, 150)">
+      <rect width="360" height="80" rx="10" fill="#e8f4f8" stroke="#3498db"/>
+      <text x="180" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#3498db">AMR (Authentication Methods)</text>
+      
+      <text x="20" y="40" font-size="11" fill="#666">IDトークンに含まれる:</text>
+      <rect x="20" y="45" width="320" height="25" rx="5" fill="#fff"/>
+      <text x="30" y="61" font-size="10" font-family="monospace" fill="#333">"amr": ["pwd", "otp", "mfa"]</text>
+    </g>
+  </g>
+  
+  <!-- MFA Enforcement Policies -->
+  <g transform="translate(50, 360)">
+    <text x="400" y="0" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">MFA強制ポリシー</text>
+    
+    <!-- Policy 1: Risk-Based -->
+    <g transform="translate(0, 30)">
+      <rect width="270" height="120" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+      <text x="135" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">リスクベースMFA</text>
+      
+      <rect x="20" y="40" width="230" height="70" rx="5" fill="#fff"/>
+      <text x="30" y="60" font-size="11" fill="#666">条件:</text>
+      <text x="40" y="75" font-size="10" fill="#555">• 新規デバイス → SMS OTP</text>
+      <text x="40" y="88" font-size="10" fill="#555">• 異常な位置 → プッシュ通知</text>
+      <text x="40" y="101" font-size="10" fill="#555">• 高額取引 → TOTP + 生体</text>
+    </g>
+    
+    <!-- Policy 2: Resource-Based -->
+    <g transform="translate(290, 30)">
+      <rect width="270" height="120" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+      <text x="135" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#f39c12">リソースベースMFA</text>
+      
+      <rect x="20" y="40" width="230" height="70" rx="5" fill="#fff"/>
+      <text x="30" y="60" font-size="11" fill="#666">リソース重要度:</text>
+      <text x="40" y="75" font-size="10" fill="#555">• 公開情報 → パスワードのみ</text>
+      <text x="40" y="88" font-size="10" fill="#555">• 個人情報 → 2要素必須</text>
+      <text x="40" y="101" font-size="10" fill="#555">• 管理機能 → 3要素必須</text>
+    </g>
+    
+    <!-- Policy 3: Time-Based -->
+    <g transform="translate(580, 30)">
+      <rect width="270" height="120" rx="10" fill="#f3e5f5" stroke="#9b59b6" stroke-width="2"/>
+      <text x="135" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#9b59b6">時間ベースMFA</text>
+      
+      <rect x="20" y="40" width="230" height="70" rx="5" fill="#fff"/>
+      <text x="30" y="60" font-size="11" fill="#666">時間帯:</text>
+      <text x="40" y="75" font-size="10" fill="#555">• 営業時間内 → 標準MFA</text>
+      <text x="40" y="88" font-size="10" fill="#555">• 深夜/早朝 → 強化MFA</text>
+      <text x="40" y="101" font-size="10" fill="#555">• 週末/休日 → 追加確認</text>
+    </g>
+  </g>
+  
+  <!-- MFA Methods -->
+  <g transform="translate(50, 520)">
+    <rect width="800" height="220" rx="10" fill="#fff" stroke="#16a085" stroke-width="2"/>
+    <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#16a085">利用可能なMFA方式</text>
+    
+    <!-- SMS OTP -->
+    <g transform="translate(30, 50)">
+      <rect width="170" height="70" rx="10" fill="#e8f4f8" stroke="#3498db"/>
+      <text x="85" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#3498db">SMS OTP</text>
+      <text x="85" y="35" text-anchor="middle" font-size="16">📱 → 📨</text>
+      <text x="85" y="50" text-anchor="middle" font-size="9" fill="#666">利便性: ⭐⭐⭐⭐</text>
+      <text x="85" y="62" text-anchor="middle" font-size="9" fill="#666">安全性: ⭐⭐</text>
+    </g>
+    
+    <!-- TOTP -->
+    <g transform="translate(220, 50)">
+      <rect width="170" height="70" rx="10" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="85" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">TOTP</text>
+      <text x="85" y="35" text-anchor="middle" font-size="16">🔐 → 🕐</text>
+      <text x="85" y="50" text-anchor="middle" font-size="9" fill="#666">利便性: ⭐⭐⭐</text>
+      <text x="85" y="62" text-anchor="middle" font-size="9" fill="#666">安全性: ⭐⭐⭐⭐</text>
+    </g>
+    
+    <!-- Push Notification -->
+    <g transform="translate(410, 50)">
+      <rect width="170" height="70" rx="10" fill="#fff3cd" stroke="#f39c12"/>
+      <text x="85" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#f39c12">プッシュ通知</text>
+      <text x="85" y="35" text-anchor="middle" font-size="16">📱 → 🔔</text>
+      <text x="85" y="50" text-anchor="middle" font-size="9" fill="#666">利便性: ⭐⭐⭐⭐⭐</text>
+      <text x="85" y="62" text-anchor="middle" font-size="9" fill="#666">安全性: ⭐⭐⭐</text>
+    </g>
+    
+    <!-- WebAuthn -->
+    <g transform="translate(600, 50)">
+      <rect width="170" height="70" rx="10" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="85" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">WebAuthn/FIDO2</text>
+      <text x="85" y="35" text-anchor="middle" font-size="16">🔐 → 👆</text>
+      <text x="85" y="50" text-anchor="middle" font-size="9" fill="#666">利便性: ⭐⭐⭐⭐⭐</text>
+      <text x="85" y="62" text-anchor="middle" font-size="9" fill="#666">安全性: ⭐⭐⭐⭐⭐</text>
+    </g>
+    
+    <!-- Comparison Note -->
+    <rect x="30" y="140" width="740" height="50" rx="10" fill="#e8f8f5" stroke="#16a085"/>
+    <text x="400" y="160" text-anchor="middle" font-size="12" fill="#16a085">
+      💡 推奨: WebAuthn/FIDO2（フィッシング耐性） > TOTP > プッシュ通知 > SMS OTP
+    </text>
+    <text x="400" y="175" text-anchor="middle" font-size="10" fill="#666">
+      セキュリティと利便性のバランスを考慮して選択
+    </text>
+  </g>
+</svg>

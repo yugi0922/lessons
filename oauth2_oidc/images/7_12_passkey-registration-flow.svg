@@ -1,0 +1,120 @@
+<svg viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="700" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">パスキー登録の詳細フロー</text>
+  
+  <!-- User Journey -->
+  <g transform="translate(50, 80)">
+    <!-- Step 1: Initial Screen -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="120" rx="10" fill="#fff" stroke="#3498db" stroke-width="2"/>
+      <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#3498db">1. 登録開始</text>
+      
+      <rect x="20" y="40" width="160" height="30" rx="5" fill="#e8f4f8"/>
+      <text x="100" y="58" text-anchor="middle" font-size="12" fill="#2c3e50">パスキーを作成</text>
+      
+      <text x="100" y="90" text-anchor="middle" font-size="10" fill="#666">より安全で簡単な</text>
+      <text x="100" y="105" text-anchor="middle" font-size="10" fill="#666">ログイン方法です</text>
+    </g>
+    
+    <!-- Arrow -->
+    <path d="M200 140 L250 140" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+    
+    <!-- Step 2: Platform Detection -->
+    <g transform="translate(250, 0)">
+      <rect width="250" height="120" rx="10" fill="#fff" stroke="#9b59b6" stroke-width="2"/>
+      <text x="125" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#9b59b6">2. プラットフォーム検出</text>
+      
+      <rect x="20" y="40" width="210" height="70" rx="5" fill="#f3e5f5"/>
+      <text x="125" y="60" text-anchor="middle" font-size="11" fill="#2c3e50">利用可能なオプション:</text>
+      <text x="40" y="80" font-size="10" fill="#666">• iCloud Keychain (Mac/iOS)</text>
+      <text x="40" y="95" font-size="10" fill="#666">• Google Password Manager</text>
+    </g>
+    
+    <!-- Arrow -->
+    <path d="M500 140 L550 140" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+    
+    <!-- Step 3: User Choice -->
+    <g transform="translate(550, 0)">
+      <rect width="200" height="120" rx="10" fill="#fff" stroke="#27ae60" stroke-width="2"/>
+      <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">3. 保存先選択</text>
+      
+      <rect x="20" y="40" width="160" height="25" rx="5" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="100" y="55" text-anchor="middle" font-size="11" fill="#2c3e50">☑ iCloud Keychain</text>
+      
+      <rect x="20" y="70" width="160" height="25" rx="5" fill="#fff" stroke="#ddd"/>
+      <text x="100" y="85" text-anchor="middle" font-size="11" fill="#999">☐ このデバイスのみ</text>
+    </g>
+  </g>
+  
+  <!-- Technical Flow -->
+  <g transform="translate(50, 250)">
+    <text x="0" y="0" font-size="18" font-weight="bold" fill="#2c3e50">技術的な実装フロー</text>
+    
+    <!-- Browser/App -->
+    <g transform="translate(0, 30)">
+      <rect width="150" height="80" rx="10" fill="#e8f4f8" stroke="#3498db" stroke-width="2"/>
+      <text x="75" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#3498db">ブラウザ/アプリ</text>
+      <text x="75" y="50" text-anchor="middle" font-size="11" fill="#2c3e50">navigator.credentials</text>
+      <text x="75" y="65" text-anchor="middle" font-size="11" fill="#2c3e50">.create()</text>
+    </g>
+    
+    <!-- Creation Options -->
+    <g transform="translate(200, 30)">
+      <rect width="400" height="150" rx="10" fill="#fff" stroke="#666" stroke-width="1"/>
+      <text x="200" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#666">PublicKeyCredentialCreationOptions</text>
+      
+      <text x="10" y="40" font-size="10" font-family="monospace" fill="#555">rp: {</text>
+      <text x="20" y="55" font-size="10" font-family="monospace" fill="#555">  id: "idp.example.com",</text>
+      <text x="20" y="70" font-size="10" font-family="monospace" fill="#555">  name: "My OAuth Provider"</text>
+      <text x="10" y="85" font-size="10" font-family="monospace" fill="#555">},</text>
+      <text x="10" y="100" font-size="10" font-family="monospace" fill="#555">authenticatorSelection: {</text>
+      <text x="20" y="115" font-size="10" font-family="monospace" fill="#e74c3c">  residentKey: "required",  // パスキー必須</text>
+      <text x="20" y="130" font-size="10" font-family="monospace" fill="#e74c3c">  requireResidentKey: true</text>
+      <text x="10" y="145" font-size="10" font-family="monospace" fill="#555">}</text>
+    </g>
+  </g>
+  
+  <!-- Passkey Storage -->
+  <g transform="translate(50, 450)">
+    <text x="0" y="0" font-size="16" font-weight="bold" fill="#2c3e50">パスキーの保存場所</text>
+    
+    <!-- Cloud Sync -->
+    <g transform="translate(0, 30)">
+      <rect width="350" height="100" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+      <text x="175" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">クラウド同期型</text>
+      
+      <text x="20" y="45" font-size="11" fill="#2c3e50">✅ 複数デバイスで利用可能</text>
+      <text x="20" y="60" font-size="11" fill="#2c3e50">✅ 自動バックアップ</text>
+      <text x="20" y="75" font-size="11" fill="#2c3e50">✅ デバイス紛失時も安心</text>
+      <text x="20" y="90" font-size="11" fill="#666">例: iCloud, Google, Microsoft</text>
+    </g>
+    
+    <!-- Device Bound -->
+    <g transform="translate(380, 30)">
+      <rect width="350" height="100" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+      <text x="175" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#f39c12">デバイス固有型</text>
+      
+      <text x="20" y="45" font-size="11" fill="#2c3e50">🔒 より高いセキュリティ</text>
+      <text x="20" y="60" font-size="11" fill="#2c3e50">❌ デバイス間共有不可</text>
+      <text x="20" y="75" font-size="11" fill="#2c3e50">⚠️ バックアップ要注意</text>
+      <text x="20" y="90" font-size="11" fill="#666">例: YubiKey, Windows Hello (TPM)</text>
+    </g>
+  </g>
+  
+  <!-- Success Flow -->
+  <g transform="translate(250, 600)">
+    <rect width="300" height="60" rx="30" fill="#2ecc71"/>
+    <text x="150" y="25" text-anchor="middle" font-size="16" fill="white" font-weight="bold">パスキー登録完了</text>
+    <text x="150" y="45" text-anchor="middle" font-size="12" fill="white">次回から生体認証でログイン可能</text>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowgray" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#666">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>

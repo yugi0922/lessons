@@ -1,0 +1,172 @@
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="700" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">OAuth/OIDC + WebAuthn 統合アーキテクチャ</text>
+  
+  <!-- Components -->
+  <!-- User -->
+  <g transform="translate(50, 100)">
+    <circle cx="40" cy="40" r="30" fill="#3498db"/>
+    <path d="M40 45 C30 45 25 50 25 58 L55 58 C55 50 50 45 40 45 Z" fill="white"/>
+    <circle cx="40" cy="35" r="10" fill="white"/>
+    <text x="40" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">ユーザー</text>
+  </g>
+  
+  <!-- Authenticator -->
+  <g transform="translate(30, 200)">
+    <rect width="100" height="60" rx="10" fill="#27ae60"/>
+    <text x="50" y="25" text-anchor="middle" font-size="12" fill="white">認証器</text>
+    <text x="50" y="40" text-anchor="middle" font-size="10" fill="white">YubiKey</text>
+    <text x="50" y="52" text-anchor="middle" font-size="10" fill="white">Touch ID</text>
+  </g>
+  
+  <!-- Client App -->
+  <g transform="translate(250, 100)">
+    <rect width="120" height="80" rx="10" fill="#e8f4f8" stroke="#3498db" stroke-width="2"/>
+    <text x="60" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">クライアント</text>
+    <text x="60" y="45" text-anchor="middle" font-size="12" fill="#2c3e50">アプリ</text>
+    <text x="60" y="60" text-anchor="middle" font-size="10" fill="#555">(RP Client)</text>
+  </g>
+  
+  <!-- IdP with WebAuthn -->
+  <g transform="translate(500, 80)">
+    <rect width="160" height="120" rx="10" fill="#fff" stroke="#9b59b6" stroke-width="3"/>
+    <text x="80" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#9b59b6">認証サーバー</text>
+    <text x="80" y="40" text-anchor="middle" font-size="12" fill="#2c3e50">(IdP)</text>
+    
+    <!-- WebAuthn RP Box -->
+    <rect x="20" y="50" width="120" height="50" rx="5" fill="#f3e5f5" stroke="#9b59b6" stroke-width="2"/>
+    <text x="80" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#9b59b6">WebAuthn RP</text>
+    <text x="80" y="85" text-anchor="middle" font-size="10" fill="#555">FIDO2認証</text>
+  </g>
+  
+  <!-- Resource Server -->
+  <g transform="translate(750, 100)">
+    <rect width="120" height="80" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+    <text x="60" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">リソース</text>
+    <text x="60" y="45" text-anchor="middle" font-size="12" fill="#2c3e50">サーバー</text>
+    <text x="60" y="60" text-anchor="middle" font-size="10" fill="#555">(API)</text>
+  </g>
+  
+  <!-- Flow Description -->
+  <g transform="translate(50, 300)">
+    <text x="0" y="0" font-size="18" font-weight="bold" fill="#2c3e50">統合認証フロー</text>
+  </g>
+  
+  <!-- Flow Steps -->
+  <!-- Step 1 -->
+  <g transform="translate(50, 330)">
+    <circle cx="15" cy="15" r="12" fill="#3498db"/>
+    <text x="15" y="20" text-anchor="middle" font-size="12" fill="white">1</text>
+    <text x="35" y="20" font-size="14" fill="#2c3e50">ユーザーがクライアントアプリにアクセス</text>
+  </g>
+  
+  <!-- Arrow 1 -->
+  <path d="M170 180 L250 140" stroke="#3498db" stroke-width="2" marker-end="url(#arrowblue)"/>
+  
+  <!-- Step 2 -->
+  <g transform="translate(50, 370)">
+    <circle cx="15" cy="15" r="12" fill="#e74c3c"/>
+    <text x="15" y="20" text-anchor="middle" font-size="12" fill="white">2</text>
+    <text x="35" y="20" font-size="14" fill="#2c3e50">OAuth認証要求（PKCE付き）</text>
+  </g>
+  
+  <!-- Arrow 2 -->
+  <path d="M370 140 L500 140" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowred)"/>
+  
+  <!-- Step 3 -->
+  <g transform="translate(50, 410)">
+    <circle cx="15" cy="15" r="12" fill="#9b59b6"/>
+    <text x="15" y="20" text-anchor="middle" font-size="12" fill="white">3</text>
+    <text x="35" y="20" font-size="14" fill="#2c3e50">IdPがWebAuthnチャレンジを生成</text>
+  </g>
+  
+  <!-- WebAuthn Challenge Box -->
+  <g transform="translate(450, 250)">
+    <rect width="200" height="80" rx="10" fill="#f3e5f5" stroke="#9b59b6" stroke-width="2"/>
+    <text x="100" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#9b59b6">WebAuthnチャレンジ</text>
+    <text x="20" y="40" font-size="10" fill="#555">challenge: "abc123..."</text>
+    <text x="20" y="55" font-size="10" fill="#555">rpId: "idp.example.com"</text>
+    <text x="20" y="70" font-size="10" fill="#555">userVerification: "required"</text>
+  </g>
+  
+  <!-- Arrow 3 -->
+  <path d="M580 200 L550 250" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowpurple)"/>
+  
+  <!-- Step 4 -->
+  <g transform="translate(50, 450)">
+    <circle cx="15" cy="15" r="12" fill="#27ae60"/>
+    <text x="15" y="20" text-anchor="middle" font-size="12" fill="white">4</text>
+    <text x="35" y="20" font-size="14" fill="#2c3e50">ユーザーが認証器で本人確認（生体認証/PIN）</text>
+  </g>
+  
+  <!-- Authenticator Interaction -->
+  <g transform="translate(150, 280)">
+    <path d="M0 0 Q-50 50 -50 100" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arrowgreen)"/>
+    <text x="-70" y="50" font-size="10" fill="#27ae60">署名生成</text>
+  </g>
+  
+  <!-- Step 5 -->
+  <g transform="translate(50, 490)">
+    <circle cx="15" cy="15" r="12" fill="#f39c12"/>
+    <text x="15" y="20" text-anchor="middle" font-size="12" fill="white">5</text>
+    <text x="35" y="20" font-size="14" fill="#2c3e50">署名付きレスポンスをIdPに送信</text>
+  </g>
+  
+  <!-- WebAuthn Response -->
+  <g transform="translate(250, 350)">
+    <rect width="180" height="70" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+    <text x="90" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#f39c12">署名レスポンス</text>
+    <text x="15" y="40" font-size="9" fill="#555">signature: "xyz789..."</text>
+    <text x="15" y="55" font-size="9" fill="#555">authenticatorData: "..."</text>
+  </g>
+  
+  <!-- Arrow 5 -->
+  <path d="M430 385 L500 180" stroke="#f39c12" stroke-width="2" marker-end="url(#arroworange)"/>
+  
+  <!-- Step 6 -->
+  <g transform="translate(50, 530)">
+    <circle cx="15" cy="15" r="12" fill="#2ecc71"/>
+    <text x="15" y="20" text-anchor="middle" font-size="12" fill="white">6</text>
+    <text x="35" y="20" font-size="14" fill="#2c3e50">IdPが署名を検証し、認証コードを発行</text>
+  </g>
+  
+  <!-- Success Box -->
+  <g transform="translate(700, 250)">
+    <rect width="150" height="100" rx="10" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">認証成功</text>
+    <text x="75" y="45" text-anchor="middle" font-size="20">✅</text>
+    <text x="75" y="65" text-anchor="middle" font-size="10" fill="#555">Authorization Code</text>
+    <text x="75" y="80" text-anchor="middle" font-size="10" fill="#555">+ ID Token</text>
+  </g>
+  
+  <!-- Benefits Box -->
+  <g transform="translate(50, 580)">
+    <rect width="800" height="80" rx="10" fill="#e8f8f5" stroke="#16a085" stroke-width="2"/>
+    <text x="400" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#16a085">統合のメリット</text>
+    <text x="50" y="50" font-size="12" fill="#2c3e50">• フィッシング完全耐性：偽サイトでは認証不可能</text>
+    <text x="300" y="50" font-size="12" fill="#2c3e50">• パスワードレス：ユーザビリティ向上</text>
+    <text x="550" y="50" font-size="12" fill="#2c3e50">• 標準準拠：相互運用性確保</text>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#3498db">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#e74c3c">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#27ae60">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arrowpurple" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#9b59b6">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="arroworange" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#f39c12">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>

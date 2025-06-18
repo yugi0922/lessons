@@ -1,0 +1,167 @@
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="700" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">リソースサーバーでのMFA検証フロー</text>
+  
+  <!-- Resource Server Architecture -->
+  <g transform="translate(50, 80)">
+    <rect width="400" height="300" rx="10" fill="#fff" stroke="#3498db" stroke-width="2"/>
+    <text x="200" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#3498db">リソースサーバー</text>
+    
+    <!-- Request Flow -->
+    <g transform="translate(20, 50)">
+      <!-- Incoming Request -->
+      <rect width="120" height="40" rx="5" fill="#e8f4f8" stroke="#3498db"/>
+      <text x="60" y="20" text-anchor="middle" font-size="11" fill="#3498db">APIリクエスト</text>
+      <text x="60" y="33" text-anchor="middle" font-size="9" fill="#666">+ Access Token</text>
+      
+      <!-- Arrow -->
+      <path d="M140 20 L180 20" stroke="#666" stroke-width="2" marker-end="url(#arrowgray)"/>
+      
+      <!-- Token Introspection -->
+      <rect x="180" width="180" height="60" rx="5" fill="#f3e5f5" stroke="#9b59b6"/>
+      <text x="270" y="20" text-anchor="middle" font-size="11" fill="#9b59b6">トークン検証</text>
+      <text x="270" y="35" text-anchor="middle" font-size="9" fill="#666">1. 署名検証</text>
+      <text x="270" y="48" text-anchor="middle" font-size="9" fill="#666">2. 有効期限確認</text>
+    </g>
+    
+    <!-- MFA Validation -->
+    <g transform="translate(20, 130)">
+      <rect width="360" height="120" rx="10" fill="#fee" stroke="#e74c3c" stroke-width="2"/>
+      <text x="180" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#e74c3c">MFA検証ロジック</text>
+      
+      <!-- Validation Steps -->
+      <rect x="20" y="40" width="320" height="70" rx="5" fill="#fff"/>
+      <text x="30" y="58" font-size="10" fill="#666">1. IDトークンからACR/AMRクレーム抽出</text>
+      <text x="30" y="73" font-size="10" fill="#666">2. リソースの要求ACRレベル確認</text>
+      <text x="30" y="88" font-size="10" fill="#666">3. 実際のACRと要求ACRを比較</text>
+      <text x="30" y="103" font-size="10" fill="#e74c3c" font-weight="bold">4. 不足時は403エラー返却</text>
+    </g>
+  </g>
+  
+  <!-- ID Token Claims -->
+  <g transform="translate(480, 80)">
+    <rect width="400" height="300" rx="10" fill="#fff" stroke="#27ae60" stroke-width="2"/>
+    <text x="200" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#27ae60">IDトークン検証</text>
+    
+    <!-- Token Example -->
+    <g transform="translate(20, 50)">
+      <rect width="360" height="150" rx="5" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="180" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">デコードされたIDトークン</text>
+      
+      <rect x="20" y="30" width="320" height="110" rx="5" fill="#fff"/>
+      <text x="30" y="45" font-size="9" font-family="monospace" fill="#666">{</text>
+      <text x="35" y="58" font-size="9" font-family="monospace" fill="#666">  "sub": "user123",</text>
+      <text x="35" y="71" font-size="9" font-family="monospace" fill="#666">  "iss": "https://idp.example.com",</text>
+      <text x="35" y="84" font-size="9" font-family="monospace" fill="#27ae60" font-weight="bold">  "acr": "urn:mfa:sms:totp",</text>
+      <text x="35" y="97" font-size="9" font-family="monospace" fill="#27ae60" font-weight="bold">  "amr": ["pwd", "sms", "mfa"],</text>
+      <text x="35" y="110" font-size="9" font-family="monospace" fill="#666">  "auth_time": 1640995200,</text>
+      <text x="35" y="123" font-size="9" font-family="monospace" fill="#666">  "exp": 1641002400</text>
+      <text x="30" y="136" font-size="9" font-family="monospace" fill="#666">}</text>
+    </g>
+    
+    <!-- ACR Levels -->
+    <g transform="translate(20, 220)">
+      <text x="0" y="0" font-size="12" font-weight="bold" fill="#2c3e50">ACRレベル定義</text>
+      
+      <rect x="0" y="10" width="110" height="30" rx="5" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="55" y="28" text-anchor="middle" font-size="10" fill="#27ae60">0: パスワードのみ</text>
+      
+      <rect x="120" y="10" width="110" height="30" rx="5" fill="#fff3cd" stroke="#f39c12"/>
+      <text x="175" y="28" text-anchor="middle" font-size="10" fill="#f39c12">1: 2要素認証</text>
+      
+      <rect x="240" y="10" width="110" height="30" rx="5" fill="#fee" stroke="#e74c3c"/>
+      <text x="295" y="28" text-anchor="middle" font-size="10" fill="#e74c3c">2: 強力なMFA</text>
+    </g>
+  </g>
+  
+  <!-- Validation Matrix -->
+  <g transform="translate(50, 410)">
+    <rect width="800" height="250" rx="10" fill="#fff" stroke="#16a085" stroke-width="2"/>
+    <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#16a085">MFA検証マトリクス</text>
+    
+    <!-- Matrix Table -->
+    <g transform="translate(50, 50)">
+      <!-- Headers -->
+      <rect width="150" height="30" fill="#16a085"/>
+      <text x="75" y="20" text-anchor="middle" font-size="11" fill="white" font-weight="bold">リソース</text>
+      
+      <rect x="150" width="150" height="30" fill="#16a085"/>
+      <text x="225" y="20" text-anchor="middle" font-size="11" fill="white" font-weight="bold">要求ACR</text>
+      
+      <rect x="300" width="150" height="30" fill="#16a085"/>
+      <text x="375" y="20" text-anchor="middle" font-size="11" fill="white" font-weight="bold">ユーザーACR</text>
+      
+      <rect x="450" width="150" height="30" fill="#16a085"/>
+      <text x="525" y="20" text-anchor="middle" font-size="11" fill="white" font-weight="bold">結果</text>
+      
+      <rect x="600" width="100" height="30" fill="#16a085"/>
+      <text x="650" y="20" text-anchor="middle" font-size="11" fill="white" font-weight="bold">アクション</text>
+      
+      <!-- Row 1 -->
+      <rect y="30" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="75" y="52" text-anchor="middle" font-size="10" fill="#666">/api/profile</text>
+      
+      <rect x="150" y="30" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="225" y="52" text-anchor="middle" font-size="10" fill="#666">0 (パスワード)</text>
+      
+      <rect x="300" y="30" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="375" y="52" text-anchor="middle" font-size="10" fill="#666">1 (pwd+sms)</text>
+      
+      <rect x="450" y="30" width="150" height="35" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="525" y="52" text-anchor="middle" font-size="10" fill="#27ae60">✓ OK</text>
+      
+      <rect x="600" y="30" width="100" height="35" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="650" y="52" text-anchor="middle" font-size="10" fill="#27ae60">許可</text>
+      
+      <!-- Row 2 -->
+      <rect y="65" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="75" y="87" text-anchor="middle" font-size="10" fill="#666">/api/payment</text>
+      
+      <rect x="150" y="65" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="225" y="87" text-anchor="middle" font-size="10" fill="#666">1 (2要素)</text>
+      
+      <rect x="300" y="65" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="375" y="87" text-anchor="middle" font-size="10" fill="#666">0 (pwd)</text>
+      
+      <rect x="450" y="65" width="150" height="35" fill="#fee" stroke="#e74c3c"/>
+      <text x="525" y="87" text-anchor="middle" font-size="10" fill="#e74c3c">✗ NG</text>
+      
+      <rect x="600" y="65" width="100" height="35" fill="#fee" stroke="#e74c3c"/>
+      <text x="650" y="87" text-anchor="middle" font-size="10" fill="#e74c3c">拒否</text>
+      
+      <!-- Row 3 -->
+      <rect y="100" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="75" y="122" text-anchor="middle" font-size="10" fill="#666">/api/admin</text>
+      
+      <rect x="150" y="100" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="225" y="122" text-anchor="middle" font-size="10" fill="#666">2 (強力MFA)</text>
+      
+      <rect x="300" y="100" width="150" height="35" fill="#f8f9fa" stroke="#ddd"/>
+      <text x="375" y="122" text-anchor="middle" font-size="10" fill="#666">2 (pwd+webauthn)</text>
+      
+      <rect x="450" y="100" width="150" height="35" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="525" y="122" text-anchor="middle" font-size="10" fill="#27ae60">✓ OK</text>
+      
+      <rect x="600" y="100" width="100" height="35" fill="#e8f5e9" stroke="#27ae60"/>
+      <text x="650" y="122" text-anchor="middle" font-size="10" fill="#27ae60">許可</text>
+    </g>
+    
+    <!-- Legend -->
+    <g transform="translate(200, 200)">
+      <rect width="400" height="30" rx="15" fill="#e8f8f5" stroke="#16a085"/>
+      <text x="200" y="20" text-anchor="middle" font-size="11" fill="#16a085">
+        💡 ユーザーACR ≥ 要求ACR の場合のみアクセス許可
+      </text>
+    </g>
+  </g>
+  
+  <!-- Arrow Definitions -->
+  <defs>
+    <marker id="arrowgray" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" fill="#666">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+</svg>

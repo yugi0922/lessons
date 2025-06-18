@@ -1,0 +1,159 @@
+<svg viewBox="0 0 900 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">パスキー移行戦略ロードマップ</text>
+  
+  <!-- Timeline -->
+  <line x1="100" y1="100" x2="800" y2="100" stroke="#ddd" stroke-width="3"/>
+  
+  <!-- Phase Markers -->
+  <circle cx="100" cy="100" r="8" fill="#3498db"/>
+  <circle cx="300" cy="100" r="8" fill="#9b59b6"/>
+  <circle cx="500" cy="100" r="8" fill="#f39c12"/>
+  <circle cx="700" cy="100" r="8" fill="#e74c3c"/>
+  <circle cx="800" cy="100" r="8" fill="#27ae60"/>
+  
+  <!-- Phase Labels -->
+  <text x="100" y="85" text-anchor="middle" font-size="12" fill="#666">2024 Q1</text>
+  <text x="300" y="85" text-anchor="middle" font-size="12" fill="#666">2024 Q2</text>
+  <text x="500" y="85" text-anchor="middle" font-size="12" fill="#666">2024 Q3</text>
+  <text x="700" y="85" text-anchor="middle" font-size="12" fill="#666">2024 Q4</text>
+  <text x="800" y="85" text-anchor="middle" font-size="12" fill="#666">2025 Q1</text>
+  
+  <!-- Phase 1: Preparation -->
+  <g transform="translate(50, 130)">
+    <rect width="200" height="150" rx="10" fill="#e8f4f8" stroke="#3498db" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#3498db">Phase 1: 準備期</text>
+    
+    <text x="15" y="50" font-size="12" fill="#2c3e50">• インフラ整備</text>
+    <text x="15" y="70" font-size="12" fill="#2c3e50">• スタッフトレーニング</text>
+    <text x="15" y="90" font-size="12" fill="#2c3e50">• ドキュメント作成</text>
+    
+    <rect x="20" y="110" width="160" height="25" rx="12" fill="#3498db"/>
+    <text x="100" y="127" text-anchor="middle" font-size="11" fill="white">対象: IT部門</text>
+  </g>
+  
+  <!-- Phase 2: Early Adopters -->
+  <g transform="translate(250, 130)">
+    <rect width="200" height="150" rx="10" fill="#f3e5f5" stroke="#9b59b6" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#9b59b6">Phase 2: 早期採用</text>
+    
+    <text x="15" y="50" font-size="12" fill="#2c3e50">• 管理者向け展開</text>
+    <text x="15" y="70" font-size="12" fill="#2c3e50">• フィードバック収集</text>
+    <text x="15" y="90" font-size="12" fill="#2c3e50">• インセンティブ開始</text>
+    
+    <rect x="20" y="110" width="160" height="25" rx="12" fill="#9b59b6"/>
+    <text x="100" y="127" text-anchor="middle" font-size="11" fill="white">対象: 5%のユーザー</text>
+  </g>
+  
+  <!-- Phase 3: Gradual Rollout -->
+  <g transform="translate(450, 130)">
+    <rect width="200" height="150" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#f39c12">Phase 3: 段階展開</text>
+    
+    <text x="15" y="50" font-size="12" fill="#2c3e50">• 20% → 50% → 80%</text>
+    <text x="15" y="70" font-size="12" fill="#2c3e50">• A/Bテスト実施</text>
+    <text x="15" y="90" font-size="12" fill="#2c3e50">• サポート体制強化</text>
+    
+    <rect x="20" y="110" width="160" height="25" rx="12" fill="#f39c12"/>
+    <text x="100" y="127" text-anchor="middle" font-size="11" fill="white">対象: 一般ユーザー</text>
+  </g>
+  
+  <!-- Phase 4: Mandatory -->
+  <g transform="translate(650, 130)">
+    <rect width="200" height="150" rx="10" fill="#fee" stroke="#e74c3c" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#e74c3c">Phase 4: 必須化</text>
+    
+    <text x="15" y="50" font-size="12" fill="#2c3e50">• パスワード廃止予告</text>
+    <text x="15" y="70" font-size="12" fill="#2c3e50">• 移行期限設定</text>
+    <text x="15" y="90" font-size="12" fill="#2c3e50">• 例外処理対応</text>
+    
+    <rect x="20" y="110" width="160" height="25" rx="12" fill="#e74c3c"/>
+    <text x="100" y="127" text-anchor="middle" font-size="11" fill="white">対象: 全ユーザー</text>
+  </g>
+  
+  <!-- Migration Incentives -->
+  <g transform="translate(50, 300)">
+    <rect width="800" height="200" rx="10" fill="#fff" stroke="#16a085" stroke-width="2"/>
+    <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#16a085">移行促進インセンティブ</text>
+    
+    <!-- Early Adopter Benefits -->
+    <g transform="translate(30, 50)">
+      <rect width="230" height="120" rx="10" fill="#e8f8f5" stroke="#16a085"/>
+      <text x="115" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#16a085">早期採用特典</text>
+      <text x="20" y="50" font-size="20">🎁</text>
+      <text x="50" y="50" font-size="11" fill="#2c3e50">500ポイントプレゼント</text>
+      <text x="20" y="75" font-size="20">🏆</text>
+      <text x="50" y="75" font-size="11" fill="#2c3e50">限定バッジ付与</text>
+      <text x="20" y="100" font-size="20">⚡</text>
+      <text x="50" y="100" font-size="11" fill="#2c3e50">優先サポート</text>
+    </g>
+    
+    <!-- User Education -->
+    <g transform="translate(290, 50)">
+      <rect width="230" height="120" rx="10" fill="#f3e5f5" stroke="#9b59b6"/>
+      <text x="115" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#9b59b6">ユーザー教育</text>
+      <text x="20" y="50" font-size="20">📚</text>
+      <text x="50" y="50" font-size="11" fill="#2c3e50">動画チュートリアル</text>
+      <text x="20" y="75" font-size="20">💬</text>
+      <text x="50" y="75" font-size="11" fill="#2c3e50">チャットサポート</text>
+      <text x="20" y="100" font-size="20">📧</text>
+      <text x="50" y="100" font-size="11" fill="#2c3e50">段階的メール案内</text>
+    </g>
+    
+    <!-- Progress Tracking -->
+    <g transform="translate(540, 50)">
+      <rect width="230" height="120" rx="10" fill="#fff3cd" stroke="#f39c12"/>
+      <text x="115" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#f39c12">進捗管理</text>
+      <text x="20" y="50" font-size="20">📊</text>
+      <text x="50" y="50" font-size="11" fill="#2c3e50">リアルタイム採用率</text>
+      <text x="20" y="75" font-size="20">🎯</text>
+      <text x="50" y="75" font-size="11" fill="#2c3e50">部門別目標設定</text>
+      <text x="20" y="100" font-size="20">📈</text>
+      <text x="50" y="100" font-size="11" fill="#2c3e50">週次レポート</text>
+    </g>
+  </g>
+  
+  <!-- Adoption Curve -->
+  <g transform="translate(50, 530)">
+    <rect width="800" height="200" rx="10" fill="#fff" stroke="#3498db" stroke-width="2"/>
+    <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#3498db">採用率予測カーブ</text>
+    
+    <!-- Graph -->
+    <line x1="80" y1="180" x2="80" y2="60" stroke="#666" stroke-width="2"/>
+    <line x1="80" y1="180" x2="750" y2="180" stroke="#666" stroke-width="2"/>
+    
+    <!-- Y-axis labels -->
+    <text x="60" y="65" text-anchor="end" font-size="10" fill="#666">100%</text>
+    <text x="60" y="120" text-anchor="end" font-size="10" fill="#666">50%</text>
+    <text x="60" y="185" text-anchor="end" font-size="10" fill="#666">0%</text>
+    
+    <!-- Adoption curve -->
+    <path d="M 80 175 Q 200 170, 300 150 T 500 100 Q 600 75, 750 65" 
+          fill="none" stroke="#3498db" stroke-width="3"/>
+    
+    <!-- Target line -->
+    <line x1="80" y1="75" x2="750" y2="75" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="760" y="78" font-size="10" fill="#e74c3c">目標</text>
+    
+    <!-- Milestones -->
+    <circle cx="300" cy="150" r="5" fill="#9b59b6"/>
+    <text x="300" y="140" text-anchor="middle" font-size="10" fill="#9b59b6">20%</text>
+    
+    <circle cx="500" cy="100" r="5" fill="#f39c12"/>
+    <text x="500" y="90" text-anchor="middle" font-size="10" fill="#f39c12">60%</text>
+    
+    <circle cx="700" cy="70" r="5" fill="#27ae60"/>
+    <text x="700" y="60" text-anchor="middle" font-size="10" fill="#27ae60">90%</text>
+  </g>
+  
+  <!-- Success Metrics -->
+  <g transform="translate(100, 750)">
+    <rect width="700" height="30" rx="15" fill="#2ecc71"/>
+    <text x="350" y="20" text-anchor="middle" font-size="14" fill="white" font-weight="bold">
+      成功指標: 採用率90%以上 | サポート問い合わせ減少50% | ログイン時間短縮70%
+    </text>
+  </g>
+</svg>
