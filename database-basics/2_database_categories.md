@@ -13,21 +13,19 @@
 # 2.1. リレーショナルデータベース（RDB）の概要
 
 ## 2.1.1 RDBとは？
+<img width="824" height="580" alt="スクリーンショット 2025-07-16 2 09 03" src="https://github.com/user-attachments/assets/51117671-d30c-4ff6-8f85-7e23c27f21c6" />
 - 行と列からなる表形式でデータを管理するデータベース
 - Excelの表をイメージすると分かりやすいです
 - SQL（Structured Query Language）という言語でデータを操作します
 
-<img width="824" height="580" alt="スクリーンショット 2025-07-16 2 09 03" src="https://github.com/user-attachments/assets/51117671-d30c-4ff6-8f85-7e23c27f21c6" />
-
 ## 2.1.2 特徴
+<img width="828" height="552" alt="スクリーンショット 2025-07-16 2 09 39" src="https://github.com/user-attachments/assets/1f0a0af7-eb54-4050-ae55-cc6c30915af1" />
 - データの整合性を保証 (ACID特性)
   - Atomicity (原子性): トランザクションは全て成功 or 全て失敗
   - Consistency (一貫性): データは常に正しい状態を保つ
   - Isolation (独立性): 複数の処理が互いに影響しない
   - Durability (永続性): 一度完了した処理は失われない
 - 事前に厳密なスキーマ（データの構造）を定義する必要がある
-
-<img width="828" height="552" alt="スクリーンショット 2025-07-16 2 09 39" src="https://github.com/user-attachments/assets/1f0a0af7-eb54-4050-ae55-cc6c30915af1" />
 
 
 # 2.2. NoSQLデータベースの紹介
