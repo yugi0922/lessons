@@ -1,0 +1,158 @@
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 定義 -->
+  <defs>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tsGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tsGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tsGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="fileGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#a8edea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed6e3;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="900" height="600" fill="#f8f9fa"/>
+  
+  <!-- タイトル -->
+  <text x="450" y="40" text-anchor="middle" fill="#2c3e50" font-size="26" font-weight="bold">
+    テーブルスペースとデータファイルの関係
+  </text>
+  
+  <!-- データベース全体 -->
+  <g transform="translate(50, 80)">
+    <rect width="800" height="480" fill="url(#dbGrad)" rx="20" filter="url(#shadow)" opacity="0.3"/>
+    <text x="400" y="30" text-anchor="middle" fill="#2c3e50" font-size="20" font-weight="bold">
+      データベースインスタンス
+    </text>
+  </g>
+  
+  <!-- システムテーブルスペース -->
+  <g transform="translate(100, 140)">
+    <rect width="220" height="180" fill="url(#tsGrad1)" rx="15" filter="url(#shadow)"/>
+    <text x="110" y="25" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+      システムテーブルスペース
+    </text>
+    <text x="110" y="45" text-anchor="middle" fill="white" font-size="12">
+      （メタデータ・管理情報）
+    </text>
+    
+    <!-- データファイル -->
+    <g transform="translate(20, 70)">
+      <rect width="180" height="40" fill="url(#fileGrad)" rx="8"/>
+      <path d="M 20 10 L 20 30 L 160 30 L 160 15 L 145 10 Z" fill="#fff" opacity="0.9"/>
+      <path d="M 145 10 L 145 15 L 160 15" fill="#e0e0e0"/>
+      <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">system01.dbf (1GB)</text>
+    </g>
+    
+    <g transform="translate(20, 120)">
+      <rect width="180" height="40" fill="url(#fileGrad)" rx="8"/>
+      <path d="M 20 10 L 20 30 L 160 30 L 160 15 L 145 10 Z" fill="#fff" opacity="0.9"/>
+      <path d="M 145 10 L 145 15 L 160 15" fill="#e0e0e0"/>
+      <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">system02.dbf (500MB)</text>
+    </g>
+  </g>
+  
+  <!-- ユーザーテーブルスペース -->
+  <g transform="translate(340, 140)">
+    <rect width="220" height="250" fill="url(#tsGrad2)" rx="15" filter="url(#shadow)"/>
+    <text x="110" y="25" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+      ユーザーテーブルスペース
+    </text>
+    <text x="110" y="45" text-anchor="middle" fill="white" font-size="12">
+      （アプリケーションデータ）
+    </text>
+    
+    <!-- データファイル -->
+    <g transform="translate(20, 70)">
+      <rect width="180" height="40" fill="url(#fileGrad)" rx="8"/>
+      <path d="M 20 10 L 20 30 L 160 30 L 160 15 L 145 10 Z" fill="#fff" opacity="0.9"/>
+      <path d="M 145 10 L 145 15 L 160 15" fill="#e0e0e0"/>
+      <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">users01.dbf (5GB)</text>
+    </g>
+    
+    <g transform="translate(20, 120)">
+      <rect width="180" height="40" fill="url(#fileGrad)" rx="8"/>
+      <path d="M 20 10 L 20 30 L 160 30 L 160 15 L 145 10 Z" fill="#fff" opacity="0.9"/>
+      <path d="M 145 10 L 145 15 L 160 15" fill="#e0e0e0"/>
+      <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">users02.dbf (5GB)</text>
+    </g>
+    
+    <g transform="translate(20, 170)">
+      <rect width="180" height="40" fill="url(#fileGrad)" rx="8"/>
+      <path d="M 20 10 L 20 30 L 160 30 L 160 15 L 145 10 Z" fill="#fff" opacity="0.9"/>
+      <path d="M 145 10 L 145 15 L 160 15" fill="#e0e0e0"/>
+      <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">users03.dbf (3GB)</text>
+      <text x="90" y="38" text-anchor="middle" font-size="10" fill="#e74c3c">（自動拡張可）</text>
+    </g>
+  </g>
+  
+  <!-- 一時テーブルスペース -->
+  <g transform="translate(580, 140)">
+    <rect width="220" height="180" fill="url(#tsGrad3)" rx="15" filter="url(#shadow)"/>
+    <text x="110" y="25" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+      一時テーブルスペース
+    </text>
+    <text x="110" y="45" text-anchor="middle" fill="white" font-size="12">
+      （ソート・一時作業）
+    </text>
+    
+    <!-- データファイル -->
+    <g transform="translate(20, 70)">
+      <rect width="180" height="40" fill="url(#fileGrad)" rx="8"/>
+      <path d="M 20 10 L 20 30 L 160 30 L 160 15 L 145 10 Z" fill="#fff" opacity="0.9"/>
+      <path d="M 145 10 L 145 15 L 160 15" fill="#e0e0e0"/>
+      <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">temp01.dbf (2GB)</text>
+    </g>
+    
+    <g transform="translate(20, 120)">
+      <rect width="180" height="40" fill="url(#fileGrad)" rx="8"/>
+      <path d="M 20 10 L 20 30 L 160 30 L 160 15 L 145 10 Z" fill="#fff" opacity="0.9"/>
+      <path d="M 145 10 L 145 15 L 160 15" fill="#e0e0e0"/>
+      <text x="90" y="25" text-anchor="middle" font-size="12" fill="#2c3e50">temp02.dbf (2GB)</text>
+    </g>
+  </g>
+  
+  <!-- オブジェクト配置の例 -->
+  <g transform="translate(340, 430)">
+    <rect width="220" height="100" fill="#ecf0f1" rx="10" filter="url(#shadow)"/>
+    <text x="110" y="20" text-anchor="middle" font-size="14" fill="#2c3e50" font-weight="bold">
+      オブジェクトの配置例
+    </text>
+    <text x="110" y="40" text-anchor="middle" font-size="12" fill="#7f8c8d">
+      テーブル: CUSTOMERS → users01.dbf
+    </text>
+    <text x="110" y="60" text-anchor="middle" font-size="12" fill="#7f8c8d">
+      インデックス: IDX_CUST → users02.dbf
+    </text>
+    <text x="110" y="80" text-anchor="middle" font-size="12" fill="#7f8c8d">
+      大量ソート処理 → temp01.dbf
+    </text>
+  </g>
+  
+  <!-- ディスク配置の推奨 -->
+  <g transform="translate(100, 430)">
+    <rect width="220" height="100" fill="#e8f8f5" rx="10" filter="url(#shadow)"/>
+    <text x="110" y="20" text-anchor="middle" font-size="14" fill="#27ae60" font-weight="bold">
+      ディスク配置の推奨
+    </text>
+    <text x="15" y="40" font-size="12" fill="#2c3e50">💾 Disk1: システムファイル</text>
+    <text x="15" y="60" font-size="12" fill="#2c3e50">💾 Disk2: ユーザーデータ</text>
+    <text x="15" y="80" font-size="12" fill="#2c3e50">💾 Disk3: 一時ファイル</text>
+  </g>
+</svg>
