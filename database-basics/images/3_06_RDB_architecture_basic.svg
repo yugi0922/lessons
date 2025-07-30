@@ -1,0 +1,452 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="600" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    リレーショナルデータベース（RDB）の全体構造
+  </text>
+  
+  <!-- Client Side -->
+  <rect x="50" y="50" width="200" height="300" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="150" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">
+    クライアント側
+  </text>
+  
+  <!-- Client Applications -->
+  <rect x="70" y="90" width="70" height="40" rx="5" fill="#3498db" stroke="#2980b9"/>
+  <text x="105" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white">
+    Webアプリ
+  </text>
+  <text x="105" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+    接続1
+  </text>
+  
+  <rect x="150" y="90" width="70" height="40" rx="5" fill="#e74c3c" stroke="#c0392b"/>
+  <text x="185" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white">
+    BIツール
+  </text>
+  <text x="185" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+    接続2
+  </text>
+  
+  <rect x="70" y="140" width="70" height="40" rx="5" fill="#f39c12" stroke="#e67e22"/>
+  <text x="105" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white">
+    バッチ
+  </text>
+  <text x="105" y="168" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+    接続3
+  </text>
+  
+  <rect x="150" y="140" width="70" height="40" rx="5" fill="#9b59b6" stroke="#8e44ad"/>
+  <text x="185" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white">
+    管理ツール
+  </text>
+  <text x="185" y="168" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+    接続4
+  </text>
+  
+  <!-- SQL Interface -->
+  <rect x="70" y="200" width="150" height="30" rx="5" fill="#34495e" stroke="#2c3e50"/>
+  <text x="145" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    SQL文（インターフェース）
+  </text>
+  
+  <text x="70" y="250" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">
+    SELECT * FROM users
+  </text>
+  <text x="70" y="265" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">
+    WHERE id = 100;
+  </text>
+  
+  <text x="70" y="285" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">
+    INSERT INTO orders
+  </text>
+  <text x="70" y="300" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">
+    VALUES (501, 100, ...);
+  </text>
+  
+  <text x="70" y="320" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">
+    UPDATE products SET
+  </text>
+  <text x="70" y="335" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">
+    price = 1500 WHERE...
+  </text>
+  
+  <!-- Connection arrows to server -->
+  <path d="M 250 110 Q 280 110 310 110" stroke="#3498db" stroke-width="2" fill="none" marker-end="url(#arrowhead-blue)"/>
+  <path d="M 250 110 Q 280 130 310 150" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrowhead-red)"/>
+  <path d="M 250 160 Q 280 160 310 180" stroke="#f39c12" stroke-width="2" fill="none" marker-end="url(#arrowhead-orange)"/>
+  <path d="M 250 160 Q 280 180 310 210" stroke="#9b59b6" stroke-width="2" fill="none" marker-end="url(#arrowhead-purple)"/>
+  
+  <!-- Database Server Main Container -->
+  <rect x="300" y="50" width="850" height="650" rx="15" fill="#2c3e50" stroke="#34495e" stroke-width="3"/>
+  <text x="725" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    データベースサーバー
+  </text>
+  
+  <!-- Process Structure Layer -->
+  <rect x="320" y="90" width="810" height="120" rx="8" fill="#34495e" stroke="#7f8c8d" stroke-width="2"/>
+  <text x="725" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+    プロセス構造（接続管理）
+  </text>
+  
+  <!-- Client Connection Processes -->
+  <rect x="340" y="120" width="180" height="70" rx="5" fill="#3498db" stroke="#2980b9"/>
+  <text x="430" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    接続プロセス
+  </text>
+  
+  <circle cx="360" cy="155" r="12" fill="white"/>
+  <text x="360" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#3498db">
+    P1
+  </text>
+  
+  <circle cx="390" cy="155" r="12" fill="white"/>
+  <text x="390" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#3498db">
+    P2
+  </text>
+  
+  <circle cx="420" cy="155" r="12" fill="white"/>
+  <text x="420" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#3498db">
+    P3
+  </text>
+  
+  <circle cx="450" cy="155" r="12" fill="white"/>
+  <text x="450" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#3498db">
+    P4
+  </text>
+  
+  <text x="480" y="160" font-family="Arial, sans-serif" font-size="12" fill="white">
+    ...
+  </text>
+  
+  <text x="345" y="185" font-family="Arial, sans-serif" font-size="8" fill="white">
+    1接続=1プロセス
+  </text>
+  
+  <!-- Background Processes -->
+  <rect x="540" y="120" width="180" height="70" rx="5" fill="#e74c3c" stroke="#c0392b"/>
+  <text x="630" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    バックグラウンドプロセス
+  </text>
+  
+  <rect x="550" y="145" width="40" height="20" rx="3" fill="white"/>
+  <text x="570" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#e74c3c">
+    Checkpoint
+  </text>
+  
+  <rect x="595" y="145" width="40" height="20" rx="3" fill="white"/>
+  <text x="615" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#e74c3c">
+    Log Writer
+  </text>
+  
+  <rect x="640" y="145" width="40" height="20" rx="3" fill="white"/>
+  <text x="660" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#e74c3c">
+    Vacuum
+  </text>
+  
+  <text x="545" y="185" font-family="Arial, sans-serif" font-size="8" fill="white">
+    自動最適化・安定化
+  </text>
+  
+  <!-- Memory/I/O Management -->
+  <rect x="740" y="120" width="180" height="70" rx="5" fill="#9b59b6" stroke="#8e44ad"/>
+  <text x="830" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    メモリ/I/O管理
+  </text>
+  
+  <rect x="750" y="145" width="50" height="20" rx="3" fill="white"/>
+  <text x="775" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#9b59b6">
+    Buffer Mgr
+  </text>
+  
+  <rect x="805" y="145" width="50" height="20" rx="3" fill="white"/>
+  <text x="830" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#9b59b6">
+    I/O Mgr
+  </text>
+  
+  <rect x="860" y="145" width="50" height="20" rx="3" fill="white"/>
+  <text x="885" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#9b59b6">
+    Lock Mgr
+  </text>
+  
+  <text x="745" y="185" font-family="Arial, sans-serif" font-size="8" fill="white">
+    効率的データアクセス
+  </text>
+  
+  <!-- Memory Structure Layer -->
+  <rect x="320" y="230" width="810" height="100" rx="8" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="725" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+    メモリ構造
+  </text>
+  
+  <!-- Buffer Pool -->
+  <rect x="340" y="260" width="150" height="50" rx="5" fill="white" stroke="#e67e22"/>
+  <text x="415" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#f39c12">
+    バッファプール
+  </text>
+  <text x="415" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    データページキャッシュ
+  </text>
+  <text x="415" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    LRU管理
+  </text>
+  
+  <!-- Log Buffer -->
+  <rect x="510" y="260" width="120" height="50" rx="5" fill="white" stroke="#e67e22"/>
+  <text x="570" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#f39c12">
+    ログバッファ
+  </text>
+  <text x="570" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    WAL一時保持
+  </text>
+  <text x="570" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    トランザクション管理
+  </text>
+  
+  <!-- Sort Area -->
+  <rect x="650" y="260" width="120" height="50" rx="5" fill="white" stroke="#e67e22"/>
+  <text x="710" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#f39c12">
+    ソート領域
+  </text>
+  <text x="710" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    ORDER BY処理
+  </text>
+  <text x="710" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    一時作業領域
+  </text>
+  
+  <!-- Shared Resources -->
+  <rect x="790" y="260" width="120" height="50" rx="5" fill="white" stroke="#e67e22"/>
+  <text x="850" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#f39c12">
+    共有リソース
+  </text>
+  <text x="850" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    ロックテーブル
+  </text>
+  <text x="850" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#f39c12">
+    統計情報・カタログ
+  </text>
+  
+  <!-- Storage Engine Layer -->
+  <rect x="320" y="350" width="810" height="120" rx="8" fill="#1abc9c" stroke="#16a085" stroke-width="2"/>
+  <text x="725" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+    ストレージエンジン
+  </text>
+  
+  <!-- Physical Structure Management -->
+  <rect x="340" y="380" width="120" height="70" rx="5" fill="white" stroke="#16a085"/>
+  <text x="400" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1abc9c">
+    物理構造管理
+  </text>
+  <text x="400" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    B+ツリー・ヒープ
+  </text>
+  <text x="400" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    ページ管理
+  </text>
+  <text x="400" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    インデックス構造
+  </text>
+  
+  <!-- Transaction Processing -->
+  <rect x="480" y="380" width="120" height="70" rx="5" fill="white" stroke="#16a085"/>
+  <text x="540" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1abc9c">
+    トランザクション処理
+  </text>
+  <text x="540" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    ACID特性保証
+  </text>
+  <text x="540" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    ロック・コミット
+  </text>
+  <text x="540" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    ロールバック
+  </text>
+  
+  <!-- Data Persistence -->
+  <rect x="620" y="380" width="120" height="70" rx="5" fill="white" stroke="#16a085"/>
+  <text x="680" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1abc9c">
+    データ永続化
+  </text>
+  <text x="680" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    ディスク書き込み
+  </text>
+  <text x="680" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    同期/非同期I/O
+  </text>
+  <text x="680" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    データ損失防止
+  </text>
+  
+  <!-- Crash Recovery -->
+  <rect x="760" y="380" width="120" height="70" rx="5" fill="white" stroke="#16a085"/>
+  <text x="820" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1abc9c">
+    クラッシュリカバリ
+  </text>
+  <text x="820" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    WAL機能
+  </text>
+  <text x="820" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    Redo/Undo
+  </text>
+  <text x="820" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#1abc9c">
+    自動復旧
+  </text>
+  
+  <!-- Physical Storage Layer -->
+  <rect x="320" y="490" width="810" height="120" rx="8" fill="#34495e" stroke="#2c3e50" stroke-width="2"/>
+  <text x="725" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+    ファイルシステム（物理ストレージ）
+  </text>
+  
+  <!-- Data Files -->
+  <rect x="340" y="525" width="120" height="60" rx="5" fill="white" stroke="#2c3e50"/>
+  <text x="400" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#34495e">
+    データファイル
+  </text>
+  <text x="400" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    テーブル行データ
+  </text>
+  <text x="400" y="562" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    ページ単位（8KB）
+  </text>
+  <text x="400" y="572" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    Bツリー構造
+  </text>
+  
+  <!-- Log Files -->
+  <rect x="480" y="525" width="120" height="60" rx="5" fill="white" stroke="#2c3e50"/>
+  <text x="540" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#34495e">
+    ログファイル
+  </text>
+  <text x="540" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    更新履歴記録
+  </text>
+  <text x="540" y="562" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    クラッシュ復旧用
+  </text>
+  <text x="540" y="572" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    WAL実装
+  </text>
+  
+  <!-- Index Files -->
+  <rect x="620" y="525" width="120" height="60" rx="5" fill="white" stroke="#2c3e50"/>
+  <text x="680" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#34495e">
+    インデックスファイル
+  </text>
+  <text x="680" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    検索高速化
+  </text>
+  <text x="680" y="562" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    B+ツリー・ハッシュ
+  </text>
+  <text x="680" y="572" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    WHERE句最適化
+  </text>
+  
+  <!-- Configuration & Temp Files -->
+  <rect x="760" y="525" width="120" height="60" rx="5" fill="white" stroke="#2c3e50"/>
+  <text x="820" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#34495e">
+    設定・一時ファイル
+  </text>
+  <text x="820" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    DB設定情報
+  </text>
+  <text x="820" y="562" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    ソート用一時領域
+  </text>
+  <text x="820" y="572" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#34495e">
+    スワップファイル
+  </text>
+  
+  <!-- Vertical Data Flow Arrows -->
+  <g id="vertical-flow">
+    <!-- Process to Memory -->
+    <path d="M 430 190 L 430 230" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 630 190 L 630 230" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 830 190 L 830 230" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    
+    <!-- Memory to Storage Engine -->
+    <path d="M 415 330 L 415 350" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 570 330 L 570 350" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 710 330 L 710 350" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 850 330 L 850 350" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    
+    <!-- Storage Engine to Files -->
+    <path d="M 400 450 L 400 490" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 540 450 L 540 490" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 680 450 L 680 490" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+    <path d="M 820 450 L 820 490" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrowhead-gray)"/>
+  </g>
+  
+  <!-- Key Information Box -->
+  <rect x="50" y="630" width="1100" height="120" rx="10" fill="#2c3e50" stroke="#34495e" stroke-width="2"/>
+  <text x="600" y="655" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    RDBの統合アーキテクチャ - 重要なポイント
+  </text>
+  
+  <g id="architecture-points">
+    <text x="70" y="680" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#3498db">
+      1. クライアント・サーバーモデル：
+    </text>
+    <text x="270" y="680" font-family="Arial, sans-serif" font-size="10" fill="white">
+      複数クライアントが同時にサーバーに接続し、SQL文でデータを操作
+    </text>
+    
+    <text x="70" y="700" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e74c3c">
+      2. プロセス構造：
+    </text>
+    <text x="170" y="700" font-family="Arial, sans-serif" font-size="10" fill="white">
+      接続管理・バックグラウンド処理・I/O管理が協調して動作
+    </text>
+    
+    <text x="70" y="720" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#f39c12">
+      3. メモリ構造：
+    </text>
+    <text x="170" y="720" font-family="Arial, sans-serif" font-size="10" fill="white">
+      バッファプール・ログバッファ・ソート領域でI/O効率化
+    </text>
+    
+    <text x="600" y="680" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1abc9c">
+      4. ストレージエンジン：
+    </text>
+    <text x="750" y="680" font-family="Arial, sans-serif" font-size="10" fill="white">
+      データの物理管理・トランザクション・永続化・復旧を担当
+    </text>
+    
+    <text x="600" y="700" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#34495e">
+      5. ファイルシステム：
+    </text>
+    <text x="730" y="700" font-family="Arial, sans-serif" font-size="10" fill="white">
+      データ・ログ・インデックスファイルが物理ストレージに配置
+    </text>
+    
+    <text x="600" y="720" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#95a5a6">
+      6. 統合動作：
+    </text>
+    <text x="700" y="720" font-family="Arial, sans-serif" font-size="10" fill="white">
+      各層が連携してACID特性を保証し、高性能なデータ処理を実現
+    </text>
+  </g>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowhead-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3498db"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e74c3c"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f39c12"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9b59b6"/>
+    </marker>
+    <marker id="arrowhead-gray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#95a5a6"/>
+    </marker>
+  </defs>
+</svg>
