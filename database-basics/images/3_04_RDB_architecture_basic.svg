@@ -1,0 +1,256 @@
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50">
+    データベースのプロセス構造
+  </text>
+  
+  <!-- Database Server Container -->
+  <rect x="50" y="60" width="800" height="450" rx="15" fill="#2c3e50" stroke="#34495e" stroke-width="3"/>
+  <text x="450" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    データベースサーバー
+  </text>
+  
+  <!-- 1. Client Connection Processes -->
+  <g id="connection-processes">
+    <rect x="80" y="110" width="240" height="160" rx="10" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <text x="200" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      クライアント接続プロセス
+    </text>
+    <text x="200" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      1接続 = 1プロセス
+    </text>
+    
+    <!-- Process icons -->
+    <circle cx="120" cy="180" r="20" fill="white" stroke="#2980b9" stroke-width="2"/>
+    <text x="120" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">
+      P1
+    </text>
+    <text x="120" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">
+      接続1
+    </text>
+    
+    <circle cx="170" cy="180" r="20" fill="white" stroke="#2980b9" stroke-width="2"/>
+    <text x="170" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">
+      P2
+    </text>
+    <text x="170" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">
+      接続2
+    </text>
+    
+    <circle cx="220" cy="180" r="20" fill="white" stroke="#2980b9" stroke-width="2"/>
+    <text x="220" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">
+      P3
+    </text>
+    <text x="220" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">
+      接続3
+    </text>
+    
+    <circle cx="270" cy="180" r="20" fill="white" stroke="#2980b9" stroke-width="2"/>
+    <text x="270" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">
+      P4
+    </text>
+    <text x="270" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">
+      接続4
+    </text>
+    
+    <!-- Dotted line for more processes -->
+    <text x="300" y="185" font-family="Arial, sans-serif" font-size="16" fill="white">
+      ...
+    </text>
+    
+    <!-- Functions -->
+    <text x="90" y="235" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • SQLクエリの解析・実行
+    </text>
+    <text x="90" y="250" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • クライアントとの通信
+    </text>
+  </g>
+  
+  <!-- 2. Background Processes -->
+  <g id="background-processes">
+    <rect x="350" y="110" width="240" height="160" rx="10" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <text x="470" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      バックグラウンドプロセス
+    </text>
+    <text x="470" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      非同期で安定運用
+    </text>
+    
+    <!-- Background process icons -->
+    <rect x="370" y="170" width="60" height="35" rx="5" fill="white" stroke="#c0392b"/>
+    <text x="400" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">
+      Checkpoint
+    </text>
+    <text x="400" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#e74c3c">
+      定期書き込み
+    </text>
+    
+    <rect x="440" y="170" width="60" height="35" rx="5" fill="white" stroke="#c0392b"/>
+    <text x="470" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">
+      Log Writer
+    </text>
+    <text x="470" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#e74c3c">
+      ログ書き込み
+    </text>
+    
+    <rect x="510" y="170" width="60" height="35" rx="5" fill="white" stroke="#c0392b"/>
+    <text x="540" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">
+      Vacuum
+    </text>
+    <text x="540" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#e74c3c">
+      データ最適化
+    </text>
+    
+    <!-- Functions -->
+    <text x="360" y="225" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • データベースの安定性維持
+    </text>
+    <text x="360" y="240" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • 性能最適化を自動実行
+    </text>
+    <text x="360" y="255" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • クライアント処理と独立
+    </text>
+  </g>
+  
+  <!-- 3. Memory/I/O Processes -->
+  <g id="memory-io-processes">
+    <rect x="620" y="110" width="200" height="160" rx="10" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+    <text x="720" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      メモリ/I/O管理
+    </text>
+    <text x="720" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      効率的なデータアクセス
+    </text>
+    
+    <!-- Memory/I/O process icons -->
+    <rect x="640" y="170" width="70" height="30" rx="5" fill="white" stroke="#8e44ad"/>
+    <text x="675" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#9b59b6">
+      Buffer Manager
+    </text>
+    <text x="675" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      キャッシュ管理
+    </text>
+    
+    <rect x="720" y="170" width="70" height="30" rx="5" fill="white" stroke="#8e44ad"/>
+    <text x="755" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#9b59b6">
+      I/O Manager
+    </text>
+    <text x="755" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      ディスクアクセス
+    </text>
+    
+    <rect x="680" y="210" width="70" height="30" rx="5" fill="white" stroke="#8e44ad"/>
+    <text x="715" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#9b59b6">
+      Lock Manager
+    </text>
+    <text x="715" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      排他制御
+    </text>
+    
+    <!-- Functions -->
+    <text x="630" y="255" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • 全プロセスから共有利用
+    </text>
+  </g>
+  
+  <!-- Shared Memory Area -->
+  <rect x="80" y="300" width="740" height="80" rx="10" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="450" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    共有メモリ領域
+  </text>
+  <text x="450" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+    すべてのプロセスが共有してアクセス
+  </text>
+  
+  <!-- Shared memory components -->
+  <rect x="100" y="350" width="100" height="20" rx="3" fill="white" stroke="#e67e22"/>
+  <text x="150" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#f39c12">
+    バッファプール
+  </text>
+  
+  <rect x="220" y="350" width="100" height="20" rx="3" fill="white" stroke="#e67e22"/>
+  <text x="270" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#f39c12">
+    ログバッファ
+  </text>
+  
+  <rect x="340" y="350" width="100" height="20" rx="3" fill="white" stroke="#e67e22"/>
+  <text x="390" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#f39c12">
+    ロックテーブル
+  </text>
+  
+  <rect x="460" y="350" width="100" height="20" rx="3" fill="white" stroke="#e67e22"/>
+  <text x="510" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#f39c12">
+    統計情報
+  </text>
+  
+  <rect x="580" y="350" width="100" height="20" rx="3" fill="white" stroke="#e67e22"/>
+  <text x="630" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#f39c12">
+    カタログ情報
+  </text>
+  
+  <!-- Process interaction arrows -->
+  <g id="process-interactions">
+    <!-- Arrows from processes to shared memory -->
+    <path d="M 200 270 L 200 300" stroke="#3498db" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+    <path d="M 470 270 L 470 300" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowhead-red)"/>
+    <path d="M 720 270 L 720 300" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead-purple)"/>
+  </g>
+  
+  <!-- Key Points -->
+  <rect x="80" y="400" width="740" height="90" rx="10" fill="#34495e" stroke="#2c3e50" stroke-width="2"/>
+  <text x="450" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    重要なポイント
+  </text>
+  
+  <g id="key-points">
+    <circle cx="110" cy="445" r="8" fill="#3498db"/>
+    <text x="110" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      1
+    </text>
+    <text x="130" y="450" font-family="Arial, sans-serif" font-size="11" fill="white">
+      接続数が増える = プロセス数が増える = リソース消費増
+    </text>
+    
+    <circle cx="110" cy="465" r="8" fill="#e74c3c"/>
+    <text x="110" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      2
+    </text>
+    <text x="130" y="470" font-family="Arial, sans-serif" font-size="11" fill="white">
+      バックグラウンドプロセスは自動でDBを最適化・安定化
+    </text>
+    
+    <circle cx="490" cy="445" r="8" fill="#9b59b6"/>
+    <text x="490" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      3
+    </text>
+    <text x="510" y="450" font-family="Arial, sans-serif" font-size="11" fill="white">
+      共有メモリで効率的なデータ管理を実現
+    </text>
+    
+    <circle cx="490" cy="465" r="8" fill="#f39c12"/>
+    <text x="490" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      4
+    </text>
+    <text x="510" y="470" font-family="Arial, sans-serif" font-size="11" fill="white">
+      max_connections設定で同時接続数を制御
+    </text>
+  </g>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowhead-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3498db"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e74c3c"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9b59b6"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,378 @@
+<svg viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50">
+    データベースのメモリ構造とバッファ管理
+  </text>
+  
+  <!-- Memory Area Container -->
+  <rect x="50" y="60" width="900" height="480" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="500" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    メインメモリ（RAM）
+  </text>
+  
+  <!-- Buffer Pool Section -->
+  <g id="buffer-pool">
+    <rect x="80" y="110" width="280" height="280" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <text x="220" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      1. バッファプール（Buffer Pool）
+    </text>
+    <text x="220" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      ディスクページのキャッシュ
+    </text>
+    
+    <!-- Page cache grid -->
+    <text x="90" y="175" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      キャッシュされたページ:
+    </text>
+    
+    <!-- Cache pages -->
+    <rect x="90" y="185" width="45" height="30" rx="3" fill="white" stroke="#2980b9"/>
+    <text x="112" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      Page 1
+    </text>
+    <text x="112" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      (Hot)
+    </text>
+    
+    <rect x="145" y="185" width="45" height="30" rx="3" fill="white" stroke="#2980b9"/>
+    <text x="167" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      Page 5
+    </text>
+    <text x="167" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      (Hot)
+    </text>
+    
+    <rect x="200" y="185" width="45" height="30" rx="3" fill="white" stroke="#2980b9"/>
+    <text x="222" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      Page 12
+    </text>
+    <text x="222" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      (Warm)
+    </text>
+    
+    <rect x="255" y="185" width="45" height="30" rx="3" fill="#95a5a6" stroke="#7f8c8d"/>
+    <text x="277" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      Page 8
+    </text>
+    <text x="277" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      (Cold)
+    </text>
+    
+    <!-- Second row -->
+    <rect x="90" y="225" width="45" height="30" rx="3" fill="white" stroke="#2980b9"/>
+    <text x="112" y="238" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      Page 3
+    </text>
+    <text x="112" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      (Dirty)
+    </text>
+    
+    <rect x="145" y="225" width="45" height="30" rx="3" fill="white" stroke="#2980b9"/>
+    <text x="167" y="238" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      Page 7
+    </text>
+    <text x="167" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#3498db">
+      (Clean)
+    </text>
+    
+    <rect x="200" y="225" width="45" height="30" rx="3" fill="#95a5a6" stroke="#7f8c8d"/>
+    <text x="222" y="238" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      Page 15
+    </text>
+    <text x="222" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      (Cold)
+    </text>
+    
+    <rect x="255" y="225" width="45" height="30" rx="3" fill="#e0e0e0" stroke="#bdc3c7"/>
+    <text x="277" y="238" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#7f8c8d">
+      空き
+    </text>
+    <text x="277" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#7f8c8d">
+      スロット
+    </text>
+    
+    <!-- LRU Algorithm -->
+    <text x="90" y="280" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      LRU管理:
+    </text>
+    
+    <!-- LRU chain -->
+    <rect x="90" y="290" width="30" height="20" rx="2" fill="#ffffff40" stroke="white"/>
+    <text x="105" y="302" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      Most Recent
+    </text>
+    
+    <path d="M 125 300 L 135 300" stroke="white" stroke-width="1" marker-end="url(#arrow-white)"/>
+    
+    <rect x="140" y="290" width="30" height="20" rx="2" fill="#ffffff40" stroke="white"/>
+    <text x="155" y="302" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      ...</text>
+    
+    <path d="M 175 300 L 185 300" stroke="white" stroke-width="1" marker-end="url(#arrow-white)"/>
+    
+    <rect x="190" y="290" width="30" height="20" rx="2" fill="#ffffff40" stroke="white"/>
+    <text x="205" y="302" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      Least Recent
+    </text>
+    
+    <!-- Features -->
+    <text x="90" y="330" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • 読み取り・書き込み両方で使用
+    </text>
+    <text x="90" y="345" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • ディスクI/Oを削減
+    </text>
+    <text x="90" y="360" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • Dirtyページは遅延書き込み
+    </text>
+    <text x="90" y="375" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • ヒット率がパフォーマンスに直結
+    </text>
+  </g>
+  
+  <!-- Log Buffer Section -->
+  <g id="log-buffer">
+    <rect x="380" y="110" width="240" height="280" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <text x="500" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      2. ログバッファ（Log Buffer）
+    </text>
+    <text x="500" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      ログファイル書き込み前の一時保持
+    </text>
+    
+    <!-- Log buffer entries -->
+    <text x="390" y="175" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      バッファ内のログエントリ:
+    </text>
+    
+    <rect x="390" y="185" width="220" height="20" rx="3" fill="white" stroke="#c0392b"/>
+    <text x="395" y="198" font-family="Arial, sans-serif" font-size="8" fill="#e74c3c">
+      TX001: BEGIN TRANSACTION
+    </text>
+    
+    <rect x="390" y="210" width="220" height="20" rx="3" fill="white" stroke="#c0392b"/>
+    <text x="395" y="223" font-family="Arial, sans-serif" font-size="8" fill="#e74c3c">
+      TX001: UPDATE users SET name='田中' WHERE id=100
+    </text>
+    
+    <rect x="390" y="235" width="220" height="20" rx="3" fill="white" stroke="#c0392b"/>
+    <text x="395" y="248" font-family="Arial, sans-serif" font-size="8" fill="#e74c3c">
+      TX002: INSERT INTO orders VALUES(501, 100, ...)
+    </text>
+    
+    <rect x="390" y="260" width="220" height="20" rx="3" fill="#ffebee" stroke="#c0392b"/>
+    <text x="395" y="273" font-family="Arial, sans-serif" font-size="8" fill="#e74c3c">
+      TX001: COMMIT (準備中)
+    </text>
+    
+    <!-- Flush process -->
+    <text x="390" y="300" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      フラッシュタイミング:
+    </text>
+    
+    <circle cx="400" cy="315" r="6" fill="white"/>
+    <text x="400" y="319" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#e74c3c">
+      1
+    </text>
+    <text x="415" y="319" font-family="Arial, sans-serif" font-size="8" fill="white">
+      COMMIT時
+    </text>
+    
+    <circle cx="400" cy="330" r="6" fill="white"/>
+    <text x="400" y="334" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#e74c3c">
+      2
+    </text>
+    <text x="415" y="334" font-family="Arial, sans-serif" font-size="8" fill="white">
+      バッファ満杯時
+    </text>
+    
+    <circle cx="400" cy="345" r="6" fill="white"/>
+    <text x="400" y="349" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#e74c3c">
+      3
+    </text>
+    <text x="415" y="349" font-family="Arial, sans-serif" font-size="8" fill="white">
+      定期的なタイマー
+    </text>
+    
+    <text x="390" y="370" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • WALの一部として機能
+    </text>
+    <text x="390" y="385" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • トランザクション整合性維持
+    </text>
+  </g>
+  
+  <!-- Sort/Temp Work Area Section -->
+  <g id="sort-area">
+    <rect x="640" y="110" width="280" height="280" rx="8" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+    <text x="780" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      3. ソート領域 / 一時作業領域
+    </text>
+    <text x="780" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      ORDER BY、GROUP BY等で使用
+    </text>
+    
+    <!-- Sort operation example -->
+    <text x="650" y="175" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      ORDER BY の処理例:
+    </text>
+    
+    <!-- Input data -->
+    <rect x="650" y="185" width="80" height="60" rx="3" fill="white" stroke="#8e44ad"/>
+    <text x="690" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#9b59b6">
+      入力データ
+    </text>
+    <text x="655" y="215" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      id: 105, 23, 87
+    </text>
+    <text x="655" y="225" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      name: 鈴木, 田中, 佐藤
+    </text>
+    <text x="655" y="235" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      age: 25, 30, 28
+    </text>
+    
+    <!-- Arrow -->
+    <path d="M 735 215 L 755 215 L 750 210 M 755 215 L 750 220" stroke="white" stroke-width="2" fill="none"/>
+    <text x="745" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      ソート
+    </text>
+    
+    <!-- Sorted data -->
+    <rect x="760" y="185" width="80" height="60" rx="3" fill="white" stroke="#8e44ad"/>
+    <text x="800" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#9b59b6">
+      ソート済み
+    </text>
+    <text x="765" y="215" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      id: 23, 87, 105
+    </text>
+    <text x="765" y="225" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      name: 田中, 佐藤, 鈴木
+    </text>
+    <text x="765" y="235" font-family="Arial, sans-serif" font-size="7" fill="#9b59b6">
+      age: 30, 28, 25
+    </text>
+    
+    <!-- Memory vs Disk -->
+    <text x="650" y="270" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      メモリ不足時の動作:
+    </text>
+    
+    <!-- Memory sufficient -->
+    <rect x="650" y="280" width="100" height="30" rx="3" fill="#2ecc71" stroke="#27ae60"/>
+    <text x="700" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white">
+      メモリ内ソート
+    </text>
+    <text x="700" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      高速処理
+    </text>
+    
+    <!-- Memory insufficient -->
+    <rect x="760" y="280" width="100" height="30" rx="3" fill="#e67e22" stroke="#d35400"/>
+    <text x="810" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white">
+      ディスクスワップ
+    </text>
+    <text x="810" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="white">
+      パフォーマンス悪化
+    </text>
+    
+    <!-- Usage examples -->
+    <text x="650" y="330" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • ORDER BY（ソート処理）
+    </text>
+    <text x="650" y="345" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • GROUP BY（グループ化）
+    </text>
+    <text x="650" y="360" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • DISTINCT（重複排除）
+    </text>
+    <text x="650" y="375" font-family="Arial, sans-serif" font-size="9" fill="white">
+      • JOIN（結合処理）
+    </text>
+  </g>
+  
+  <!-- Disk Storage (Bottom) -->
+  <rect x="50" y="560" width="900" height="120" rx="10" fill="#34495e" stroke="#2c3e50" stroke-width="2"/>
+  <text x="500" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    ディスクストレージ
+  </text>
+  
+  <!-- Data flow arrows -->
+  <g id="data-flows">
+    <!-- Buffer Pool to Disk -->
+    <path d="M 220 400 L 220 450 Q 220 470 220 490 L 220 540" stroke="#3498db" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+    <polygon points="215,535 220,545 225,535" fill="#3498db"/>
+    <text x="240" y="470" font-family="Arial, sans-serif" font-size="10" fill="#3498db">
+      ページの
+    </text>
+    <text x="240" y="485" font-family="Arial, sans-serif" font-size="10" fill="#3498db">
+      読み書き
+    </text>
+    
+    <!-- Log Buffer to Disk -->
+    <path d="M 500 400 L 500 440 Q 500 460 500 480 L 500 540" stroke="#e74c3c" stroke-width="3" fill="none"/>
+    <polygon points="495,535 500,545 505,535" fill="#e74c3c"/>
+    <text x="520" y="470" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">
+      ログの
+    </text>
+    <text x="520" y="485" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">
+      フラッシュ
+    </text>
+    
+    <!-- Sort Area to Disk (when swapped) -->
+    <path d="M 780 400 L 780 450 Q 780 470 780 490 L 780 540" stroke="#e67e22" stroke-width="3" fill="none" stroke-dasharray="10,5"/>
+    <polygon points="775,535 780,545 785,535" fill="#e67e22"/>
+    <text x="800" y="470" font-family="Arial, sans-serif" font-size="10" fill="#e67e22">
+      スワップ
+    </text>
+    <text x="800" y="485" font-family="Arial, sans-serif" font-size="10" fill="#e67e22">
+      (大量データ時)
+    </text>
+  </g>
+  
+  <!-- Disk files -->
+  <rect x="100" y="610" width="120" height="40" rx="5" fill="#3498db" stroke="#2980b9"/>
+  <text x="160" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    データファイル
+  </text>
+  
+  <rect x="250" y="610" width="120" height="40" rx="5" fill="#e74c3c" stroke="#c0392b"/>
+  <text x="310" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    ログファイル
+  </text>
+  
+  <rect x="400" y="610" width="120" height="40" rx="5" fill="#9b59b6" stroke="#8e44ad"/>
+  <text x="460" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    インデックスファイル
+  </text>
+  
+  <rect x="550" y="610" width="120" height="40" rx="5" fill="#f39c12" stroke="#e67e22"/>
+  <text x="610" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+    一時ファイル
+  </text>
+  
+  <!-- Performance Impact Box -->
+  <rect x="50" y="700" width="900" height="80" rx="8" fill="#2c3e50" stroke="#34495e" stroke-width="2"/>
+  <text x="500" y="725" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    パフォーマンスへの影響
+  </text>
+  <text x="60" y="745" font-family="Arial, sans-serif" font-size="11" fill="white">
+    • バッファプールのヒット率が高い → ディスクI/O削減 → 高速化
+  </text>
+  <text x="60" y="760" font-family="Arial, sans-serif" font-size="11" fill="white">
+    • ログバッファが適切にサイズ設定 → トランザクション処理の安定化
+  </text>
+  <text x="60" y="775" font-family="Arial, sans-serif" font-size="11" fill="white">
+    • ソート領域が十分 → メモリ内処理 → ディスクスワップ回避 → 高速化
+  </text>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-white" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="white"/>
+    </marker>
+  </defs>
+</svg>

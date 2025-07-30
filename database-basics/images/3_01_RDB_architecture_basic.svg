@@ -1,0 +1,175 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50">
+    データベース クライアントサーバーモデル
+  </text>
+  
+  <!-- Database Server -->
+  <g id="database-server">
+    <!-- Server box -->
+    <rect x="350" y="250" width="100" height="120" rx="8" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    
+    <!-- Database icon -->
+    <ellipse cx="400" cy="280" rx="30" ry="8" fill="#ecf0f1"/>
+    <ellipse cx="400" cy="290" rx="30" ry="8" fill="#ecf0f1"/>
+    <ellipse cx="400" cy="300" rx="30" ry="8" fill="#ecf0f1"/>
+    <rect x="370" y="280" width="60" height="20" fill="#ecf0f1"/>
+    <rect x="370" y="290" width="60" height="10" fill="#ecf0f1"/>
+    
+    <!-- Server label -->
+    <text x="400" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      データベース
+    </text>
+    <text x="400" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      サーバー
+    </text>
+  </g>
+  
+  <!-- Web Application Client -->
+  <g id="web-app-client">
+    <rect x="50" y="100" width="120" height="80" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    
+    <!-- Web icon -->
+    <circle cx="110" cy="125" r="15" fill="white"/>
+    <text x="110" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e74c3c">
+      Web
+    </text>
+    
+    <!-- Label -->
+    <text x="110" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">
+      Webアプリ
+    </text>
+    <text x="110" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      (API発行)
+    </text>
+    
+    <!-- Connection line -->
+    <line x1="170" y1="140" x2="350" y2="280" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="250" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#34495e">
+      SQL クエリ
+    </text>
+  </g>
+  
+  <!-- Batch Processing Client -->
+  <g id="batch-client">
+    <rect x="50" y="400" width="120" height="80" rx="8" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+    
+    <!-- Batch icon -->
+    <rect x="95" y="420" width="30" height="20" rx="3" fill="white"/>
+    <rect x="98" y="423" width="6" height="2" fill="#f39c12"/>
+    <rect x="98" y="427" width="10" height="2" fill="#f39c12"/>
+    <rect x="98" y="431" width="8" height="2" fill="#f39c12"/>
+    <rect x="98" y="435" width="12" height="2" fill="#f39c12"/>
+    
+    <!-- Label -->
+    <text x="110" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">
+      バッチ処理
+    </text>
+    <text x="110" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      (定期実行)
+    </text>
+    
+    <!-- Connection line -->
+    <line x1="170" y1="440" x2="350" y2="330" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="250" y="400" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#34495e">
+      データ更新
+    </text>
+  </g>
+  
+  <!-- BI Tool Client -->
+  <g id="bi-tool-client">
+    <rect x="630" y="250" width="120" height="80" rx="8" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+    
+    <!-- Chart icon -->
+    <rect x="670" y="270" width="40" height="30" fill="white" rx="2"/>
+    <rect x="675" y="285" width="6" height="10" fill="#9b59b6"/>
+    <rect x="685" y="280" width="6" height="15" fill="#9b59b6"/>
+    <rect x="695" y="275" width="6" height="20" fill="#9b59b6"/>
+    
+    <!-- Label -->
+    <text x="690" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">
+      BIツール
+    </text>
+    <text x="690" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      (分析・レポート)
+    </text>
+    
+    <!-- Connection line -->
+    <line x1="630" y1="290" x2="450" y2="290" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="540" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#34495e">
+      データ分析
+    </text>
+  </g>
+  
+  <!-- Mobile App Client -->
+  <g id="mobile-client">
+    <rect x="630" y="100" width="120" height="80" rx="8" fill="#1abc9c" stroke="#16a085" stroke-width="2"/>
+    
+    <!-- Mobile icon -->
+    <rect x="680" y="120" width="20" height="35" rx="5" fill="white"/>
+    <rect x="683" y="123" width="14" height="20" fill="#1abc9c"/>
+    <circle cx="690" cy="150" r="2" fill="#1abc9c"/>
+    
+    <!-- Label -->
+    <text x="690" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">
+      モバイルアプリ
+    </text>
+    <text x="690" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      (リアルタイム)
+    </text>
+    
+    <!-- Connection line -->
+    <line x1="630" y1="140" x2="450" y2="270" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="540" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#34495e">
+      API呼び出し
+    </text>
+  </g>
+  
+  <!-- Admin Tool Client -->
+  <g id="admin-client">
+    <rect x="340" y="450" width="120" height="80" rx="8" fill="#95a5a6" stroke="#7f8c8d" stroke-width="2"/>
+    
+    <!-- Admin icon -->
+    <circle cx="400" cy="475" r="12" fill="white"/>
+    <rect x="390" y="485" width="20" height="15" rx="3" fill="white"/>
+    <polygon points="395,475 405,475 400,480" fill="#95a5a6"/>
+    
+    <!-- Label -->
+    <text x="400" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">
+      管理ツール
+    </text>
+    <text x="400" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      (メンテナンス)
+    </text>
+    
+    <!-- Connection line -->
+    <line x1="400" y1="450" x2="400" y2="370" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="420" y="410" font-family="Arial, sans-serif" font-size="10" fill="#34495e">
+      管理操作
+    </text>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <g id="legend">
+    <rect x="50" y="520" width="300" height="60" rx="5" fill="white" stroke="#bdc3c7" stroke-width="1"/>
+    <text x="60" y="540" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">
+      同時接続の特徴:
+    </text>
+    <text x="60" y="555" font-family="Arial, sans-serif" font-size="10" fill="#34495e">
+      • 複数のクライアントが同一データベースに同時アクセス
+    </text>
+    <text x="60" y="570" font-family="Arial, sans-serif" font-size="10" fill="#34495e">
+      • 各クライアントは異なる目的でデータを利用
+    </text>
+  </g>
+</svg>
