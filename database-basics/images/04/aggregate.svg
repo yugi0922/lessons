@@ -1,0 +1,150 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">集約関数とGROUP BY</text>
+
+  <!-- 元データ -->
+  <g transform="translate(50, 60)">
+    <text x="100" y="0" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">sales テーブル</text>
+    <rect x="0" y="10" width="200" height="160" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" />
+    <line x1="0" y1="35" x2="200" y2="35" stroke="#1976d2" />
+    <text x="20" y="28" font-size="12" fill="#333">id</text>
+    <text x="60" y="28" font-size="12" fill="#333">category</text>
+    <text x="140" y="28" font-size="12" fill="#333">amount</text>
+
+    <text x="20" y="55" font-size="11" fill="#666">1</text>
+    <text x="60" y="55" font-size="11" fill="#666">食品</text>
+    <text x="140" y="55" font-size="11" fill="#666">1000</text>
+
+    <text x="20" y="75" font-size="11" fill="#666">2</text>
+    <text x="60" y="75" font-size="11" fill="#666">衣類</text>
+    <text x="140" y="75" font-size="11" fill="#666">3000</text>
+
+    <text x="20" y="95" font-size="11" fill="#666">3</text>
+    <text x="60" y="95" font-size="11" fill="#666">食品</text>
+    <text x="140" y="95" font-size="11" fill="#666">1500</text>
+
+    <text x="20" y="115" font-size="11" fill="#666">4</text>
+    <text x="60" y="115" font-size="11" fill="#666">家電</text>
+    <text x="140" y="115" font-size="11" fill="#666">5000</text>
+
+    <text x="20" y="135" font-size="11" fill="#666">5</text>
+    <text x="60" y="135" font-size="11" fill="#666">衣類</text>
+    <text x="140" y="135" font-size="11" fill="#666">2000</text>
+
+    <text x="20" y="155" font-size="11" fill="#666">6</text>
+    <text x="60" y="155" font-size="11" fill="#666">食品</text>
+    <text x="140" y="155" font-size="11" fill="#666">500</text>
+  </g>
+
+  <!-- 集約関数一覧 -->
+  <g transform="translate(300, 60)">
+    <text x="150" y="0" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">主要な集約関数</text>
+
+    <g transform="translate(0, 20)">
+      <rect width="300" height="150" rx="10" fill="#f5f5f5" stroke="#999" stroke-width="2" />
+
+      <g transform="translate(10, 20)">
+        <rect width="130" height="30" rx="5" fill="#e3f2fd" stroke="#1976d2" />
+        <text x="65" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#1976d2">COUNT()</text>
+        <text x="150" y="20" font-size="11" fill="#666">行数をカウント</text>
+      </g>
+
+      <g transform="translate(10, 60)">
+        <rect width="130" height="30" rx="5" fill="#e8f5e9" stroke="#388e3c" />
+        <text x="65" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#388e3c">SUM()</text>
+        <text x="150" y="20" font-size="11" fill="#666">合計値を計算</text>
+      </g>
+
+      <g transform="translate(10, 100)">
+        <rect width="130" height="30" rx="5" fill="#fff3e0" stroke="#f57c00" />
+        <text x="65" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#f57c00">AVG()</text>
+        <text x="150" y="20" font-size="11" fill="#666">平均値を計算</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- GROUP BYの動作 -->
+  <g transform="translate(50, 250)">
+    <text x="0" y="0" font-size="16" font-weight="bold" fill="#333">GROUP BY の動作</text>
+
+    <!-- SQL -->
+    <g transform="translate(0, 20)">
+      <rect width="400" height="80" rx="5" fill="#f5f5f5" stroke="#999" stroke-width="1" />
+      <text x="10" y="20" font-size="12" font-family="monospace" fill="#333">SELECT category, </text>
+      <text x="10" y="40" font-size="12" font-family="monospace" fill="#333"> COUNT(*) as count,</text>
+      <text x="10" y="60" font-size="12" font-family="monospace" fill="#333"> SUM(amount) as total</text>
+      <text x="10" y="80" font-size="12" font-family="monospace" fill="#333">FROM sales GROUP BY category;</text>
+    </g>
+
+    <!-- 矢印 -->
+    <g>
+      <path d="M 200 120 L 200 150" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead2)" />
+    </g>
+
+    <!-- グループ化の過程 -->
+    <g transform="translate(0, 170)">
+      <text x="0" y="0" font-size="12" font-weight="bold" fill="#666">グループ化</text>
+
+      <!-- 食品グループ -->
+      <g transform="translate(0, 20)">
+        <rect width="120" height="70" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="1" />
+        <text x="60" y="15" text-anchor="middle" font-size="11" font-weight="bold" fill="#c2185b">食品</text>
+        <text x="10" y="35" font-size="10" fill="#666">1000</text>
+        <text x="10" y="50" font-size="10" fill="#666">1500</text>
+        <text x="10" y="65" font-size="10" fill="#666">500</text>
+      </g>
+
+      <!-- 衣類グループ -->
+      <g transform="translate(140, 20)">
+        <rect width="120" height="55" rx="5" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1" />
+        <text x="60" y="15" text-anchor="middle" font-size="11" font-weight="bold" fill="#5c6bc0">衣類</text>
+        <text x="10" y="35" font-size="10" fill="#666">3000</text>
+        <text x="10" y="50" font-size="10" fill="#666">2000</text>
+      </g>
+
+      <!-- 家電グループ -->
+      <g transform="translate(280, 20)">
+        <rect width="120" height="40" rx="5" fill="#e0f2f1" stroke="#00897b" stroke-width="1" />
+        <text x="60" y="15" text-anchor="middle" font-size="11" font-weight="bold" fill="#00897b">家電</text>
+        <text x="10" y="35" font-size="10" fill="#666">5000</text>
+      </g>
+    </g>
+
+    <!-- 矢印 -->
+    <g>
+      <path d="M 200 280 L 200 310" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead2)" />
+    </g>
+
+    <!-- 結果 -->
+    <g transform="translate(50, 330)">
+      <text x="0" y="0" font-size="12" font-weight="bold" fill="#666">集約結果</text>
+      <rect x="0" y="10" width="300" height="90" fill="#fff" stroke="#999" stroke-width="2" />
+      <line x1="0" y1="35" x2="300" y2="35" stroke="#999" />
+      <text x="30" y="28" font-size="12" fill="#333">category</text>
+      <text x="120" y="28" font-size="12" fill="#333">count</text>
+      <text x="200" y="28" font-size="12" fill="#333">total</text>
+
+      <text x="30" y="55" font-size="11" fill="#666">食品</text>
+      <text x="130" y="55" font-size="11" fill="#666">3</text>
+      <text x="200" y="55" font-size="11" fill="#666">3000</text>
+
+      <text x="30" y="75" font-size="11" fill="#666">衣類</text>
+      <text x="130" y="75" font-size="11" fill="#666">2</text>
+      <text x="200" y="75" font-size="11" fill="#666">5000</text>
+
+      <text x="30" y="95" font-size="11" fill="#666">家電</text>
+      <text x="130" y="95" font-size="11" fill="#666">1</text>
+      <text x="200" y="95" font-size="11" fill="#666">5000</text>
+    </g>
+  </g>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+</svg>

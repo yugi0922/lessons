@@ -1,0 +1,114 @@
+<svg viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="700" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">JOINの種類</text>
+
+  <!-- サンプルテーブル -->
+  <g transform="translate(50, 60)">
+    <text x="100" y="0" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">users テーブル</text>
+    <rect x="0" y="10" width="200" height="100" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" />
+    <line x1="0" y1="35" x2="200" y2="35" stroke="#1976d2" />
+    <text x="30" y="28" font-size="12" fill="#333">id</text>
+    <text x="100" y="28" font-size="12" fill="#333">name</text>
+    <text x="30" y="55" font-size="12" fill="#666">1</text>
+    <text x="100" y="55" font-size="12" fill="#666">田中</text>
+    <text x="30" y="75" font-size="12" fill="#666">2</text>
+    <text x="100" y="75" font-size="12" fill="#666">佐藤</text>
+    <text x="30" y="95" font-size="12" fill="#666">3</text>
+    <text x="100" y="95" font-size="12" fill="#666">鈴木</text>
+  </g>
+
+  <g transform="translate(300, 60)">
+    <text x="100" y="0" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">orders テーブル</text>
+    <rect x="0" y="10" width="200" height="100" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" />
+    <line x1="0" y1="35" x2="200" y2="35" stroke="#388e3c" />
+    <text x="30" y="28" font-size="12" fill="#333">id</text>
+    <text x="80" y="28" font-size="12" fill="#333">user_id</text>
+    <text x="150" y="28" font-size="12" fill="#333">total</text>
+    <text x="30" y="55" font-size="12" fill="#666">101</text>
+    <text x="90" y="55" font-size="12" fill="#666">1</text>
+    <text x="150" y="55" font-size="12" fill="#666">5000</text>
+    <text x="30" y="75" font-size="12" fill="#666">102</text>
+    <text x="90" y="75" font-size="12" fill="#666">1</text>
+    <text x="150" y="75" font-size="12" fill="#666">3000</text>
+    <text x="30" y="95" font-size="12" fill="#666">103</text>
+    <text x="90" y="95" font-size="12" fill="#666">4</text>
+    <text x="150" y="95" font-size="12" fill="#666">7000</text>
+  </g>
+
+  <!-- INNER JOIN -->
+  <g transform="translate(50, 200)">
+    <text x="0" y="0" font-size="16" font-weight="bold" fill="#333">1. INNER JOIN</text>
+    <text x="0" y="20" font-size="12" fill="#666">両方のテーブルに存在するデータのみ</text>
+
+    <!-- ベン図 -->
+    <g transform="translate(0, 40)">
+      <circle cx="50" cy="50" r="40" fill="#e3f2fd" fill-opacity="0.7" stroke="#1976d2" stroke-width="2" />
+      <circle cx="90" cy="50" r="40" fill="#e8f5e9" fill-opacity="0.7" stroke="#388e3c" stroke-width="2" />
+      <!-- 交差部分 -->
+      <path d="M 70 20 A 40 40 0 0 1 70 80 A 40 40 0 0 1 70 20" fill="#ffd54f" stroke="#f57c00" stroke-width="2" />
+      <text x="50" y="110" text-anchor="middle" font-size="12" fill="#666">users</text>
+      <text x="90" y="110" text-anchor="middle" font-size="12" fill="#666">orders</text>
+    </g>
+
+    <!-- 結果 -->
+    <g transform="translate(200, 40)">
+      <rect width="250" height="80" fill="#fff3e0" stroke="#f57c00" stroke-width="2" />
+      <text x="125" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#f57c00">結果</text>
+      <line x1="0" y1="30" x2="250" y2="30" stroke="#f57c00" />
+      <text x="10" y="50" font-size="11" fill="#666">1 田中 101 5000</text>
+      <text x="10" y="70" font-size="11" fill="#666">1 田中 102 3000</text>
+    </g>
+  </g>
+
+  <!-- LEFT JOIN -->
+  <g transform="translate(50, 360)">
+    <text x="0" y="0" font-size="16" font-weight="bold" fill="#333">2. LEFT JOIN (LEFT OUTER JOIN)</text>
+    <text x="0" y="20" font-size="12" fill="#666">左側のテーブルのすべてのデータ</text>
+
+    <!-- ベン図 -->
+    <g transform="translate(0, 40)">
+      <circle cx="50" cy="50" r="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" />
+      <circle cx="90" cy="50" r="40" fill="#e8f5e9" fill-opacity="0.3" stroke="#388e3c" stroke-width="2" />
+      <text x="50" y="110" text-anchor="middle" font-size="12" fill="#666">users</text>
+      <text x="90" y="110" text-anchor="middle" font-size="12" fill="#666">orders</text>
+    </g>
+
+    <!-- 結果 -->
+    <g transform="translate(200, 40)">
+      <rect width="250" height="100" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" />
+      <text x="125" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#1976d2">結果</text>
+      <line x1="0" y1="30" x2="250" y2="30" stroke="#1976d2" />
+      <text x="10" y="50" font-size="11" fill="#666">1 田中 101 5000</text>
+      <text x="10" y="70" font-size="11" fill="#666">1 田中 102 3000</text>
+      <text x="10" y="90" font-size="11" fill="#666">2 佐藤 NULL NULL</text>
+      <text x="10" y="110" font-size="11" fill="#666">3 鈴木 NULL NULL</text>
+    </g>
+  </g>
+
+  <!-- RIGHT JOIN -->
+  <g transform="translate(50, 520)">
+    <text x="0" y="0" font-size="16" font-weight="bold" fill="#333">3. RIGHT JOIN (RIGHT OUTER JOIN)</text>
+    <text x="0" y="20" font-size="12" fill="#666">右側のテーブルのすべてのデータ</text>
+
+    <!-- ベン図 -->
+    <g transform="translate(0, 40)">
+      <circle cx="50" cy="50" r="40" fill="#e3f2fd" fill-opacity="0.3" stroke="#1976d2" stroke-width="2" />
+      <circle cx="90" cy="50" r="40" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" />
+      <text x="50" y="110" text-anchor="middle" font-size="12" fill="#666">users</text>
+      <text x="90" y="110" text-anchor="middle" font-size="12" fill="#666">orders</text>
+    </g>
+
+    <!-- 結果 -->
+    <g transform="translate(200, 40)">
+      <rect width="250" height="100" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" />
+      <text x="125" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#388e3c">結果</text>
+      <line x1="0" y1="30" x2="250" y2="30" stroke="#388e3c" />
+      <text x="10" y="50" font-size="11" fill="#666">1 田中 101 5000</text>
+      <text x="10" y="70" font-size="11" fill="#666">1 田中 102 3000</text>
+      <text x="10" y="90" font-size="11" fill="#666">NULL NULL 103 7000</text>
+    </g>
+  </g>
+</svg>
