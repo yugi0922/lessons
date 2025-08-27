@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <title>インデックスの種類と特徴</title>
+  
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    インデックスの種類と特徴
+  </text>
+  
+  <!-- B-Tree Index -->
+  <g transform="translate(150, 80)">
+    <rect x="-100" y="0" width="200" height="180" fill="white" stroke="#3498db" stroke-width="2" rx="10"/>
+    <rect x="-100" y="0" width="200" height="40" fill="#3498db" rx="10"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">B-Treeインデックス</text>
+    
+    <text x="-90" y="60" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">特徴:</text>
+    <text x="-85" y="80" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 最も一般的</text>
+    <text x="-85" y="95" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 範囲検索に最適</text>
+    <text x="-85" y="110" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• ソート済みデータ</text>
+    <text x="-85" y="125" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• O(log n)の検索速度</text>
+    
+    <text x="-90" y="145" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">適用例:</text>
+    <text x="-85" y="160" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 主キー、外部キー</text>
+    <text x="-85" y="175" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 日付、数値の範囲検索</text>
+  </g>
+  
+  <!-- Hash Index -->
+  <g transform="translate(375, 80)">
+    <rect x="-100" y="0" width="200" height="180" fill="white" stroke="#e74c3c" stroke-width="2" rx="10"/>
+    <rect x="-100" y="0" width="200" height="40" fill="#e74c3c" rx="10"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">ハッシュインデックス</text>
+    
+    <text x="-90" y="60" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">特徴:</text>
+    <text x="-85" y="80" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 等価検索に特化</text>
+    <text x="-85" y="95" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• O(1)の検索速度</text>
+    <text x="-85" y="110" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 範囲検索不可</text>
+    <text x="-85" y="125" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• メモリ効率的</text>
+    
+    <text x="-90" y="145" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">適用例:</text>
+    <text x="-85" y="160" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• ユーザーID検索</text>
+    <text x="-85" y="175" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 完全一致の検索</text>
+  </g>
+  
+  <!-- Full-Text Index -->
+  <g transform="translate(600, 80)">
+    <rect x="-100" y="0" width="200" height="180" fill="white" stroke="#9b59b6" stroke-width="2" rx="10"/>
+    <rect x="-100" y="0" width="200" height="40" fill="#9b59b6" rx="10"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">全文検索インデックス</text>
+    
+    <text x="-90" y="60" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">特徴:</text>
+    <text x="-85" y="80" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• テキスト検索用</text>
+    <text x="-85" y="95" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 転置インデックス</text>
+    <text x="-85" y="110" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 形態素解析対応</text>
+    <text x="-85" y="125" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 大量テキスト対応</text>
+    
+    <text x="-90" y="145" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">適用例:</text>
+    <text x="-85" y="160" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 記事本文検索</text>
+    <text x="-85" y="175" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 商品説明検索</text>
+  </g>
+  
+  <!-- Bitmap Index -->
+  <g transform="translate(150, 290)">
+    <rect x="-100" y="0" width="200" height="180" fill="white" stroke="#f39c12" stroke-width="2" rx="10"/>
+    <rect x="-100" y="0" width="200" height="40" fill="#f39c12" rx="10"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">ビットマップインデックス</text>
+    
+    <text x="-90" y="60" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">特徴:</text>
+    <text x="-85" y="80" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• カーディナリティ低</text>
+    <text x="-85" y="95" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 複数条件AND/OR</text>
+    <text x="-85" y="110" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 読み込み専用向き</text>
+    <text x="-85" y="125" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 圧縮効率良好</text>
+    
+    <text x="-90" y="145" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">適用例:</text>
+    <text x="-85" y="160" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 性別、ステータス</text>
+    <text x="-85" y="175" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• データウェアハウス</text>
+  </g>
+  
+  <!-- Clustered Index -->
+  <g transform="translate(375, 290)">
+    <rect x="-100" y="0" width="200" height="180" fill="white" stroke="#1abc9c" stroke-width="2" rx="10"/>
+    <rect x="-100" y="0" width="200" height="40" fill="#1abc9c" rx="10"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">クラスタインデックス</text>
+    
+    <text x="-90" y="60" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">特徴:</text>
+    <text x="-85" y="80" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• データ物理配置</text>
+    <text x="-85" y="95" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• テーブル1つのみ</text>
+    <text x="-85" y="110" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 範囲検索高速</text>
+    <text x="-85" y="125" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 挿入時再配置</text>
+    
+    <text x="-90" y="145" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">適用例:</text>
+    <text x="-85" y="160" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 主キー（InnoDB）</text>
+    <text x="-85" y="175" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 時系列データ</text>
+  </g>
+  
+  <!-- Composite Index -->
+  <g transform="translate(600, 290)">
+    <rect x="-100" y="0" width="200" height="180" fill="white" stroke="#34495e" stroke-width="2" rx="10"/>
+    <rect x="-100" y="0" width="200" height="40" fill="#34495e" rx="10"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">複合インデックス</text>
+    
+    <text x="-90" y="60" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">特徴:</text>
+    <text x="-85" y="80" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 複数カラム対象</text>
+    <text x="-85" y="95" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• 左端優先原則</text>
+    <text x="-85" y="110" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• カバリングインデックス</text>
+    <text x="-85" y="125" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• WHERE句最適化</text>
+    
+    <text x="-90" y="145" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">適用例:</text>
+    <text x="-85" y="160" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• (user_id, created_at)</text>
+    <text x="-85" y="175" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">• 複数条件検索</text>
+  </g>
+  
+  <!-- Performance Comparison -->
+  <g transform="translate(450, 500)">
+    <rect x="-200" y="0" width="400" height="80" fill="white" stroke="#95a5a6" stroke-width="1" rx="5"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#2c3e50">パフォーマンス比較</text>
+    
+    <text x="-180" y="40" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">検索種類</text>
+    <text x="-50" y="40" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">B-Tree</text>
+    <text x="20" y="40" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Hash</text>
+    <text x="80" y="40" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Full-Text</text>
+    <text x="150" y="40" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Bitmap</text>
+    
+    <text x="-180" y="55" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">等価検索</text>
+    <text x="-50" y="55" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">◎</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">◎</text>
+    <text x="80" y="55" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">△</text>
+    <text x="150" y="55" font-family="Arial, sans-serif" font-size="10" fill="#f39c12">○</text>
+    
+    <text x="-180" y="70" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">範囲検索</text>
+    <text x="-50" y="70" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">◎</text>
+    <text x="20" y="70" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">×</text>
+    <text x="80" y="70" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">×</text>
+    <text x="150" y="70" font-family="Arial, sans-serif" font-size="10" fill="#f39c12">○</text>
+  </g>
+</svg>

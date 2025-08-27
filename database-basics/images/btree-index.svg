@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <title>B-Treeインデックスの構造</title>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    B-Treeインデックスの構造
+  </text>
+  
+  <!-- Root Node -->
+  <g transform="translate(400, 80)">
+    <rect x="-80" y="0" width="160" height="40" fill="#3498db" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white">50 | 100</text>
+  </g>
+  
+  <!-- Level 2 Nodes -->
+  <!-- Left Node -->
+  <g transform="translate(200, 160)">
+    <rect x="-80" y="0" width="160" height="40" fill="#3498db" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white">20 | 35</text>
+  </g>
+  
+  <!-- Middle Node -->
+  <g transform="translate(400, 160)">
+    <rect x="-80" y="0" width="160" height="40" fill="#3498db" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white">65 | 80</text>
+  </g>
+  
+  <!-- Right Node -->
+  <g transform="translate(600, 160)">
+    <rect x="-80" y="0" width="160" height="40" fill="#3498db" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="white">120 | 150</text>
+  </g>
+  
+  <!-- Leaf Nodes -->
+  <!-- Leaf 1 -->
+  <g transform="translate(100, 280)">
+    <rect x="-40" y="0" width="80" height="60" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">10</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">15</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">18</text>
+  </g>
+  
+  <!-- Leaf 2 -->
+  <g transform="translate(200, 280)">
+    <rect x="-40" y="0" width="80" height="60" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">22</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">25</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">30</text>
+  </g>
+  
+  <!-- Leaf 3 -->
+  <g transform="translate(300, 280)">
+    <rect x="-40" y="0" width="80" height="60" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">37</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">40</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">45</text>
+  </g>
+  
+  <!-- Leaf 4 -->
+  <g transform="translate(400, 280)">
+    <rect x="-40" y="0" width="80" height="60" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">52</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">60</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">62</text>
+  </g>
+  
+  <!-- Leaf 5 -->
+  <g transform="translate(500, 280)">
+    <rect x="-40" y="0" width="80" height="60" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">68</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">72</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">75</text>
+  </g>
+  
+  <!-- Leaf 6 -->
+  <g transform="translate(600, 280)">
+    <rect x="-40" y="0" width="80" height="60" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">82</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">85</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">95</text>
+  </g>
+  
+  <!-- Leaf 7 -->
+  <g transform="translate(700, 280)">
+    <rect x="-40" y="0" width="80" height="60" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">110</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">115</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">125</text>
+  </g>
+  
+  <!-- Connections -->
+  <!-- Root to Level 2 -->
+  <line x1="350" y1="120" x2="250" y2="160" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="400" y1="120" x2="400" y2="160" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="450" y1="120" x2="550" y2="160" stroke="#2c3e50" stroke-width="2"/>
+  
+  <!-- Level 2 to Leaf -->
+  <line x1="150" y1="200" x2="100" y2="280" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="200" y1="200" x2="200" y2="280" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="250" y1="200" x2="300" y2="280" stroke="#2c3e50" stroke-width="1"/>
+  
+  <line x1="350" y1="200" x2="400" y2="280" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="450" y1="200" x2="500" y2="280" stroke="#2c3e50" stroke-width="1"/>
+  
+  <line x1="550" y1="200" x2="600" y2="280" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="650" y1="200" x2="700" y2="280" stroke="#2c3e50" stroke-width="1"/>
+  
+  <!-- Data Pointers -->
+  <g transform="translate(100, 380)">
+    <rect x="-30" y="0" width="60" height="30" fill="#e74c3c" stroke="#2c3e50" stroke-width="1"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">Data</text>
+  </g>
+  
+  <g transform="translate(200, 380)">
+    <rect x="-30" y="0" width="60" height="30" fill="#e74c3c" stroke="#2c3e50" stroke-width="1"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">Data</text>
+  </g>
+  
+  <g transform="translate(300, 380)">
+    <rect x="-30" y="0" width="60" height="30" fill="#e74c3c" stroke="#2c3e50" stroke-width="1"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">Data</text>
+  </g>
+  
+  <g transform="translate(400, 380)">
+    <rect x="-30" y="0" width="60" height="30" fill="#e74c3c" stroke="#2c3e50" stroke-width="1"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">Data</text>
+  </g>
+  
+  <g transform="translate(500, 380)">
+    <rect x="-30" y="0" width="60" height="30" fill="#e74c3c" stroke="#2c3e50" stroke-width="1"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">Data</text>
+  </g>
+  
+  <g transform="translate(600, 380)">
+    <rect x="-30" y="0" width="60" height="30" fill="#e74c3c" stroke="#2c3e50" stroke-width="1"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">Data</text>
+  </g>
+  
+  <g transform="translate(700, 380)">
+    <rect x="-30" y="0" width="60" height="30" fill="#e74c3c" stroke="#2c3e50" stroke-width="1"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white">Data</text>
+  </g>
+  
+  <!-- Data pointer lines -->
+  <line x1="100" y1="340" x2="100" y2="380" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="200" y1="340" x2="200" y2="380" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="300" y1="340" x2="300" y2="380" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="400" y1="340" x2="400" y2="380" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="500" y1="340" x2="500" y2="380" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="600" y1="340" x2="600" y2="380" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="700" y1="340" x2="700" y2="380" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,3"/>
+  
+  <!-- Legend -->
+  <g transform="translate(50, 450)">
+    <rect x="0" y="0" width="20" height="15" fill="#3498db"/>
+    <text x="25" y="12" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">内部ノード</text>
+    
+    <rect x="100" y="0" width="20" height="15" fill="#2ecc71"/>
+    <text x="125" y="12" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">リーフノード</text>
+    
+    <rect x="220" y="0" width="20" height="15" fill="#e74c3c"/>
+    <text x="245" y="12" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">実データ</text>
+  </g>
+</svg>
