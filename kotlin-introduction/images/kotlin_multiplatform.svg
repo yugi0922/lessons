@@ -1,0 +1,104 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="kotlinGradMP" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="35" font-family="Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#333">
+    Kotlin Multiplatform
+  </text>
+
+  <!-- Central Kotlin Code -->
+  <g transform="translate(300, 150)">
+    <rect x="0" y="0" width="200" height="100" rx="10" fill="url(#kotlinGradMP)" filter="url(#shadow)"/>
+    <text x="100" y="35" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">
+      共通コード
+    </text>
+    <text x="100" y="60" font-family="monospace" font-size="14" text-anchor="middle" fill="white">
+      Kotlin
+    </text>
+    <text x="100" y="80" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">
+      ビジネスロジック
+    </text>
+  </g>
+
+  <!-- Platform Targets -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" fill="#666">
+      <polygon points="0 0, 10 3, 0 6" />
+    </marker>
+  </defs>
+
+  <!-- JVM/Android -->
+  <g transform="translate(100, 50)">
+    <rect x="0" y="0" width="140" height="60" rx="8" fill="#5382A1" opacity="0.8"/>
+    <text x="70" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">
+      JVM/Android
+    </text>
+    <text x="70" y="45" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">
+      .jar/.apk
+    </text>
+  </g>
+  <line x1="240" y1="90" x2="300" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+
+  <!-- iOS/macOS -->
+  <g transform="translate(560, 50)">
+    <rect x="0" y="0" width="140" height="60" rx="8" fill="#000000" opacity="0.8"/>
+    <text x="70" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">
+      iOS/macOS
+    </text>
+    <text x="70" y="45" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">
+      Native Binary
+    </text>
+  </g>
+  <line x1="560" y1="90" x2="500" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+
+  <!-- JavaScript/Web -->
+  <g transform="translate(100, 340)">
+    <rect x="0" y="0" width="140" height="60" rx="8" fill="#F7DF1E" opacity="0.9"/>
+    <text x="70" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">
+      JavaScript/Web
+    </text>
+    <text x="70" y="45" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">
+      .js
+    </text>
+  </g>
+  <line x1="240" y1="360" x2="300" y2="230" stroke="#666" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+
+  <!-- Native/Linux -->
+  <g transform="translate(560, 340)">
+    <rect x="0" y="0" width="140" height="60" rx="8" fill="#E95420" opacity="0.8"/>
+    <text x="70" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">
+      Native/Linux
+    </text>
+    <text x="70" y="45" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">
+      Binary
+    </text>
+  </g>
+  <line x1="560" y1="360" x2="500" y2="230" stroke="#666" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+
+  <!-- Benefits Box -->
+  <g transform="translate(200, 430)">
+    <rect x="0" y="0" width="400" height="50" rx="8" fill="#F0F0F0" stroke="#999" stroke-width="1"/>
+    <text x="200" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">
+      メリット
+    </text>
+    <text x="200" y="38" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">
+      一つのコードベースから複数プラットフォームへ展開
+    </text>
+  </g>
+</svg>

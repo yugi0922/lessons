@@ -1,0 +1,142 @@
+<svg width="800" height="850" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="refactorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F89820;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+    <marker id="stepArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" fill="#7F52FF">
+      <polygon points="0 0, 10 3, 0 6" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Java → Kotlin リファクタリングフロー
+  </text>
+
+  <!-- Step 1: Auto Convert -->
+  <g transform="translate(50, 70)">
+    <rect x="0" y="0" width="700" height="100" rx="10" fill="#FFF9F0" stroke="#F89820" stroke-width="2"/>
+    <text x="30" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#F89820">
+      Step 1: 自動変換
+    </text>
+    <rect x="30" y="45" width="640" height="40" rx="5" fill="white"/>
+    <text x="40" y="63" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      IDEの自動変換機能を使用 (IntelliJ: Code → Convert Java File to Kotlin File)
+    </text>
+    <text x="40" y="78" font-family="Arial, sans-serif" font-size="11" fill="#666">
+      • 基本的な構文を自動変換 • まだJavaらしいコードのまま • 次のステップで改善
+    </text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 400 170 L 400 200" stroke="#7F52FF" stroke-width="3" marker-end="url(#stepArrow)"/>
+
+  <!-- Step 2: Null Safety -->
+  <g transform="translate(50, 200)">
+    <rect x="0" y="0" width="700" height="120" rx="10" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+    <text x="30" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2196F3">
+      Step 2: Null安全性の改善
+    </text>
+    <rect x="30" y="45" width="310" height="60" rx="5" fill="#FFEBEE"/>
+    <text x="40" y="60" font-family="monospace" font-size="11" fill="#C62828">// 変換後 (改善前)</text>
+    <text x="40" y="75" font-family="monospace" font-size="11" fill="#333">var name: String? = null</text>
+    <text x="40" y="90" font-family="monospace" font-size="11" fill="#333">if (name != null) { ... }</text>
+
+    <text x="350" y="75" font-family="Arial, sans-serif" font-size="20" fill="#4CAF50">→</text>
+
+    <rect x="360" y="45" width="310" height="60" rx="5" fill="#E8F5E9"/>
+    <text x="370" y="60" font-family="monospace" font-size="11" fill="#4CAF50">// 改善後</text>
+    <text x="370" y="75" font-family="monospace" font-size="11" fill="#333">val name: String = ""</text>
+    <text x="370" y="90" font-family="monospace" font-size="11" fill="#333">name.takeIf { it.isNotEmpty() }?.let { ... }</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 400 320 L 400 350" stroke="#7F52FF" stroke-width="3" marker-end="url(#stepArrow)"/>
+
+  <!-- Step 3: Data Classes -->
+  <g transform="translate(50, 350)">
+    <rect x="0" y="0" width="700" height="120" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+    <text x="30" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4CAF50">
+      Step 3: データクラス化
+    </text>
+    <rect x="30" y="45" width="310" height="60" rx="5" fill="#FFEBEE"/>
+    <text x="40" y="60" font-family="monospace" font-size="11" fill="#C62828">// POJOクラス (50行)</text>
+    <text x="40" y="75" font-family="monospace" font-size="11" fill="#333">class User {</text>
+    <text x="40" y="90" font-family="monospace" font-size="11" fill="#333">  private String name; ...</text>
+
+    <text x="350" y="75" font-family="Arial, sans-serif" font-size="20" fill="#4CAF50">→</text>
+
+    <rect x="360" y="45" width="310" height="60" rx="5" fill="#E8F5E9"/>
+    <text x="370" y="60" font-family="monospace" font-size="11" fill="#4CAF50">// データクラス (1行)</text>
+    <text x="370" y="75" font-family="monospace" font-size="11" fill="#333">data class User(</text>
+    <text x="370" y="90" font-family="monospace" font-size="11" fill="#333">  val name: String, ...)</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 400 470 L 400 500" stroke="#7F52FF" stroke-width="3" marker-end="url(#stepArrow)"/>
+
+  <!-- Step 4: Collections & Lambdas -->
+  <g transform="translate(50, 500)">
+    <rect x="0" y="0" width="700" height="120" rx="10" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+    <text x="30" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FF9800">
+      Step 4: コレクション操作とラムダ式
+    </text>
+    <rect x="30" y="45" width="310" height="60" rx="5" fill="#FFEBEE"/>
+    <text x="40" y="60" font-family="monospace" font-size="11" fill="#C62828">// Javaスタイル</text>
+    <text x="40" y="75" font-family="monospace" font-size="10" fill="#333">for (User u : users) {</text>
+    <text x="40" y="88" font-family="monospace" font-size="10" fill="#333">  if (u.age > 18) result.add(u); }</text>
+
+    <text x="350" y="75" font-family="Arial, sans-serif" font-size="20" fill="#4CAF50">→</text>
+
+    <rect x="360" y="45" width="310" height="60" rx="5" fill="#E8F5E9"/>
+    <text x="370" y="60" font-family="monospace" font-size="11" fill="#4CAF50">// Kotlinスタイル</text>
+    <text x="370" y="75" font-family="monospace" font-size="10" fill="#333">val result = users</text>
+    <text x="370" y="88" font-family="monospace" font-size="10" fill="#333">  .filter { it.age > 18 }</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 400 620 L 400 650" stroke="#7F52FF" stroke-width="3" marker-end="url(#stepArrow)"/>
+
+  <!-- Step 5: Idioms -->
+  <g transform="translate(50, 650)">
+    <rect x="0" y="0" width="700" height="120" rx="10" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+    <text x="30" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#9C27B0">
+      Step 5: Kotlinイディオムの適用
+    </text>
+    <rect x="30" y="45" width="310" height="60" rx="5" fill="#FFEBEE"/>
+    <text x="40" y="60" font-family="monospace" font-size="11" fill="#C62828">// 手続き的</text>
+    <text x="40" y="75" font-family="monospace" font-size="10" fill="#333">val user = User()</text>
+    <text x="40" y="88" font-family="monospace" font-size="10" fill="#333">user.name = "Alice"; user.age = 25</text>
+
+    <text x="350" y="75" font-family="Arial, sans-serif" font-size="20" fill="#4CAF50">→</text>
+
+    <rect x="360" y="45" width="310" height="60" rx="5" fill="#E8F5E9"/>
+    <text x="370" y="60" font-family="monospace" font-size="11" fill="#4CAF50">// Kotlinイディオム</text>
+    <text x="370" y="75" font-family="monospace" font-size="10" fill="#333">val user = User().apply {</text>
+    <text x="370" y="88" font-family="monospace" font-size="10" fill="#333">  name = "Alice"; age = 25 }</text>
+  </g>
+
+  <!-- Best Practices Box -->
+  <g transform="translate(50, 790)">
+    <rect x="0" y="0" width="340" height="50" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+    <text x="170" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      ベストプラクティス
+    </text>
+    <text x="170" y="38" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333">
+      段階的にリファクタリング • テストで検証
+    </text>
+  </g>
+
+  <!-- Key Points Box -->
+  <g transform="translate(410, 790)">
+    <rect x="0" y="0" width="340" height="50" rx="10" fill="#FFF9C4" stroke="#FBC02D" stroke-width="2"/>
+    <text x="170" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#F57F17">
+      重要ポイント
+    </text>
+    <text x="170" y="38" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333">
+      一度に全部やらない • 改善は継続的に
+    </text>
+  </g>
+</svg>
