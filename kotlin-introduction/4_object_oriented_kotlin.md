@@ -61,11 +61,16 @@ class User(val name: String, val email: String) {
         println("User registration completed")
     }
 
+
     private fun validateEmail(email: String) {
         require(email.contains("@")) { "Invalid email format" }
     }
 }
 ```
+
+Javaとの違い
+<img width="499" height="191" alt="スクリーンショット 2025-11-04 0 24 38" src="https://github.com/user-attachments/assets/8417d8ef-7189-40ed-a52d-877a6147aebf" />
+
 
 ### セカンダリコンストラクタ
 
@@ -82,12 +87,17 @@ class Rectangle {
 
     // セカンダリコンストラクタ（正方形用）
     constructor(size: Double) : this(size, size)
+
+    // セカンダリコンストラクタ（整数から変換）
+    constructor(width: Int, height: Int) : this(width.toDouble(), height.toDouble())
 }
 
 // より簡潔な書き方
 class Rectangle(val width: Double, val height: Double) {
     // セカンダリコンストラクタはプライマリを呼び出す必要がある
     constructor(size: Double) : this(size, size)
+    // 整数から変換
+    constructor(width: Int, height: Int) : this(width.toDouble(), height.toDouble())
 }
 ```
 
