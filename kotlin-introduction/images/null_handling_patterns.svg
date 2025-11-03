@@ -1,0 +1,111 @@
+<svg width="800" height="650" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="patternGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Null処理のパターン
+  </text>
+
+  <!-- Safe Call Operator -->
+  <g transform="translate(50, 60)">
+    <rect x="0" y="0" width="340" height="130" rx="10" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1565C0">
+      1. 安全呼び出し演算子 (?.)
+    </text>
+    <rect x="15" y="40" width="310" height="75" rx="5" fill="white"/>
+    <text x="25" y="60" font-family="monospace" font-size="12" fill="#333">val name: String? = user?.name</text>
+    <text x="25" y="80" font-family="monospace" font-size="12" fill="#333">val upper = name?.uppercase()</text>
+    <text x="25" y="100" font-family="monospace" font-size="12" fill="#4CAF50">// userがnullなら全体がnull</text>
+  </g>
+
+  <!-- Elvis Operator -->
+  <g transform="translate(410, 60)">
+    <rect x="0" y="0" width="340" height="130" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      2. エルビス演算子 (?:)
+    </text>
+    <rect x="15" y="40" width="310" height="75" rx="5" fill="white"/>
+    <text x="25" y="60" font-family="monospace" font-size="12" fill="#333">val name = user?.name ?: "Unknown"</text>
+    <text x="25" y="80" font-family="monospace" font-size="12" fill="#333">val length = text?.length ?: 0</text>
+    <text x="25" y="100" font-family="monospace" font-size="12" fill="#4CAF50">// null時のデフォルト値を指定</text>
+  </g>
+
+  <!-- Let Function -->
+  <g transform="translate(50, 210)">
+    <rect x="0" y="0" width="340" height="130" rx="10" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#E65100">
+      3. let関数
+    </text>
+    <rect x="15" y="40" width="310" height="75" rx="5" fill="white"/>
+    <text x="25" y="60" font-family="monospace" font-size="12" fill="#333">user?.let {</text>
+    <text x="25" y="75" font-family="monospace" font-size="12" fill="#333">  println(it.name)</text>
+    <text x="25" y="90" font-family="monospace" font-size="12" fill="#333">  process(it)</text>
+    <text x="25" y="105" font-family="monospace" font-size="12" fill="#333">} </text>
+    <text x="70" y="105" font-family="monospace" font-size="12" fill="#4CAF50">// null以外の時だけ実行</text>
+  </g>
+
+  <!-- Not-null Assertion -->
+  <g transform="translate(410, 210)">
+    <rect x="0" y="0" width="340" height="130" rx="10" fill="#FFEBEE" stroke="#F44336" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#C62828">
+      4. 非null表明 (!!) - 注意!
+    </text>
+    <rect x="15" y="40" width="310" height="75" rx="5" fill="white"/>
+    <text x="25" y="60" font-family="monospace" font-size="12" fill="#333">val name = user!!.name</text>
+    <text x="25" y="80" font-family="monospace" font-size="12" fill="#C62828">// nullの場合NPEが発生</text>
+    <text x="25" y="100" font-family="monospace" font-size="12" fill="#C62828">// 使用は最小限に抑える</text>
+  </g>
+
+  <!-- Safe Cast -->
+  <g transform="translate(50, 360)">
+    <rect x="0" y="0" width="340" height="130" rx="10" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#6A1B9A">
+      5. 安全なキャスト (as?)
+    </text>
+    <rect x="15" y="40" width="310" height="75" rx="5" fill="white"/>
+    <text x="25" y="60" font-family="monospace" font-size="12" fill="#333">val str = obj as? String</text>
+    <text x="25" y="80" font-family="monospace" font-size="12" fill="#333">val result = str?.length ?: 0</text>
+    <text x="25" y="100" font-family="monospace" font-size="12" fill="#4CAF50">// キャスト失敗時はnull</text>
+  </g>
+
+  <!-- Null Check with if -->
+  <g transform="translate(410, 360)">
+    <rect x="0" y="0" width="340" height="130" rx="10" fill="#FFF9C4" stroke="#FBC02D" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#F57F17">
+      6. if式でのnullチェック
+    </text>
+    <rect x="15" y="40" width="310" height="75" rx="5" fill="white"/>
+    <text x="25" y="60" font-family="monospace" font-size="12" fill="#333">if (user != null) {</text>
+    <text x="25" y="75" font-family="monospace" font-size="12" fill="#333">  println(user.name)</text>
+    <text x="25" y="90" font-family="monospace" font-size="12" fill="#4CAF50">  // スマートキャストされる</text>
+    <text x="25" y="105" font-family="monospace" font-size="12" fill="#333">}</text>
+  </g>
+
+  <!-- Best Practices -->
+  <g transform="translate(50, 510)">
+    <rect x="0" y="0" width="700" height="120" rx="10" fill="#F9F9FF" stroke="#7F52FF" stroke-width="2"/>
+    <text x="350" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+      ベストプラクティス
+    </text>
+
+    <g transform="translate(30, 40)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" fill="#333">
+        ✓ 優先順位: ?. &gt; ?: &gt; let &gt; if &gt; !!
+      </text>
+      <text x="0" y="22" font-family="Arial, sans-serif" font-size="13" fill="#333">
+        ✓ !!演算子は避ける (絶対にnullでないと確信できる場合のみ)
+      </text>
+      <text x="0" y="44" font-family="Arial, sans-serif" font-size="13" fill="#333">
+        ✓ チェーン可能: user?.address?.city?.uppercase() ?: "N/A"
+      </text>
+      <text x="0" y="66" font-family="Arial, sans-serif" font-size="13" fill="#333">
+        ✓ 複雑な処理にはletやif式を使用
+      </text>
+    </g>
+  </g>
+</svg>

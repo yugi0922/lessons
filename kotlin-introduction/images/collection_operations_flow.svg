@@ -1,0 +1,143 @@
+<svg width="800" height="700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+    <marker id="flowArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" fill="#7F52FF">
+      <polygon points="0 0, 10 3, 0 6" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    コレクション操作のパイプライン
+  </text>
+
+  <!-- Source Data -->
+  <g transform="translate(50, 60)">
+    <rect x="0" y="0" width="200" height="80" rx="10" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+    <text x="100" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1565C0">
+      元のデータ
+    </text>
+    <text x="100" y="50" font-family="monospace" font-size="12" text-anchor="middle" fill="#333">
+      [1, 2, 3, 4, 5, 6]
+    </text>
+  </g>
+
+  <!-- Arrow to filter -->
+  <path d="M 250 100 L 310 100" stroke="#7F52FF" stroke-width="2" marker-end="url(#flowArrow)"/>
+
+  <!-- Filter Operation -->
+  <g transform="translate(310, 60)">
+    <rect x="0" y="0" width="180" height="120" rx="10" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+    <text x="90" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#E65100">
+      filter
+    </text>
+    <rect x="10" y="35" width="160" height="40" rx="5" fill="white"/>
+    <text x="90" y="52" font-family="monospace" font-size="11" text-anchor="middle" fill="#333">
+      { it % 2 == 0 }
+    </text>
+    <text x="90" y="67" font-family="monospace" font-size="11" text-anchor="middle" fill="#666">
+      偶数のみ抽出
+    </text>
+    <text x="90" y="95" font-family="monospace" font-size="12" text-anchor="middle" fill="#4CAF50">
+      [2, 4, 6]
+    </text>
+  </g>
+
+  <!-- Arrow to map -->
+  <path d="M 490 120 L 550 120" stroke="#7F52FF" stroke-width="2" marker-end="url(#flowArrow)"/>
+
+  <!-- Map Operation -->
+  <g transform="translate(550, 60)">
+    <rect x="0" y="0" width="180" height="120" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+    <text x="90" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      map
+    </text>
+    <rect x="10" y="35" width="160" height="40" rx="5" fill="white"/>
+    <text x="90" y="52" font-family="monospace" font-size="11" text-anchor="middle" fill="#333">
+      { it * it }
+    </text>
+    <text x="90" y="67" font-family="monospace" font-size="11" text-anchor="middle" fill="#666">
+      二乗に変換
+    </text>
+    <text x="90" y="95" font-family="monospace" font-size="12" text-anchor="middle" fill="#4CAF50">
+      [4, 16, 36]
+    </text>
+  </g>
+
+  <!-- Arrow down from map -->
+  <path d="M 640 180 L 640 230" stroke="#7F52FF" stroke-width="2" marker-end="url(#flowArrow)"/>
+
+  <!-- Sum Operation -->
+  <g transform="translate(550, 230)">
+    <rect x="0" y="0" width="180" height="100" rx="10" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+    <text x="90" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#6A1B9A">
+      sum
+    </text>
+    <rect x="10" y="35" width="160" height="25" rx="5" fill="white"/>
+    <text x="90" y="52" font-family="monospace" font-size="11" text-anchor="middle" fill="#666">
+      合計を計算
+    </text>
+    <text x="90" y="80" font-family="monospace" font-size="12" text-anchor="middle" fill="#4CAF50">
+      56
+    </text>
+  </g>
+
+  <!-- Complete Code Example -->
+  <g transform="translate(50, 360)">
+    <rect x="0" y="0" width="700" height="120" rx="10" fill="#F9F9FF" stroke="#7F52FF" stroke-width="2"/>
+    <text x="350" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+      実際のコード
+    </text>
+    <rect x="20" y="40" width="660" height="65" rx="5" fill="#F5F5F5"/>
+    <text x="30" y="60" font-family="monospace" font-size="13" fill="#333">val numbers = listOf(1, 2, 3, 4, 5, 6)</text>
+    <text x="30" y="78" font-family="monospace" font-size="13" fill="#333">val result = numbers</text>
+    <text x="30" y="96" font-family="monospace" font-size="13" fill="#4CAF50">  .filter { it % 2 == 0 }.map { it * it }.sum()  </text>
+    <text x="470" y="96" font-family="monospace" font-size="13" fill="#666">// 56</text>
+  </g>
+
+  <!-- Other Common Operations -->
+  <g transform="translate(50, 500)">
+    <rect x="0" y="0" width="340" height="180" rx="10" fill="#FFF9C4" stroke="#FBC02D" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#F57F17">
+      その他の主要な操作
+    </text>
+    <g transform="translate(20, 40)">
+      <text x="0" y="0" font-family="monospace" font-size="12" fill="#333">• flatMap - ネスト解除</text>
+      <text x="0" y="20" font-family="monospace" font-size="12" fill="#333">• groupBy - グループ化</text>
+      <text x="0" y="40" font-family="monospace" font-size="12" fill="#333">• partition - 分割</text>
+      <text x="0" y="60" font-family="monospace" font-size="12" fill="#333">• take / drop - 要素選択</text>
+      <text x="0" y="80" font-family="monospace" font-size="12" fill="#333">• distinct - 重複除去</text>
+      <text x="0" y="100" font-family="monospace" font-size="12" fill="#333">• sortedBy - ソート</text>
+      <text x="0" y="120" font-family="monospace" font-size="12" fill="#333">• fold / reduce - 畳み込み</text>
+    </g>
+  </g>
+
+  <!-- Lazy Evaluation -->
+  <g transform="translate(410, 500)">
+    <rect x="0" y="0" width="340" height="180" rx="10" fill="#FFEBEE" stroke="#F44336" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#C62828">
+      Sequence (遅延評価)
+    </text>
+    <rect x="15" y="40" width="310" height="85" rx="5" fill="white"/>
+    <text x="25" y="60" font-family="monospace" font-size="11" fill="#333">val result = numbers</text>
+    <text x="25" y="75" font-family="monospace" font-size="11" fill="#333">  .asSequence()  </text>
+    <text x="155" y="75" font-family="monospace" font-size="11" fill="#4CAF50">// 遅延評価に変換</text>
+    <text x="25" y="90" font-family="monospace" font-size="11" fill="#333">  .filter { it % 2 == 0 }</text>
+    <text x="25" y="105" font-family="monospace" font-size="11" fill="#333">  .map { it * it }</text>
+    <text x="25" y="120" font-family="monospace" font-size="11" fill="#333">  .toList()  </text>
+    <text x="95" y="120" font-family="monospace" font-size="11" fill="#4CAF50">// この時点で評価される</text>
+
+    <text x="20" y="145" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#333">
+      メリット:
+    </text>
+    <text x="20" y="162" font-family="Arial, sans-serif" font-size="11" fill="#666">
+      • 大量データの効率的な処理
+    </text>
+    <text x="20" y="177" font-family="Arial, sans-serif" font-size="11" fill="#666">
+      • 中間コレクション生成を回避
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,132 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="scopeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Kotlinスコープ関数の使い分け
+  </text>
+
+  <!-- let -->
+  <g transform="translate(50, 70)">
+    <rect x="0" y="0" width="340" height="100" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      let
+    </text>
+    <text x="15" y="45" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      コンテキスト: it / 戻り値: ラムダの結果
+    </text>
+    <rect x="15" y="55" width="310" height="35" rx="3" fill="white"/>
+    <text x="20" y="72" font-family="monospace" font-size="11" fill="#333">
+      val length = name?.let { it.length } ?: 0
+    </text>
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="10" fill="#666">
+      用途: nullチェック、変換
+    </text>
+  </g>
+
+  <!-- run -->
+  <g transform="translate(410, 70)">
+    <rect x="0" y="0" width="340" height="100" rx="10" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1565C0">
+      run
+    </text>
+    <text x="15" y="45" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      コンテキスト: this / 戻り値: ラムダの結果
+    </text>
+    <rect x="15" y="55" width="310" height="35" rx="3" fill="white"/>
+    <text x="20" y="72" font-family="monospace" font-size="11" fill="#333">
+      val result = service.run { port = 8080; start() }
+    </text>
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="10" fill="#666">
+      用途: 初期化と計算
+    </text>
+  </g>
+
+  <!-- with -->
+  <g transform="translate(50, 190)">
+    <rect x="0" y="0" width="340" height="100" rx="10" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#E65100">
+      with
+    </text>
+    <text x="15" y="45" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      コンテキスト: this / 戻り値: ラムダの結果
+    </text>
+    <rect x="15" y="55" width="310" height="35" rx="3" fill="white"/>
+    <text x="20" y="72" font-family="monospace" font-size="11" fill="#333">
+      with(list) { add(1); add(2); sum() }
+    </text>
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="10" fill="#666">
+      用途: 複数操作の集約
+    </text>
+  </g>
+
+  <!-- apply -->
+  <g transform="translate(410, 190)">
+    <rect x="0" y="0" width="340" height="100" rx="10" fill="#FCE4EC" stroke="#E91E63" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#880E4F">
+      apply
+    </text>
+    <text x="15" y="45" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      コンテキスト: this / 戻り値: コンテキストオブジェクト
+    </text>
+    <rect x="15" y="55" width="310" height="35" rx="3" fill="white"/>
+    <text x="20" y="72" font-family="monospace" font-size="11" fill="#333">
+      val user = User().apply { name = "Alice"; age = 25 }
+    </text>
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="10" fill="#666">
+      用途: オブジェクト設定
+    </text>
+  </g>
+
+  <!-- also -->
+  <g transform="translate(230, 310)">
+    <rect x="0" y="0" width="340" height="100" rx="10" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+    <text x="170" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#6A1B9A">
+      also
+    </text>
+    <text x="15" y="45" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      コンテキスト: it / 戻り値: コンテキストオブジェクト
+    </text>
+    <rect x="15" y="55" width="310" height="35" rx="3" fill="white"/>
+    <text x="20" y="72" font-family="monospace" font-size="11" fill="#333">
+      list.also { println("Size: ${it.size}") }
+    </text>
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="10" fill="#666">
+      用途: 副作用、デバッグ
+    </text>
+  </g>
+
+  <!-- Decision Flow Chart -->
+  <g transform="translate(100, 440)">
+    <rect x="0" y="0" width="600" height="120" rx="10" fill="#FAFAFA" stroke="#999" stroke-width="1"/>
+    <text x="300" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">
+      選択フローチャート
+    </text>
+
+    <!-- Decision points -->
+    <text x="50" y="50" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      Q: 戻り値は？
+    </text>
+    <text x="50" y="70" font-family="Arial, sans-serif" font-size="11" fill="#666">
+      • ラムダの結果 → let, run, with
+    </text>
+    <text x="50" y="90" font-family="Arial, sans-serif" font-size="11" fill="#666">
+      • オブジェクト自身 → apply, also
+    </text>
+
+    <text x="320" y="50" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      Q: コンテキストは？
+    </text>
+    <text x="320" y="70" font-family="Arial, sans-serif" font-size="11" fill="#666">
+      • this → run, with, apply
+    </text>
+    <text x="320" y="90" font-family="Arial, sans-serif" font-size="11" fill="#666">
+      • it → let, also
+    </text>
+  </g>
+</svg>

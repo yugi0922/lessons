@@ -1,0 +1,128 @@
+<svg width="800" height="550" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="javaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#5382A1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F89820;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="kotlinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    データクラスの比較
+  </text>
+
+  <!-- Java POJO Section -->
+  <g transform="translate(30, 60)">
+    <rect x="0" y="0" width="360" height="430" rx="10" fill="#FFF9F0" stroke="#F89820" stroke-width="2"/>
+    <text x="180" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#F89820">
+      Java POJO
+    </text>
+
+    <!-- Code Example -->
+    <rect x="15" y="45" width="330" height="340" rx="5" fill="#F5F5F5"/>
+    <text x="25" y="65" font-family="monospace" font-size="11" fill="#333">public class User {</text>
+    <text x="25" y="80" font-family="monospace" font-size="11" fill="#333">  private String name;</text>
+    <text x="25" y="95" font-family="monospace" font-size="11" fill="#333">  private int age;</text>
+    <text x="25" y="110" font-family="monospace" font-size="11" fill="#333">  </text>
+    <text x="25" y="125" font-family="monospace" font-size="11" fill="#333">  public User(String name, int age) {</text>
+    <text x="25" y="140" font-family="monospace" font-size="11" fill="#333">    this.name = name;</text>
+    <text x="25" y="155" font-family="monospace" font-size="11" fill="#333">    this.age = age;</text>
+    <text x="25" y="170" font-family="monospace" font-size="11" fill="#333">  }</text>
+    <text x="25" y="185" font-family="monospace" font-size="11" fill="#333">  </text>
+    <text x="25" y="200" font-family="monospace" font-size="11" fill="#333">  public String getName() { </text>
+    <text x="25" y="215" font-family="monospace" font-size="11" fill="#333">    return name; </text>
+    <text x="25" y="230" font-family="monospace" font-size="11" fill="#333">  }</text>
+    <text x="25" y="245" font-family="monospace" font-size="11" fill="#333">  public int getAge() { </text>
+    <text x="25" y="260" font-family="monospace" font-size="11" fill="#333">    return age; </text>
+    <text x="25" y="275" font-family="monospace" font-size="11" fill="#333">  }</text>
+    <text x="25" y="290" font-family="monospace" font-size="11" fill="#333">  </text>
+    <text x="25" y="305" font-family="monospace" font-size="11" fill="#C62828">  // equals(), hashCode(), toString()</text>
+    <text x="25" y="320" font-family="monospace" font-size="11" fill="#C62828">  // メソッドも手動で実装が必要...</text>
+    <text x="25" y="335" font-family="monospace" font-size="11" fill="#C62828">  // 約50行以上のボイラープレートコード</text>
+    <text x="25" y="350" font-family="monospace" font-size="11" fill="#333">}</text>
+
+    <!-- Line Count -->
+    <rect x="15" y="395" width="330" height="30" rx="5" fill="url(#javaGrad)" opacity="0.2"/>
+    <text x="180" y="415" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#F89820">
+      50+ 行のコード
+    </text>
+  </g>
+
+  <!-- Kotlin Data Class Section -->
+  <g transform="translate(410, 60)">
+    <rect x="0" y="0" width="360" height="430" rx="10" fill="#F9F4FF" stroke="#7F52FF" stroke-width="2"/>
+    <text x="180" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+      Kotlin Data Class
+    </text>
+
+    <!-- Code Example -->
+    <rect x="15" y="45" width="330" height="60" rx="5" fill="#F5F5F5"/>
+    <text x="25" y="65" font-family="monospace" font-size="11" fill="#333">data class User(</text>
+    <text x="25" y="80" font-family="monospace" font-size="11" fill="#333">  val name: String,</text>
+    <text x="25" y="95" font-family="monospace" font-size="11" fill="#333">  val age: Int</text>
+    <text x="25" y="110" font-family="monospace" font-size="11" fill="#333">)</text>
+
+    <!-- Auto-generated Features -->
+    <rect x="15" y="120" width="330" height="265" rx="5" fill="#E8F5E9"/>
+    <text x="180" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      自動生成される機能
+    </text>
+
+    <g transform="translate(25, 155)">
+      <text x="0" y="0" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">
+        1. equals() / hashCode()
+      </text>
+      <text x="10" y="20" font-family="monospace" font-size="11" fill="#666">
+        val u1 = User("Alice", 25)
+      </text>
+      <text x="10" y="35" font-family="monospace" font-size="11" fill="#666">
+        val u2 = User("Alice", 25)
+      </text>
+      <text x="10" y="50" font-family="monospace" font-size="11" fill="#4CAF50">
+        u1 == u2  // true (構造的等価性)
+      </text>
+
+      <text x="0" y="75" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">
+        2. toString()
+      </text>
+      <text x="10" y="95" font-family="monospace" font-size="11" fill="#4CAF50">
+        println(u1)  // User(name=Alice, age=25)
+      </text>
+
+      <text x="0" y="120" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">
+        3. copy()
+      </text>
+      <text x="10" y="140" font-family="monospace" font-size="11" fill="#4CAF50">
+        val u3 = u1.copy(age = 26)
+      </text>
+
+      <text x="0" y="165" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">
+        4. componentN() (分解宣言)
+      </text>
+      <text x="10" y="185" font-family="monospace" font-size="11" fill="#4CAF50">
+        val (name, age) = u1
+      </text>
+    </g>
+
+    <!-- Line Count -->
+    <rect x="15" y="395" width="330" height="30" rx="5" fill="url(#kotlinGrad)" opacity="0.2"/>
+    <text x="180" y="415" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+      4 行のコード
+    </text>
+  </g>
+
+  <!-- Comparison Arrow -->
+  <defs>
+    <marker id="compareArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" fill="#4CAF50">
+      <polygon points="0 0, 10 3, 0 6" />
+    </marker>
+  </defs>
+  <path d="M 200 510 L 600 510" stroke="#4CAF50" stroke-width="3" fill="none" marker-end="url(#compareArrow)"/>
+  <text x="400" y="535" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#4CAF50">
+    92% 削減!
+  </text>
+</svg>

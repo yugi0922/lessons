@@ -1,0 +1,105 @@
+<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="safeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="dangerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF5252;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C62828;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Null安全性の比較
+  </text>
+
+  <!-- Java Section -->
+  <g transform="translate(50, 70)">
+    <rect x="0" y="0" width="320" height="320" rx="10" fill="#FFF5F5" stroke="#FF5252" stroke-width="2"/>
+    <text x="160" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#C62828">
+      Java
+    </text>
+
+    <!-- Code Example -->
+    <rect x="20" y="50" width="280" height="80" rx="5" fill="#F5F5F5"/>
+    <text x="30" y="75" font-family="monospace" font-size="13" fill="#333">String name = "Alice";</text>
+    <text x="30" y="95" font-family="monospace" font-size="13" fill="#333">name = null;  // OK</text>
+    <text x="30" y="115" font-family="monospace" font-size="13" fill="#333">int len = name.length(); // NPE!</text>
+
+    <!-- NPE Risk Box -->
+    <rect x="20" y="150" width="280" height="60" rx="5" fill="url(#dangerGrad)" opacity="0.8"/>
+    <text x="160" y="175" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">
+      実行時エラーのリスク
+    </text>
+    <text x="160" y="195" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">
+      NullPointerException
+    </text>
+
+    <!-- Problems List -->
+    <text x="30" y="235" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">
+      問題点：
+    </text>
+    <text x="30" y="260" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • すべての参照型がnull可能
+    </text>
+    <text x="30" y="280" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • コンパイル時にnullチェック不可
+    </text>
+    <text x="30" y="300" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • 実行時まで問題が発覚しない
+    </text>
+    <text x="30" y="320" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • 防御的プログラミングが必要
+    </text>
+    <text x="30" y="340" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • if (name != null) チェックの頻発
+    </text>
+  </g>
+
+  <!-- Kotlin Section -->
+  <g transform="translate(430, 70)">
+    <rect x="0" y="0" width="320" height="320" rx="10" fill="#F0FFF0" stroke="#4CAF50" stroke-width="2"/>
+    <text x="160" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      Kotlin
+    </text>
+
+    <!-- Non-nullable Example -->
+    <rect x="20" y="50" width="280" height="60" rx="5" fill="#F5F5F5"/>
+    <text x="30" y="70" font-family="monospace" font-size="13" fill="#333">val name: String = "Alice"</text>
+    <text x="30" y="90" font-family="monospace" font-size="13" fill="#C62828">// name = null  // コンパイルエラー!</text>
+
+    <!-- Nullable Example -->
+    <rect x="20" y="120" width="280" height="80" rx="5" fill="#F5F5F5"/>
+    <text x="30" y="140" font-family="monospace" font-size="13" fill="#333">val nullableName: String? = null</text>
+    <text x="30" y="160" font-family="monospace" font-size="13" fill="#333">val len = nullableName?.length ?: 0</text>
+    <text x="30" y="180" font-family="monospace" font-size="13" fill="#4CAF50">// 安全な処理</text>
+
+    <!-- Compile Time Safety Box -->
+    <rect x="20" y="210" width="280" height="60" rx="5" fill="url(#safeGrad)" opacity="0.8"/>
+    <text x="160" y="235" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">
+      コンパイル時の安全性
+    </text>
+    <text x="160" y="255" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">
+      NPEを事前に防止
+    </text>
+
+    <!-- Benefits List -->
+    <text x="30" y="295" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">
+      利点：
+    </text>
+    <text x="30" y="320" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • デフォルトはnull不可
+    </text>
+    <text x="30" y="340" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • ?でnull可能を明示
+    </text>
+    <text x="30" y="360" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • ?.で安全な呼び出し
+    </text>
+    <text x="30" y="380" font-family="Arial, sans-serif" font-size="12" fill="#666">
+      • ?:でデフォルト値設定
+    </text>
+  </g>
+</svg>

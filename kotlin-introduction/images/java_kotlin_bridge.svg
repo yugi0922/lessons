@@ -1,0 +1,156 @@
+<svg width="800" height="700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="javaToKotlin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F89820;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+    <marker id="bridgeArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" fill="#7F52FF">
+      <polygon points="0 0, 10 3, 0 6" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Java-Kotlin 相互運用性
+  </text>
+
+  <!-- Java Side -->
+  <g transform="translate(50, 70)">
+    <rect x="0" y="0" width="300" height="580" rx="10" fill="#FFF9F0" stroke="#F89820" stroke-width="3"/>
+    <text x="150" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#F89820">
+      Java から Kotlin を呼ぶ
+    </text>
+
+    <!-- @JvmStatic -->
+    <g transform="translate(20, 50)">
+      <rect x="0" y="0" width="260" height="100" rx="8" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1565C0">
+        @JvmStatic
+      </text>
+      <rect x="10" y="30" width="240" height="60" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Kotlin</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#333">object Utils {</text>
+      <text x="20" y="71" font-family="monospace" font-size="10" fill="#7F52FF">  @JvmStatic</text>
+      <text x="20" y="84" font-family="monospace" font-size="10" fill="#333">  fun hello() { }</text>
+    </g>
+
+    <!-- @JvmField -->
+    <g transform="translate(20, 160)">
+      <rect x="0" y="0" width="260" height="95" rx="8" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+        @JvmField
+      </text>
+      <rect x="10" y="30" width="240" height="55" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Kotlin</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#7F52FF">@JvmField</text>
+      <text x="20" y="71" font-family="monospace" font-size="10" fill="#333">val MAX_SIZE = 100</text>
+    </g>
+
+    <!-- @JvmOverloads -->
+    <g transform="translate(20, 265)">
+      <rect x="0" y="0" width="260" height="105" rx="8" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#E65100">
+        @JvmOverloads
+      </text>
+      <rect x="10" y="30" width="240" height="65" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Kotlin</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#7F52FF">@JvmOverloads</text>
+      <text x="20" y="71" font-family="monospace" font-size="10" fill="#333">fun greet(name: String,</text>
+      <text x="20" y="84" font-family="monospace" font-size="10" fill="#333">  prefix: String = "Mr.")</text>
+    </g>
+
+    <!-- @JvmName -->
+    <g transform="translate(20, 380)">
+      <rect x="0" y="0" width="260" height="95" rx="8" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#6A1B9A">
+        @JvmName
+      </text>
+      <rect x="10" y="30" width="240" height="55" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Kotlin</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#7F52FF">@JvmName("stringLength")</text>
+      <text x="20" y="71" font-family="monospace" font-size="10" fill="#333">fun String.len() = length</text>
+    </g>
+
+    <!-- @Throws -->
+    <g transform="translate(20, 485)">
+      <rect x="0" y="0" width="260" height="85" rx="8" fill="#FFEBEE" stroke="#F44336" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#C62828">
+        @Throws
+      </text>
+      <rect x="10" y="30" width="240" height="45" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#7F52FF">@Throws(IOException::class)</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#333">fun readFile() { }</text>
+    </g>
+  </g>
+
+  <!-- Kotlin Side -->
+  <g transform="translate(450, 70)">
+    <rect x="0" y="0" width="300" height="580" rx="10" fill="#F9F4FF" stroke="#7F52FF" stroke-width="3"/>
+    <text x="150" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+      Kotlin から Java を呼ぶ
+    </text>
+
+    <!-- Platform Types -->
+    <g transform="translate(20, 50)">
+      <rect x="0" y="0" width="260" height="130" rx="8" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1565C0">
+        プラットフォーム型
+      </text>
+      <rect x="10" y="30" width="240" height="90" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Javaの戻り値</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#333">val str = javaObj.getName()</text>
+      <text x="20" y="71" font-family="monospace" font-size="10" fill="#666">// String! (nullable不明)</text>
+      <text x="20" y="90" font-family="monospace" font-size="10" fill="#4CAF50">// 安全に扱う</text>
+      <text x="20" y="103" font-family="monospace" font-size="10" fill="#333">val len = str?.length ?: 0</text>
+    </g>
+
+    <!-- SAM Conversion -->
+    <g transform="translate(20, 190)">
+      <rect x="0" y="0" width="260" height="125" rx="8" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+        SAM変換
+      </text>
+      <rect x="10" y="30" width="240" height="85" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Javaの関数型インターフェース</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#333">button.setOnClickListener {</text>
+      <text x="20" y="71" font-family="monospace" font-size="10" fill="#4CAF50">  // ラムダで簡潔に</text>
+      <text x="20" y="84" font-family="monospace" font-size="10" fill="#333">  println("Clicked!")</text>
+      <text x="20" y="97" font-family="monospace" font-size="10" fill="#333">}</text>
+    </g>
+
+    <!-- Property Access -->
+    <g transform="translate(20, 325)">
+      <rect x="0" y="0" width="260" height="115" rx="8" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#E65100">
+        プロパティアクセス
+      </text>
+      <rect x="10" y="30" width="240" height="75" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Javaのgetter/setter</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#666">// getName() / setName()</text>
+      <text x="20" y="77" font-family="monospace" font-size="10" fill="#4CAF50">// Kotlinでは簡潔に</text>
+      <text x="20" y="90" font-family="monospace" font-size="10" fill="#333">person.name = "Alice"</text>
+    </g>
+
+    <!-- Null Safety with Java -->
+    <g transform="translate(20, 450)">
+      <rect x="0" y="0" width="260" height="120" rx="8" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+      <text x="130" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#6A1B9A">
+        Null安全性の注意
+      </text>
+      <rect x="10" y="30" width="240" height="80" rx="5" fill="white"/>
+      <text x="20" y="45" font-family="monospace" font-size="10" fill="#333">// Javaのnull戻り値に注意</text>
+      <text x="20" y="58" font-family="monospace" font-size="10" fill="#C62828">val result = javaObj.find()</text>
+      <text x="20" y="71" font-family="monospace" font-size="10" fill="#C62828">// nullの可能性あり!</text>
+      <text x="20" y="90" font-family="monospace" font-size="10" fill="#4CAF50">// 安全に扱う</text>
+      <text x="20" y="103" font-family="monospace" font-size="10" fill="#333">result?.process()</text>
+    </g>
+  </g>
+
+  <!-- Bridge Arrow -->
+  <path d="M 360 350 L 440 350" stroke="url(#javaToKotlin)" stroke-width="4" marker-end="url(#bridgeArrow)"/>
+  <path d="M 440 380 L 360 380" stroke="url(#javaToKotlin)" stroke-width="4" marker-end="url(#bridgeArrow)"/>
+  <text x="400" y="340" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+    相互運用
+  </text>
+</svg>

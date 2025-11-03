@@ -1,0 +1,112 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sealedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+    <marker id="hierarchyArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" fill="#7F52FF">
+      <polygon points="0 0, 10 3, 0 6" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Sealed クラスの階層構造
+  </text>
+
+  <!-- Sealed Class Root -->
+  <g transform="translate(250, 70)">
+    <rect x="0" y="0" width="300" height="80" rx="10" fill="url(#sealedGrad)" opacity="0.9"/>
+    <text x="150" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">
+      sealed class Result&lt;out T&gt;
+    </text>
+    <text x="150" y="55" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white">
+      制限された階層 - コンパイラが全サブクラスを認識
+    </text>
+  </g>
+
+  <!-- Branch Lines -->
+  <line x1="400" y1="150" x2="400" y2="190" stroke="#7F52FF" stroke-width="2"/>
+  <line x1="400" y1="190" x2="150" y2="220" stroke="#7F52FF" stroke-width="2" marker-end="url(#hierarchyArrow)"/>
+  <line x1="400" y1="190" x2="400" y2="220" stroke="#7F52FF" stroke-width="2" marker-end="url(#hierarchyArrow)"/>
+  <line x1="400" y1="190" x2="650" y2="220" stroke="#7F52FF" stroke-width="2" marker-end="url(#hierarchyArrow)"/>
+
+  <!-- Success Subclass -->
+  <g transform="translate(30, 220)">
+    <rect x="0" y="0" width="240" height="100" rx="8" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+    <text x="120" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      data class Success&lt;T&gt;
+    </text>
+    <rect x="10" y="35" width="220" height="55" rx="5" fill="white"/>
+    <text x="20" y="55" font-family="monospace" font-size="11" fill="#333">Success(</text>
+    <text x="20" y="70" font-family="monospace" font-size="11" fill="#333">  val data: T</text>
+    <text x="20" y="85" font-family="monospace" font-size="11" fill="#333">) : Result&lt;T&gt;()</text>
+  </g>
+
+  <!-- Error Subclass -->
+  <g transform="translate(280, 220)">
+    <rect x="0" y="0" width="240" height="100" rx="8" fill="#FFEBEE" stroke="#F44336" stroke-width="2"/>
+    <text x="120" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#C62828">
+      data class Error
+    </text>
+    <rect x="10" y="35" width="220" height="55" rx="5" fill="white"/>
+    <text x="20" y="55" font-family="monospace" font-size="11" fill="#333">Error(</text>
+    <text x="20" y="70" font-family="monospace" font-size="11" fill="#333">  val exception: Exception</text>
+    <text x="20" y="85" font-family="monospace" font-size="11" fill="#333">) : Result&lt;Nothing&gt;()</text>
+  </g>
+
+  <!-- Loading Subclass -->
+  <g transform="translate(530, 220)">
+    <rect x="0" y="0" width="240" height="100" rx="8" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+    <text x="120" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1565C0">
+      object Loading
+    </text>
+    <rect x="10" y="35" width="220" height="55" rx="5" fill="white"/>
+    <text x="20" y="55" font-family="monospace" font-size="11" fill="#333">object Loading : </text>
+    <text x="20" y="70" font-family="monospace" font-size="11" fill="#333">  Result&lt;Nothing&gt;()</text>
+  </g>
+
+  <!-- When Expression Example -->
+  <g transform="translate(50, 360)">
+    <rect x="0" y="0" width="700" height="200" rx="10" fill="#F9F9FF" stroke="#7F52FF" stroke-width="2"/>
+    <text x="350" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+      網羅的なwhen式 (コンパイラがチェック)
+    </text>
+
+    <rect x="20" y="40" width="660" height="145" rx="5" fill="#F5F5F5"/>
+    <text x="30" y="60" font-family="monospace" font-size="12" fill="#333">fun &lt;T&gt; handleResult(result: Result&lt;T&gt;) {</text>
+    <text x="30" y="78" font-family="monospace" font-size="12" fill="#333">  when (result) {</text>
+    <text x="30" y="96" font-family="monospace" font-size="12" fill="#4CAF50">    is Success -&gt; println("Data: ${result.data}")</text>
+    <text x="30" y="114" font-family="monospace" font-size="12" fill="#F44336">    is Error -&gt; println("Error: ${result.exception.message}")</text>
+    <text x="30" y="132" font-family="monospace" font-size="12" fill="#2196F3">    Loading -&gt; println("Loading...")</text>
+    <text x="30" y="150" font-family="monospace" font-size="12" fill="#666">    // else不要! すべてのケースをカバー</text>
+    <text x="30" y="168" font-family="monospace" font-size="12" fill="#333">  }</text>
+    <text x="30" y="186" font-family="monospace" font-size="12" fill="#333">}</text>
+  </g>
+
+  <!-- Benefits Box -->
+  <g transform="translate(580, 380)">
+    <rect x="0" y="0" width="180" height="140" rx="8" fill="#FFF9C4" stroke="#F9A825" stroke-width="2"/>
+    <text x="90" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#F57F17">
+      メリット
+    </text>
+    <text x="10" y="40" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      ✓ 型安全性
+    </text>
+    <text x="10" y="60" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      ✓ 網羅性チェック
+    </text>
+    <text x="10" y="80" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      ✓ スマートキャスト
+    </text>
+    <text x="10" y="100" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      ✓ else不要
+    </text>
+    <text x="10" y="120" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      ✓ 新ケース追加時
+    </text>
+    <text x="10" y="135" font-family="Arial, sans-serif" font-size="11" fill="#333">
+        コンパイルエラー
+    </text>
+  </g>
+</svg>

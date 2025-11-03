@@ -1,0 +1,130 @@
+<svg width="800" height="750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="idiomGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C711E1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    Kotlinイディオム集
+  </text>
+
+  <!-- Apply -->
+  <g transform="translate(30, 60)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1565C0">
+      apply - オブジェクト設定
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">val person = Person().apply {</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">  name = "Alice"</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#333">  age = 25</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#333">} </text>
+    <text x="60" y="103" font-family="monospace" font-size="11" fill="#4CAF50">// personを返す</text>
+  </g>
+
+  <!-- Also -->
+  <g transform="translate(410, 60)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2E7D32">
+      also - 追加処理
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">val result = calculate()</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">  .also { println("Result: $it") }</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#333">  .also { logToFile(it) }</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#4CAF50">// resultを返す</text>
+  </g>
+
+  <!-- Let -->
+  <g transform="translate(30, 210)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#E65100">
+      let - null安全な処理
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">val length = text?.let {</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">  println(it)</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#333">  it.length</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#333">} ?: 0</text>
+  </g>
+
+  <!-- Run -->
+  <g transform="translate(410, 210)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#6A1B9A">
+      run - ブロック実行
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">val result = service.run {</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">  connect()</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#333">  query("SELECT * FROM users")</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#333">} </text>
+    <text x="60" y="103" font-family="monospace" font-size="11" fill="#4CAF50">// 最後の式を返す</text>
+  </g>
+
+  <!-- With -->
+  <g transform="translate(30, 360)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#FFEBEE" stroke="#F44336" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#C62828">
+      with - レシーバ付き実行
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">with(person) {</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">  println(name)</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#333">  println(age)</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#333">}</text>
+  </g>
+
+  <!-- Destructuring -->
+  <g transform="translate(410, 360)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#E1F5FE" stroke="#03A9F4" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#01579B">
+      分解宣言
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">val (name, age) = person</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">val (key, value) = map.entries.first()</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#333">for ((index, item) in list</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#333">  .withIndex()) { }</text>
+  </g>
+
+  <!-- Elvis with Return/Throw -->
+  <g transform="translate(30, 510)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#FFF9C4" stroke="#FBC02D" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#F57F17">
+      早期リターン
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">val user = findUser(id)</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">  ?: return null</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#666">// または</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#333">  ?: throw UserNotFoundException()</text>
+  </g>
+
+  <!-- String Template -->
+  <g transform="translate(410, 510)">
+    <rect x="0" y="0" width="360" height="130" rx="10" fill="#E8EAF6" stroke="#3F51B5" stroke-width="2"/>
+    <text x="180" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1A237E">
+      文字列テンプレート
+    </text>
+    <rect x="15" y="40" width="330" height="75" rx="5" fill="white"/>
+    <text x="25" y="58" font-family="monospace" font-size="11" fill="#333">val name = "Alice"</text>
+    <text x="25" y="73" font-family="monospace" font-size="11" fill="#333">println("Hello, $name!")</text>
+    <text x="25" y="88" font-family="monospace" font-size="11" fill="#333">println("Length: ${name.length}")</text>
+    <text x="25" y="103" font-family="monospace" font-size="11" fill="#4CAF50">// 式も埋め込み可能</text>
+  </g>
+
+  <!-- Summary Box -->
+  <g transform="translate(50, 660)">
+    <rect x="0" y="0" width="700" height="70" rx="10" fill="url(#idiomGrad)" opacity="0.1" stroke="#7F52FF" stroke-width="2"/>
+    <text x="350" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#7F52FF">
+      イディオムを活用することで
+    </text>
+    <text x="350" y="48" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333">
+      より簡潔で読みやすく、保守性の高いコードを書くことができます
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,48 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+
+  <!-- タイトル -->
+  <text x="400" y="30" text-anchor="middle" font-size="24" font-weight="bold" fill="#333">SQLの種類</text>
+
+  <!-- DML -->
+  <g transform="translate(50, 80)">
+    <rect width="160" height="120" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" />
+    <text x="80" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1976d2">DML</text>
+    <text x="80" y="55" text-anchor="middle" font-size="12" fill="#333">データ操作言語</text>
+    <text x="80" y="80" text-anchor="middle" font-size="12" fill="#666">SELECT</text>
+    <text x="80" y="100" text-anchor="middle" font-size="12" fill="#666">INSERT</text>
+    <text x="80" y="120" text-anchor="middle" font-size="12" fill="#666">UPDATE</text>
+    <text x="80" y="140" text-anchor="middle" font-size="12" fill="#666">DELETE</text>
+  </g>
+
+  <!-- DDL -->
+  <g transform="translate(240, 80)">
+    <rect width="160" height="120" rx="10" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" />
+    <text x="80" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#388e3c">DDL</text>
+    <text x="80" y="55" text-anchor="middle" font-size="12" fill="#333">データ定義言語</text>
+    <text x="80" y="80" text-anchor="middle" font-size="12" fill="#666">CREATE</text>
+    <text x="80" y="100" text-anchor="middle" font-size="12" fill="#666">ALTER</text>
+    <text x="80" y="120" text-anchor="middle" font-size="12" fill="#666">DROP</text>
+    <text x="80" y="140" text-anchor="middle" font-size="12" fill="#666">TRUNCATE</text>
+  </g>
+
+  <!-- DCL -->
+  <g transform="translate(430, 80)">
+    <rect width="160" height="120" rx="10" fill="#fff3e0" stroke="#f57c00" stroke-width="2" />
+    <text x="80" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#f57c00">DCL</text>
+    <text x="80" y="55" text-anchor="middle" font-size="12" fill="#333">データ制御言語</text>
+    <text x="80" y="80" text-anchor="middle" font-size="12" fill="#666">GRANT</text>
+    <text x="80" y="100" text-anchor="middle" font-size="12" fill="#666">REVOKE</text>
+  </g>
+
+  <!-- TCL -->
+  <g transform="translate(240, 230)">
+    <rect width="160" height="120" rx="10" fill="#fce4ec" stroke="#c2185b" stroke-width="2" />
+    <text x="80" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#c2185b">TCL</text>
+    <text x="80" y="55" text-anchor="middle" font-size="12" fill="#333">トランザクション制御</text>
+    <text x="80" y="80" text-anchor="middle" font-size="12" fill="#666">COMMIT</text>
+    <text x="80" y="100" text-anchor="middle" font-size="12" fill="#666">ROLLBACK</text>
+    <text x="80" y="120" text-anchor="middle" font-size="12" fill="#666">SAVEPOINT</text>
+  </g>
+</svg>
