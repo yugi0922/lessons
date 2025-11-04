@@ -400,8 +400,8 @@ interface Named {
 class Person(override val name: String) : Named
 ```
 実装例
-```
-kotlinclass Person(override val name: String) : Named
+```kotlin
+class Person(override val name: String) : Named
 
 val person = Person("alice")
 println(person.name)         // "alice"
