@@ -1024,61 +1024,49 @@ public static <T> void handleResult(Result<T> result) {
 
 Kotlinでは`object`キーワードを使用してシングルトンを簡単に作成できます。
 
+シングルトンとは？
+アプリケーション全体で1つだけ存在するインスタンスを保証するデザインパターンです。
+
 ```kotlin
-// オブジェクト宣言（シングルトン）
 object DatabaseConfig {
     val url: String = "jdbc:postgresql://localhost:5432/mydb"
-    val username: String = "user"
 
     fun connect() {
         println("Connecting to $url")
     }
 }
 
-// 使用例
+// 使用例（インスタンス化不要）
 DatabaseConfig.connect()
 println(DatabaseConfig.url)
-
-// より実践的な例：アプリケーション設定
-object AppConfig {
-    private val properties = mutableMapOf<String, String>()
-
-    fun load(configFile: String) {
-        // 設定ファイルの読み込み
-    }
-
-    fun get(key: String): String? = properties[key]
-
-    fun set(key: String, value: String) {
-        properties[key] = value
-    }
-}
 ```
+特徴
+- objectキーワード1つで完結
+- インスタンス化不要、クラス名で直接アクセス
+- スレッドセーフ（自動保証）
+- 遅延初期化（初回アクセス時に生成）
 
 **Javaとの比較：**
 
 ```java
-// Java - シングルトンパターン
 public class DatabaseConfig {
     private static final DatabaseConfig INSTANCE = new DatabaseConfig();
-
+    
     private final String url = "jdbc:postgresql://localhost:5432/mydb";
-    private final String username = "user";
-
+    
     private DatabaseConfig() {
-        // プライベートコンストラクタ
+        // プライベートコンストラクタでインスタンス化を防ぐ
     }
-
+    
     public static DatabaseConfig getInstance() {
         return INSTANCE;
     }
-
+    
     public void connect() {
         System.out.println("Connecting to " + url);
     }
-
+    
     public String getUrl() { return url; }
-    public String getUsername() { return username; }
 }
 
 // 使用例
@@ -1100,12 +1088,6 @@ class User(val id: Long, val name: String) {
         fun create(name: String): User {
             return User(nextId++, name)
         }
-
-        // ファクトリーメソッド
-        fun fromJson(json: String): User {
-            // JSONパース処理
-            return User(1, "Parsed User")
-        }
     }
 
     fun info() {
@@ -1114,34 +1096,45 @@ class User(val id: Long, val name: String) {
 }
 
 // 使用例
-val user1 = User.create("Alice")
-val user2 = User.create("Bob")
-println(User.DEFAULT_ROLE)
+// インスタンス化せずに呼び出せる
+val user1 = User.create("Alice")  // User(1, "Alice")
+val user2 = User.create("Bob")    // User(2, "Bob")
 
-// 名前付きコンパニオンオブジェクト
-class Database {
-    companion object Factory {
-        fun connect(url: String): Database {
-            return Database()
-        }
+// 定数にアクセス
+println(User.DEFAULT_ROLE)  // "user"
+```
+
+Javaとの比較
+```java
+public class User {
+    private static long nextId = 1L;
+    public static final String DEFAULT_ROLE = "user";
+    
+    private long id;
+    private String name;
+    
+    // 静的メソッド
+    public static User create(String name) {
+        return new User(nextId++, name);
     }
 }
 
-val db = Database.connect("jdbc:...")
-// または
-val db2 = Database.Factory.connect("jdbc:...")
+// 使用
+User user = User.create("Alice");
+
 ```
 
 ### ファクトリーメソッドの実装
 
+基本的な実装
 ```kotlin
-// ファクトリーメソッドパターン
 class Color private constructor(
     val red: Int,
     val green: Int,
     val blue: Int
 ) {
     companion object {
+        // 複数の生成方法を提供
         fun rgb(red: Int, green: Int, blue: Int): Color {
             require(red in 0..255) { "Invalid red value" }
             require(green in 0..255) { "Invalid green value" }
@@ -1160,56 +1153,28 @@ class Color private constructor(
         val RED = Color(255, 0, 0)
         val GREEN = Color(0, 255, 0)
         val BLUE = Color(0, 0, 255)
-        val BLACK = Color(0, 0, 0)
-        val WHITE = Color(255, 255, 255)
     }
-
-    override fun toString(): String {
-        return "Color(R:$red, G:$green, B:$blue)"
-    }
-}
-
-// 使用例
-val color1 = Color.rgb(255, 128, 0)
-val color2 = Color.fromHex("#FF8000")
-val color3 = Color.RED
-
-// より複雑な例：バリデーション付きファクトリー
-sealed class EmailResult {
-    data class Valid(val email: Email) : EmailResult()
-    data class Invalid(val reason: String) : EmailResult()
-}
-
-class Email private constructor(val address: String) {
-    companion object {
-        private val EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$".toRegex()
-
-        fun create(address: String): EmailResult {
-            return when {
-                address.isBlank() ->
-                    EmailResult.Invalid("Email cannot be blank")
-                !EMAIL_REGEX.matches(address) ->
-                    EmailResult.Invalid("Invalid email format")
-                else ->
-                    EmailResult.Valid(Email(address))
-            }
-        }
-
-        // 検証なし（内部使用）
-        internal fun createUnsafe(address: String) = Email(address)
-    }
-
-    override fun toString() = address
-}
-
-// 使用例
-when (val result = Email.create("user@example.com")) {
-    is EmailResult.Valid -> println("Valid: ${result.email}")
-    is EmailResult.Invalid -> println("Invalid: ${result.reason}")
 }
 ```
 
+```kotlin
+使用例
+val color1 = Color.rgb(255, 128, 0)      // RGB値から生成
+val color2 = Color.fromHex("#FF8000")    // 16進数から生成
+val color3 = Color.RED                   // 定義済みの色
+```
+
+ポイント
+- private constructor: 外部から直接インスタンス化を禁止
+- 複数の生成方法: 用途に応じた便利なメソッドを提供
+- バリデーション: 生成時に値の検証が可能
+
 ### オブジェクト式（匿名オブジェクト）
+
+オブジェクト式
+- 用途: 匿名クラスの代替、一時的なオブジェクト生成
+- 記法: object : Interface { ... }
+- 利点: Javaの匿名クラスと同等だが、より簡潔
 
 ```kotlin
 // 匿名オブジェクト
