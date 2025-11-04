@@ -318,7 +318,7 @@ public final class FinalClass {
 
 Kotlinのインターフェースはプロパティとデフォルト実装を持つことができます。
 
-Kotlinではdefaultキーワードが不要で、実装をそのまま書けます。
+#### Kotlinではdefaultキーワードが不要で、実装をそのまま書けます。
 
 ```kotlin
 interface Clickable {
@@ -348,7 +348,7 @@ val button = SimpleButton()
 button.click()    // "Simple clicked"
 button.showOff()  // "I'm clickable!"（インターフェースの実装を使用）
 ```
-複数インターフェースの実装
+#### 複数インターフェースの実装
 複数のインターフェースに同じ名前のメソッドがあると、どちらを使うか曖昧になります（ダイヤモンド問題）。
 Kotlinはこれを防ぐため、明示的なオーバーライドを要求します。
 ```kotlin
@@ -378,7 +378,7 @@ button.showOff()
 // I'm focusable!
 // I'm a button!
 ```
-プロパティを持つインターフェース
+#### プロパティを持つインターフェース
 
 - 抽象プロパティ（name）
     - 実装クラスで値を提供する必要がある
