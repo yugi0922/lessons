@@ -411,17 +411,42 @@ println(person.displayName)  // "ALICE"（自動的に大文字変換）
 ### プロパティの委譲
 
 Kotlinはプロパティの振る舞いを委譲できる強力な機能を提供します。
+プロパティの委譲とはプロパティのgetter/setterの振る舞いを別のオブジェクトに任せる機能です。byキーワードを使って実現します。
 
+基本構文
 ```kotlin
-// 標準の委譲：lazy
+class Example {
+    var property: Type by DelegateObject()
+    //                   ↑
+    //              この部分が「委譲先」
+}
+```
+
+1. lazy（遅延初期化委譲）
+```kotlin
 class HeavyObject {
     val config: Configuration by lazy {
         println("Loading configuration...")
         loadConfiguration()
     }
 }
+```
+解説
+- 初回アクセス時に1度だけ実行される
+- 結果はキャッシュされる（2回目以降は計算しない）
+- val（読み取り専用）でのみ使用可能
+- スレッドセーフ（デフォルト）
+動作例
+```kotlin
+val obj = HeavyObject()
+// まだ何も実行されていない
 
-// 標準の委譲：observable
+println(obj.config)  // "Loading configuration..." が出力され、Configurationを返す
+println(obj.config)  // キャッシュされた値を返す（"Loading..."は出力されない）
+```
+
+2. observable（変更監視委譲）
+```kotlin
 import kotlin.properties.Delegates
 
 class User {
@@ -430,51 +455,74 @@ class User {
         println("$old -> $new")
     }
 }
-
+```
+解説
+- プロパティの値が変更されるたびにコールバックが実行される
+- 初期値（"<no name>"）を設定できる
+- ラムダの引数
+    - prop: プロパティの情報（KProperty<*>）
+    - old: 変更前の値
+    - new: 変更後の値
+動作例
+```kotlin
 val user = User()
+println(user.name)  // "<no name>"
+
 user.name = "Alice"  // 出力: <no name> -> Alice
 user.name = "Bob"    // 出力: Alice -> Bob
+user.name = "Bob"    // 出力: Bob -> Bob（同じ値でも実行される）
+```
 
-// 標準の委譲：vetoable（条件付き変更）
+3. vetoable（条件付き変更委譲）
+```kotlin
 class Product {
     var price: Double by Delegates.vetoable(0.0) {
         prop, old, new ->
-        new >= 0  // 負の値は拒否
+        new >= 0  // 負の値は拒否（false を返すと変更されない）
     }
 }
+```
+解説
+- ラムダが**trueを返した場合のみ値が変更される**
+- falseを返すと変更がキャンセルされる
+- バリデーション（検証）に便利
+動作例
+```kotlin
+val product = Product()
+println(product.price)  // 0.0
 
-// Map による委譲
+product.price = 100.0
+println(product.price)  // 100.0（正の値なので変更成功）
+
+product.price = -50.0   // 負の値なので拒否
+println(product.price)  // 100.0（変更されていない）
+```
+
+4. Map による委譲
+```kotlin
 class UserData(map: Map<String, Any?>) {
     val name: String by map
     val age: Int by map
     val email: String by map
 }
-
+```
+解説
+- Mapのキーと値をプロパティとして扱う
+- プロパティ名が自動的にMapのキーになる
+- JSON/設定ファイルのパース結果を扱うのに便利
+動作例
+```kotlin
 val userData = UserData(mapOf(
     "name" to "Alice",
     "age" to 25,
     "email" to "alice@example.com"
 ))
 
-println(userData.name)  // Alice
-
-// カスタム委譲
-class LoggingDelegate<T>(private var value: T) {
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
-        println("Getting ${property.name}: $value")
-        return value
-    }
-
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, newValue: T) {
-        println("Setting ${property.name}: $value -> $newValue")
-        value = newValue
-    }
-}
-
-class Example {
-    var data: String by LoggingDelegate("initial")
-}
+println(userData.name)   // "Alice"（map["name"] を取得）
+println(userData.age)    // 25（map["age"] を取得）
+println(userData.email)  // "alice@example.com"
 ```
+
 
 ## 4.3 データクラスとシールドクラス
 
