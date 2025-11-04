@@ -327,7 +327,8 @@ interface Clickable {
     fun showOff() = println("I'm clickable!")  // デフォルト実装
 }
 ```
-```
+
+```java
 // Java 8以降
 interface Clickable {
     void click();  // 抽象メソッド
@@ -338,7 +339,7 @@ interface Clickable {
 }
 ```
 実用例
-```
+```kotlin
 class SimpleButton : Clickable {
     override fun click() = println("Simple clicked")
     // showOff()はオーバーライドしなくてもOK
@@ -388,7 +389,7 @@ button.showOff()
     - インターフェースがgetterの実装を提供
     - nameを使って動的に値を計算
     - バッキングフィールドを持たない
-```
+```kotlin
 interface Named {
     val name: String  // 抽象プロパティ
 
