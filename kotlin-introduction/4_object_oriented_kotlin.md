@@ -318,35 +318,77 @@ public final class FinalClass {
 
 Kotlinのインターフェースはプロパティとデフォルト実装を持つことができます。
 
+Kotlinではdefaultキーワードが不要で、実装をそのまま書けます。
+
 ```kotlin
 interface Clickable {
     fun click()  // 抽象メソッド
 
     fun showOff() = println("I'm clickable!")  // デフォルト実装
 }
+```
+```
+// Java 8以降
+interface Clickable {
+    void click();  // 抽象メソッド
+    
+    default void showOff() {  // デフォルト実装
+        System.out.println("I'm clickable!");
+    }
+}
+```
+実用例
+```
+class SimpleButton : Clickable {
+    override fun click() = println("Simple clicked")
+    // showOff()はオーバーライドしなくてもOK
+}
+
+val button = SimpleButton()
+button.click()    // "Simple clicked"
+button.showOff()  // "I'm clickable!"（インターフェースの実装を使用）
+```
+複数インターフェースの実装
+複数のインターフェースに同じ名前のメソッドがあると、どちらを使うか曖昧になります（ダイヤモンド問題）。
+Kotlinはこれを防ぐため、明示的なオーバーライドを要求します。
+```kotlin
+interface Clickable {
+    fun showOff() = println("I'm clickable!")
+}
 
 interface Focusable {
-    fun setFocus(focused: Boolean)
-
     fun showOff() = println("I'm focusable!")
 }
 
 class Button : Clickable, Focusable {
-    override fun click() = println("Button clicked")
-
-    override fun setFocus(focused: Boolean) {
-        println("Focus set to $focused")
-    }
-
-    // 複数のインターフェースで同名のメソッドがある場合は明示的に実装
+    // 同名のメソッドがある場合は明示的に実装が必要
     override fun showOff() {
-        super<Clickable>.showOff()
-        super<Focusable>.showOff()
+        super<Clickable>.showOff()   // ClickableのshowOff()を呼ぶ
+        super<Focusable>.showOff()   // FocusableのshowOff()を呼ぶ
         println("I'm a button!")
     }
 }
+```
+実行結果
+```
+val button = Button()
+button.showOff()
+// 出力:
+// I'm clickable!
+// I'm focusable!
+// I'm a button!
+```
+プロパティを持つインターフェース
 
-// プロパティを持つインターフェース
+- 抽象プロパティ（name）
+    - 実装クラスで値を提供する必要がある
+    - バッキングフィールドを持たない
+
+- 計算プロパティ（displayName）
+    - インターフェースがgetterの実装を提供
+    - nameを使って動的に値を計算
+    - バッキングフィールドを持たない
+```
 interface Named {
     val name: String  // 抽象プロパティ
 
@@ -355,6 +397,14 @@ interface Named {
 }
 
 class Person(override val name: String) : Named
+```
+実装例
+```
+kotlinclass Person(override val name: String) : Named
+
+val person = Person("alice")
+println(person.name)         // "alice"
+println(person.displayName)  // "ALICE"（自動的に大文字変換）
 ```
 
 ### プロパティの委譲
