@@ -127,6 +127,7 @@ class Rectangle(val width: Double, val height: Double) {
     ↓
   width = 10.0, height = 20.0
   （セカンダリコンストラクタは通らない）
+```
 
 ### getter/setterの自動生成
 
