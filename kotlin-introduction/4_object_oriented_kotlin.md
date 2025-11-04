@@ -783,17 +783,58 @@ val uniqueByName = users.distinctBy { it.name }
 
 ### シールドクラス（代数的データ型）
 
-シールドクラスは、限定された継承階層を表現するために使用されます。すべてのサブクラスはコンパイル時に既知である必要があります。
+シールドクラスとは？
+シールドクラス（Sealed Class）は、限定された継承階層を表現するための特殊なクラスです。すべてのサブクラスがコンパイル時に既知であることが保証されます。
+**主な特徴**
+- 制限された継承: サブクラスは同じファイルまたは同じパッケージ内でのみ定義可能
+- 網羅的チェック: when式ですべてのケースをカバーしているか検証できる
+- 型安全: 予期しないサブクラスが存在しないことが保証される
 
+#### 基本的なシールドクラス
 ```kotlin
-// シールドクラスの定義
 sealed class Result<out T> {
     data class Success<T>(val data: T) : Result<T>()
     data class Error(val exception: Exception) : Result<Nothing>()
     object Loading : Result<Nothing>()
 }
+```
+解説
 
-// when式での網羅的チェック
+sealed class Result<out T>:
+- sealedキーワードで制限された継承階層を定義
+- <out T>: 共変（covariant）型パラメータ（後で詳しく説明）
+
+サブクラスの種類:
+1. data class Success<T>: データを持つ成功状態
+2. data class Error: エラー情報を持つ失敗状態
+3. object Loading: シングルトンのローディング状態
+
+Result<Nothing>の意味:
+- NothingはKotlinのボトム型（すべての型のサブタイプ）
+- 「値を持たない」ことを表現
+- ErrorとLoadingはデータを返さないためNothingを使用
+
+使用例
+```kotlin
+fun fetchUser(id: Int): Result<User> {
+    return try {
+        val user = apiCall(id)
+        Result.Success(user)
+    } catch (e: Exception) {
+        Result.Error(e)
+    }
+}
+
+// 結果を処理
+val result = fetchUser(123)
+when (result) {
+    is Result.Success -> println("Got user: ${result.data.name}")
+    is Result.Error -> println("Failed: ${result.exception.message}")
+    Result.Loading -> println("Still loading...")
+}
+```
+#### when式での網羅的チェック
+```kotlin
 fun <T> handleResult(result: Result<T>) {
     when (result) {
         is Result.Success -> println("Success: ${result.data}")
@@ -802,52 +843,142 @@ fun <T> handleResult(result: Result<T>) {
         // elseは不要（すべてのケースが網羅されている）
     }
 }
+```
+解説
+網羅的チェック
+- シールドクラスのすべてのサブクラスを処理している場合、elseブランチが不要
+- コンパイラがすべてのケースをカバーしているか検証
+- 新しいサブクラスを追加すると、コンパイルエラーが発生（安全！）
 
-// 実用例：APIレスポンス
+通常のクラスとの比較
+```kotlin
+// 通常のクラス（open）
+open class Animal {
+    class Dog : Animal()
+    class Cat : Animal()
+}
+
+fun handle(animal: Animal) {
+    when (animal) {
+        is Animal.Dog -> println("Dog")
+        is Animal.Cat -> println("Cat")
+        // elseが必要！（他にもサブクラスが存在する可能性がある）
+        else -> println("Unknown animal")
+    }
+}
+
+// シールドクラス
+sealed class Animal {
+    class Dog : Animal()
+    class Cat : Animal()
+}
+
+fun handle(animal: Animal) {
+    when (animal) {
+        is Animal.Dog -> println("Dog")
+        is Animal.Cat -> println("Cat")
+        // elseは不要（すべてのサブクラスが既知）
+    }
+}
+```
+
+#### 実用例：APIレスポンス
+```kotlin
 sealed class ApiResponse<out T> {
     data class Success<T>(val data: T, val code: Int = 200) : ApiResponse<T>()
     data class Error(val message: String, val code: Int) : ApiResponse<Nothing>()
     object NetworkError : ApiResponse<Nothing>()
     object Unauthorized : ApiResponse<Nothing>()
 }
+```
 
-fun handleApiResponse(response: ApiResponse<User>) {
-    when (response) {
-        is ApiResponse.Success -> {
-            println("User: ${response.data}")
+解説
+より詳細なステートマシンを表現
+- Success: 成功時のデータとステータスコード
+- Error: サーバーエラー（メッセージとコード）
+- NetworkError: ネットワーク接続エラー
+- Unauthorized: 認証エラー（401）
+
+使用例
+```kotlin
+suspend fun fetchUsers(): ApiResponse<List<User>> {
+    return try {
+        val response = api.getUsers()
+        when (response.code) {
+            200 -> ApiResponse.Success(response.body)
+            401 -> ApiResponse.Unauthorized
+            else -> ApiResponse.Error(response.message, response.code)
         }
-        is ApiResponse.Error -> {
-            println("Error ${response.code}: ${response.message}")
-        }
-        ApiResponse.NetworkError -> {
-            println("Network error occurred")
-        }
-        ApiResponse.Unauthorized -> {
-            println("Unauthorized access")
-        }
+    } catch (e: IOException) {
+        ApiResponse.NetworkError
     }
 }
 
-// シールドインターフェース（Kotlin 1.5+）
+// UIレイヤーでの処理
+fun handleApiResponse(response: ApiResponse<User>) {
+    when (response) {
+        is ApiResponse.Success -> {
+            showUser(response.data)
+            showToast("Success (${response.code})")
+        }
+        is ApiResponse.Error -> {
+            showError("Error ${response.code}: ${response.message}")
+        }
+        ApiResponse.NetworkError -> {
+            showError("Check your internet connection")
+            showRetryButton()
+        }
+        ApiResponse.Unauthorized -> {
+            redirectToLogin()
+        }
+    }
+}
+```
+#### シールドインターフェース（Kotlin 1.5+）
+```kotlin
 sealed interface Operation {
     data class Add(val a: Int, val b: Int) : Operation
     data class Subtract(val a: Int, val b: Int) : Operation
     data class Multiply(val a: Int, val b: Int) : Operation
     data class Divide(val a: Int, val b: Int) : Operation
 }
+```
+<img width="497" height="135" alt="スクリーンショット 2025-11-05 2 15 46" src="https://github.com/user-attachments/assets/fa947a4b-4038-49d4-964a-78817d31b392" />
 
+使用例
+```kotlin
 fun execute(operation: Operation): Int = when (operation) {
     is Operation.Add -> operation.a + operation.b
     is Operation.Subtract -> operation.a - operation.b
     is Operation.Multiply -> operation.a * operation.b
     is Operation.Divide -> operation.a / operation.b
 }
+
+// 実行
+val result1 = execute(Operation.Add(10, 5))        // 15
+val result2 = execute(Operation.Multiply(3, 4))    // 12
+val result3 = execute(Operation.Divide(20, 4))     // 5
 ```
 
-**Javaとの比較：**
+#### Javaとの比較
+Kotlin（シンプル）
+```kotlin
+sealed class Result<out T> {
+    data class Success<T>(val data: T) : Result<T>()
+    data class Error(val exception: Exception) : Result<Nothing>()
+    object Loading : Result<Nothing>()
+}
 
+fun <T> handleResult(result: Result<T>) {
+    when (result) {
+        is Result.Success -> println("Success: ${result.data}")
+        is Result.Error -> println("Error: ${result.exception.message}")
+        Result.Loading -> println("Loading...")
+    }
+}
+```
+Java 17+（冗長）
 ```java
-// Java - sealed class（Java 17+）
 public sealed interface Result<T>
     permits Success, Error, Loading {
 }
@@ -877,7 +1008,7 @@ public final class Loading implements Result<Void> {
     private Loading() {}
 }
 
-// パターンマッチング（Java 17+）
+// パターンマッチング
 public static <T> void handleResult(Result<T> result) {
     switch (result) {
         case Success<T> s -> System.out.println("Success: " + s.getData());
