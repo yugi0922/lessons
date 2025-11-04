@@ -338,6 +338,7 @@ interface Clickable {
     }
 }
 ```
+
 実用例
 ```kotlin
 class SimpleButton : Clickable {
@@ -349,6 +350,7 @@ val button = SimpleButton()
 button.click()    // "Simple clicked"
 button.showOff()  // "I'm clickable!"（インターフェースの実装を使用）
 ```
+
 #### 複数インターフェースの実装
 複数のインターフェースに同じ名前のメソッドがあると、どちらを使うか曖昧になります（ダイヤモンド問題）。
 Kotlinはこれを防ぐため、明示的なオーバーライドを要求します。
@@ -370,6 +372,7 @@ class Button : Clickable, Focusable {
     }
 }
 ```
+
 実行結果
 ```
 val button = Button()
@@ -379,6 +382,7 @@ button.showOff()
 // I'm focusable!
 // I'm a button!
 ```
+
 #### プロパティを持つインターフェース
 
 - 抽象プロパティ（name）
@@ -399,6 +403,7 @@ interface Named {
 
 class Person(override val name: String) : Named
 ```
+
 実装例
 ```kotlin
 class Person(override val name: String) : Named
@@ -431,11 +436,13 @@ class HeavyObject {
     }
 }
 ```
+
 解説
 - 初回アクセス時に1度だけ実行される
 - 結果はキャッシュされる（2回目以降は計算しない）
 - val（読み取り専用）でのみ使用可能
 - スレッドセーフ（デフォルト）
+
 動作例
 ```kotlin
 val obj = HeavyObject()
@@ -456,6 +463,7 @@ class User {
     }
 }
 ```
+
 解説
 - プロパティの値が変更されるたびにコールバックが実行される
 - 初期値（"<no name>"）を設定できる
@@ -463,6 +471,7 @@ class User {
     - prop: プロパティの情報（KProperty<*>）
     - old: 変更前の値
     - new: 変更後の値
+
 動作例
 ```kotlin
 val user = User()
@@ -482,10 +491,12 @@ class Product {
     }
 }
 ```
+
 解説
 - ラムダが**trueを返した場合のみ値が変更される**
 - falseを返すと変更がキャンセルされる
 - バリデーション（検証）に便利
+
 動作例
 ```kotlin
 val product = Product()
@@ -506,10 +517,12 @@ class UserData(map: Map<String, Any?>) {
     val email: String by map
 }
 ```
+
 解説
 - Mapのキーと値をプロパティとして扱う
 - プロパティ名が自動的にMapのキーになる
 - JSON/設定ファイルのパース結果を扱うのに便利
+
 動作例
 ```kotlin
 val userData = UserData(mapOf(
@@ -528,91 +541,244 @@ println(userData.email)  // "alice@example.com"
 
 ### データクラス
 
-データクラスは、データを保持することが主目的のクラスです。`equals()`, `hashCode()`, `toString()`, `copy()`が自動生成されます。
-
+#### データクラスの基本制約
 ```kotlin
-// データクラスの定義
-data class User(
-    val id: Long,
-    val name: String,
-    val email: String,
-    val age: Int
-)
-
-// 自動生成される機能
-val user1 = User(1, "Alice", "alice@example.com", 25)
-val user2 = User(1, "Alice", "alice@example.com", 25)
-
-// equals/hashCode
-println(user1 == user2)  // true（構造的等価性）
-
-// toString
-println(user1)  // User(id=1, name=Alice, email=alice@example.com, age=25)
-
-// copy（一部のプロパティを変更したコピー）
-val user3 = user1.copy(age = 26)
-println(user3)  // User(id=1, name=Alice, email=alice@example.com, age=26)
-
-// 分解宣言
-val (id, name, email, age) = user1
-println("$name is $age years old")
+data class Point(val x: Int, val y: Int)
 ```
-
-**Javaとの比較：**
-
-```java
-// Java - Recordクラス（Java 14+）
-public record User(long id, String name, String email, int age) {}
-
-// Java 13以前 - 手動実装
-public class User {
-    private final long id;
-    private final String name;
-    private final String email;
-    private final int age;
-
-    public User(long id, String name, String email, int age) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.age = age;
-    }
-
-    // getter, equals, hashCode, toString を手動実装...
-    // 約50行以上のボイラープレートコード
-}
-```
-
-### データクラスの制約と高度な使用
-
+#### データクラスの必須要件
+1. プライマリコンストラクタに少なくとも1つのパラメータが必要
 ```kotlin
-// データクラスはプライマリコンストラクタに少なくとも1つのパラメータが必要
+// ✅ OK
 data class Point(val x: Int, val y: Int)
 
-// プロパティにデフォルト値を設定可能
+// ❌ エラー: パラメータがない
+data class Empty()
+
+// ✅ OK: 最低1つあればOK
+data class Single(val value: String)
+```
+2. プライマリコンストラクタのパラメータはvalまたはvarが必要
+```kotlin
+// ❌ エラー: valもvarもない
+data class Wrong(x: Int, y: Int)
+
+// ✅ OK
+data class Right(val x: Int, val y: Int)
+```
+3. 自動生成されるメソッド
+- equals() / hashCode(): 値の比較
+- toString(): 文字列表現
+- copy(): コピーを作成
+- componentN(): 分解宣言用
+
+4. その他の制約
+```kotlin
+// ❌ データクラスはabstractにできない
+abstract data class Base(val x: Int)
+
+// ❌ データクラスはopenにできない（継承不可）
+open data class Base(val x: Int)
+
+// ❌ データクラスはsealedにできない
+sealed data class Result(val value: Int)
+
+// ✅ OK: 他のクラスを継承できる（インターフェース実装も可能）
+interface Named {
+    val name: String
+}
+data class Person(override val name: String, val age: Int) : Named
+```
+#### デフォルト値の設定
+解説
+- プロパティにデフォルト値を設定できる
+- インスタンス作成時に省略可能
+- 名前付き引数と組み合わせると非常に便利
+
+```kotlin
 data class Configuration(
     val host: String = "localhost",
     val port: Int = 8080,
     val secure: Boolean = false
 )
 
+```
+使用例
+```kotlin
+// すべてデフォルト値
 val config1 = Configuration()
+println(config1)  // Configuration(host=localhost, port=8080, secure=false)
+
+// 一部だけ指定（名前付き引数を使用）
 val config2 = Configuration(host = "example.com")
+println(config2)  // Configuration(host=example.com, port=8080, secure=false)
+
+// 順番を気にせず指定可能
 val config3 = Configuration(port = 443, secure = true)
+println(config3)  // Configuration(host=localhost, port=443, secure=true)
 
-// 分解宣言は最初の5つのプロパティまで
+// すべて指定
+val config4 = Configuration(
+    host = "api.example.com",
+    port = 443,
+    secure = true
+)
+
+// copy()との組み合わせ
+val original = Configuration()
+// 一部だけ変更したコピーを作成
+val modified = original.copy(secure = true)
+
+println(original)  // Configuration(host=localhost, port=8080, secure=false)
+println(modified)  // Configuration(host=localhost, port=8080, secure=true)
+```
+
+#### 分解宣言（Destructuring Declaration）
+```kotlin
 data class Person(val name: String, val age: Int, val city: String)
-val (name, age) = Person("Alice", 25, "Tokyo")  // cityは無視される
 
-// コレクション内のデータクラス
+val person = Person("Alice", 25, "Tokyo")
+val (name, age) = person  // cityは無視される
+```
+解説
+- データクラスのプロパティを複数の変数に一度に代入できる
+- 内部的にはcomponent1(), component2(), ... が呼ばれる
+- 最初の5つのプロパティまでサポート（component1〜component5）
+
+動作の仕組み
+```kotlin
+// 分解宣言の裏側
+val (name, age) = person
+
+// ↓ 実際にはこのように展開される
+val name = person.component1()  // person.name
+val age = person.component2()   // person.age
+```
+
+使用例
+```kotlin
+data class User(val id: Int, val name: String, val email: String, val age: Int)
+
+val user = User(1, "Alice", "alice@example.com", 25)
+
+// 必要な数だけ取り出せる
+val (id) = user                        // idだけ
+val (id, name) = user                  // idとname
+val (id, name, email) = user           // id、name、email
+val (id, name, email, age) = user      // すべて
+
+// 不要な要素はアンダースコアで無視
+val (_, name, email) = user            // idを無視
+val (id, _, _, age) = user             // nameとemailを無視
+```
+
+5つ以上のプロパティがある場合
+```kotlin
+data class LargeData(
+    val a: Int, val b: Int, val c: Int,
+    val d: Int, val e: Int, val f: Int
+)
+
+val data = LargeData(1, 2, 3, 4, 5, 6)
+
+// 最初の5つまで分解可能
+val (v1, v2, v3, v4, v5) = data  // OK
+
+// ❌ 6つ目以降は取得できない（component6は生成されない）
+// val (v1, v2, v3, v4, v5, v6) = data  // エラー
+```
+
+#### コレクション内のデータクラス
+```kotlin
+val users = listOf(
+    User(1, "Alice", "alice@example.com", 25),
+    User(2, "Bob", "bob@example.com", 30),
+    User(3, "Charlie", "charlie@example.com", 35)
+)
+```
+ソート（sortedBy）
+```kotlin
+// 年齢でソート
+val sortedByAge = users.sortedBy { it.age }
+println(sortedByAge)
+// [User(id=1, name=Alice, ..., age=25),
+//  User(id=2, name=Bob, ..., age=30),
+//  User(id=3, name=Charlie, ..., age=35)]
+
+// 名前でソート
+val sortedByName = users.sortedBy { it.name }
+
+// 降順でソート
+val sortedByAgeDesc = users.sortedByDescending { it.age }
+
+// 複数条件でソート
+val sorted = users.sortedWith(
+    compareBy({ it.age }, { it.name })
+)
+```
+
+グループ化（groupBy）
+```kotlin
+// 年代（20代、30代など）でグループ化
+val grouped = users.groupBy { it.age / 10 }
+println(grouped)
+// {2=[User(id=1, name=Alice, ..., age=25)],
+//  3=[User(id=2, name=Bob, ..., age=30),
+//     User(id=3, name=Charlie, ..., age=35)]}
+
+// 20代のユーザーを取得
+val twenties = grouped[2]  // List<User>?
+
+// 名前の最初の文字でグループ化
+val groupedByInitial = users.groupBy { it.name.first() }
+// {'A'=[User(id=1, name=Alice, ...)],
+//  'B'=[User(id=2, name=Bob, ...)],
+//  'C'=[User(id=3, name=Charlie, ...)]}
+```
+
+その他の便利な操作
+```kotlin
+data class User(val id: Int, val name: String, val email: String, val age: Int)
+
 val users = listOf(
     User(1, "Alice", "alice@example.com", 25),
     User(2, "Bob", "bob@example.com", 30),
     User(3, "Charlie", "charlie@example.com", 35)
 )
 
-val sortedByAge = users.sortedBy { it.age }
-val grouped = users.groupBy { it.age / 10 }  // 年代でグループ化
+// フィルタリング
+val adults = users.filter { it.age >= 30 }
+// [User(id=2, name=Bob, ...), User(id=3, name=Charlie, ...)]
+
+// マッピング
+val names = users.map { it.name }
+// ["Alice", "Bob", "Charlie"]
+
+// 条件に合う最初の要素を検索
+val bob = users.find { it.name == "Bob" }
+
+// 最大値を持つ要素
+val oldest = users.maxByOrNull { it.age }
+// User(id=3, name=Charlie, ..., age=35)
+
+// 集計
+val totalAge = users.sumOf { it.age }  // 90
+val averageAge = users.map { it.age }.average()  // 30.0
+
+// パーティション（条件で2つに分ける）
+val (young, old) = users.partition { it.age < 30 }
+// young: [User(id=1, name=Alice, ...)]
+// old: [User(id=2, name=Bob, ...), User(id=3, name=Charlie, ...)]
+
+// 重複排除（equalsベース）
+val withDuplicates = listOf(
+    User(1, "Alice", "alice@example.com", 25),
+    User(1, "Alice", "alice@example.com", 25),
+    User(2, "Bob", "bob@example.com", 30)
+)
+val unique = withDuplicates.distinct()  // 2要素になる
+
+// 特定プロパティでの重複排除
+val uniqueByName = users.distinctBy { it.name }
 ```
 
 ### シールドクラス（代数的データ型）
