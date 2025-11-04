@@ -16,7 +16,7 @@ println(person.name)  // Alice
 person.age = 26  // varなので変更可能
 ```
 
-**Javaとの比較：**
+**Javaとの比較**
 
 ```java
 // Java - 冗長な記述
