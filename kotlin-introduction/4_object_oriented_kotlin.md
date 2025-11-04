@@ -69,6 +69,7 @@ class User(val name: String, val email: String) {
 ```
 
 Javaとの違い
+
 <img width="499" height="191" alt="スクリーンショット 2025-11-04 0 24 38" src="https://github.com/user-attachments/assets/8417d8ef-7189-40ed-a52d-877a6147aebf" />
 
 
