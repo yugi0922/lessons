@@ -62,7 +62,7 @@ val user2 = createUser("Bob", "bob@example.com", "admin")
 val user3 = createUser(
     name = "Charlie",
     email = "charlie@example.com",
-    isActive = false,  // 名前付き引数で特定の引数だけ変更、順番も変えられる
+    isActive = false,  // 名前付き引数で特定の引数だけ変更
     role = "moderator"
 )
 ```
@@ -133,9 +133,6 @@ boolean result = StringUtils.isPalindrome("radar");
 
 ![Extension Functions](images/extension_functions.svg)
 
-注意点：拡張関数は、実際にクラスを変更しているわけではない。コンパイル時に、静的メソッド呼び出しに変換される。しかし、書く側・読む側にとっては、ずっと直感的
-
-
 ## 3.2 高階関数とラムダ式
 
 ### ラムダ式の基本
@@ -194,8 +191,6 @@ fun operateOnNumbers(
 val sum = operateOnNumbers(5, 3) { x, y -> x + y }  // 8
 val product = operateOnNumbers(5, 3) { x, y -> x * y }  // 15
 
-//operationという引数が、関数型(Int, Int) -> Int つまり、「Intを2つ受け取ってIntを返す関数」を渡せる。
-
 // 関数を返す高階関数
 fun createMultiplier(factor: Int): (Int) -> Int {
     return { number -> number * factor }
@@ -203,8 +198,6 @@ fun createMultiplier(factor: Int): (Int) -> Int {
 
 val triple = createMultiplier(3)
 val result = triple(10)  // 30
-
-//createMultiplierは、関数を返す。この返された関数を変数に入れて、後で使える
 
 // より実践的な例：条件付きフィルタリング
 fun <T> List<T>.filterWhen(
@@ -223,14 +216,14 @@ val filtered = users.filterWhen(onlyAdults) { it.age >= 18 }
 Kotlinの特徴的な高階関数として、スコープ関数があります。
 
 ```kotlin
-// let - null チェックと変換「それを使って、何かを計算する」
+// let - null チェックと変換
 val name: String? = "Kotlin"
 val length = name?.let {
     println("Name is $it")
     it.length  // 最後の式が戻り値
 } ?: 0
 
-// run - オブジェクトの設定と結果の計算「この中で計算して、結果を返す」
+// run - オブジェクトの設定と結果の計算
 val result = StringBuilder().run {
     append("Hello")
     append(" ")
@@ -238,23 +231,22 @@ val result = StringBuilder().run {
     toString()  // 戻り値
 }
 
-// with - 複数のメソッド呼び出し「これを使って、何かを計算する」
+// with - 複数のメソッド呼び出し
 val numbers = mutableListOf(1, 2, 3)
 val stats = with(numbers) {
-    val sum = sum()　// thisが省略されている
+    val sum = sum()
     val average = sum.toDouble() / size
     "Sum: $sum, Average: $average"
 }
 
-// apply - オブジェクトの初期化「設定して、自分自身を返す」
-
+// apply - オブジェクトの初期化
 val user = User().apply {
     name = "Alice"
     email = "alice@example.com"
     age = 25
 }
 
-// also - 副作用の実行「それで何かして、それを返す」
+// also - 副作用の実行
 val processedList = listOf(1, 2, 3)
     .map { it * 2 }
     .also { println("Doubled: $it") }
@@ -280,45 +272,6 @@ val processedList = listOf(1, 2, 3)
 
 インライン関数はコンパイル時に呼び出し元に展開され、ラムダのオーバーヘッドを削減します。
 
-オーバーヘッド : 本来の処理以外にかかる余計なコスト
-```kotolin
-// ラムダ式を使った処理
-val numbers = listOf(1, 2, 3, 4, 5)
-val doubled = numbers.map { it * 2 }
-```
-この{ it * 2 }というラムダ式は内部では以下のようになる
-```java
-// Javaで同等のことをすると
-List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-
-// ラムダは内部的にオブジェクトとして作られる
-Function<Integer, Integer> lambda = new Function<Integer, Integer>() {
-    @Override
-    public Integer apply(Integer it) {
-        return it * 2;
-    }
-};
-
-List<Integer> doubled = numbers.stream()
-    .map(lambda)  // このオブジェクトを渡す
-    .collect(Collectors.toList());
-```
-ここでのオーバーヘッド
-
-1. オブジェクト生成のコスト - ラムダ式のたびにオブジェクトが作られる
-2. メモリの使用 - そのオブジェクトを保存するメモリが必要
-3. 関数呼び出しのコスト - メソッドを呼び出すための処理
-
-```kotlin
-// 100万回ループする場合
-repeat(1_000_000) {
-    val result = calculate { x -> x * 2 }  // 100万回オブジェクト生成！
-}
-```
-本来は「数値を2倍にする」だけの処理なのに、オブジェクトを作ったり、メソッドを呼び出したりという余計な処理が発生している→オーバーヘッド
-
-
-インライン関数
 ```kotlin
 // インライン関数の定義
 inline fun measureTime(block: () -> Unit): Long {
@@ -334,30 +287,6 @@ val time = measureTime {
     Thread.sleep(1000)
 }
 
-//inlineをつけなかった時のjavaのイメージ
-public Long measureTime(Function0<Unit> block) {
-    long start = System.currentTimeMillis();
-    block.invoke();  // オブジェクトのメソッド呼び出し
-    return System.currentTimeMillis() - start;
-}
-// 使用時
-Function0<Unit> lambda = new Function0<Unit>() {
-    @Override
-    public Unit invoke() {
-        Thread.sleep(1000);
-        return Unit.INSTANCE;
-    }
-};
-Long time = measureTime(lambda);  // オブジェクトを渡す
-
-
-//inlineをつけた時のjavaのイメージ
-// オブジェクト生成なし！直接展開される
-long start = System.currentTimeMillis();
-Thread.sleep(1000);
-long time = System.currentTimeMillis() - start;
-```
-```kotlin
 // コレクション操作のインライン化
 inline fun <T> List<T>.customForEach(action: (T) -> Unit) {
     for (element in this) {
@@ -372,11 +301,6 @@ inline fun processData(
 ) {
     process()
     saveCallback(callback)  // 関数を保存できる
-}
-
-// これはできない
-inline fun example(action: () -> Unit) {
-    val saved = action  // エラー！actionは展開されるので、保存できない
 }
 ```
 
@@ -407,7 +331,6 @@ val user: User = jsonString.parseJson()
 public <T> boolean isInstance(Object value) {
     // T.class は使用できない！型消去のため
     return false;
-    //return value instanceof T;   エラー！
 }
 ```
 
