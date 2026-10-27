@@ -181,6 +181,10 @@
     probe.remove();
     return ok;
   }
+  // 横スクロールの案内。数式やフォントの描画で幅が変わるので、そのたびに判定し直す
+  let scrollHints = [];
+  function checkScroll() { scrollHints.forEach(([el, hint]) => { hint.hidden = el.scrollWidth <= el.clientWidth + 2; }); }
+
   function renderMath(root = document) {
     if (!window.katex || !document.body || !katexStyled()) return;
     root.querySelectorAll('.m:not([data-tex]), .mb:not([data-tex])').forEach(el => {
@@ -190,6 +194,7 @@
         el.dataset.tex = tex;
       } catch (e) { console.error('[math]', tex, e); }
     });
+    checkScroll();
   }
   // KaTeX は async で読み込むので、読み込み完了時にも描画する
   ['katex-js', 'katex-css'].forEach(id => document.getElementById(id)?.addEventListener('load', () => renderMath()));
@@ -356,9 +361,9 @@
       addEventListener('scroll', update, { passive: true }); addEventListener('resize', update); update();
     }
     // 横スクロールが必要な図には案内を出す
-    const hints = [...document.querySelectorAll('.hscroll')].map(el => { const hint = h('div', { class: 'scroll-hint', text: '↔ 図は横にスクロールできます', hidden: true }); el.after(hint); return [el, hint]; });
-    const checkScroll = () => hints.forEach(([el, hint]) => { hint.hidden = el.scrollWidth <= el.clientWidth + 2; });
-    addEventListener('resize', checkScroll); setTimeout(checkScroll, 300);
+    scrollHints = [...document.querySelectorAll('.hscroll')].map(el => { const hint = h('div', { class: 'scroll-hint', text: '↔ 図は横にスクロールできます', hidden: true }); el.after(hint); return [el, hint]; });
+    addEventListener('resize', checkScroll); addEventListener('load', checkScroll); setTimeout(checkScroll, 300);
+    document.fonts?.ready.then(checkScroll);
     document.querySelector('.skip')?.addEventListener('click', e => { e.preventDefault(); const a = document.getElementById('article'); a.focus(); a.scrollIntoView(); });
   }
 

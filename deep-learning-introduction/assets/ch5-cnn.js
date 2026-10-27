@@ -397,6 +397,200 @@
   }
 
   /* ------------------------------------------------------------------
+     5.2 発展：畳み込み定理（直接計算と FFT 経由が一致することを実際に計算して示す）
+  ------------------------------------------------------------------ */
+  /** 長さ 2 のべき乗の配列に対する、その場で計算する基数 2 の FFT */
+  function fft1(re, im, inverse) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) {
+      let bit = n >> 1;
+      for (; j & bit; bit >>= 1) j ^= bit;
+      j ^= bit;
+      if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; }
+    }
+    for (let len = 2; len <= n; len <<= 1) {
+      const ang = 2 * Math.PI / len * (inverse ? 1 : -1), wr = Math.cos(ang), wi = Math.sin(ang), half = len >> 1;
+      for (let i = 0; i < n; i += len) {
+        let cr = 1, ci = 0;
+        for (let k = 0; k < half; k++) {
+          const p = i + k, q = p + half;
+          const br = re[q] * cr - im[q] * ci, bi = re[q] * ci + im[q] * cr;
+          re[q] = re[p] - br; im[q] = im[p] - bi; re[p] += br; im[p] += bi;
+          const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr;
+        }
+      }
+    }
+    if (inverse) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+  }
+  /** 2 次元 FFT（行ごと → 列ごと） */
+  function fft2(re, im, N, inverse) {
+    const r = new Float64Array(N), c = new Float64Array(N);
+    for (let y = 0; y < N; y++) {
+      for (let x = 0; x < N; x++) { r[x] = re[y * N + x]; c[x] = im[y * N + x]; }
+      fft1(r, c, inverse);
+      for (let x = 0; x < N; x++) { re[y * N + x] = r[x]; im[y * N + x] = c[x]; }
+    }
+    for (let x = 0; x < N; x++) {
+      for (let y = 0; y < N; y++) { r[y] = re[y * N + x]; c[y] = im[y * N + x]; }
+      fft1(r, c, inverse);
+      for (let y = 0; y < N; y++) { re[y * N + x] = r[y]; im[y * N + x] = c[y]; }
+    }
+  }
+  function fourierDemo() {
+    const d = demo('d-fourier'); if (!d) return;
+    const host = document.getElementById('fourier-host');
+    const N = 64;
+    const B5 = [1, 4, 6, 4, 1];
+    const FILTERS = {
+      blur: { label: 'ぼかし（5×5）', r: 2, k: B5.flatMap(a => B5.map(b => a * b / 256)), show: B5.flatMap(a => B5.map(b => a * b)), note: '×1/256', kind: 'ローパス' },
+      edge: { label: 'エッジ検出（3×3）', r: 1, k: [0, 1, 0, 1, -4, 1, 0, 1, 0], show: [0, 1, 0, 1, -4, 1, 0, 1, 0], note: '', kind: 'ハイパス' }
+    };
+    let key = 'blur', player, R;
+    // 入力画像：猫の絵をグレースケール 64×64 に（背景は一様にして、循環させても端に段差が出ないようにする）
+    const src = document.createElement('canvas'); src.width = src.height = N;
+    const sctx = src.getContext('2d'); sctx.imageSmoothingQuality = 'high'; drawCat(sctx, N, true);
+    const rgba = sctx.getImageData(0, 0, N, N).data;
+    const x = new Float64Array(N * N).map((_, p) => (0.299 * rgba[p * 4] + 0.587 * rgba[p * 4 + 1] + 0.114 * rgba[p * 4 + 2]) / 255);
+
+    function compute() {
+      const F = FILTERS[key], r = F.r, kw = 2 * r + 1;
+      // 方法1：直接の（循環）畳み込み y[i,j] = Σ w[u,v] x[i-u, j-v]
+      const y = new Float64Array(N * N);
+      for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+        let sum = 0;
+        for (let u = -r; u <= r; u++) for (let v = -r; v <= r; v++) sum += F.k[(u + r) * kw + (v + r)] * x[((i - u + N) % N) * N + ((j - v + N) % N)];
+        y[i * N + j] = sum;
+      }
+      // 方法2：FFT → 掛け算 → 逆 FFT
+      const Xr = Float64Array.from(x), Xi = new Float64Array(N * N);
+      const Wr = new Float64Array(N * N), Wi = new Float64Array(N * N);
+      for (let u = -r; u <= r; u++) for (let v = -r; v <= r; v++) Wr[((u + N) % N) * N + ((v + N) % N)] = F.k[(u + r) * kw + (v + r)];
+      fft2(Xr, Xi, N, false); fft2(Wr, Wi, N, false);
+      const Pr = new Float64Array(N * N), Pi = new Float64Array(N * N);
+      for (let p = 0; p < N * N; p++) { Pr[p] = Xr[p] * Wr[p] - Xi[p] * Wi[p]; Pi[p] = Xr[p] * Wi[p] + Xi[p] * Wr[p]; }
+      const Yr = Float64Array.from(Pr), Yi = Float64Array.from(Pi);
+      fft2(Yr, Yi, N, true);
+      let diff = 0;
+      for (let p = 0; p < N * N; p++) diff = Math.max(diff, Math.abs(y[p] - Yr[p]));
+      return { F, y, X: [Xr, Xi], W: [Wr, Wi], P: [Pr, Pi], y2: Yr, diff };
+    }
+
+    // 描画
+    const grayImage = arr => {
+      let lo = Infinity, hi = -Infinity; arr.forEach(v => { lo = Math.min(lo, v); hi = Math.max(hi, v); });
+      const img = new ImageData(N, N), span = hi - lo || 1;
+      arr.forEach((v, p) => { const g = Math.round((v - lo) / span * 255); img.data[p * 4] = img.data[p * 4 + 1] = img.data[p * 4 + 2] = g; img.data[p * 4 + 3] = 255; });
+      return img;
+    };
+    // 周波数成分は単色（青）の濃淡で表す。中心＝低周波になるよう並べ替える（fftshift）
+    const STOPS = [[10, 22, 40], [42, 120, 214], [227, 240, 255]];
+    const ramp = t => { const s = t < .55 ? 0 : 1, a = s ? (t - .55) / .45 : t / .55; return STOPS[s].map((c, i) => Math.round(c + (STOPS[s + 1][i] - c) * a)); };
+    const specImage = ([re, im], log) => {
+      const mag = new Float64Array(N * N).map((_, p) => { const m = Math.hypot(re[p], im[p]); return log ? Math.log1p(m) : m; });
+      const hi = Math.max(...mag) || 1, img = new ImageData(N, N), H2 = N / 2;
+      for (let yy = 0; yy < N; yy++) for (let xx = 0; xx < N; xx++) {
+        const [cr, cg, cb] = ramp(mag[((yy + H2) % N) * N + ((xx + H2) % N)] / hi), q = (yy * N + xx) * 4;
+        img.data[q] = cr; img.data[q + 1] = cg; img.data[q + 2] = cb; img.data[q + 3] = 255;
+      }
+      return img;
+    };
+    const canvas = label => h('canvas', { class: 'ft-canvas', width: N, height: N, role: 'img', 'aria-label': label });
+    const C = { x: canvas('入力画像 x'), y: canvas('直接計算した畳み込みの結果 y'), X: canvas('入力画像のフーリエ変換 X の大きさ'), W: canvas('フィルタのフーリエ変換 W の大きさ'), P: canvas('X と W の積の大きさ'), y2: canvas('逆フーリエ変換で画像に戻した結果') };
+    const kc = h('canvas', { class: 'ft-canvas smooth', width: 200, height: 200, role: 'img', 'aria-label': 'フィルタ w の値' });
+    const css = getComputedStyle(document.documentElement);
+    function drawKernel(F) {
+      const ctx = kc.getContext('2d'), kw = 2 * F.r + 1, cs = 200 / kw, max = Math.max(...F.show.map(Math.abs));
+      ctx.clearRect(0, 0, 200, 200);
+      ctx.fillStyle = css.getPropertyValue('--paper').trim() || '#fff'; ctx.fillRect(0, 0, 200, 200);
+      F.show.forEach((v, i) => {
+        const r = Math.floor(i / kw), c = i % kw, a = Math.abs(v) / max;
+        ctx.fillStyle = v === 0 ? 'rgba(128,128,128,.08)' : v > 0 ? `rgba(42,120,214,${.15 + a * .75})` : `rgba(227,73,72,${.15 + a * .75})`;
+        ctx.fillRect(c * cs + 2, r * cs + 2, cs - 4, cs - 4);
+        ctx.fillStyle = a > .55 ? '#fff' : (css.getPropertyValue('--ink').trim() || '#202b3c');
+        ctx.font = `600 ${Math.round(cs * .36)}px ui-monospace, monospace`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(String(v), c * cs + cs / 2, r * cs + cs / 2 + 1);
+      });
+    }
+    const cell = (cv, tex, cap) => h('div', { class: 'ft-cell' }, cv, h('div', { class: 'ft-cap' }, h('span', { class: 'm', text: tex }), h('br'), cap));
+    const op = tex => h('div', { class: 'ft-op' }, h('span', { class: 'm', text: tex }));
+    const kCap = h('span');
+    const cells = {
+      x: cell(C.x, 'x', '入力画像'), w: h('div', { class: 'ft-cell' }, kc, h('div', { class: 'ft-cap' }, h('span', { class: 'm', text: 'w' }), h('br'), kCap)),
+      y: cell(C.y, 'y = x * w', '方法1：直接計算'),
+      X: cell(C.X, 'X = \\mathcal{F}\\{x\\}', '画像の周波数成分'), W: cell(C.W, 'W = \\mathcal{F}\\{w\\}', 'フィルタの周波数特性'),
+      P: cell(C.P, 'X \\cdot W', '周波数ごとの掛け算'), y2: cell(C.y2, '\\mathcal{F}^{-1}\\{X \\cdot W\\}', '方法2：画像に戻す')
+    };
+    const arrows = { x: h('div', { class: 'ft-arrow' }, h('span', { class: 'm', text: '\\big\\downarrow\\ \\mathcal{F}' })), w: h('div', { class: 'ft-arrow' }, h('span', { class: 'm', text: '\\big\\downarrow\\ \\mathcal{F}' })) };
+    const ops = { conv: op('*'), eq1: op('='), mul: op('\\cdot'), eq2: op('='), inv: op('\\xrightarrow{\\ \\mathcal{F}^{-1}\\ }') };
+    const empty = () => h('div');
+    host.append(h('div', { class: 'ft-grid' },
+      h('div', { class: 'ft-band', text: '空間領域（画像そのもの）' }),
+      cells.x, ops.conv, cells.w, ops.eq1, cells.y, empty(), empty(),
+      arrows.x, empty(), arrows.w, empty(), empty(), empty(), empty(),
+      h('div', { class: 'ft-band', text: '周波数領域（中心ほど低い周波数＝なだらかな明暗、外側ほど高い周波数＝細かい模様・輪郭）' }),
+      cells.X, ops.mul, cells.W, ops.eq2, cells.P, ops.inv, cells.y2));
+    const diffV = h('div', { class: 'v' }), opsV = h('div', { class: 'v' });
+    d.stage.append(h('div', { class: 'stats' },
+      h('div', { class: 'stat' }, h('div', { class: 'k' }, '方法1 と方法2 の差（最大）'), diffV, h('div', { class: 'd', text: '浮動小数点の丸め誤差の大きさ＝同じ結果' })),
+      h('div', { class: 'stat' }, h('div', { class: 'k' }, '方法1 の掛け算の回数'), opsV, h('div', { class: 'd', html: '64 × 64 の各位置 × フィルタの要素数' }))));
+    d.options.append(segmented({ label: 'フィルタ', options: Object.entries(FILTERS).map(([k, v]) => [k, v.label]), value: key, onChange: v => { key = v; R = compute(); paintStatic(); player.refresh(); } }));
+
+    let scan = 0, diffHtml = '';
+    function paintStatic() {
+      C.x.getContext('2d').putImageData(grayImage(x), 0, 0);
+      drawKernel(R.F);
+      kCap.textContent = `フィルタ ${R.F.label}${R.F.note ? ' ' + R.F.note : ''}`;
+      C.X.getContext('2d').putImageData(specImage(R.X, true), 0, 0);
+      C.W.getContext('2d').putImageData(specImage(R.W, false), 0, 0);
+      C.P.getContext('2d').putImageData(specImage(R.P, true), 0, 0);
+      C.y2.getContext('2d').putImageData(grayImage(R.y2), 0, 0);
+      let e = Math.floor(Math.log10(R.diff || 1e-17)), m = +(R.diff / 10 ** e).toFixed(1);
+      if (m >= 10) { m = 1; e += 1; }
+      diffHtml = R.diff ? `${m.toFixed(1)}×10<sup>${e}</sup>` : '0';
+      diffV.innerHTML = diffHtml;
+      opsV.textContent = fmt(N * N * R.F.k.length);
+    }
+    /** 方法1 の結果を、上から 1 行ずつ計算していくように描く */
+    function drawY(animate) {
+      const ctx = C.y.getContext('2d'), img = grayImage(R.y), id = ++scan;
+      if (!animate) { ctx.putImageData(img, 0, 0); return; }
+      ctx.clearRect(0, 0, N, N);
+      const t0 = performance.now(), dur = player.ms(900);
+      const frame = now => {
+        if (id !== scan) return;
+        const rows = Math.min(N, Math.ceil((now - t0) / dur * N));
+        ctx.putImageData(img, 0, 0, 0, 0, N, rows);
+        if (rows < N) requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    }
+    R = compute(); paintStatic();
+    const VIS = [['x', 'w'], ['x', 'w', 'y'], ['x', 'w', 'y', 'X'], ['x', 'w', 'y', 'X', 'W'], ['x', 'w', 'y', 'X', 'W', 'P'], ['x', 'w', 'y', 'X', 'W', 'P', 'y2']];
+    const CUR = ['', 'y', 'X', 'W', 'P', 'y2'];
+    player = new Player(d.root, {
+      steps: 6, interval: 2600, holds: { 0: 2800, 5: 3000 },
+      onStep(i, { forward }) {
+        Object.entries(cells).forEach(([k, el]) => { el.classList.toggle('dim', !VIS[i].includes(k)); el.classList.toggle('cur', CUR[i] === k); });
+        arrows.x.classList.toggle('dim', i < 2); arrows.w.classList.toggle('dim', i < 3);
+        Object.entries(ops).forEach(([k, el]) => el.classList.toggle('dim', !({ conv: 0, eq1: 1, mul: 4, eq2: 4, inv: 5 }[k] <= i)));
+        diffV.parentElement.classList.toggle('dim', i < 5);
+        if (i === 1) drawY(forward); else if (i > 1) drawY(false);
+        const F = R.F;
+        return [
+          `入力画像 x（64×64）と、フィルタ w（${F.label}）。ここから<b> 2 通りの方法</b>で同じ計算をします。`,
+          `<b>方法1：直接計算</b>。フィルタを全位置にずらしながら積和します（5.2 で見た計算）。64×64 の各位置で ${F.k.length} 回ずつ、計 ${fmt(N * N * F.k.length)} 回の掛け算です。`,
+          '<b>方法2：フーリエ変換を使う</b>。まず画像を周波数領域へ変換します。明るいほどその周波数の成分が強く、ほとんどの成分が中心（低い周波数＝なだらかな明暗）に集まっています。',
+          key === 'blur'
+            ? 'フィルタも 64×64 に 0 で埋めてから変換すると、<b>中心だけが明るい</b>＝低い周波数だけを通す<b>ローパスフィルタ</b>だとわかります。細かい模様が消えて、ぼける理由です。'
+            : 'フィルタも 64×64 に 0 で埋めてから変換すると、<b>中心が暗く外側ほど明るい</b>＝高い周波数だけを通す<b>ハイパスフィルタ</b>だとわかります。なだらかな部分が消えて輪郭が残る理由です。',
+          '周波数ごとに X と W を<b>掛け算するだけ</b>です。空間での「ずらして積和」が、周波数領域では「成分ごとの掛け算」になります。これが<b>畳み込み定理</b>です。',
+          `逆フーリエ変換で画像に戻すと、方法1 の結果と<b>一致</b>します。差は最大でも ${diffHtml} 程度で、コンピュータの丸め誤差にすぎません。`
+        ][i];
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------
      5.3 プーリング
   ------------------------------------------------------------------ */
   function poolDemo() {
@@ -827,13 +1021,13 @@
      表示する「潜在表現」はノイズの減り方を見せるためのイメージで、実際の 4 チャネルの潜在表現ではない。
   ------------------------------------------------------------------ */
   /** 生成結果として見せる猫の絵（128×128 基準で描いて S に拡大縮小） */
-  function drawCat(ctx, S) {
+  function drawCat(ctx, S, plain = false) {
     ctx.save(); ctx.scale(S / 128, S / 128);
     const poly = (pts, color) => { ctx.fillStyle = color; ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); ctx.fill(); };
     const ell = (x, y, rx, ry, color) => { ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); ctx.fill(); };
     const bg = ctx.createLinearGradient(0, 0, 0, 128);
     bg.addColorStop(0, '#9fd3f5'); bg.addColorStop(.64, '#dcf0fb'); bg.addColorStop(.64, '#8cc56b'); bg.addColorStop(1, '#5f9c45');
-    ctx.fillStyle = bg; ctx.fillRect(0, 0, 128, 128);
+    ctx.fillStyle = plain ? '#f1ede6' : bg; ctx.fillRect(0, 0, 128, 128);
     poly([[24, 60], [32, 14], [60, 40]], '#e8923f'); poly([[104, 60], [96, 14], [68, 40]], '#e8923f');
     poly([[32, 49], [35, 26], [52, 41]], '#f5b3b8'); poly([[96, 49], [93, 26], [76, 41]], '#f5b3b8');
     ell(64, 76, 44, 38, '#e8923f');
@@ -939,7 +1133,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    [flattenDemo, paramsDemo, shiftDemo, convDemo, channelsDemo, hierarchyDemo, poolDemo, pipelineDemo, modelsDemo, residualDemo, tasksDemo, transferDemo, diffusionDemo]
+    [flattenDemo, paramsDemo, shiftDemo, convDemo, channelsDemo, hierarchyDemo, fourierDemo, poolDemo, pipelineDemo, modelsDemo, residualDemo, tasksDemo, transferDemo, diffusionDemo]
       .forEach(fn => { try { fn(); } catch (e) { console.error(`[${fn.name}]`, e); } });
   });
 })();

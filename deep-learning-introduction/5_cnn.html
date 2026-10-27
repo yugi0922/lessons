@@ -182,6 +182,34 @@ print(sum(p.numel() for p in conv.parameters()))   # 448</code></pre>
 <p>VGG が 3×3 フィルタだけを重ねたのはこのためです。3×3 を 2 層重ねると 5×5 1 層と同じ受容野になりますが、パラメータは <span class="m">2 \times 9C^2 = 18C^2</span> で 5×5 の <span class="m">25C^2</span> より少なく、間に ReLU を挟める分だけ表現力も高くなります（入出力とも <span class="m">C</span> チャネル、バイアスは省略）。</p>
 </aside>
 
+<h3 id="s5-2-4">発展：畳み込みとフーリエ変換</h3>
+<p>信号処理の世界では、畳み込みは<strong>フーリエ変換</strong>と深い関係にあります。フーリエ変換は、画像を「どの細かさ（<strong>周波数</strong>）の縞模様が、どれだけ含まれているか」に分解する変換です。両者を結ぶのが<strong>畳み込み定理</strong>で、「フィルタをずらしながら積和する」ことと「フーリエ変換して周波数ごとに掛け算する」ことが同じ結果になります。2 通りの計算が本当に一致するか、下の図で確かめてみましょう（数値はブラウザ上で実際に計算しています）。</p>
+
+<div class="demo" id="d-fourier" aria-label="畳み込みを直接計算した結果と、フーリエ変換して掛け算してから戻した結果が一致する様子">
+  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">直接の畳み込み ＝ フーリエ変換 → 掛け算 → 逆変換</h4></div>
+  <div class="demo-stage"><div class="hscroll" id="fourier-host"></div></div>
+</div>
+
+<aside class="math-box" aria-label="数式で見る：畳み込み定理">
+<div class="math-head"><span class="math-kicker">数式で見る</span><b>畳み込み定理</b></div>
+<p>1 次元で書くと、畳み込みは次の積和です（フィルタを反転させて重ねる、本来の意味の畳み込み）。</p>
+<div class="mb">(x * w)[n] = \sum_{m} x[m]\, w[n - m]</div>
+<p>長さ <span class="m">N</span> の信号の離散フーリエ変換（DFT）は、信号を周波数 <span class="m">k</span> の波 <span class="m">e^{-2\pi i\, kn/N}</span> の成分に分解したものです。</p>
+<div class="mb">X[k] = \mathcal{F}\{x\}[k] = \sum_{n=0}^{N-1} x[n]\, e^{-2\pi i\, kn/N}</div>
+<p>このとき、次の<strong>畳み込み定理</strong>が成り立ちます。空間でのスライド積和が、周波数ごとの単純な掛け算に変わるのです。</p>
+<div class="mb-row"><div class="mb">\mathcal{F}\{x * w\} = \mathcal{F}\{x\} \cdot \mathcal{F}\{w\}</div><div class="mb">\Longleftrightarrow\quad x * w = \mathcal{F}^{-1}\{X \cdot W\}</div></div>
+<p>画像のような 2 次元でも同じです。<span class="m">N \times N</span> の画像に <span class="m">k \times k</span> のフィルタをかけるとき、FFT（高速フーリエ変換）を使うと計算量のオーダーが変わります。</p>
+<div class="mb-row"><div class="mb">\text{直接計算：}\ O(N^2 k^2)</div><div class="mb">\text{FFT 経由：}\ O(N^2 \log N)</div></div>
+<p class="note">補足：DFT の場合、定理が成り立つのは画像の端が反対側とつながっているとみなした「循環畳み込み」です（上の図もこれで計算しています）。普通の畳み込みと一致させるには、0 で埋めて画像を広げてから変換します。また、CNN の「畳み込み」は反転しない相互相関ですが、フィルタを反転すれば本来の畳み込みになるので、同じ定理が使えます。周期関数を sin・cos の和で表す「フーリエ級数展開」を、一般の信号に広げたものがフーリエ変換で、DFT は長さ <span class="m">N</span> の信号を周期 <span class="m">N</span> とみなして級数展開したものにあたります。</p>
+</aside>
+
+<p>では、CNN は畳み込みをフーリエ変換で計算しているのかというと、<strong>ふつうはしていません</strong>。</p>
+<ul>
+<li><strong>フィルタが小さいから</strong>：CNN のフィルタは 3×3 程度なので、直接計算しても 1 位置あたり 9 回の積和で済みます。フーリエ変換は複素数を扱い、変換と逆変換の手間もかかるため、元が取れるのはフィルタが大きいときです。実際の GPU 計算では、直接計算をまとめて行列積にする方法（im2col）や、掛け算の回数を減らす Winograd 法などが主に使われます。</li>
+<li><strong>ライブラリが自動で選ぶから</strong>：GPU 向けの cuDNN などは、FFT を使う方法も含めて複数の計算方法を持っています。PyTorch で <code>torch.backends.cudnn.benchmark = True</code> にすると、入力の形ごとに実測して最も速い方法が選ばれます。</li>
+</ul>
+<p>それでも周波数の見方は、フィルタの働きを理解するのに役立ちます。ぼかしは高い周波数（細かい模様）を落とす<strong>ローパスフィルタ</strong>、エッジ検出は低い周波数（なだらかな明暗）を落とす<strong>ハイパスフィルタ</strong>です。学習済み CNN の 1 層目のフィルタは、特定の向き・細かさの縞模様に反応する形（ガボールフィルタに似た形）になることが知られており、画像から特定の周波数成分を取り出していると解釈できます。</p>
+
 <h2 id="s5-3">5.3 プーリング層と全体構造</h2>
 
 <h3 id="s5-3-1">最大プーリング・平均プーリング</h3>

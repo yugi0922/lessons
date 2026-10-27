@@ -384,3 +384,17 @@ svg .solid{fill:var(--c);stroke:none}
 .sd-out.on .sd-frame::before{opacity:0}
 .sd-meter{display:flex;align-items:center;gap:8px;width:100%}
 .sd-meter .meter{height:8px}
+/* 5章発展：畳み込みとフーリエ変換 */
+.ft-grid{--ft:clamp(64px,12vw,118px);display:grid;grid-template-columns:repeat(7,auto);justify-content:center;align-items:center;gap:6px 10px;min-width:max-content;padding:2px 2px 6px}
+.ft-band{grid-column:1/-1;font-size:.72rem;color:var(--muted);font-weight:700;border-bottom:1px dashed var(--line);padding-bottom:3px;margin-top:4px}
+.ft-cell{display:flex;flex-direction:column;align-items:center;gap:4px;transition:opacity var(--dur)}
+.ft-canvas{width:var(--ft);height:var(--ft);border-radius:8px;border:1px solid var(--line);image-rendering:pixelated;display:block;background:var(--track);transition:box-shadow var(--dur)}
+.ft-canvas.smooth{image-rendering:auto}
+.ft-cell.cur .ft-canvas{box-shadow:0 0 0 3px var(--orange)}
+.ft-cap{font-size:.7rem;color:var(--muted);text-align:center;line-height:1.5;width:calc(var(--ft) + 16px)}
+.ft-cap .katex{font-size:1.1em;color:var(--ink)}
+.ft-op,.ft-arrow{color:var(--muted);text-align:center;transition:opacity var(--dur)}
+.ft-op .katex{font-size:1.15em}
+.ft-cell.dim,.ft-op.dim,.ft-arrow.dim{opacity:.16}
+.stat.dim{opacity:.35}
+@media (prefers-reduced-motion:reduce){.ft-cell,.ft-op,.ft-arrow{transition:none}}
