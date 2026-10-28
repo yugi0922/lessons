@@ -3,459 +3,1158 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:,">
-<title>CNN — 画像を扱う | 深層学習入門</title>
-<meta name="description" content="第5章：CNN（畳み込みニューラルネットワーク）の仕組みを、畳み込み・プーリング・データの流れ・転移学習のアニメーションで学ぶ。">
-<link rel="stylesheet" id="katex-css" href="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css" integrity="sha384-lPx0C4zIUZLpveABMwOFcFeGZwsvKBJfhJ85FN1PYOV7xApBcFMhcAEMVKF8loOI" crossorigin="anonymous">
-<script async id="katex-js" src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" integrity="sha384-19KE2cFb3U+RUWmyhBz7aLOGDG8WrRC6hE3oY/HTZZlAAVWYTdmvLC//+TIV3zUx" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="assets/interactive.css">
-<script defer src="assets/interactive.js"></script>
-<script defer src="assets/ch5-cnn.js"></script>
-</head>
-<body data-chapter="5_cnn.html">
-<a class="skip" href="#article">本文へ移動</a>
-<div class="progress" aria-hidden="true"><span></span></div>
-<div class="layout">
-<aside class="sidebar">
-  <div class="eyebrow">ENGINEER'S LEARNING NOTES</div>
-  <a class="brand" href="index.html">深層学習入門</a>
-  <p class="intro">仕組みを理解して、生成AI時代を読み解く。</p>
-  <details id="chapter-menu" open><summary>学習コンテンツ <span class="nav-title">／ 全9章</span></summary><nav class="chapters" aria-label="章一覧"></nav></details>
-  <p class="footer">図解は ▶ 再生・コマ送り・スライダーで操作できます。<br>← → キーでも 1 コマずつ進められます。</p>
-</aside>
+<title>畳み込みとプーリング入門</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Shippori+Mincho+B1:wght@600;800&display=swap">
+<style>
+:root{
+  /* Layout: 約38字幅の本文1カラム。動かせる図だけが本文より広く張り出す、格子（ピクセル）が主役の理科の紙面 */
+  --paper:#F3F5F8;
+  --surface:#FFFFFF;
+  --tint:#E8EDF2;
+  --ink:#17202B;
+  --muted:#596474;
+  --rule:#D5DBE3;
+  --kernel:#0B766E;
+  --pos:#D04A12;
+  --neg:#1F6CBA;
+  --on-accent:#FFFFFF;
+  --on-strong:#17202B;
+  --mix-max:70%;
+  --font-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho","YuMincho",serif;
+  --font-body:"IBM Plex Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --cs:clamp(26px,7.2vw,36px);
+  --gap:2px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1318; --surface:#171C23; --tint:#1F262F; --ink:#E3E8EE; --muted:#9BA6B5; --rule:#2B333E;
+    --kernel:#3FC1B2; --pos:#FF8B4D; --neg:#5EA9F2; --on-accent:#0F1318; --on-strong:#0F1318; --mix-max:88%;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1318; --surface:#171C23; --tint:#1F262F; --ink:#E3E8EE; --muted:#9BA6B5; --rule:#2B333E;
+  --kernel:#3FC1B2; --pos:#FF8B4D; --neg:#5EA9F2; --on-accent:#0F1318; --on-strong:#0F1318; --mix-max:88%;
+  color-scheme:dark;
+}
 
-<main class="reading" id="main">
-<div class="toolbar"><span>CHAPTER 05 ／ 全9章 · 動く図解版</span><span>所要時間の目安：60〜75 分</span></div>
-<article class="paper lesson" id="article" tabindex="-1">
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--font-body); font-size:1.0625rem; line-height:1.9;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--kernel); text-underline-offset:.2em}
+strong{font-weight:700}
+code{font-family:var(--font-mono); font-size:.88em; background:var(--tint); padding:.08em .38em; border-radius:4px}
+:focus-visible{outline:2px solid var(--kernel); outline-offset:2px}
 
-<h1>第5章：CNN — 画像を扱うニューラルネットワーク</h1>
-<p class="lead">フィルタが画像の上を滑り、特徴マップが生まれ、層を重ねるごとに「エッジ」が「猫」になっていく。その過程をアニメーションで追いかけます。</p>
+/* ヒーロー */
+.hero{padding-block:clamp(2.5rem,7vw,5rem) clamp(2rem,5vw,3.5rem)}
+.hero-inner{max-width:62rem; margin-inline:auto; display:grid; gap:clamp(1.75rem,4vw,3rem); align-items:center}
+@media (min-width:860px){.hero-inner{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+.eyebrow{margin:0 0 1rem; font:500 .78rem/1.5 var(--font-mono); letter-spacing:.12em; color:var(--kernel)}
+h1{margin:0 0 1.25rem; font-family:var(--font-display); font-weight:800; font-size:clamp(2.1rem,5.4vw,3.4rem); line-height:1.24; letter-spacing:.02em; text-wrap:balance; word-break:auto-phrase}
+.lead{margin:0; color:var(--muted); font-size:1.04rem; line-height:1.95; max-width:34em}
+.hero-fig{margin:0; display:grid; gap:.8rem; min-width:0}
+.hero-pair{display:flex; align-items:center; gap:clamp(.35rem,1.2vw,.7rem)}
+.hero-pair canvas{flex:1 1 0; min-width:0; width:100%; max-width:210px; aspect-ratio:1; height:auto; border-radius:8px; border:1px solid var(--rule); background:var(--surface)}
+.hero-fig figcaption{font-size:.84rem; line-height:1.7; color:var(--muted)}
+.sym{flex:none; font:400 1.15rem/1 var(--font-mono); color:var(--muted)}
 
-<p>ここまで扱ってきたのは、すべてのニューロンが次の層のすべてのニューロンとつながる <strong>全結合層（Fully Connected Layer）</strong> でした。表現力は高いのですが、画像を入力にすると途端に破綻します。</p>
-<p>本章では、なぜ破綻するのかを確認し、それを解決した <strong>CNN（Convolutional Neural Network、畳み込みニューラルネットワーク）</strong> の仕組みを見ていきます。画像認識の精度を一気に押し上げ、深層学習ブームの火付け役となったアーキテクチャです。</p>
+/* 目次 */
+.toc{max-width:40rem; margin:0 auto; padding-block:0 3rem}
+.toc-lbl{margin:0 0 .5rem; font-size:.75rem; font-weight:700; letter-spacing:.12em; color:var(--muted)}
+.toc ol{list-style:none; margin:0; padding:0; border-top:1px solid var(--rule)}
+.toc a{display:flex; gap:1rem; align-items:baseline; padding:.5rem .1rem; border-bottom:1px solid var(--rule); color:var(--ink); text-decoration:none}
+.toc a:hover{color:var(--kernel)}
+.toc .n{flex:none; width:1.2em; font:500 .8rem var(--font-mono); color:var(--kernel)}
+.toc .d{margin-left:auto; text-align:right; font-size:.82rem; color:var(--muted)}
+@media (max-width:560px){.toc .d{display:none}}
 
-<h2 id="s5-1">5.1 なぜ画像に全結合層では不十分なのか</h2>
+/* 章 */
+.ch{display:grid; grid-template-columns:minmax(0,1fr) min(40rem,100%) minmax(0,1fr); row-gap:1.15rem; padding-block:3.5rem 1rem; max-width:62rem; margin-inline:auto; border-top:1px solid var(--rule); scroll-margin-top:1rem}
+.ch > *{grid-column:2; margin:0; min-width:0}
+.ch > .wide{grid-column:1 / -1}
+.ch-head{display:grid; gap:.35rem; margin-bottom:.4rem}
+.ch-no{font-size:.8rem; font-weight:700; letter-spacing:.12em; color:var(--kernel)}
+h2{margin:0; font-family:var(--font-display); font-weight:800; font-size:clamp(1.65rem,3.8vw,2.2rem); line-height:1.35; text-wrap:balance; word-break:auto-phrase}
+.kicker{margin:0; color:var(--muted)}
+.ch h3{margin-top:1.3rem; font-size:1.14rem; line-height:1.5; font-weight:700}
+.ch ul, .ch ol{padding-left:1.3em; display:grid; gap:.45rem}
+.ch li::marker{color:var(--kernel)}
+dl.terms{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.7rem 1.2rem}
+dl.terms dt{font-weight:700}
+dl.terms dd{margin:0}
+@media (max-width:520px){dl.terms{grid-template-columns:minmax(0,1fr); gap:.15rem} dl.terms dd{margin-bottom:.6rem}}
+.formula-box{background:var(--tint); border-radius:8px; padding:.9rem 1.1rem; font:500 .92rem/1.8 var(--font-mono); overflow-x:auto}
 
-<h3 id="s5-1-1">パラメータ数の爆発</h3>
-<p>画像をそのまま全結合層に入れることを考えます。画像はピクセルの並びなので、1 列に引き伸ばして（<strong>flatten</strong> して）入力ベクトルにします。下のアニメーションで、6×6 の小さな画像が 36 次元のベクトルになり、隠れ層とつながるまでを見てみましょう。</p>
+/* 格子 */
+.grid{display:grid; grid-template-columns:repeat(var(--n,3), var(--cs)); gap:var(--gap); width:max-content}
+.cell{width:var(--cs); height:var(--cs); display:grid; place-items:center; position:relative; border:0; padding:0; border-radius:3px; font:500 .76rem/1 var(--font-mono); font-variant-numeric:tabular-nums; color:var(--ink); background:var(--tint)}
+.cell.v{background:color-mix(in srgb, var(--c) calc(var(--mix-max) * var(--t)), var(--surface))}
+.cell.strong{color:var(--on-strong)}
+.cell.zero{color:var(--muted)}
+.cell.pad{background:transparent; border:1px dashed var(--rule); color:var(--muted)}
+.cell.win{place-items:start center; padding-top:3px}
+.cell.win i{position:absolute; left:50%; bottom:2px; transform:translateX(-50%); padding:1px 2px; border-radius:2px; font:500 .54rem/1 var(--font-mono); font-style:normal; white-space:nowrap; background:var(--kernel); color:var(--on-accent)}
+.cell.todo{background:transparent; border:1px dotted var(--rule)}
+.cell.cur{outline:3px solid var(--kernel); outline-offset:1px; z-index:1}
+.gwrap{position:relative; width:max-content}
+.window{position:absolute; pointer-events:none; left:calc(var(--x,0) * (var(--cs) + var(--gap)) - 4px); top:calc(var(--y,0) * (var(--cs) + var(--gap)) - 4px); width:calc(var(--k) * var(--cs) + (var(--k) - 1) * var(--gap) + 8px); height:calc(var(--k) * var(--cs) + (var(--k) - 1) * var(--gap) + 8px); border:3px solid var(--kernel); border-radius:6px; transition:left .28s ease, top .28s ease, width .2s ease, height .2s ease}
+@media (prefers-reduced-motion:reduce){.window{transition:none}}
+.mx{position:relative; flex:none; width:max-content; padding:0 7px}
+.mx::before,.mx::after{content:""; position:absolute; top:-4px; bottom:-4px; width:6px; border:2px solid var(--ink)}
+.mx::before{left:0; border-right:0; border-radius:3px 0 0 3px}
+.mx::after{right:0; border-left:0; border-radius:0 3px 3px 0}
+.mx.sm{--cs:21px; --gap:2px}
+.mx.sm .cell{font-size:.6rem}
 
-<div class="demo" id="d-flatten" aria-label="画像を flatten して全結合層につなぐアニメーション">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">画像を 1 列に引き伸ばして全結合層へ入れると…</h4></div>
-  <div class="demo-stage svg-stage hscroll" style="--minw:540px"></div>
-</div>
+/* デモ */
+.demo{margin:0; background:var(--surface); border:1px solid var(--rule); border-radius:14px; padding:clamp(14px,2.6vw,26px); display:grid; gap:1.1rem; min-width:0}
+.demo-head{display:grid; gap:.2rem}
+.demo-tag{font-size:.72rem; font-weight:700; letter-spacing:.12em; color:var(--kernel)}
+.demo .demo-title{margin:0; font-size:1.08rem; font-weight:700; line-height:1.5}
+.demo-hint{margin:0; font-size:.86rem; line-height:1.7; color:var(--muted)}
+.controls{display:flex; flex-wrap:wrap; align-items:center; gap:.7rem 1.4rem}
+.ctl{display:flex; flex-wrap:wrap; align-items:center; gap:.45rem}
+.ctl-lbl{font-size:.78rem; color:var(--muted)}
+.seg{display:flex; flex-wrap:wrap; gap:4px}
+.seg button,.btn{appearance:none; cursor:pointer; font:500 .84rem/1.2 var(--font-body); color:var(--ink); background:var(--surface); border:1px solid var(--rule); border-radius:999px; padding:.42rem .8rem}
+.seg button:hover,.btn:hover{border-color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+.btn.primary{background:var(--kernel); border-color:var(--kernel); color:var(--on-accent)}
+.stage{display:flex; flex-wrap:wrap; align-items:flex-start; gap:1rem 1.2rem}
+.blk{display:grid; gap:.5rem; justify-items:start; min-width:0}
+.blk-lbl{font-size:.78rem; line-height:1.4; color:var(--muted)}
+.op{align-self:center; font:400 1.3rem/1 var(--font-mono); color:var(--muted)}
+.kline{display:flex; align-items:center; gap:.6rem; padding-block:4px}
+.kdiv{font:500 .95rem var(--font-mono)}
+.calc{background:var(--tint); border-radius:8px; padding:.75rem 1rem; font:400 .84rem/1.9 var(--font-mono); overflow-wrap:anywhere; color:var(--muted)}
+.calc .lhs{color:var(--ink)}
+.calc .nz{color:var(--ink); font-weight:500; background:color-mix(in srgb, var(--kernel) 18%, transparent); border-radius:3px; padding:0 2px}
+.calc b{font-weight:500; font-size:1rem; color:var(--ink)}
+.steps{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem}
+.steps input[type=range]{flex:1 1 140px; min-width:0; accent-color:var(--kernel)}
+.pos{min-width:4.5em; font:500 .8rem var(--font-mono); color:var(--muted)}
+.formula{margin:0; font:400 .84rem/1.6 var(--font-mono); color:var(--muted)}
+.formula b{color:var(--ink); font-weight:500}
+.note{margin:0; font-size:.88rem; line-height:1.75; color:var(--muted)}
 
-<p>実際の画像サイズで計算すると、次のようになります。</p>
-<pre><code>28×28 のグレースケール画像（MNIST）
-  → 784 次元のベクトル
-  → 隠れ層 1000 ユニットへの重み = 784 × 1000 = 784,000 個
+/* 画像デモ */
+.panels{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:.9rem}
+@media (max-width:640px){.panels{grid-template-columns:repeat(2, minmax(0,1fr))}}
+.panel{display:grid; gap:.4rem; align-content:start}
+.panel canvas{width:100%; height:auto; aspect-ratio:1; image-rendering:pixelated; border-radius:6px; border:1px solid var(--rule); background:var(--tint)}
+.panel p{margin:0; font-size:.78rem; line-height:1.5; color:var(--muted)}
+.panel p b{display:block; font:500 .8rem var(--font-mono); color:var(--ink)}
 
-224×224 のカラー画像（一般的な写真）
-  → 224 × 224 × 3 = 150,528 次元のベクトル
-  → 隠れ層 1000 ユニットへの重み = 150,528 × 1000 = 150,528,000 個（約 1.5 億）</code></pre>
+/* ピクセルの図 */
+.px-fig{margin:0; display:grid; gap:.7rem}
+.px-row{display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.2rem}
+.px-row canvas{width:min(190px,100%); height:auto; aspect-ratio:1; border-radius:6px; border:1px solid var(--rule)}
+#px-grid{--cs:clamp(28px,7.4vw,34px)}
+#px-grid .cell{font-size:.62rem; border-radius:0}
+.cap{font-size:.84rem; line-height:1.7; color:var(--muted)}
 
-<div class="demo" id="d-params" aria-label="全結合層と畳み込み層のパラメータ数の比較">
-  <div class="demo-head"><span class="demo-kicker">インタラクティブ</span><h4 class="demo-title">画像サイズを変えて、1 層目のパラメータ数を比べる</h4></div>
-  <div class="demo-stage"></div>
-</div>
+/* チャンネルの図 */
+.shape-eq{display:flex; flex-wrap:wrap; align-items:center; gap:.8rem 1rem; padding-block:.3rem}
+.sq{display:grid; gap:.1rem; margin:0 8px 8px 0; padding:.65rem .9rem; border-radius:6px; background:var(--surface); border:1px solid var(--rule); box-shadow:4px 4px 0 -1px var(--surface), 4px 4px 0 0 var(--rule), 8px 8px 0 -1px var(--surface), 8px 8px 0 0 var(--rule)}
+.sq.k{border-color:var(--kernel); box-shadow:4px 4px 0 -1px var(--surface), 4px 4px 0 0 var(--kernel), 8px 8px 0 -1px var(--surface), 8px 8px 0 0 var(--kernel)}
+.sq.o{border-color:var(--pos); box-shadow:3px 3px 0 -1px var(--surface), 3px 3px 0 0 var(--pos), 6px 6px 0 -1px var(--surface), 6px 6px 0 0 var(--pos), 9px 9px 0 -1px var(--surface), 9px 9px 0 0 var(--pos)}
+.sq b{font:500 .95rem var(--font-mono)}
+.sq span{font-size:.76rem; color:var(--muted)}
 
-<p><strong>1 層目だけで 1.5 億パラメータ</strong>。学習に必要なデータ量も計算量もメモリも現実的ではありません。</p>
+/* プーリングのデモ */
+#pool-demo{--cs:40px}
+.pool-rows{display:grid; gap:1.3rem}
+.pool-row{display:grid; gap:.5rem}
+.row-lbl{font-size:.8rem; color:var(--muted)}
+.pool-line{display:flex; flex-wrap:wrap; align-items:center; gap:1rem}
+.pgrid{display:grid; grid-template-columns:repeat(2, max-content); gap:7px; width:max-content}
+.pblock{display:grid; grid-template-columns:repeat(2, var(--cs)); gap:var(--gap); padding:3px; border-radius:6px; outline:1px solid var(--rule); cursor:default}
+.pout{--gap:7px}
+.pblock.hl,.pout .cell.hl{outline:3px solid var(--kernel)}
+.cell.max{box-shadow:inset 0 0 0 2px var(--ink)}
+#pool-demo .cell{font-size:.82rem}
 
-<h3 id="s5-1-2">位置のずれへの弱さ</h3>
-<p>もっと本質的な問題があります。全結合層は入力ベクトルの「何番目の要素か」でしか物事を区別できません。猫が左上にいる画像と右下にいる画像は、flatten すると <strong>まったく別のベクトル</strong> になり、全結合層は「同じ猫」だと認識できず、別々に学習し直す必要があります。</p>
-<p>さらに、flatten した時点で「隣のピクセルとの近さ」という情報が失われます（上のアニメーションで、縦に隣り合っていた 2 ピクセルが 6 マスも離れたのを思い出してください）。画像では、隣接するピクセル同士が強く関係しています（エッジ、テクスチャなど）。この構造を活かせないのは大きな損失です。</p>
+/* 受容野のデモ */
+#rf-demo .stage{--cs:clamp(18px,4.8vw,28px); align-items:flex-end}
+.rf .cell{background:var(--tint)}
+.rf button.cell{cursor:pointer}
+.rf .cell.on{background:color-mix(in srgb, var(--kernel) 32%, var(--surface))}
+.rf .cell.sel{background:var(--kernel)}
 
-<div class="demo" id="d-shift" aria-label="模様の位置をずらしたときの、flatten ベクトルと畳み込みの反応の違い">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">模様を動かすと、全結合と畳み込みの「見え方」はどう変わる？</h4></div>
-  <div class="demo-stage"></div>
-</div>
+/* 転置畳み込みのデモ */
+.tin .cell.done{background:color-mix(in srgb, var(--kernel) 22%, var(--surface))}
+.tk .cell{background:color-mix(in srgb, var(--kernel) 12%, var(--surface))}
 
-<p>CNN はこの 2 つの問題を、次の 2 つのアイデアで解決します。</p>
-<table>
-<thead><tr><th>問題</th><th>CNN の解決</th></tr></thead>
-<tbody>
-<tr><td>パラメータ数の爆発</td><td><strong>重み共有</strong> — 同じ小さなフィルタを画像全体で使い回す</td></tr>
-<tr><td>位置のずれへの弱さ</td><td><strong>局所的な走査</strong> — 画像のどこにあっても同じ特徴として検出できる</td></tr>
-</tbody>
-</table>
+/* 図 */
+.fig{margin:0; display:grid; gap:.7rem; min-width:0}
+.svg-wrap{overflow-x:auto}
+.svg-wrap svg{display:block; width:100%; min-width:620px; height:auto}
+.s-box-in{fill:var(--surface); stroke:var(--ink); stroke-width:1.2}
+.s-box-enc{fill:color-mix(in srgb, var(--kernel) 18%, var(--surface)); stroke:var(--kernel); stroke-width:1.4}
+.s-box-dec{fill:color-mix(in srgb, var(--pos) 18%, var(--surface)); stroke:var(--pos); stroke-width:1.4}
+.s-box-mid{fill:color-mix(in srgb, var(--ink) 9%, var(--surface)); stroke:var(--ink); stroke-width:1.4}
+.s-t{font:500 13px var(--font-mono); fill:var(--ink)}
+.s-l{font:400 12px var(--font-body); fill:var(--muted)}
+.s-line{stroke:var(--muted); stroke-width:1.4; fill:none}
+.s-skip{stroke:var(--muted); stroke-width:1.4; fill:none; stroke-dasharray:5 4}
+.s-head{fill:var(--muted)}
 
-<h2 id="s5-2">5.2 畳み込み層</h2>
+/* 表・コード */
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:540px; font-size:.9rem; line-height:1.6}
+th,td{text-align:left; vertical-align:top; padding:.6rem .75rem; border-bottom:1px solid var(--rule)}
+thead th{font-size:.78rem; font-weight:700; color:var(--muted); border-bottom-color:var(--ink)}
+td.num{font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+pre{margin:0; background:var(--tint); border-radius:10px; padding:1rem 1.15rem; overflow-x:auto; font:400 .8rem/1.8 var(--font-mono); tab-size:4}
+pre .c{color:var(--muted)}
+pre .k{color:var(--kernel)}
+.refs li{font-size:.9rem; line-height:1.7}
+.refs .src{color:var(--muted)}
+.foot{max-width:40rem; margin:2rem auto 0; padding-block:1.5rem 3.5rem; border-top:1px solid var(--rule); font-size:.82rem; color:var(--muted)}
+</style>
 
-<h3 id="s5-2-1">フィルタ（カーネル）とは</h3>
-<p><strong>畳み込み（convolution）</strong> は、小さな窓（<strong>フィルタ</strong> または <strong>カーネル</strong>）を画像の上でスライドさせ、重なった部分の <strong>積和</strong>（要素ごとに掛けて、全部足す）を計算する演算です。3×3 のフィルタを 5×5 の入力に適用する様子を、1 マスずつ追ってみましょう。</p>
-
-<div class="demo" id="d-conv" aria-label="畳み込み演算のアニメーション">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">3×3 フィルタが入力の上をスライドし、特徴マップを作る</h4></div>
-  <div class="demo-stage"></div>
-</div>
-
-<p>左上の計算を書き下すと次のとおりです（出力マスをクリックすると、その位置の計算にジャンプできます）。</p>
-<div class="mb-row cont"><div class="mb">Y_{0,0} = \underbrace{1\cdot 1 + 1\cdot 0 + 1\cdot 1}_{\text{1 行目}} + \underbrace{0\cdot 0 + 1\cdot 1 + 1\cdot 0}_{\text{2 行目}}</div><div class="mb">+ \underbrace{0\cdot 1 + 0\cdot 0 + 1\cdot 1}_{\text{3 行目}} = 4</div></div>
-
-<p>フィルタの値は <strong>学習で決まる重み</strong> です。人間が設計するのではなく、データから「どんなパターンを検出すると損失が下がるか」を学びます（上の図の「縦エッジ」「横エッジ」は、学習の結果として獲得されやすいフィルタの例です）。</p>
-<p>重要なのは、<strong>同じフィルタを画像全体で使い回す</strong>（<strong>重み共有</strong>）点です。3×3 のフィルタなら重みは 9 個だけ。これがパラメータ数爆発の解決策であり、同時に「画像のどこにあっても同じ特徴を検出できる」性質（<strong>位置不変性</strong>）を生みます。</p>
-
-<aside class="math-box" aria-label="数式で見る：畳み込みの定義">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>畳み込みの定義と重み共有</b></div>
-<p>入力を <span class="m">X</span>、<span class="m">k \times k</span> のフィルタを <span class="m">W</span>、バイアスを <span class="m">b</span> とすると、特徴マップの <span class="m">(i, j)</span> 成分は次の積和です（上の例は <span class="m">k = 3,\ b = 0</span>）。</p>
-<div class="mb">Y_{i,j} = \sum_{m=0}^{k-1} \sum_{n=0}^{k-1} W_{m,n}\, X_{i+m,\; j+n} + b</div>
-<p>右辺の <span class="m">W_{m,n}</span> には位置 <span class="m">(i, j)</span> が含まれていません。どの位置でも同じ重みを使う、というのが<strong>重み共有</strong>の数式上の意味です。</p>
-<p>入力を <span class="m">\delta</span> だけ平行移動する操作を <span class="m">T_\delta</span> と書くと、（画像の端の影響を除き、ストライド 1 のとき）次の関係が成り立ちます。</p>
-<div class="mb">\operatorname{Conv}(T_\delta X) = T_\delta \operatorname{Conv}(X)</div>
-<p>入力をずらすと、出力は同じだけずれるだけで、反応の強さは変わりません（<strong>平行移動等変性</strong>）。5.1 の図で、畳み込みの反応 5 が模様と一緒に移動していたのはこのためです。全結合層 <span class="m">y = Wx</span> にはこの性質がありません。</p>
-<p class="note">補足：数学の「畳み込み」はフィルタを反転させて <span class="m">\sum_{m,n} W_{m,n} X_{i-m,\, j-n}</span> と定義しますが、深層学習の実装（PyTorch の <code>conv2d</code> など）が計算しているのは反転しない<strong>相互相関</strong>です。フィルタは学習で決まるので、反転の有無は本質的な違いになりません。</p>
-</aside>
-
-<pre><code class="python">import torch
-import torch.nn.functional as F
-
-x = torch.tensor([[[[1., 1, 1, 0, 0],
-                    [0, 1, 1, 1, 0],
-                    [0, 0, 1, 1, 1],
-                    [0, 0, 1, 1, 0],
-                    [0, 1, 1, 0, 0]]]])      # (N=1, C=1, H=5, W=5)
-w = torch.tensor([[[[1., 0, 1],
-                    [0, 1, 0],
-                    [1, 0, 1]]]])            # (out_ch=1, in_ch=1, 3, 3)
-
-print(F.conv2d(x, w))
-# tensor([[[[4., 3., 4.],
-#           [2., 4., 3.],
-#           [2., 3., 4.]]]])</code></pre>
-
-<h3 id="s5-2-2">ストライド・パディング・チャネル</h3>
-<p>畳み込み層には、出力サイズを決める 3 つの設定があります。上のアニメーションの「ストライド」「パディング」を切り替えると、窓の動き方と出力サイズが変わるのを確認できます。</p>
-<ul>
-<li><strong>ストライド（stride）</strong>：フィルタを何マスずつ動かすか。大きくすると出力が小さくなります。</li>
-<li><strong>パディング（padding）</strong>：入力の周囲を 0 で埋めること。端のピクセルが使われる回数が減る問題を緩和し、出力サイズを入力と揃えられます。</li>
-</ul>
-<p>入力サイズを <span class="m">N</span>、パディングを <span class="m">p</span>、フィルタサイズを <span class="m">k</span>、ストライドを <span class="m">s</span> とすると、出力サイズ <span class="m">O</span> は次の式で決まります。</p>
-<div class="mb">O = \left\lfloor \frac{N + 2p - k}{s} \right\rfloor + 1</div>
-<p><span class="m">\lfloor\ \rfloor</span> は切り捨てです（割り切れないときは、はみ出した端の部分が使われません）。例：<span class="m">N = 28,\ p = 1,\ k = 3,\ s = 1</span> なら <span class="m">(28 + 2 - 3)/1 + 1 = 28</span> で、サイズが保たれます。一般に <span class="m">s = 1</span>、<span class="m">p = (k-1)/2</span> とすると <span class="m">O = N</span> になります。ストライド <span class="m">s</span> の畳み込みは、定義式の添字を <span class="m">X_{si+m,\; sj+n}</span> に置き換えたものです。</p>
-
-<p><strong>チャネル（channel）</strong>：カラー画像は RGB の 3 チャネルを持ちます。畳み込みは全チャネルをまたいで行われ、フィルタも入力チャネル数と同じ <strong>深さ</strong> を持ちます。各チャネルの積和を <strong>足し合わせて 1 つの値</strong> にするのがポイントです。出力チャネル数は「フィルタを何種類用意するか」で決まります。</p>
-
-<div class="demo" id="d-channels" aria-label="複数チャネルにまたがる畳み込みのアニメーション">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">RGB 3 チャネル → 1 枚の特徴マップ、フィルタ 16 種類 → 16 枚</h4></div>
-  <div class="demo-stage"></div>
-</div>
-
-<pre><code class="python">import torch.nn as nn
-
-conv = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1)
-
-x = torch.randn(8, 3, 28, 28)     # (バッチ, チャネル, 高さ, 幅)
-y = conv(x)
-print(y.shape)                    # torch.Size([8, 16, 28, 28])
-
-# パラメータ数 = 16 * (3 * 3 * 3) + 16(バイアス) = 448 個だけ
-print(sum(p.numel() for p in conv.parameters()))   # 448</code></pre>
-<p>同じ入力に全結合層をつなぐと数百万パラメータになるところが、<strong>448 個</strong>で済みます。</p>
-
-<aside class="math-box" aria-label="数式で見る：チャネルをまたぐ畳み込みとパラメータ数">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>チャネルをまたぐ畳み込みとパラメータ数</b></div>
-<p>入力チャネル数を <span class="m">C_{\text{in}}</span>、出力チャネル数を <span class="m">C_{\text{out}}</span> とすると、出力チャネル <span class="m">c'</span> の値は、全入力チャネルの積和を合計したものです。</p>
-<div class="mb">Y_{c',\, i,\, j} = \sum_{c=1}^{C_{\text{in}}} \sum_{m=0}^{k-1} \sum_{n=0}^{k-1} W_{c',\, c,\, m,\, n}\; X_{c,\; i+m,\; j+n} + b_{c'}</div>
-<p>重み <span class="m">W</span> の形は <span class="m">C_{\text{out}} \times C_{\text{in}} \times k \times k</span>（PyTorch の <code>conv.weight.shape</code> と同じ順）、バイアスは <span class="m">C_{\text{out}}</span> 個なので、パラメータ数は次のとおりです。</p>
-<div class="mb-row cont"><div class="mb">P_{\text{conv}} = C_{\text{out}} \left( C_{\text{in}}\, k^2 + 1 \right)</div><div class="mb">= 16 \times \left( 3 \times 3^2 + 1 \right) = 448</div></div>
-<p>一方、224×224×3 の画像を flatten して 1000 ユニットの全結合層につなぐと、重みだけで</p>
-<div class="mb">P_{\text{fc}} = (224 \times 224 \times 3) \times 1000 \approx 1.5 \times 10^{8}</div>
-<p>です。<span class="m">P_{\text{conv}}</span> の式には画像の縦横サイズが現れません。画像がどれだけ大きくても、畳み込み層のパラメータ数は変わらないのです。</p>
-</aside>
-
-<h3 id="s5-2-3">特徴マップの階層的な抽象化</h3>
-<p>畳み込み層を重ねると、検出される特徴が段階的に抽象化されていきます。ここが CNN の最も面白いところです。後ろの層ほど 1 つのニューロンが「見ている」入力の範囲（<strong>受容野</strong>）が広がり、より大きく意味のあるまとまりを捉えられるようになります。</p>
-
-<div class="demo" id="d-hierarchy" aria-label="層が深くなるにつれて受容野が広がり、特徴が抽象化される様子">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">エッジ → 部品 → 物体：層ごとに広がる受容野</h4></div>
-  <div class="demo-stage svg-stage hscroll" style="--minw:560px"></div>
-</div>
-
-<p>第1章で触れた「特徴量設計の自動化」が、まさにこれです。従来の画像処理では人間がエッジ検出フィルタを設計していましたが、CNN はそれをデータから獲得します。</p>
-
-<aside class="math-box" aria-label="数式で見る：受容野の広がり方">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>受容野の広がり方</b></div>
-<p>ストライド 1 の <span class="m">k \times k</span> 畳み込みを <span class="m">L</span> 層重ねると、最後の層の 1 ニューロンが見る入力範囲（受容野）の一辺 <span class="m">R_L</span> は</p>
-<div class="mb">R_L = 1 + L\,(k - 1)</div>
-<p>です。3×3 なら 1 層で 3、2 層で 5、3 層で 7 と、層ごとに 2 ずつ広がります。ストライドやプーリングを含む場合は、それまでのストライドの積の分だけ広がり方が大きくなります（<span class="m">R_0 = 1</span>、<span class="m">k_l,\ s_l</span> は <span class="m">l</span> 層目のフィルタサイズとストライド）。</p>
-<div class="mb">R_l = R_{l-1} + (k_l - 1) \prod_{i=1}^{l-1} s_i</div>
-<p>VGG が 3×3 フィルタだけを重ねたのはこのためです。3×3 を 2 層重ねると 5×5 1 層と同じ受容野になりますが、パラメータは <span class="m">2 \times 9C^2 = 18C^2</span> で 5×5 の <span class="m">25C^2</span> より少なく、間に ReLU を挟める分だけ表現力も高くなります（入出力とも <span class="m">C</span> チャネル、バイアスは省略）。</p>
-</aside>
-
-<h3 id="s5-2-4">発展：畳み込みとフーリエ変換</h3>
-<p>信号処理の世界では、畳み込みは<strong>フーリエ変換</strong>と深い関係にあります。フーリエ変換は、画像を「どの細かさ（<strong>周波数</strong>）の縞模様が、どれだけ含まれているか」に分解する変換です。両者を結ぶのが<strong>畳み込み定理</strong>で、「フィルタをずらしながら積和する」ことと「フーリエ変換して周波数ごとに掛け算する」ことが同じ結果になります。2 通りの計算が本当に一致するか、下の図で確かめてみましょう（数値はブラウザ上で実際に計算しています）。</p>
-
-<div class="demo" id="d-fourier" aria-label="畳み込みを直接計算した結果と、フーリエ変換して掛け算してから戻した結果が一致する様子">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">直接の畳み込み ＝ フーリエ変換 → 掛け算 → 逆変換</h4></div>
-  <div class="demo-stage"><div class="hscroll" id="fourier-host"></div></div>
-</div>
-
-<aside class="math-box" aria-label="数式で見る：畳み込み定理">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>畳み込み定理</b></div>
-<p>1 次元で書くと、畳み込みは次の積和です（フィルタを反転させて重ねる、本来の意味の畳み込み）。</p>
-<div class="mb">(x * w)[n] = \sum_{m} x[m]\, w[n - m]</div>
-<p>長さ <span class="m">N</span> の信号の離散フーリエ変換（DFT）は、信号を周波数 <span class="m">k</span> の波 <span class="m">e^{-2\pi i\, kn/N}</span> の成分に分解したものです。</p>
-<div class="mb">X[k] = \mathcal{F}\{x\}[k] = \sum_{n=0}^{N-1} x[n]\, e^{-2\pi i\, kn/N}</div>
-<p>このとき、次の<strong>畳み込み定理</strong>が成り立ちます。空間でのスライド積和が、周波数ごとの単純な掛け算に変わるのです。</p>
-<div class="mb-row"><div class="mb">\mathcal{F}\{x * w\} = \mathcal{F}\{x\} \cdot \mathcal{F}\{w\}</div><div class="mb">\Longleftrightarrow\quad x * w = \mathcal{F}^{-1}\{X \cdot W\}</div></div>
-<p>画像のような 2 次元でも同じです。<span class="m">N \times N</span> の画像に <span class="m">k \times k</span> のフィルタをかけるとき、FFT（高速フーリエ変換）を使うと計算量のオーダーが変わります。</p>
-<div class="mb-row"><div class="mb">\text{直接計算：}\ O(N^2 k^2)</div><div class="mb">\text{FFT 経由：}\ O(N^2 \log N)</div></div>
-<p class="note">補足：DFT の場合、定理が成り立つのは画像の端が反対側とつながっているとみなした「循環畳み込み」です（上の図もこれで計算しています）。普通の畳み込みと一致させるには、0 で埋めて画像を広げてから変換します。また、CNN の「畳み込み」は反転しない相互相関ですが、フィルタを反転すれば本来の畳み込みになるので、同じ定理が使えます。周期関数を sin・cos の和で表す「フーリエ級数展開」を、一般の信号に広げたものがフーリエ変換で、DFT は長さ <span class="m">N</span> の信号を周期 <span class="m">N</span> とみなして級数展開したものにあたります。</p>
-</aside>
-
-<p>では、CNN は畳み込みをフーリエ変換で計算しているのかというと、<strong>ふつうはしていません</strong>。</p>
-<ul>
-<li><strong>フィルタが小さいから</strong>：CNN のフィルタは 3×3 程度なので、直接計算しても 1 位置あたり 9 回の積和で済みます。フーリエ変換は複素数を扱い、変換と逆変換の手間もかかるため、元が取れるのはフィルタが大きいときです。実際の GPU 計算では、直接計算をまとめて行列積にする方法（im2col）や、掛け算の回数を減らす Winograd 法などが主に使われます。</li>
-<li><strong>ライブラリが自動で選ぶから</strong>：GPU 向けの cuDNN などは、FFT を使う方法も含めて複数の計算方法を持っています。PyTorch で <code>torch.backends.cudnn.benchmark = True</code> にすると、入力の形ごとに実測して最も速い方法が選ばれます。</li>
-</ul>
-<p>それでも周波数の見方は、フィルタの働きを理解するのに役立ちます。ぼかしは高い周波数（細かい模様）を落とす<strong>ローパスフィルタ</strong>、エッジ検出は低い周波数（なだらかな明暗）を落とす<strong>ハイパスフィルタ</strong>です。学習済み CNN の 1 層目のフィルタは、特定の向き・細かさの縞模様に反応する形（ガボールフィルタに似た形）になることが知られており、画像から特定の周波数成分を取り出していると解釈できます。</p>
-
-<h2 id="s5-3">5.3 プーリング層と全体構造</h2>
-
-<h3 id="s5-3-1">最大プーリング・平均プーリング</h3>
-<p><strong>プーリング（pooling）</strong> は特徴マップを縮小する操作です。学習するパラメータはありません。2×2 の窓を 2 マスずつ動かし、各ブロックを 1 つの値に要約します。</p>
-
-<div class="demo" id="d-pool" aria-label="最大プーリングと平均プーリングのアニメーション">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">2×2 プーリング（stride=2）で 4×4 → 2×2</h4></div>
-  <div class="demo-stage"></div>
-</div>
-
-<p>目的は 3 つです。</p>
-<ol>
-<li><strong>計算量とパラメータの削減</strong> — 特徴マップが 1/4 になる</li>
-<li><strong>位置のずれへの頑健性</strong> — 1〜2 ピクセルずれても最大値は変わりにくい</li>
-<li><strong>受容野の拡大</strong> — 後ろの層ほど広い範囲を「見る」ようになる</li>
-</ol>
-<pre><code class="python">pool = nn.MaxPool2d(kernel_size=2, stride=2)
-print(pool(torch.randn(8, 16, 28, 28)).shape)   # torch.Size([8, 16, 14, 14])</code></pre>
-<aside class="math-box" aria-label="数式で見る：プーリングの式と逆伝播">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>プーリングの式と逆伝播</b></div>
-<p>2×2・ストライド 2 のプーリングは、ブロックごとの最大値または平均です。式の中に学習するパラメータは含まれていません。</p>
-<div class="mb-row"><div class="mb">Y^{\max}_{i,j} = \max_{0 \le m,\, n \le 1} X_{2i+m,\; 2j+n}</div><div class="mb">Y^{\text{avg}}_{i,j} = \frac{1}{4} \sum_{m=0}^{1} \sum_{n=0}^{1} X_{2i+m,\; 2j+n}</div></div>
-<p>逆伝播では、最大プーリングの勾配は<strong>最大値だった位置にだけ</strong>流れます。平均プーリングでは、4 マスに <span class="m">\tfrac{1}{4}</span> ずつ均等に流れます。</p>
-<div class="mb">\frac{\partial Y^{\max}_{i,j}}{\partial X_{p,q}} = \begin{cases} 1 &amp; (p, q) \text{ が最大値の位置} \\ 0 &amp; \text{それ以外} \end{cases}</div>
-</aside>
-<div class="callout warn"><b>よくある誤解</b>最近のアーキテクチャでは、プーリングの代わりに stride=2 の畳み込みで縮小することも増えています。プーリングは必須ではありません。</div>
-
-<h3 id="s5-3-2">CNN 全体のアーキテクチャ</h3>
-<p>典型的な CNN は「<strong>特徴抽出部</strong>」と「<strong>識別部</strong>」の 2 段構成になっています。</p>
-<pre><code>入力画像
-  ↓
-[ 畳み込み → 活性化(ReLU) → プーリング ] × 数回     ← 特徴抽出部
-  ↓
-Flatten（1次元に引き伸ばす）
-  ↓
-[ 全結合層 → 活性化 ]                                ← 識別部
-  ↓
-全結合層 → Softmax
-  ↓
-クラスごとの確率</code></pre>
-
-<p>PyTorch での最小実装例（MNIST 相当、10 クラス分類）を、手書きの「7」が流れていく様子と対応づけて見てみましょう。コードの <span style="background:color-mix(in srgb,var(--orange) 14%,transparent);padding:0 4px;border-radius:3px">ハイライト行</span> が、図の中で今起きている処理です。</p>
-
-<div class="demo" id="d-pipeline" aria-label="CNN の中をデータが流れ、形状が変わっていく様子">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">テンソルの形状はこう変わる：(1, 28, 28) → 10 クラスの確率</h4></div>
-  <div class="demo-stage">
-    <div class="hscroll svg-stage" style="--minw:620px" id="pipeline-svg"></div>
-<pre id="pipeline-code"><code class="python">model = nn.Sequential(
-    nn.Conv2d(1, 16, kernel_size=3, padding=1),   # (1,28,28) -> (16,28,28)
-    nn.ReLU(),
-    nn.MaxPool2d(2),                              #          -> (16,14,14)
-
-    nn.Conv2d(16, 32, kernel_size=3, padding=1),  #          -> (32,14,14)
-    nn.ReLU(),
-    nn.MaxPool2d(2),                              #          -> (32, 7, 7)
-
-    nn.Flatten(),                                 #          -> (1568,)
-    nn.Linear(32 * 7 * 7, 128),
-    nn.ReLU(),
-    nn.Dropout(0.5),                              # 第4章の正則化
-    nn.Linear(128, 10),                           # 出力: 10クラス
-)
-
-x = torch.randn(64, 1, 28, 28)
-print(model(x).shape)     # torch.Size([64, 10])</code></pre>
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow">CNN入門 · 動かして確かめる</p>
+      <h1>CNNの畳み込みとプーリング</h1>
+      <p class="lead">画像を扱うAIの多くは、CNN（畳み込みニューラルネットワーク）という仕組みを土台にしています。この記事では、その中心にある「畳み込み」と「プーリング」を、数字と動く図で一つずつ確かめます。最後に、画像生成AIの中で同じ部品がどう使われているかも見ていきます。</p>
+    </div>
+    <figure class="hero-fig">
+      <div class="hero-pair">
+        <canvas id="hero-in" width="192" height="192" aria-label="入力の画像（家と山の絵）"></canvas>
+        <span class="sym" aria-hidden="true">∗</span>
+        <div class="mx sm"><div class="grid" id="hero-k" style="--n:3"></div></div>
+        <span class="sym" aria-hidden="true">→</span>
+        <canvas id="hero-out" width="192" height="192" aria-label="カーネルをかけた結果の特徴マップ"></canvas>
+      </div>
+      <figcaption>左の画像にカーネル「<b id="hero-kname">縦のエッジ</b>」を上から順にかけていくと、右に特徴マップができあがります。</figcaption>
+    </figure>
   </div>
-</div>
+</header>
 
-<p>学習ループ・損失関数・オプティマイザは第3章と同じです。CNN だからといって学習の仕組みが変わるわけではありません。<strong>層の種類が変わっただけ</strong>です。</p>
+<main>
+  <nav class="toc" aria-label="目次">
+    <p class="toc-lbl">目次</p>
+    <ol>
+      <li><a href="#pixels"><span class="n">1</span>画像は数の格子<span class="d">ピクセルとチャンネル</span></a></li>
+      <li><a href="#conv"><span class="n">2</span>畳み込み<span class="d">掛けて足す小さな窓</span></a></li>
+      <li><a href="#pool"><span class="n">3</span>プーリング<span class="d">要点を残して縮める</span></a></li>
+      <li><a href="#stack"><span class="n">4</span>層を重ねると何が起きるか<span class="d">受容野と特徴の階層</span></a></li>
+      <li><a href="#gen"><span class="n">5</span>画像生成での使われ方<span class="d">転置畳み込み・U-Net・VAE</span></a></li>
+      <li><a href="#code"><span class="n">6</span>コードで形を確かめる<span class="d">PyTorch</span></a></li>
+      <li><a href="#summary"><span class="n">7</span>まとめ<span class="d">早見表と参考文献</span></a></li>
+    </ol>
+  </nav>
 
-<aside class="math-box" aria-label="数式で見る：ReLU・Softmax・交差エントロピー">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>ReLU・Softmax・交差エントロピー</b></div>
-<p>ReLU は負の値を 0 にするだけの関数です。Softmax は、10 個のスコア（ロジット）<span class="m">z_0, \dots, z_9</span> を、合計が 1 になる確率に変換します。</p>
-<div class="mb-row"><div class="mb">\operatorname{ReLU}(x) = \max(0,\, x)</div><div class="mb">p_k = \operatorname{softmax}(z)_k = \frac{e^{z_k}}{\sum_{j=0}^{9} e^{z_j}}</div></div>
-<p>正解クラスを <span class="m">y</span> とすると、交差エントロピー損失と、そのロジットについての勾配は次のようになります（<span class="m">\mathbb{1}[\cdot]</span> は条件が真なら 1、偽なら 0）。</p>
-<div class="mb-row"><div class="mb">L = -\log p_y</div><div class="mb">\frac{\partial L}{\partial z_k} = p_k - \mathbb{1}[k = y]</div></div>
-<p>勾配は「予測確率 − 正解」という単純な形になります。<code>nn.CrossEntropyLoss</code> が Softmax と損失をまとめて計算するのは、この扱いやすさに加え、指数関数のオーバーフローを避けて数値的に安定させるためです。</p>
-</aside>
-<div class="callout tip"><b>実務での位置づけ</b>チャネル数は層が深くなるほど増やし（16 → 32 → 64）、空間サイズは減らしていく（28 → 14 → 7）のが定石です。「空間の情報を、意味の情報に変換していく」イメージです。</div>
+  <!-- 1 -->
+  <section class="ch" id="pixels">
+    <header class="ch-head">
+      <span class="ch-no">第1章</span>
+      <h2>画像は数の格子</h2>
+    </header>
+    <p>コンピュータにとって、画像は数が並んだ格子です。白黒の画像なら、1マス（1ピクセル）ごとに明るさを表す数が1つずつ入っています。よく使われるのは、0（黒）から255（白）までの整数です。</p>
+    <figure class="px-fig">
+      <div class="px-row">
+        <canvas id="px-src" width="192" height="192" aria-label="家の画像。屋根のてっぺんに四角い印"></canvas>
+        <span class="sym" aria-hidden="true">→</span>
+        <div class="grid" id="px-grid" role="img" aria-label="屋根のてっぺん8×8ピクセルの値"></div>
+      </div>
+      <figcaption class="cap">左の画像の四角で囲んだ部分（屋根のてっぺん、8×8ピクセル）を拡大して、各マスの値を書き込んだもの。明るい空は180台、暗い屋根は46で、境目には中間の値が入っています。</figcaption>
+    </figure>
+    <p>カラー画像は、赤・緑・青の3枚の格子を重ねたものです。この1枚1枚を<strong>チャンネル</strong>と呼びます。カラー画像は「高さ × 幅 × チャンネル数」の数の塊で、256×256ピクセルなら 256 × 256 × 3 = 196,608 個の数でできています。</p>
 
-<h2 id="s5-4">5.4 代表的なモデルと応用</h2>
+    <h3>ふつうのニューラルネットワークでは困ること</h3>
+    <p>この数の塊を、そのまま一般的なニューラルネットワーク（全結合層）に入れると、困ったことが2つ起きます。</p>
+    <ul>
+      <li><strong>調整する数が多すぎる。</strong>196,608個の入力を1,000個のニューロンにつなぐだけで、学習で調整する重みが約2億個になります。</li>
+      <li><strong>隣り合うマスの関係を活かせない。</strong>全結合層は入力を1列に並べて扱うので、どのマスが隣同士かという情報を使えません。写っている猫が10ピクセル右にずれただけで、まったく別の入力として扱われます。</li>
+    </ul>
+    <p>CNNはこれを2つの工夫で解決します。1つは<strong>小さな範囲だけを見る</strong>こと、もう1つは<strong>同じ道具を画像全体で使い回す</strong>ことです。その道具が「畳み込み」です。</p>
+  </section>
 
-<h3 id="s5-4-1">LeNet / AlexNet / VGG / ResNet の流れ</h3>
-<p>CNN の歴史は「どうやって深くするか」の歴史でもあります。層の数の推移を見ると、2015 年の ResNet で桁が変わったことがわかります。</p>
+  <!-- 2 -->
+  <section class="ch" id="conv">
+    <header class="ch-head">
+      <span class="ch-no">第2章</span>
+      <h2>畳み込み</h2>
+      <p class="kicker">小さな窓をずらしながら、掛けて足す</p>
+    </header>
+    <p>畳み込みでは、まず3×3などの小さな数の表を用意します。これを<strong>カーネル</strong>（または<strong>フィルタ</strong>）と呼びます。</p>
+    <p>カーネルを画像の左上に重ね、重なった9マスどうしで掛け算をして、9個の結果を合計します。この合計が出力の1マスになります。次にカーネルを1マス右にずらして同じ計算をし、右端まで行ったら1段下がって左端から続けます。最後までたどると、出力の格子が1枚できあがります。これを<strong>特徴マップ</strong>と呼びます。</p>
 
-<div class="demo" id="d-models" aria-label="代表的な CNN モデルの層数と ImageNet でのエラー率">
-  <div class="demo-head"><span class="demo-kicker">グラフ</span><h4 class="demo-title">代表的なモデルの層数と、ImageNet 画像分類のエラー率</h4></div>
-  <div class="demo-stage"></div>
-</div>
+    <figure class="demo wide" id="conv-demo" aria-labelledby="conv-demo-title">
+      <div class="demo-head">
+        <span class="demo-tag">試してみる</span>
+        <h3 class="demo-title" id="conv-demo-title">畳み込みを1マスずつ計算する</h3>
+        <p class="demo-hint">「次へ」を押すと、太枠の窓が1マス進みます。窓の中の小さな数字は、そのマスに掛けるカーネルの値です。</p>
+      </div>
+      <div class="controls">
+        <div class="ctl"><span class="ctl-lbl">入力</span><div class="seg" id="conv-input" data-role="seg-input"></div></div>
+        <div class="ctl"><span class="ctl-lbl">カーネル</span><div class="seg" id="conv-k" data-role="seg-k"></div></div>
+        <div class="ctl"><span class="ctl-lbl">ストライド</span><div class="seg" id="conv-stride" data-role="seg-stride"></div></div>
+        <div class="ctl"><span class="ctl-lbl">パディング</span><div class="seg" id="conv-pad" data-role="seg-pad"></div></div>
+      </div>
+      <div class="stage">
+        <div class="blk">
+          <div class="blk-lbl">入力 <span data-role="in-size"></span></div>
+          <div class="gwrap"><div class="grid" data-role="in"></div><div class="window" data-role="in-win" style="--k:3"></div></div>
+        </div>
+        <span class="op" aria-hidden="true">∗</span>
+        <div class="blk">
+          <div class="blk-lbl">カーネル 3×3</div>
+          <div class="kline"><div class="mx"><div class="grid" data-role="k" style="--n:3"></div></div><span class="kdiv" data-role="kdiv" hidden></span></div>
+        </div>
+        <span class="op" aria-hidden="true">→</span>
+        <div class="blk">
+          <div class="blk-lbl">出力（特徴マップ） <span data-role="out-size"></span></div>
+          <div class="grid" data-role="out"></div>
+        </div>
+      </div>
+      <div class="calc" data-role="calc" aria-live="polite"></div>
+      <div class="steps">
+        <button type="button" class="btn" id="conv-first" data-role="first">最初から</button>
+        <button type="button" class="btn" id="conv-prev" data-role="prev">◀ 前へ</button>
+        <button type="button" class="btn primary" id="conv-next" data-role="next">次へ ▶</button>
+        <button type="button" class="btn" id="conv-play" data-role="play">自動再生</button>
+        <button type="button" class="btn" id="conv-all" data-role="all">全部計算する</button>
+        <input type="range" id="conv-slider" data-role="slider" min="0" max="35" value="13" aria-label="窓の位置">
+        <span class="pos" data-role="pos"></span>
+      </div>
+      <p class="formula" data-role="formula"></p>
+      <p class="note" data-role="note"></p>
+    </figure>
 
-<table>
-<thead><tr><th>モデル</th><th>年</th><th>層数</th><th>貢献</th></tr></thead>
-<tbody>
-<tr><td><strong>LeNet-5</strong></td><td>1998</td><td>7</td><td>CNN の原型。郵便番号の手書き数字認識に実用化</td></tr>
-<tr><td><strong>AlexNet</strong></td><td>2012</td><td>8</td><td>ReLU・Dropout・GPU 学習を導入し ILSVRC で圧勝。深層学習ブームの起点</td></tr>
-<tr><td><strong>VGG-16</strong></td><td>2014</td><td>16</td><td>3×3 の小さいフィルタを重ねるだけ、というシンプルな設計思想</td></tr>
-<tr><td><strong>GoogLeNet</strong></td><td>2014</td><td>22</td><td>Inception モジュールで複数サイズのフィルタを並列適用</td></tr>
-<tr><td><strong>ResNet</strong></td><td>2015</td><td>50〜152</td><td><strong>残差接続</strong>で 100 層超を学習可能に。人間の識別精度を超える</td></tr>
-</tbody>
-</table>
+    <p>「縦のエッジ」のカーネルを四角にかけると、四角の左の辺でプラス、右の辺でマイナスの大きな値が出ます。全部0の場所や全部9の場所では、プラスとマイナスが打ち消し合って0になります。このカーネルは「左が暗くて右が明るい場所」を見つける検出器として働いているわけです。</p>
 
-<p>特に <strong>ResNet の残差接続（skip connection）</strong> は重要です。層を深くすると、誤差逆伝播で勾配が層を通るたびに小さくなり、入力に近い層まで伝わりにくくなります。ResNet はこれに対し、「入力をそのまま出力に足す」迂回路を作りました。<span class="m">y = x + F(x)</span> を微分すると <span class="m">1 + F'(x)</span> となり、「1」の分だけ勾配がそのまま素通りできるのです。</p>
+    <h3>カーネルの中身は学習で決まる</h3>
+    <p>「縦のエッジ」や「ぼかし」は、画像処理で昔から使われてきたフィルタです。CNNでは、カーネルの9つの数を人が決めることはしません。たくさんの画像で学習するうちに、見分けるのに役立つ値へ自動的に調整されていきます。学習を終えたCNNの最初の層を調べると、エッジや色の境目に反応するカーネルができていることが知られています。</p>
 
-<div class="demo" id="d-residual" aria-label="通常の深いネットワークと残差接続での勾配の伝わり方の比較">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">逆伝播で勾配はどこまで届くか：通常 vs 残差接続</h4></div>
-  <div class="demo-stage svg-stage hscroll" style="--minw:560px"></div>
-</div>
+    <h3>ストライドとパディング</h3>
+    <dl class="terms">
+      <dt>ストライド</dt>
+      <dd>カーネルを一度に何マスずらすか。2にすると1マスおきに計算するので、出力の縦横はおよそ半分になります。</dd>
+      <dt>パディング</dt>
+      <dd>入力のまわりを0で囲むこと。囲まないと端のマスにはカーネルの中心が来ないので、出力は入力より少し小さくなります。3×3のカーネルなら、パディング1で入力と同じ大きさを保てます。</dd>
+    </dl>
+    <div class="formula-box">出力の一辺 ＝ ⌊（入力の一辺 ＋ 2 × パディング − カーネルの一辺）÷ ストライド⌋ ＋ 1</div>
+    <p>⌊ ⌋ は小数点以下の切り捨てです。上のデモでストライドとパディングを切り替えると、出力がこの式どおりの大きさに変わります。</p>
 
-<aside class="math-box" aria-label="数式で見る：残差接続で勾配が消えにくい理由">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>残差接続で勾配が消えにくい理由</b></div>
-<p>通常の積み重ね <span class="m">h_l = F_l(h_{l-1})</span> では、連鎖律により入力側への勾配は、各層のヤコビアン <span class="m">J_l = \partial h_l / \partial h_{l-1}</span> の積になります。</p>
-<div class="mb">\frac{\partial L}{\partial h_0} = \frac{\partial L}{\partial h_L}\, J_L\, J_{L-1} \cdots J_1</div>
-<p>各 <span class="m">J_l</span> が「小さい」と、層の数だけ掛け算されて指数的に 0 に近づきます（上の図では 1 層ごとに 0.5 倍として <span class="m">0.5^5 \approx 0.03</span>）。残差接続 <span class="m">h_l = h_{l-1} + F_l(h_{l-1})</span> では、各層のヤコビアンに恒等行列 <span class="m">I</span> が加わります。</p>
-<div class="mb">J_l = \frac{\partial h_l}{\partial h_{l-1}} = I + \frac{\partial F_l}{\partial h_{l-1}}</div>
-<p>この積を展開すると <span class="m">I \cdot I \cdots I = I</span> の項が必ず残ります。そのため <span class="m">\partial F_l / \partial h_{l-1}</span> が小さくても、勾配は入力側まで直接届きます。</p>
-</aside>
+    <h3>本物の画像にかけてみる</h3>
+    <p>同じカーネルを192×192ピクセルの画像にかけると、それぞれの働きが目で見てわかります。</p>
 
-<p>このアイデアは画像に限らず、第6章の LSTM のセル状態や、第7章の Transformer にも引き継がれています。</p>
+    <figure class="demo wide" id="img-demo" aria-labelledby="img-demo-title">
+      <div class="demo-head">
+        <span class="demo-tag">試してみる</span>
+        <h3 class="demo-title" id="img-demo-title">カーネルを画像にかける</h3>
+        <p class="demo-hint">カーネルを切り替えると、特徴マップと、それをプーリングで縮めた結果が変わります。</p>
+      </div>
+      <div class="controls">
+        <div class="ctl"><span class="ctl-lbl">カーネル</span><div class="seg" id="img-k" data-role="seg-k"></div></div>
+      </div>
+      <div class="panels">
+        <div class="panel"><canvas data-role="c0" width="192" height="192" aria-label="入力画像"></canvas><p><b>192×192</b>入力の画像</p></div>
+        <div class="panel"><canvas data-role="c1" width="192" height="192" aria-label="畳み込みの結果"></canvas><p><b>192×192</b>畳み込みの結果（特徴マップ）</p></div>
+        <div class="panel"><canvas data-role="c2" width="96" height="96" aria-label="プーリング1回後"></canvas><p><b>96×96</b>ReLU → 2×2の最大プーリング</p></div>
+        <div class="panel"><canvas data-role="c3" width="48" height="48" aria-label="プーリング2回後"></canvas><p><b>48×48</b>もう一度プーリング</p></div>
+      </div>
+      <p class="note" data-role="note"></p>
+    </figure>
 
-<h3 id="s5-4-2">画像分類・物体検出・セグメンテーション</h3>
-<p>CNN が扱うタスクは、<strong>出力の粒度</strong>で整理できます。同じ画像に対して、それぞれ何を出力するのかを比べてみましょう。</p>
+    <h3>カラー画像とフィルタの枚数</h3>
+    <p>カラー画像のように入力が3チャンネルあるときは、カーネルも3枚重ねの 3×3×3 になります。27マスぶんを掛けて足し、1つの値を出します。</p>
+    <p>1種類のカーネルから得られる特徴マップは1枚です。実際のCNNでは、1つの層で数十から数百種類のカーネルを使います。64種類使えば、出力は64枚の特徴マップを重ねた「64チャンネル」の塊になります。</p>
+    <div class="shape-eq" role="img" aria-label="32×32×3の入力に、3×3×3のカーネル64種類をかけると、32×32×64の出力になる">
+      <div class="sq"><b>32×32×3</b><span>入力（RGB）</span></div>
+      <span class="op" aria-hidden="true">∗</span>
+      <div class="sq k"><b>3×3×3</b><span>カーネル × 64種類</span></div>
+      <span class="op" aria-hidden="true">→</span>
+      <div class="sq o"><b>32×32×64</b><span>出力（パディング1）</span></div>
+    </div>
+    <p>この層で学習する数は、カーネルの重みが 3×3×3×64 = 1,728個、それに各カーネルに1つずつ付く足し算用の数（バイアス）が64個で、合計1,792個です。全結合層の約2億個と比べて桁違いに少なく、しかも画像が大きくなってもこの数は変わりません。同じカーネルを画像のどこでも使い回しているからです。</p>
 
-<div class="demo" id="d-tasks" aria-label="画像分類・物体検出・セグメンテーションの出力の違い">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">同じ画像、3 つのタスク</h4></div>
-  <div class="demo-stage svg-stage hscroll" style="--minw:560px"></div>
-</div>
+    <h3>畳み込みの後のReLU</h3>
+    <p>畳み込みの後には、たいてい<strong>ReLU</strong>という簡単な処理をはさみます。マイナスの値を0にして、プラスの値はそのまま通すだけの処理です。これがないと、畳み込みを何層重ねても全体が1回の「掛けて足す」にまとまってしまい、複雑な形を表せません。</p>
+  </section>
 
-<table>
-<thead><tr><th>タスク</th><th>出力</th><th>代表モデル</th></tr></thead>
-<tbody>
-<tr><td><strong>画像分類</strong></td><td>画像全体に 1 つのラベル（「猫」）</td><td>ResNet, EfficientNet</td></tr>
-<tr><td><strong>物体検出</strong></td><td>複数の矩形（bounding box）とラベル</td><td>YOLO, Faster R-CNN</td></tr>
-<tr><td><strong>セグメンテーション</strong></td><td>ピクセル 1 つ 1 つにラベル</td><td>U-Net, Mask R-CNN</td></tr>
-</tbody>
-</table>
-<p>実際の応用先としては、医療画像診断、製造ラインの外観検査、自動運転の周辺認識、顔認証、衛星画像解析などがあります。</p>
+  <!-- 3 -->
+  <section class="ch" id="pool">
+    <header class="ch-head">
+      <span class="ch-no">第3章</span>
+      <h2>プーリング</h2>
+      <p class="kicker">要点を残して、小さくまとめる</p>
+    </header>
+    <p><strong>プーリング</strong>は、特徴マップを小さくまとめる処理です。よく使われるのは2×2の<strong>最大プーリング</strong>で、特徴マップを2×2の区画に分け、区画ごとに最大の値だけを残します。縦横がそれぞれ半分になり、マスの数は4分の1になります。区画の平均を残す<strong>平均プーリング</strong>もあります。</p>
 
-<h3 id="s5-4-3">転移学習・ファインチューニング</h3>
-<p>CNN をゼロから学習するには、大量のデータ（数十万枚〜）と時間が必要です。実務でこれを毎回行うのは非現実的です。</p>
-<p>そこで <strong>転移学習（transfer learning）</strong> を使います。ImageNet（1000 クラス・約 120 万枚）などで学習済みのモデルを持ってきて、自分のタスクに流用する方法です。「エッジや形を検出する能力」はどんな画像タスクでも共通なので、そこを流用できるのです。</p>
+    <figure class="demo wide" id="pool-demo" aria-labelledby="pool-demo-title">
+      <div class="demo-head">
+        <span class="demo-tag">試してみる</span>
+        <h3 class="demo-title" id="pool-demo-title">2×2プーリングと位置のずれ</h3>
+        <p class="demo-hint">区画や出力のマスにカーソルを合わせる（タップする）と、対応する場所が強調されます。黒い枠は、最大プーリングで選ばれた値です。</p>
+      </div>
+      <div class="controls">
+        <div class="ctl"><span class="ctl-lbl">種類</span><div class="seg" id="pool-mode" data-role="seg-mode"></div></div>
+      </div>
+      <div class="pool-rows">
+        <div class="pool-row">
+          <div class="row-lbl">元の特徴マップ 4×4 → 出力 2×2</div>
+          <div class="pool-line"><div class="pgrid" data-role="in"></div><span class="op" aria-hidden="true">→</span><div class="grid pout" data-role="out" style="--n:2"></div></div>
+        </div>
+        <div class="pool-row">
+          <div class="row-lbl">全体を1マス右にずらした場合</div>
+          <div class="pool-line"><div class="pgrid" data-role="in"></div><span class="op" aria-hidden="true">→</span><div class="grid pout" data-role="out" style="--n:2"></div></div>
+        </div>
+      </div>
+      <p class="note" data-role="note" aria-live="polite"></p>
+    </figure>
 
-<div class="demo" id="d-transfer" aria-label="学習済み ResNet を転移学習する手順のアニメーション">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">学習済み ResNet-18 を「良品 / 不良品」分類に流用する</h4></div>
-  <div class="demo-stage">
-    <div class="hscroll svg-stage" style="--minw:560px" id="transfer-svg"></div>
-    <pre id="transfer-code"><code class="python"></code></pre>
-  </div>
-</div>
+    <p>上の段と下の段を比べてみてください。下の段は、入力全体を1マス右にずらしたものです。最大プーリングでは、ずらす前と後で出力がまったく同じです。強い反応が同じ区画の中にとどまっている限り、位置が少し動いても結果は変わりません。平均プーリングに切り替えると、出力の値が変わることも確かめられます。</p>
 
-<p>用語の使い分け：</p>
-<ul>
-<li><strong>特徴抽出（feature extraction）</strong>：既存層を凍結し、最終層だけ学習する。データが少ない時に有効</li>
-<li><strong>ファインチューニング（fine-tuning）</strong>：全体、または後半の層も含めて小さい学習率で再学習する。データがそこそこある時に有効</li>
-</ul>
-<div class="callout tip"><b>実務での位置づけ</b>画像タスクは「まず学習済み ResNet を転移学習」から始めるのが定石です。数百枚程度のデータでも実用的な精度が出ることがあります。ゼロから設計するのは最後の手段です。</div>
+    <h3>プーリングの役割</h3>
+    <ul>
+      <li><strong>計算を軽くする。</strong>マスの数が4分の1になるので、後ろの層の計算量とメモリが大きく減ります。</li>
+      <li><strong>小さなずれに強くなる。</strong>上のデモのように、数ピクセルの位置ずれで結果が変わりにくくなります。</li>
+      <li><strong>広い範囲を見られるようになる。</strong>縮めた特徴マップの上で3×3のカーネルを動かすと、元の画像ではもっと広い範囲を見ていることになります。次の章で詳しく見ます。</li>
+    </ul>
+    <p>プーリングには、学習で調整する数がありません。決まった規則で最大値を選ぶか、平均をとるだけです。前の章の画像デモの右の2枚も、最大プーリングを1回、2回かけたものです。縦横が半分、4分の1になっても、輪郭の位置関係は残っています。</p>
+    <p>最近のネットワークでは、プーリングの代わりに<strong>ストライド2の畳み込み</strong>で縮小することも増えています。縮め方そのものを学習で決められるからです。また分類用のCNNの最後では、各チャンネルの特徴マップ全体を平均して1つの数にまとめる<strong>グローバル平均プーリング</strong>がよく使われます。</p>
+  </section>
 
-<h2 id="s5-summary">まとめ</h2>
-<p>本章では、画像を扱うための CNN を学びました：</p>
-<ul class="summary-list">
-<li><strong>全結合層は画像に対してパラメータが爆発し、位置のずれにも弱い</strong></li>
-<li><strong>畳み込み層はフィルタの重み共有で、少ないパラメータと位置不変性を両立する</strong></li>
-<li><strong>層を重ねるごとに、エッジ → 部品 → 物体と特徴が階層的に抽象化される</strong></li>
-<li><strong>CNN は「畳み込み＋プーリングの特徴抽出部」と「全結合の識別部」で構成される</strong></li>
-<li><strong>実務では学習済みモデルの転移学習・ファインチューニングから始めるのが定石</strong></li>
-</ul>
-<p>次章では、画像とは性質の異なる「系列データ」— 文章や時系列 — を扱うための RNN 系のアーキテクチャを見ていきます。</p>
+  <!-- 4 -->
+  <section class="ch" id="stack">
+    <header class="ch-head">
+      <span class="ch-no">第4章</span>
+      <h2>層を重ねると何が起きるか</h2>
+      <p class="kicker">受容野と、浅い層から深い層への変化</p>
+    </header>
+    <h3>受容野</h3>
+    <p>3×3の畳み込みの出力1マスは、入力の3×3の範囲から計算されます。このように、出力の1マスに影響する入力の範囲を<strong>受容野</strong>と呼びます。</p>
+    <p>3×3の畳み込みをもう1回重ねると、2層目の1マスは1層目の3×3を見ていて、その9マスがそれぞれ入力の3×3を見ています。合わせると、2層目の1マスは入力の5×5を見ていることになります。</p>
 
-<h2 id="s5-exercises">演習問題</h2>
+    <figure class="demo wide" id="rf-demo" aria-labelledby="rf-demo-title">
+      <div class="demo-head">
+        <span class="demo-tag">試してみる</span>
+        <h3 class="demo-title" id="rf-demo-title">1マスが見ている範囲</h3>
+        <p class="demo-hint">1層目か2層目のマスにカーソルを合わせる（タップする）と、そのマスの受容野が入力側に表示されます。</p>
+      </div>
+      <div class="stage">
+        <div class="blk"><div class="blk-lbl">入力 7×7</div><div class="grid rf" data-l="0"></div></div>
+        <span class="op" aria-hidden="true">→</span>
+        <div class="blk"><div class="blk-lbl">1層目 5×5</div><div class="grid rf" data-l="1"></div></div>
+        <span class="op" aria-hidden="true">→</span>
+        <div class="blk"><div class="blk-lbl">2層目 3×3</div><div class="grid rf" data-l="2"></div></div>
+      </div>
+      <p class="note" data-role="note" aria-live="polite"></p>
+    </figure>
 
-<div class="exercise">
-<p><strong>1.</strong> 入力が <code>(3, 64, 64)</code> の画像に対し、<code>nn.Conv2d(3, 32, kernel_size=5, stride=1, padding=2)</code> を適用しました。出力の形状（チャネル、高さ、幅）を計算してください。また、この層のパラメータ数は何個でしょうか。</p>
-<details><summary>解答例を見る</summary>
-<p>出力サイズ = (64 + 2×2 − 5) / 1 + 1 = 64 なので、出力は <code>(32, 64, 64)</code>。<br>パラメータ数 = 32 × (3 × 5 × 5) + 32（バイアス）= 2,400 + 32 = <strong>2,432 個</strong>。</p>
-</details>
-</div>
+    <p>層を重ねるほど受容野は広がり、プーリングをはさむと一気に広がります。3×3の畳み込みと2×2の最大プーリングを交互に重ねると、次のようになります。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>層</th><th>処理</th><th>1マスが見ている入力の範囲</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>3×3の畳み込み</td><td class="num">3×3</td></tr>
+          <tr><td class="num">2</td><td>3×3の畳み込み</td><td class="num">5×5</td></tr>
+          <tr><td class="num">3</td><td>2×2の最大プーリング</td><td class="num">6×6</td></tr>
+          <tr><td class="num">4</td><td>3×3の畳み込み</td><td class="num">10×10</td></tr>
+          <tr><td class="num">5</td><td>3×3の畳み込み</td><td class="num">14×14</td></tr>
+          <tr><td class="num">6</td><td>2×2の最大プーリング</td><td class="num">16×16</td></tr>
+          <tr><td class="num">7</td><td>3×3の畳み込み</td><td class="num">24×24</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>プーリングの後は特徴マップのマスが粗くなっているので、同じ3×3のカーネルでも、元の画像の上では2マスおき、4マスおきに広く見ていることになります。</p>
 
-<div class="exercise">
-<p><strong>2.</strong> 「畳み込み層の重み共有が、パラメータ削減と位置不変性の両方をもたらす」のはなぜでしょうか。全結合層と比較して説明してください。</p>
-<details><summary>解答例を見る</summary>
-<p>全結合層は入力の各位置に別々の重みを持つため、パラメータ数は入力サイズに比例して増え、同じ模様でも位置が違えば別の重みで学習し直す必要がある。畳み込み層は小さなフィルタ 1 つを全位置で使い回すので、パラメータ数は画像サイズに依存せず「フィルタの大きさ × チャネル数」だけで済む。また、どの位置でも同じ重みで同じ計算をするため、模様がずれても同じ反応が（ずれた位置に）現れ、位置によらず同じ特徴として検出できる。</p>
-</details>
-</div>
+    <h3>浅い層から深い層へ</h3>
+    <p>受容野が広がるにつれて、各層がとらえる特徴も変わっていきます。学習済みの画像分類CNNを調べると、おおむね次の傾向があることが知られています。</p>
+    <dl class="terms">
+      <dt>浅い層</dt><dd>線の向き、明るさや色の境目</dd>
+      <dt>中間の層</dt><dd>角、曲線、しま模様など、線の組み合わせ</dd>
+      <dt>深い層</dt><dd>目、車輪、文字など、物の部品</dd>
+      <dt>最後の層</dt><dd>「猫」「車」といった全体の判断</dd>
+    </dl>
+    <p>一般的な画像分類のCNNは、何回かの「畳み込み → ReLU」とプーリングをひとまとまりにして繰り返し、最後に全結合層で答えを出します。下の図は、代表的なVGG16というネットワークで、データの形がどう変わるかを示したものです。</p>
+    <figure class="fig wide">
+      <div class="svg-wrap"><svg id="vgg-svg" viewBox="0 0 720 230" role="img" aria-label="VGG16の各段の出力の形。224×224×3から始まり、224×224×64、112×112×128、56×56×256、28×28×512、14×14×512、7×7×512と進み、全結合層で1,000クラスに分類する"></svg></div>
+      <figcaption class="cap">VGG16の各段の出力の形。箱の高さが縦横の大きさ、箱の幅がチャンネル数を表します（どちらも見やすさのため目盛りを圧縮しています）。2段目から先は、段が変わるごとに2×2の最大プーリングで縦横が半分になります。</figcaption>
+    </figure>
+    <p>縦横はだんだん小さく、チャンネル数はだんだん多くなっていきます。「どこにあるか」の細かい情報を少しずつ手放し、「何があるか」の情報を増やしていく流れです。</p>
+  </section>
 
-<div class="exercise">
-<p><strong>3.</strong> 次の CNN で <code>nn.Flatten()</code> の直後に置く全結合層の入力次元を求めてください。</p>
-<pre><code class="python">nn.Conv2d(3, 16, 3, padding=1), nn.ReLU(), nn.MaxPool2d(2),   # 入力 (3, 32, 32)
-nn.Conv2d(16, 32, 3, padding=1), nn.ReLU(), nn.MaxPool2d(2),
-nn.Flatten(),
-nn.Linear(???, 10),</code></pre>
-<details><summary>解答例を見る</summary>
-<p>(3, 32, 32) → 畳み込み (16, 32, 32) → プーリング (16, 16, 16) → 畳み込み (32, 16, 16) → プーリング (32, 8, 8)。Flatten 後の次元は 32 × 8 × 8 = <strong>2,048</strong>。</p>
-</details>
-</div>
+  <!-- 5 -->
+  <section class="ch" id="gen">
+    <header class="ch-head">
+      <span class="ch-no">第5章</span>
+      <h2>画像生成での使われ方</h2>
+      <p class="kicker">縮めて、広げて、つなぐ</p>
+    </header>
+    <p>ここまでの流れは、大きな画像を小さな答えにまとめるものでした。画像生成ではその逆に、小さな表現から大きな画像を作る必要があります。そこで、縦横を大きくする操作が加わります。</p>
 
-<div class="exercise">
-<p><strong>4.</strong> 手元に「良品／不良品」の製品写真が合計 400 枚あります。ゼロから CNN を設計するのと、学習済み ResNet を転移学習するのと、どちらを選びますか。理由とともに答えてください。</p>
-<details><summary>解答例を見る</summary>
-<p>学習済み ResNet の転移学習を選ぶ。400 枚ではゼロから学習すると過学習しやすく、エッジや形といった汎用的な特徴を獲得するにはデータが足りない。学習済みモデルの特徴抽出部はそれらをすでに獲得しているため、最終層（識別部）だけを学習すれば少量データでも実用的な精度が期待できる。精度が足りなければ、後半の層も小さい学習率でファインチューニングする。</p>
-</details>
-</div>
+    <h3>転置畳み込みで広げる</h3>
+    <p><strong>転置畳み込み</strong>（逆畳み込みと呼ばれることもあります）は、入力の1マスごとに「カーネル × そのマスの値」を出力にスタンプのように押していき、重なった部分は足し合わせる操作です。ストライド2で押していくと、出力の縦横はおよそ2倍になります。カーネルの中身は、普通の畳み込みと同じく学習で決まります。</p>
 
-<h2 id="s5-extra">おまけ：Stable Diffusion — CNN が絵を描く</h2>
-<p>本章の CNN は「画像を理解する」側でしたが、同じ部品は「画像を生成する」側でも活躍しています。代表例が、2022 年に公開された画像生成 AI の <strong>Stable Diffusion</strong> です。"a photo of a cat" のような文章（<strong>プロンプト</strong>）から画像を生成します。</p>
+    <figure class="demo wide" id="tconv-demo" aria-labelledby="tconv-demo-title">
+      <div class="demo-head">
+        <span class="demo-tag">試してみる</span>
+        <h3 class="demo-title" id="tconv-demo-title">転置畳み込みのスタンプ（ストライド2）</h3>
+        <p class="demo-hint">入力もカーネルも全部1にしてあるので、出力の数は「そのマスにスタンプが何回重なったか」を表します。</p>
+      </div>
+      <div class="controls">
+        <div class="ctl"><span class="ctl-lbl">カーネル</span><div class="seg" id="tc-k" data-role="seg-k"></div></div>
+      </div>
+      <div class="stage">
+        <div class="blk"><div class="blk-lbl">入力 3×3</div><div class="grid tin" data-role="in" style="--n:3"></div></div>
+        <span class="op" aria-hidden="true">∗</span>
+        <div class="blk"><div class="blk-lbl">カーネル <span data-role="k-size"></span></div><div class="kline"><div class="mx"><div class="grid tk" data-role="k"></div></div></div></div>
+        <span class="op" aria-hidden="true">→</span>
+        <div class="blk">
+          <div class="blk-lbl">出力 <span data-role="out-size"></span></div>
+          <div class="gwrap"><div class="grid" data-role="out"></div><div class="window" data-role="out-win"></div></div>
+        </div>
+      </div>
+      <div class="steps">
+        <button type="button" class="btn" id="tc-first" data-role="first">最初から</button>
+        <button type="button" class="btn" id="tc-prev" data-role="prev">◀ 前へ</button>
+        <button type="button" class="btn primary" id="tc-next" data-role="next">次へ ▶</button>
+        <button type="button" class="btn" id="tc-all" data-role="all">全部押す</button>
+        <span class="pos" data-role="pos"></span>
+      </div>
+      <p class="note" data-role="status" aria-live="polite"></p>
+    </figure>
 
-<h3 id="s5-extra-1">ノイズを少しずつ取り除いて絵にする</h3>
-<p>Stable Diffusion は <strong>拡散モデル（diffusion model）</strong> の一種です。学習時は、画像にノイズを少しずつ加えて砂嵐にしていく過程を考え、その逆の「ノイズを少しだけ取り除く」操作をニューラルネットワークに学習させます。生成時は完全なノイズから出発し、この操作を何十回も繰り返して画像を浮かび上がらせます。生成 AI 全体の中での位置づけは<a href="index.html#8_llm_and_generative_ai.md">第8章</a>で扱います。</p>
+    <p>カーネル3×3・ストライド2では、スタンプが重なる場所と重ならない場所が交互にでき、出力に1・2・4という格子状のムラが出ます。このムラは生成した画像に格子模様として現れることがあり、<strong>チェッカーボード・アーティファクト</strong>と呼ばれています。カーネルの一辺をストライドで割り切れる4×4にすると、ふちを除いて重なりが均一になります。</p>
 
-<div class="demo" id="d-diffusion" aria-label="Stable Diffusion がプロンプトから画像を生成する流れ">
-  <div class="demo-head"><span class="demo-kicker">アニメーション</span><h4 class="demo-title">"a photo of a cat" から画像ができるまで</h4></div>
-  <div class="demo-stage">
-    <div class="hscroll svg-stage" style="--minw:560px" id="diffusion-svg"></div>
-  </div>
-</div>
+    <h3>拡大してから畳み込む</h3>
+    <p>もう1つの方法は、最近傍法やバイリニア補間でふつうに縦横2倍に拡大し、その後で普通の畳み込みをかけて整えるやり方です。重なりのムラが原理的に生じないので、チェッカーボード模様を避けたいときによく使われます。</p>
 
-<h3 id="s5-extra-2">中身は CNN の部品でできている</h3>
-<p>Stable Diffusion は、役割の違う 3 つのネットワークを組み合わせています。</p>
-<table>
-<thead><tr><th>部品</th><th>役割</th><th>中身</th></tr></thead>
-<tbody>
-<tr><td><strong>テキストエンコーダ</strong></td><td>プロンプトをベクトルの列に変換する</td><td>CLIP 系モデルのテキスト側（Transformer、第7章）</td></tr>
-<tr><td><strong>U-Net</strong></td><td>いまの状態に含まれるノイズを予測する（生成時はこれを数十回繰り返す）</td><td>畳み込みと残差接続を積み重ねた CNN。途中に Attention を挟む</td></tr>
-<tr><td><strong>VAE</strong></td><td>画像と、小さな<strong>潜在表現</strong>とを相互に変換する</td><td>畳み込みで縮小するエンコーダと、拡大して画像に戻すデコーダ（どちらも CNN）</td></tr>
-</tbody>
-</table>
-<ul>
-<li><strong>U-Net は 5.4 のセグメンテーションで登場したモデル</strong>です。前半で畳み込みとダウンサンプリングを重ねて解像度を下げながら特徴を抽出し、後半でアップサンプリングして元の解像度に戻します。同じ解像度の層どうしを<strong>スキップ接続</strong>でつなぎ、細かい位置の情報を失わないようにしています。各ブロックには 5.4 の<strong>残差接続</strong>が使われています。</li>
-<li><strong>ノイズ除去は、画像ではなく潜在空間で行います</strong>。512×512×3 = 786,432 個の値を持つ画像を、VAE のエンコーダで 64×64×4 = 16,384 個（約 1/48）の潜在表現に縮めた状態で計算するので、高速に生成できます。元になった手法が「Latent Diffusion（潜在拡散）」と呼ばれるのはこのためです。</li>
-<li><strong>プロンプトの反映</strong>には、U-Net の途中に挟んだ <strong>Cross-Attention</strong> を使います。画像の各位置が、プロンプトのどの単語に注目すべきかを計算する仕組みで、第7章で扱います。</li>
-</ul>
+    <h3>DCGAN</h3>
+    <p>2015年に発表されたDCGANは、CNNで画像を生成する手法の草分けです。画像が本物か偽物かを判定する<strong>識別器</strong>はストライド2の畳み込みで縮小し、画像を作る<strong>生成器</strong>は転置畳み込みで小さなノイズのベクトルを64×64の画像まで広げます。どちらもプーリングを使わず、縮め方と広げ方を学習に任せています。</p>
 
-<aside class="math-box" aria-label="数式で見る：拡散モデルが学習していること">
-<div class="math-head"><span class="math-kicker">数式で見る</span><b>U-Net が学習していること</b></div>
-<p>学習時は、きれいな潜在表現 <span class="m">z_0</span> に、時刻 <span class="m">t</span> に応じた量のノイズ <span class="m">\epsilon</span> を混ぜます。<span class="m">\bar{\alpha}_t</span> は <span class="m">t</span> が大きいほど 0 に近づく係数です。</p>
-<div class="mb">z_t = \sqrt{\bar{\alpha}_t}\, z_0 + \sqrt{1 - \bar{\alpha}_t}\, \epsilon, \qquad \epsilon \sim \mathcal{N}(0, I)</div>
-<p>U-Net <span class="m">\epsilon_\theta</span> は、混ぜられたノイズ <span class="m">\epsilon</span> そのものを当てるように学習します（<span class="m">c</span> はプロンプトの埋め込み）。損失は予測と正解の二乗誤差で、第3章の平均二乗誤差（MSE）と同じ形です。</p>
-<div class="mb">L = \mathbb{E}_{z_0,\, \epsilon,\, t} \left[ \left\| \epsilon - \epsilon_\theta(z_t,\, t,\, c) \right\|^2 \right]</div>
-<p>生成時は、予測したノイズを少しずつ引いていきます。プロンプトへの従い具合は、プロンプトあり・なし（<span class="m">\varnothing</span>）の予測の差を <span class="m">w</span> 倍に強調して調整します（classifier-free guidance。<span class="m">w</span> は 7〜8 程度がよく使われます）。</p>
-<div class="mb">\hat{\epsilon} = \epsilon_\theta(z_t, t, \varnothing) + w \left( \epsilon_\theta(z_t, t, c) - \epsilon_\theta(z_t, t, \varnothing) \right)</div>
-</aside>
+    <h3>U-Net</h3>
+    <p>拡散モデルは、ノイズだらけの画像から少しずつノイズを取り除いて絵を仕上げる仕組みです。Stable Diffusion（1.x、2.x、SDXL）では、このノイズ除去を<strong>U-Net</strong>というネットワークが担っています。U-Netは前半で畳み込みと縮小を繰り返し、後半で拡大と畳み込みを繰り返して元の大きさに戻します。</p>
+    <p>縮めると「何が描かれているか」はつかめますが、細かい位置の情報は失われていきます。そこでU-Netは、縮める前の特徴マップを、同じ大きさまで戻った後半の層へ直接渡します。これを<strong>スキップ接続</strong>と呼びます。全体を見た判断と細部の情報を両方使えるのが、U-Netの強みです。</p>
+    <figure class="fig wide">
+      <div class="svg-wrap">
+        <svg viewBox="0 0 760 340" role="img" aria-label="U-Netの形。左側で64×64から32×32、16×16、8×8へ縮め、右側で8×8から64×64へ広げる。同じ大きさの段どうしがスキップ接続でつながっている">
+          <defs><marker id="uh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="s-head" d="M0,0L10,5L0,10z"/></marker></defs>
+          <text class="s-l" x="145" y="30" text-anchor="middle">入力（ノイズの乗った画像）</text>
+          <text class="s-l" x="615" y="30" text-anchor="middle">出力（取り除くノイズの予測）</text>
+          <rect class="s-box-enc" x="80" y="44" width="130" height="46" rx="4"/><text class="s-t" x="145" y="72" text-anchor="middle">64×64</text>
+          <rect class="s-box-enc" x="130" y="124" width="110" height="42" rx="4"/><text class="s-t" x="185" y="150" text-anchor="middle">32×32</text>
+          <rect class="s-box-enc" x="180" y="200" width="90" height="38" rx="4"/><text class="s-t" x="225" y="224" text-anchor="middle">16×16</text>
+          <rect class="s-box-mid" x="320" y="268" width="120" height="36" rx="4"/><text class="s-t" x="380" y="291" text-anchor="middle">8×8</text>
+          <rect class="s-box-dec" x="490" y="200" width="90" height="38" rx="4"/><text class="s-t" x="535" y="224" text-anchor="middle">16×16</text>
+          <rect class="s-box-dec" x="520" y="124" width="110" height="42" rx="4"/><text class="s-t" x="575" y="150" text-anchor="middle">32×32</text>
+          <rect class="s-box-dec" x="550" y="44" width="130" height="46" rx="4"/><text class="s-t" x="615" y="72" text-anchor="middle">64×64</text>
+          <line class="s-line" x1="145" y1="90" x2="180" y2="121" marker-end="url(#uh)"/>
+          <line class="s-line" x1="185" y1="166" x2="220" y2="197" marker-end="url(#uh)"/>
+          <line class="s-line" x1="225" y1="238" x2="328" y2="266" marker-end="url(#uh)"/>
+          <line class="s-line" x1="432" y1="268" x2="531" y2="241" marker-end="url(#uh)"/>
+          <line class="s-line" x1="535" y1="200" x2="569" y2="169" marker-end="url(#uh)"/>
+          <line class="s-line" x1="575" y1="124" x2="609" y2="93" marker-end="url(#uh)"/>
+          <line class="s-skip" x1="212" y1="67" x2="546" y2="67" marker-end="url(#uh)"/>
+          <line class="s-skip" x1="242" y1="145" x2="516" y2="145" marker-end="url(#uh)"/>
+          <line class="s-skip" x1="272" y1="219" x2="486" y2="219" marker-end="url(#uh)"/>
+          <text class="s-l" x="379" y="59" text-anchor="middle">スキップ接続</text>
+          <text class="s-l" x="152" y="112" text-anchor="end">縮小</text>
+          <text class="s-l" x="194" y="188" text-anchor="end">縮小</text>
+          <text class="s-l" x="262" y="268" text-anchor="end">縮小</text>
+          <text class="s-l" x="498" y="274" text-anchor="start">拡大</text>
+          <text class="s-l" x="570" y="194" text-anchor="start">拡大</text>
+          <text class="s-l" x="608" y="120" text-anchor="start">拡大</text>
+          <text class="s-l" x="380" y="328" text-anchor="middle">いちばん小さい8×8で、画像全体の構図をとらえる</text>
+        </svg>
+      </div>
+      <figcaption class="cap">U-Netの形（段の数と大きさは一例）。左側で縮め、右側で広げ、同じ大きさの段どうしをスキップ接続でつなぎます。各段の中では、畳み込みとReLUが何回か繰り返されています。</figcaption>
+    </figure>
+    <p>最初のU-Net（2015年、医療画像の領域分割のために作られたもの）は、縮小に2×2の最大プーリングを使っていました。拡散モデルのU-Netでは、ストライド2の畳み込みで縮小するものが多く見られます。</p>
 
-<div class="callout tip"><b>その後の流れ</b>Stable Diffusion 1.x・2.x・XL は U-Net を使っていますが、2024 年の Stable Diffusion 3 では U-Net の代わりに Transformer ベースのネットワーク（MMDiT）が使われています。画像生成でも「CNN から Transformer へ」という流れが起きており、その理由は第7章の内容につながります。</div>
+    <h3>画像を圧縮・復元するVAE</h3>
+    <p>Stable Diffusionは、画像を直接いじるのではなく、まず画像を小さな<strong>潜在表現</strong>に圧縮し、その上でノイズ除去を行います。Stable Diffusion 1.5の場合、512×512×3の画像を64×64×4に圧縮します。この圧縮と、最後に画像へ戻す復元を担当するのが<strong>VAE</strong>で、その中身も畳み込みと縮小・拡大の積み重ねです。</p>
+    <p>近年は、ノイズ除去の本体にTransformerを使うモデル（Stable Diffusion 3やFLUXなど）も増えています。それでも、潜在表現への圧縮と復元には、いまも畳み込みのネットワークが広く使われています。</p>
+  </section>
 
-</article>
-<nav class="pager" aria-label="前後の章"></nav>
+  <!-- 6 -->
+  <section class="ch" id="code">
+    <header class="ch-head">
+      <span class="ch-no">第6章</span>
+      <h2>コードで形を確かめる</h2>
+    </header>
+    <p>PyTorchでは、ここまでの部品をそれぞれ1行で用意できます。コメントの中の4つの数は、処理の後のテンソルの形（バッチ, チャンネル, 高さ, 幅）です。</p>
+<pre><code><span class="k">import</span> torch
+<span class="k">import</span> torch.nn <span class="k">as</span> nn
+
+x = torch.randn(1, 3, 64, 64)  <span class="c"># 64×64のカラー画像が1枚</span>
+
+conv = nn.Conv2d(3, 16, kernel_size=3, padding=1)        <span class="c"># 3×3の畳み込み 3ch → 16ch</span>
+pool = nn.MaxPool2d(kernel_size=2)                        <span class="c"># 2×2の最大プーリング</span>
+down = nn.Conv2d(16, 32, kernel_size=3, stride=2, padding=1)  <span class="c"># ストライド2で縮小</span>
+up   = nn.ConvTranspose2d(32, 16, kernel_size=4, stride=2, padding=1)  <span class="c"># 転置畳み込みで拡大</span>
+
+h = conv(x)   <span class="c"># → (1, 16, 64, 64)  パディング1なので大きさはそのまま</span>
+h = pool(h)   <span class="c"># → (1, 16, 32, 32)  縦横が半分</span>
+h = down(h)   <span class="c"># → (1, 32, 16, 16)  ここでも縦横が半分</span>
+h = up(h)     <span class="c"># → (1, 16, 32, 32)  縦横が2倍に戻る</span>
+
+print(sum(p.numel() <span class="k">for</span> p <span class="k">in</span> conv.parameters()))  <span class="c"># 448 = 3×3×3×16 + 16</span></code></pre>
+    <p>転置畳み込みの出力の一辺は、（入力の一辺 − 1）× ストライド − 2 × パディング ＋ カーネルの一辺 で決まります。この例では (16 − 1) × 2 − 2 + 4 = 32 です。</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="ch" id="summary">
+    <header class="ch-head">
+      <span class="ch-no">第7章</span>
+      <h2>まとめ</h2>
+    </header>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>操作</th><th>何をするか</th><th>縦横の大きさ</th><th>学習する数</th></tr></thead>
+        <tbody>
+          <tr><td>畳み込み</td><td>小さな窓をずらしながら掛けて足す</td><td>パディング1で同じ／なしで少し縮む</td><td>あり（カーネル）</td></tr>
+          <tr><td>ストライド2の畳み込み</td><td>1マスおきに畳み込む</td><td>約1/2</td><td>あり</td></tr>
+          <tr><td>最大・平均プーリング</td><td>区画の最大値か平均を残す</td><td>1/2（2×2のとき）</td><td>なし</td></tr>
+          <tr><td>転置畳み込み</td><td>1マスごとにカーネルを押して足し込む</td><td>約2倍（ストライド2のとき）</td><td>あり</td></tr>
+          <tr><td>拡大＋畳み込み</td><td>補間で拡大してから畳み込む</td><td>2倍</td><td>あり（畳み込みの部分）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>畳み込みは、小さなパターン検出器（カーネル）を画像全体に走らせる操作です。検出器の中身は学習で決まります。</li>
+      <li>プーリングは、要点だけを残して縮める操作です。計算が軽くなり、小さな位置ずれに強くなり、後ろの層が広い範囲を見られるようになります。</li>
+      <li>画像生成では、縮める部品に広げる部品（転置畳み込みや、拡大＋畳み込み）を組み合わせ、U-NetやVAEといった形で使われています。</li>
+    </ul>
+
+    <h3>もっと知りたい人へ</h3>
+    <ul class="refs">
+      <li><a href="https://arxiv.org/abs/1603.07285" target="_blank" rel="noopener">A guide to convolution arithmetic for deep learning</a> <span class="src">Dumoulin, Visin（2016）。ストライド・パディング・転置畳み込みの大きさの計算を図で解説</span></li>
+      <li><a href="https://distill.pub/2016/deconv-checkerboard/" target="_blank" rel="noopener">Deconvolution and Checkerboard Artifacts</a> <span class="src">Odena ほか（Distill, 2016）。チェッカーボード模様の原因と対策</span></li>
+      <li><a href="https://arxiv.org/abs/1311.2901" target="_blank" rel="noopener">Visualizing and Understanding Convolutional Networks</a> <span class="src">Zeiler, Fergus（2013）。各層が何に反応しているかの可視化</span></li>
+      <li><a href="https://arxiv.org/abs/1511.06434" target="_blank" rel="noopener">Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks</a> <span class="src">Radford ほか（2015）。DCGAN</span></li>
+      <li><a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener">U-Net: Convolutional Networks for Biomedical Image Segmentation</a> <span class="src">Ronneberger ほか（2015）</span></li>
+      <li><a href="https://arxiv.org/abs/2112.10752" target="_blank" rel="noopener">High-Resolution Image Synthesis with Latent Diffusion Models</a> <span class="src">Rombach ほか（2021）。Stable Diffusionの元になった潜在拡散モデル</span></li>
+    </ul>
+  </section>
 </main>
-<aside class="contents"><div class="nav-title">このページの目次</div><nav id="toc" aria-label="ページ内目次"></nav></aside>
-</div>
-</body>
-</html>
+
+<footer class="foot">このページの図とデモは、すべてブラウザの中で計算しています。家の画像もこのページの中で描いたものです。</footer>
+
+<script>
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tok = name => getComputedStyle(root).getPropertyValue(name).trim();
+  const rgbOf = c => {
+    c = (c || '').trim();
+    if (c[0] === '#') {
+      if (c.length === 4) c = '#' + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+      const n = parseInt(c.slice(1, 7), 16);
+      return [n >> 16 & 255, n >> 8 & 255, n & 255];
+    }
+    const m = c.match(/[\d.]+/g);
+    return m ? m.slice(0, 3).map(Number) : [128, 128, 128];
+  };
+  const themeFns = [];
+  const onTheme = fn => themeFns.push(fn);
+  const fireTheme = () => themeFns.forEach(fn => fn());
+  const mq = matchMedia('(prefers-color-scheme: dark)');
+  if (mq.addEventListener) mq.addEventListener('change', fireTheme);
+  new MutationObserver(fireTheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+  const minus = s => String(s).replace(/-/g, '−');
+  const fmt = v => Math.abs(v) < 1e-9 ? '0' : minus(Number.isInteger(v) ? v : +v.toFixed(1));
+  const fmt2 = v => minus(+v.toFixed(2));
+
+  // 値の大きさ → セルの色（プラスはオレンジ、マイナスは青）
+  const shade = (v, max) => {
+    if (!max || Math.abs(v) < 1e-9) return { cls: ' zero', style: '' };
+    const t = 0.15 + 0.85 * Math.min(1, Math.abs(v) / max);
+    return { cls: ' v' + (t > 0.72 ? ' strong' : ''), style: `--t:${t.toFixed(3)};--c:var(${v > 0 ? '--pos' : '--neg'})` };
+  };
+  const cellHTML = (v, max, extra = '', text = fmt(v)) => {
+    const s = shade(v, max);
+    return `<div class="cell${s.cls}${extra}"${s.style ? ` style="${s.style}"` : ''}>${text}</div>`;
+  };
+  // 0〜9 の画素値 → 灰色（0が黒、9が白）
+  const pixStyle = v => {
+    const g = Math.round(18 + v / 9 * 230);
+    return `background:rgb(${g},${g},${g + 2});color:${v >= 5 ? '#15181c' : '#eef1f4'}`;
+  };
+  const matrix = (host, k) => {
+    const m = Math.max(...k.w.map(Math.abs));
+    host.innerHTML = k.w.map(w => cellHTML(w, m)).join('');
+  };
+  function seg(host, options, current, onPick) {
+    host.innerHTML = options.map(([v, label]) =>
+      `<button type="button" id="${host.id}-${v}" data-v="${v}" aria-pressed="${String(v) === String(current)}">${label}</button>`).join('');
+    host.addEventListener('click', e => {
+      const b = e.target.closest('button');
+      if (!b || !host.contains(b)) return;
+      host.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      onPick(b.dataset.v);
+    });
+  }
+
+  const KERNELS = {
+    vedge: { name: '縦のエッジ', w: [-1, 0, 1, -1, 0, 1, -1, 0, 1], div: 1, signed: true,
+      note: '縦のエッジ：左が暗く右が明るい場所でプラス、逆の場所でマイナスになります。平らな場所では打ち消し合って0です。' },
+    hedge: { name: '横のエッジ', w: [-1, -1, -1, 0, 0, 0, 1, 1, 1], div: 1, signed: true,
+      note: '横のエッジ：上が暗く下が明るい場所でプラス、逆の場所でマイナスになります。' },
+    blur: { name: 'ぼかし', w: [1, 1, 1, 1, 1, 1, 1, 1, 1], div: 9, signed: false,
+      note: 'ぼかし：9マスの平均をとります。境目がなだらかになります。' },
+    sharp: { name: 'くっきり', w: [0, -1, 0, -1, 5, -1, 0, -1, 0], div: 1, signed: false,
+      note: 'くっきり：中心を5倍して上下左右を引きます。境目の差が強調されます。' },
+    ident: { name: 'そのまま', w: [0, 0, 0, 0, 1, 0, 0, 0, 0], div: 1, signed: false,
+      note: 'そのまま：中心だけが1なので、入力がそのまま出てきます。' },
+  };
+  const INPUTS = {
+    square: { name: '四角', rows: ['00000000', '00000000', '00999900', '00999900', '00999900', '00999900', '00000000', '00000000'] },
+    seven: { name: '数字の7', rows: ['00000000', '06999970', '00002950', '00007800', '00039300', '00087000', '00293000', '00000000'] },
+  };
+
+  /* ---------- 家の画像（192×192のグレースケール） ---------- */
+  const IMG = 192;
+  function makeHouse() {
+    const c = document.createElement('canvas');
+    c.width = c.height = IMG;
+    const g = c.getContext('2d');
+    const sky = g.createLinearGradient(0, 0, 0, 140);
+    sky.addColorStop(0, '#9a9a9a'); sky.addColorStop(1, '#d4d4d4');
+    g.fillStyle = sky; g.fillRect(0, 0, IMG, IMG);
+    const poly = (pts, col) => {
+      g.fillStyle = col; g.beginPath(); g.moveTo(pts[0], pts[1]);
+      for (let i = 2; i < pts.length; i += 2) g.lineTo(pts[i], pts[i + 1]);
+      g.closePath(); g.fill();
+    };
+    g.fillStyle = '#f7f7f7'; g.beginPath(); g.arc(154, 36, 16, 0, Math.PI * 2); g.fill();
+    poly([-12, 128, 46, 74, 106, 128], '#727272');
+    poly([82, 128, 142, 66, 214, 128], '#5c5c5c');
+    g.fillStyle = '#8e8e8e'; g.fillRect(0, 128, IMG, 64);
+    g.fillStyle = '#7a7a7a'; for (let y = 166; y < IMG; y += 10) g.fillRect(0, y, IMG, 3);
+    g.fillStyle = '#e4e4e4'; g.fillRect(36, 104, 68, 52);
+    poly([28, 106, 70, 72, 112, 106], '#2e2e2e');
+    g.fillStyle = '#474747'; g.fillRect(78, 124, 16, 32);
+    g.fillStyle = '#3a3a3a'; g.fillRect(46, 116, 20, 18);
+    g.fillStyle = '#e4e4e4'; g.fillRect(55, 116, 2, 18); g.fillRect(46, 124, 20, 2);
+    g.fillStyle = '#4a4a4a'; g.fillRect(146, 122, 8, 36);
+    g.fillStyle = '#3e3e3e'; g.beginPath(); g.arc(150, 110, 19, 0, Math.PI * 2); g.fill();
+    const d = g.getImageData(0, 0, IMG, IMG).data;
+    const lum = new Float32Array(IMG * IMG);
+    for (let i = 0; i < lum.length; i++) lum[i] = d[i * 4] / 255;
+    return { canvas: c, lum };
+  }
+  function convolve(lum, W, H, k) {
+    const out = new Float32Array(W * H);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      let s = 0;
+      for (let i = -1; i <= 1; i++) {
+        const yy = Math.min(H - 1, Math.max(0, y + i));
+        for (let j = -1; j <= 1; j++) {
+          const xx = Math.min(W - 1, Math.max(0, x + j));
+          s += k.w[(i + 1) * 3 + j + 1] * lum[yy * W + xx];
+        }
+      }
+      out[y * W + x] = s / k.div;
+    }
+    return out;
+  }
+  function maxPool(a, W, H) {
+    const w = W >> 1, h = H >> 1, o = new Float32Array(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const i = 2 * y * W + 2 * x;
+      o[y * w + x] = Math.max(a[i], a[i + 1], a[i + W], a[i + W + 1]);
+    }
+    return { a: o, w, h };
+  }
+  const maxAbs = a => { let m = 0; for (let i = 0; i < a.length; i++) { const v = Math.abs(a[i]); if (v > m) m = v; } return m; };
+  function toImage(ctx, a, W, H, signed, scale) {
+    const im = ctx.createImageData(W, H), d = im.data;
+    const bg = rgbOf(tok('--surface')), P = rgbOf(tok('--pos')), Q = rgbOf(tok('--neg'));
+    for (let i = 0; i < W * H; i++) {
+      let r, g, b;
+      if (signed) {
+        let t = a[i] / scale; t = t > 1 ? 1 : t < -1 ? -1 : t;
+        const c = t >= 0 ? P : Q, m = Math.abs(t);
+        r = bg[0] + (c[0] - bg[0]) * m; g = bg[1] + (c[1] - bg[1]) * m; b = bg[2] + (c[2] - bg[2]) * m;
+      } else {
+        r = g = b = Math.max(0, Math.min(1, a[i])) * 255;
+      }
+      d[i * 4] = r; d[i * 4 + 1] = g; d[i * 4 + 2] = b; d[i * 4 + 3] = 255;
+    }
+    return im;
+  }
+  function paint(cv, a, W, H, signed, scale) {
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    ctx.putImageData(toImage(ctx, a, W, H, signed, scale), 0, 0);
+  }
+
+  /* ---------- ヒーロー：画像を上からなぞる ---------- */
+  function initHero(house) {
+    const ci = document.getElementById('hero-in'), co = document.getElementById('hero-out');
+    if (!ci || !co) return;
+    const gi = ci.getContext('2d'), go = co.getContext('2d');
+    const seq = ['vedge', 'hedge', 'sharp'];
+    const maps = seq.map(key => convolve(house.lum, IMG, IMG, KERNELS[key]));
+    let images = [], idx = 0, rows = IMG, phase = 'hold', t0 = 0, raf = 0, running = false;
+    const build = () => {
+      images = maps.map((m, i) => {
+        const k = KERNELS[seq[i]];
+        return toImage(go, m, IMG, IMG, k.signed, k.signed ? maxAbs(m) * 0.6 : 1);
+      });
+    };
+    const setKernel = () => {
+      const k = KERNELS[seq[idx]];
+      document.getElementById('hero-kname').textContent = k.name;
+      matrix(document.getElementById('hero-k'), k);
+    };
+    function frame() {
+      gi.drawImage(house.canvas, 0, 0);
+      go.fillStyle = tok('--surface'); go.fillRect(0, 0, IMG, IMG);
+      if (rows > 0) go.putImageData(images[idx], 0, 0, 0, 0, IMG, rows);
+      if (rows < IMG) {
+        gi.save(); gi.globalAlpha = 0.6; gi.fillStyle = tok('--kernel'); gi.fillRect(0, rows - 1, IMG, 3); gi.restore();
+        go.fillStyle = tok('--kernel'); go.fillRect(0, rows, IMG, 2);
+      }
+    }
+    function tick(now) {
+      if (!t0) t0 = now;
+      if (phase === 'hold' && now - t0 > 1800) { idx = (idx + 1) % seq.length; setKernel(); phase = 'scan'; t0 = now; rows = 0; }
+      if (phase === 'scan') {
+        rows = Math.min(IMG, Math.floor((now - t0) / 1000 * 60));
+        if (rows >= IMG) { phase = 'hold'; t0 = now; }
+      }
+      frame();
+      raf = running ? requestAnimationFrame(tick) : 0;
+    }
+    build(); setKernel(); frame();
+    onTheme(() => { build(); frame(); });
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !running) { running = true; t0 = 0; raf = requestAnimationFrame(tick); }
+      else if (!e.isIntersecting && running) { running = false; cancelAnimationFrame(raf); }
+    }).observe(ci);
+  }
+
+  /* ---------- 第1章：画素の値 ---------- */
+  function initPixels(house) {
+    const cv = document.getElementById('px-src'), host = document.getElementById('px-grid');
+    if (!cv || !host) return;
+    const X = 66, Y = 68, S = 8;
+    const draw = () => {
+      const g = cv.getContext('2d');
+      g.drawImage(house.canvas, 0, 0);
+      g.strokeStyle = tok('--pos'); g.lineWidth = 2; g.strokeRect(X - 3, Y - 3, S + 6, S + 6);
+    };
+    draw(); onTheme(draw);
+    let h = '';
+    for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+      const v = Math.round(house.lum[(Y + y) * IMG + X + x] * 255);
+      h += `<div class="cell" style="background:rgb(${v},${v},${v});color:${v >= 120 ? '#15181c' : '#eef1f4'}">${v}</div>`;
+    }
+    host.style.setProperty('--n', S);
+    host.innerHTML = h;
+  }
+
+  /* ---------- 第2章：畳み込みのステップ実行 ---------- */
+  function initConv() {
+    const el = document.getElementById('conv-demo');
+    if (!el) return;
+    const q = r => el.querySelector(`[data-role="${r}"]`);
+    const N = 8;
+    const st = { input: 'square', k: 'vedge', stride: 1, pad: 0, t: 13, timer: null };
+    const geom = () => { const M = N + 2 * st.pad; return { M, O: Math.floor((M - 3) / st.stride) + 1 }; };
+    const inside = (r, c) => { const y = r - st.pad, x = c - st.pad; return y >= 0 && x >= 0 && y < N && x < N; };
+    const px = (r, c) => inside(r, c) ? +INPUTS[st.input].rows[r - st.pad][c - st.pad] : 0;
+    const outAt = (oy, ox) => {
+      const k = KERNELS[st.k];
+      let s = 0;
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) s += k.w[i * 3 + j] * px(oy * st.stride + i, ox * st.stride + j);
+      return s / k.div;
+    };
+    const stop = () => { if (st.timer) { clearInterval(st.timer); st.timer = null; } };
+    function render() {
+      const { M, O } = geom(), total = O * O;
+      st.t = Math.max(0, Math.min(st.t, total - 1));
+      const oy = Math.floor(st.t / O), ox = st.t % O, y0 = oy * st.stride, x0 = ox * st.stride;
+      const k = KERNELS[st.k];
+      let h = '';
+      for (let r = 0; r < M; r++) for (let c = 0; c < M; c++) {
+        const v = px(r, c), pad = !inside(r, c);
+        const win = r >= y0 && r < y0 + 3 && c >= x0 && c < x0 + 3;
+        const tag = win ? `<i>×${fmt(k.w[(r - y0) * 3 + c - x0])}</i>` : '';
+        h += `<div class="cell${pad ? ' pad' : ''}${win ? ' win' : ''}"${pad ? '' : ` style="${pixStyle(v)}"`}>${v}${tag}</div>`;
+      }
+      const ig = q('in');
+      ig.style.setProperty('--n', M);
+      ig.innerHTML = h;
+      const w = q('in-win');
+      w.style.setProperty('--x', x0); w.style.setProperty('--y', y0);
+      q('in-size').textContent = st.pad ? `${N}×${N}（パディング込みで${M}×${M}）` : `${N}×${N}`;
+      matrix(q('k'), k);
+      const kd = q('kdiv');
+      kd.hidden = k.div === 1; kd.textContent = `÷ ${k.div}`;
+      const vals = [];
+      for (let i = 0; i < total; i++) vals.push(outAt(Math.floor(i / O), i % O));
+      const max = Math.max(...vals.map(Math.abs));
+      const og = q('out');
+      og.style.setProperty('--n', O);
+      og.innerHTML = vals.map((v, i) => i <= st.t ? cellHTML(v, max, i === st.t ? ' cur' : '') : '<div class="cell todo"></div>').join('');
+      q('out-size').textContent = `${O}×${O}`;
+      const terms = [];
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) {
+        const wv = k.w[i * 3 + j], v = px(y0 + i, x0 + j);
+        terms.push(`<span${wv * v !== 0 ? ' class="nz"' : ''}>${fmt(wv)}×${v}</span>`);
+      }
+      const body = k.div === 1 ? terms.join(' + ') : `(${terms.join(' + ')}) ÷ ${k.div}`;
+      q('calc').innerHTML = `<span class="lhs">出力の${oy + 1}行${ox + 1}列</span> = ${body} = <b>${fmt(vals[st.t])}</b>`;
+      q('formula').innerHTML = `出力の一辺 = ⌊(${N} + 2×${st.pad} − 3) ÷ ${st.stride}⌋ + 1 = <b>${O}</b>`;
+      q('note').textContent = k.note;
+      const sl = q('slider');
+      sl.max = String(total - 1); sl.value = String(st.t);
+      q('pos').textContent = `${st.t + 1} / ${total}`;
+      q('play').textContent = st.timer ? '一時停止' : '自動再生';
+    }
+    seg(q('seg-input'), Object.entries(INPUTS).map(([v, o]) => [v, o.name]), st.input, v => { st.input = v; render(); });
+    seg(q('seg-k'), Object.entries(KERNELS).map(([v, o]) => [v, o.name]), st.k, v => { st.k = v; render(); });
+    seg(q('seg-stride'), [['1', '1'], ['2', '2']], '1', v => { st.stride = +v; render(); });
+    seg(q('seg-pad'), [['0', '0'], ['1', '1']], '0', v => { st.pad = +v; render(); });
+    q('first').addEventListener('click', () => { stop(); st.t = 0; render(); });
+    q('prev').addEventListener('click', () => { stop(); st.t--; render(); });
+    q('next').addEventListener('click', () => { stop(); st.t++; render(); });
+    q('all').addEventListener('click', () => { stop(); st.t = Infinity; render(); });
+    q('slider').addEventListener('input', e => { stop(); st.t = +e.target.value; render(); });
+    q('play').addEventListener('click', () => {
+      if (st.timer) { stop(); render(); return; }
+      const { O } = geom();
+      if (st.t >= O * O - 1) st.t = 0;
+      st.timer = setInterval(() => {
+        const { O } = geom();
+        if (st.t >= O * O - 1) { stop(); render(); return; }
+        st.t++; render();
+      }, 600);
+      render();
+    });
+    render();
+  }
+
+  /* ---------- 第2章：画像にかける ---------- */
+  const IMG_NOTES = {
+    vedge: '家の壁、ドア、木の幹など、縦向きの輪郭が浮かび上がります。オレンジは左から右へ明るくなる境目、青はその逆です。右の2枚は、ReLUで青（マイナス）を0にしてからプーリングしているので、オレンジだけが残ります。',
+    hedge: '屋根のふち、地面との境目、地面のしまなど、横向きの輪郭が浮かび上がります。オレンジは上から下へ明るくなる境目、青はその逆です。',
+    blur: '3×3のぼかしは弱いので、変化は小さめです。よく見ると、輪郭が少しなめらかになっています。',
+    sharp: '境目の明暗の差が強調され、輪郭がくっきりします。',
+  };
+  function initImage(house) {
+    const el = document.getElementById('img-demo');
+    if (!el) return;
+    const q = r => el.querySelector(`[data-role="${r}"]`);
+    let key = 'vedge';
+    function draw() {
+      const k = KERNELS[key];
+      const c0 = q('c0');
+      c0.getContext('2d').drawImage(house.canvas, 0, 0);
+      const fm = convolve(house.lum, IMG, IMG, k);
+      const scale = k.signed ? Math.max(0.05, maxAbs(fm) * 0.6) : 1;
+      paint(q('c1'), fm, IMG, IMG, k.signed, scale);
+      const r = fm.map(v => Math.max(0, v));
+      const p1 = maxPool(r, IMG, IMG);
+      paint(q('c2'), p1.a, p1.w, p1.h, k.signed, scale);
+      const p2 = maxPool(p1.a, p1.w, p1.h);
+      paint(q('c3'), p2.a, p2.w, p2.h, k.signed, scale);
+      q('note').textContent = IMG_NOTES[key];
+    }
+    seg(q('seg-k'), ['vedge', 'hedge', 'blur', 'sharp'].map(v => [v, KERNELS[v].name]), key, v => { key = v; draw(); });
+    onTheme(draw);
+    draw();
+  }
+
+  /* ---------- 第3章：プーリング ---------- */
+  function initPool() {
+    const el = document.getElementById('pool-demo');
+    if (!el) return;
+    const A = [[8, 2, 6, 1], [3, 1, 2, 0], [1, 0, 9, 2], [5, 1, 3, 1]];
+    const B = A.map(r => [0, ...r.slice(0, 3)]);
+    let mode = 'max';
+    const blocks = m => [0, 1, 2, 3].map(b => {
+      const y = (b >> 1) * 2, x = (b & 1) * 2;
+      return [m[y][x], m[y][x + 1], m[y + 1][x], m[y + 1][x + 1]];
+    });
+    const reduce = vs => mode === 'max' ? Math.max(...vs) : vs.reduce((s, v) => s + v, 0) / 4;
+    const rows = el.querySelectorAll('.pool-row');
+    function renderRow(row, m) {
+      const bs = blocks(m), outs = bs.map(reduce);
+      row.querySelector('[data-role="in"]').innerHTML = bs.map((vs, b) => {
+        const mi = mode === 'max' ? vs.indexOf(Math.max(...vs)) : -1;
+        return `<div class="pblock" data-b="${b}">${vs.map((v, i) => cellHTML(v, 9, i === mi ? ' max' : '', String(v))).join('')}</div>`;
+      }).join('');
+      row.querySelector('[data-role="out"]').innerHTML = outs.map((v, b) => {
+        const s = shade(v, 9);
+        return `<div class="cell${s.cls}" data-b="${b}"${s.style ? ` style="${s.style}"` : ''}>${fmt2(v)}</div>`;
+      }).join('');
+      return outs;
+    }
+    function render() {
+      const a = renderRow(rows[0], A), b = renderRow(rows[1], B);
+      const same = a.every((v, i) => v === b[i]);
+      const list = xs => xs.map(fmt2).join('・');
+      el.querySelector('[data-role="note"]').textContent = mode === 'max'
+        ? (same ? `最大プーリングでは、ずらす前も後も出力は ${list(a)} のまま変わりません。` : `出力が ${list(a)} から ${list(b)} に変わりました。`)
+        : `平均プーリングでは、出力が ${list(a)} から ${list(b)} に変わります。`;
+    }
+    seg(el.querySelector('[data-role="seg-mode"]'), [['max', '最大プーリング'], ['avg', '平均プーリング']], mode, v => { mode = v; render(); });
+    rows.forEach(row => {
+      row.addEventListener('pointerover', e => {
+        const t = e.target.closest('[data-b]');
+        row.querySelectorAll('[data-b]').forEach(x => x.classList.toggle('hl', !!t && x.dataset.b === t.dataset.b));
+      });
+      row.addEventListener('pointerleave', () => row.querySelectorAll('.hl').forEach(x => x.classList.remove('hl')));
+    });
+    render();
+  }
+
+  /* ---------- 第4章：受容野 ---------- */
+  function initRF() {
+    const el = document.getElementById('rf-demo');
+    if (!el) return;
+    const sizes = [7, 5, 3];
+    const grids = [0, 1, 2].map(l => el.querySelector(`[data-l="${l}"]`));
+    grids.forEach((g, l) => {
+      g.style.setProperty('--n', sizes[l]);
+      let h = '';
+      for (let r = 0; r < sizes[l]; r++) for (let c = 0; c < sizes[l]; c++) {
+        h += l === 0
+          ? `<div class="cell" data-r="${r}" data-c="${c}"></div>`
+          : `<button type="button" class="cell" id="rf-${l}-${r}-${c}" data-r="${r}" data-c="${c}" aria-label="${l}層目の${r + 1}行${c + 1}列"></button>`;
+      }
+      g.innerHTML = h;
+    });
+    let sel = { l: 2, r: 1, c: 1 };
+    const at = (l, r, c) => grids[l].querySelector(`[data-r="${r}"][data-c="${c}"]`);
+    const mark = (l, r0, c0, n) => { for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) at(l, r0 + r, c0 + c).classList.add('on'); };
+    function render() {
+      grids.forEach(g => g.querySelectorAll('.cell').forEach(x => x.classList.remove('on', 'sel')));
+      at(sel.l, sel.r, sel.c).classList.add('sel');
+      let msg;
+      if (sel.l === 2) {
+        mark(1, sel.r, sel.c, 3); mark(0, sel.r, sel.c, 5);
+        msg = `2層目の${sel.r + 1}行${sel.c + 1}列の1マスは、1層目の3×3を通して、入力の5×5（25マス）を見ています。`;
+      } else {
+        mark(0, sel.r, sel.c, 3);
+        msg = `1層目の${sel.r + 1}行${sel.c + 1}列の1マスが見ているのは、入力の3×3（9マス）だけです。`;
+      }
+      el.querySelector('[data-role="note"]').textContent = msg;
+    }
+    const pick = e => {
+      const b = e.target.closest('button.cell');
+      if (!b) return;
+      sel = { l: +b.closest('[data-l]').dataset.l, r: +b.dataset.r, c: +b.dataset.c };
+      render();
+    };
+    el.addEventListener('pointerover', pick);
+    el.addEventListener('click', pick);
+    el.addEventListener('focusin', pick);
+    render();
+  }
+
+  /* ---------- 第4章：VGG16の形 ---------- */
+  function initVGG() {
+    const host = document.getElementById('vgg-svg');
+    if (!host) return;
+    const stages = [[224, 3], [224, 64], [112, 128], [56, 256], [28, 512], [14, 512], [7, 512]];
+    const cy = 98, GAP = 50;
+    let x = 34, s = '';
+    const boxes = stages.map(([sz, ch]) => {
+      const h = 14 + 150 * Math.pow(sz / 224, 0.8);
+      const w = 6 + 34 * Math.log2(ch / 3) / Math.log2(512 / 3);
+      const b = { x, w, h, sz, ch };
+      x += w + GAP;
+      return b;
+    });
+    boxes.forEach((b, i) => {
+      const cx = (b.x + b.w / 2).toFixed(1);
+      s += `<rect class="${i === 0 ? 's-box-in' : 's-box-enc'}" x="${b.x.toFixed(1)}" y="${(cy - b.h / 2).toFixed(1)}" width="${b.w.toFixed(1)}" height="${b.h.toFixed(1)}" rx="2"/>`;
+      s += `<text class="s-t" x="${cx}" y="200" text-anchor="middle">${b.sz}×${b.sz}</text>`;
+      s += `<text class="s-l" x="${cx}" y="218" text-anchor="middle">${b.ch}ch</text>`;
+      const nx = i < boxes.length - 1 ? boxes[i + 1].x : x;
+      s += `<line class="s-line" x1="${(b.x + b.w + 8).toFixed(1)}" y1="${cy}" x2="${(nx - 8).toFixed(1)}" y2="${cy}" marker-end="url(#vh)"/>`;
+    });
+    const fx = x;
+    [110, 110, 44].forEach((h, i) => { s += `<rect class="s-box-dec" x="${(fx + i * 16).toFixed(1)}" y="${cy - h / 2}" width="8" height="${h}" rx="2"/>`; });
+    s += `<text class="s-t" x="${(fx + 20).toFixed(1)}" y="200" text-anchor="middle">全結合</text>`;
+    s += `<text class="s-l" x="${(fx + 20).toFixed(1)}" y="218" text-anchor="middle">→ 1,000クラス</text>`;
+    host.setAttribute('viewBox', `0 0 ${Math.ceil(fx + 84)} 230`);
+    host.innerHTML = `<defs><marker id="vh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="s-head" d="M0,0L10,5L0,10z"/></marker></defs>${s}`;
+  }
+
+  /* ---------- 第5章：転置畳み込み ---------- */
+  function initTConv() {
+    const el = document.getElementById('tconv-demo');
+    if (!el) return;
+    const q = r => el.querySelector(`[data-role="${r}"]`);
+    const st = { k: 3, t: 9 };
+    function render() {
+      const k = st.k, O = 4 + k;
+      const acc = new Array(O * O).fill(0);
+      for (let n = 0; n < st.t; n++) {
+        const r = Math.floor(n / 3), c = n % 3;
+        for (let i = 0; i < k; i++) for (let j = 0; j < k; j++) acc[(2 * r + i) * O + 2 * c + j]++;
+      }
+      const cur = st.t - 1;
+      q('in').innerHTML = Array.from({ length: 9 }, (_, n) => `<div class="cell${n < st.t ? ' done' : ''}${n === cur ? ' cur' : ''}">1</div>`).join('');
+      const kg = q('k');
+      kg.style.setProperty('--n', k);
+      kg.innerHTML = '<div class="cell">1</div>'.repeat(k * k);
+      const og = q('out');
+      og.style.setProperty('--n', O);
+      og.innerHTML = acc.map(v => cellHTML(v, 4, '', v ? String(v) : '')).join('');
+      const w = q('out-win');
+      w.hidden = cur < 0;
+      if (cur >= 0) {
+        w.style.setProperty('--x', 2 * (cur % 3));
+        w.style.setProperty('--y', 2 * Math.floor(cur / 3));
+        w.style.setProperty('--k', k);
+      }
+      q('pos').textContent = `${st.t} / 9`;
+      q('out-size').textContent = `${O}×${O}`;
+      q('k-size').textContent = `${k}×${k}`;
+      let msg;
+      if (st.t === 0) msg = 'まだ何も押していません。「次へ」で、入力の左上のマスから順にスタンプを押します。';
+      else if (st.t < 9) msg = `${st.t}回押しました。いま押したスタンプは、出力の${2 * Math.floor(cur / 3) + 1}行${2 * (cur % 3) + 1}列から${k}×${k}の範囲です。ストライド2なので、入力で1マス進むごとに出力では2マス進みます。`;
+      else msg = k === 3
+        ? '全部押し終わりました。重なった回数が場所によって 1・2・4 とばらつき、格子状の模様になっています。'
+        : '全部押し終わりました。ふちを除いた内側の4×4は、どこも重なりが4回で均一です。';
+      q('status').textContent = msg;
+    }
+    seg(q('seg-k'), [['3', '3×3'], ['4', '4×4']], '3', v => { st.k = +v; render(); });
+    q('first').addEventListener('click', () => { st.t = 0; render(); });
+    q('prev').addEventListener('click', () => { st.t = Math.max(0, st.t - 1); render(); });
+    q('next').addEventListener('click', () => { st.t = Math.min(9, st.t + 1); render(); });
+    q('all').addEventListener('click', () => { st.t = 9; render(); });
+    render();
+  }
+
+  const house = makeHouse();
+  initHero(house);
+  initPixels(house);
+  initConv();
+  initImage(house);
+  initPool();
+  initRF();
+  initVGG();
+  initTConv();
+})();
+</script>
